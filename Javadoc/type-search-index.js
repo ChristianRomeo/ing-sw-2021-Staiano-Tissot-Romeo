@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"it.polimi.ingsw","l":"App"},{"p":"it.polimi.ingsw","l":"AppTest"},{"p":"it.polimi.ingsw","l":"pRODUCT"}];updateSearchResults();
