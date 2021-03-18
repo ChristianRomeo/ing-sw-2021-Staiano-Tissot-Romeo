@@ -7,7 +7,7 @@ public class StatusPlayer {
         private int faithTrackPosition;
         private Resource[][] warehouseResources;
         private Map<Resource,Integer> strongboxResources;
-        private int popeFavorTiles[];
+        private int[] popeFavorTiles;
         private PersonalCardBoard personalCardBoard;
         private LeaderCard[] leaderCards;
 
@@ -29,7 +29,7 @@ public class StatusPlayer {
         public void setPopeFavorTileState(int tileID, int tileNewState) {
 
         }
-        public void setWarehouse(Resource resources) {
+        public void setWarehouse(Resource[][] resources) {
 
         }
 

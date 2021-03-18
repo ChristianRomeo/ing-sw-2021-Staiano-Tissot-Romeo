@@ -2,7 +2,7 @@ package it.polimi.ingsw;
 
 public class PersonalCardBoard {
     private int numberOfCards;
-    private DevelopmentCard[] developmentCards;
+    private DevelopmentCard[][] developmentCards;
 
     public int getNumberOfCards() {
         return numberOfCards;

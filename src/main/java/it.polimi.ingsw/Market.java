@@ -4,9 +4,9 @@ public class Market {
     private MarbleColor[][] marbles;
     private MarbleColor slideMarble;
 
-    public MarbleColor[][] getMarbles() {
-        return marbles;
-    }
+   /* public MarbleColor getColor(int i, int j) {
+
+    }*/
     public MarbleColor getSlideMarble() {
         return slideMarble;
     }

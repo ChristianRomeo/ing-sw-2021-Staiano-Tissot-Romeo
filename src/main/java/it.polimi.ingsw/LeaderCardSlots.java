@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-public class LeaderCardSlots {
+public class LeaderCardSlots extends LeaderCard{
     private Resource slotTypeResource;
     private int fullSlotsNumber;
 
@@ -11,7 +11,7 @@ public class LeaderCardSlots {
     public int getFullSlotsNumber() {
         return fullSlotsNumber;
     }
-    public void setSlot(int n) {
+    public void setSlots(int n) {
 
     }
 }

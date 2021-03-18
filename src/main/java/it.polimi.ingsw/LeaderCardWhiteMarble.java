@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-public class LeaderCardWhiteMarble {
+public class LeaderCardWhiteMarble extends LeaderCard{
     private Resource resourceChangeWithWhite;
 
     public Resource getResourceChangeWithWhite() {

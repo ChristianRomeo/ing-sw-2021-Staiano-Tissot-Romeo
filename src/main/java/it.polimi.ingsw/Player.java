@@ -11,4 +11,5 @@ public class Player {
     public int getVictoryPoints() {
         return victoryPoints;
     }
+    public void calculateAndSetVictoryPoints(){}
 }

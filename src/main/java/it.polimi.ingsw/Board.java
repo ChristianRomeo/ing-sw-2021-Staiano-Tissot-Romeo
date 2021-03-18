@@ -1,9 +1,11 @@
 package it.polimi.ingsw;
 
+import java.util.List;
+
 public class Board {
     private int blackCrossPosition;
     private Market market;
-    private SoloAction[] soloActions;
+    private List<SoloAction> soloActions;
     private DevelopmentCardBoard developmentCardBoard;
 
     public int getBlackCrossPosition() {
