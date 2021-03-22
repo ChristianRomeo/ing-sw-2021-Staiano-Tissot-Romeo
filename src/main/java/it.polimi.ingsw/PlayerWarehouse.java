@@ -23,4 +23,8 @@ public class PlayerWarehouse {
 
     }
 
+    public void removeResource(int row, int col){
+
+    }
+
 }
