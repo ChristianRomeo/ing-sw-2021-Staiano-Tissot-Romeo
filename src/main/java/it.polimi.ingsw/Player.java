@@ -12,4 +12,7 @@ public class Player {
         return victoryPoints;
     }
     public void calculateAndSetVictoryPoints(){}
+    public StatusPlayer getStatusPlayer(){
+        return statusPlayer;
+    }
 }

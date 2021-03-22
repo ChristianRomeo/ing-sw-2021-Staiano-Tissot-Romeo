@@ -20,4 +20,11 @@ public class Board {
     public void shuffleSoloActionPile() {
 
     }
+    public Market getMarket(){
+        return market;
+    }
+
+    public DevelopmentCardBoard getDevelopmentCardBoard(){
+        return developmentCardBoard;
+    }
 }

@@ -5,23 +5,22 @@ import java.util.Map;
 public class StatusPlayer {
 
         private int faithTrackPosition;
-        private Resource[][] warehouseResources;
+        private PlayerWarehouse playerWarehouse;
         private Map<Resource,Integer> strongboxResources;
-        private int[] popeFavorTiles;
+        private Triple<Integer,Integer,Integer> popeFavorTiles;
         private PersonalCardBoard personalCardBoard;
         private LeaderCard[] leaderCards;
 
         public int getFaithTrackPosition() {
             return faithTrackPosition;
         }
-        public Resource[][] getWarehouseResources() {
-            return warehouseResources;
-        }
+
         public Map<Resource,Integer> getStrongboxResources() {
             return strongboxResources;
         }
-        public int[] getPopeFavorTilesSituation() {
-            return popeFavorTiles;
+        public Triple<Integer, Integer, Integer> getPopeFavorTilesSituation() {
+
+                return popeFavorTiles;
         }
         public void incrementFaithTrackPosition() {
 
@@ -29,13 +28,21 @@ public class StatusPlayer {
         public void setPopeFavorTileState(int tileID, int tileNewState) {
 
         }
-        public void setWarehouse(Resource[][] resources) {
-
-        }
 
         public void setResourceStrongbox(Map <Resource,Integer> resources) {
 
         }
 
+        public PlayerWarehouse getPlayerWarehouse(){
+                return playerWarehouse;
+        }
+
+        public PersonalCardBoard getPersonalCardBoard(){
+                return personalCardBoard;
+        }
+
+        public LeaderCard[] getPlayerLeaderCards(){
+                return leaderCards;
+        }
 
 }

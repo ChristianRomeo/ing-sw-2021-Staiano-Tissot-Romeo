@@ -11,10 +11,20 @@ public class Game {
     public int getPlayersNumber() {
         return playersNumber;
     }
+
     public boolean getHasGameStarted() {
         return hasGameStarted;
     }
+
     public boolean getHasGameEnded() {
         return hasGameEnded;
     }
+
+    public Board getBoard() {
+        return board;
+    }
+    public Player getPlayer(int playerIndex){
+        return players[playerIndex];
+    }
 }
+
