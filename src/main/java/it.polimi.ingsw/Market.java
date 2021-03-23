@@ -51,19 +51,34 @@ public class Market {
     public MarbleColor getSlideMarble() {
         return slideMarble;
     }
-    public void selectColumn(int i) {
+    public List<MarbleColor> selectColumn(int i) {
+        List<MarbleColor> takenMarbles = new ArrayList<>();
+        takenMarbles.add(marbles[0][i]);
+        takenMarbles.add(marbles[1][i]);
+        takenMarbles.add(marbles[2][i]);
+
         MarbleColor tempMarble = slideMarble;
         slideMarble = marbles[0][i];
         marbles[0][i] = marbles[1][i];
         marbles[1][i] = marbles[2][i];
         marbles[2][i] = tempMarble;
+
+        return takenMarbles;
     }
-    public void selectRow(int i) {
+    public List<MarbleColor> selectRow(int i) {
+        List<MarbleColor> takenMarbles = new ArrayList<>();
+        takenMarbles.add(marbles[i][0]);
+        takenMarbles.add(marbles[i][1]);
+        takenMarbles.add(marbles[i][2]);
+        takenMarbles.add(marbles[i][3]);
+
         MarbleColor tempMarble = slideMarble;
         slideMarble = marbles[i][0];
         marbles[i][0] = marbles[i][1];
         marbles[i][1] = marbles[i][2];
         marbles[i][2] = marbles[i][3];
         marbles[i][3] = tempMarble;
+
+        return takenMarbles;
     }
 }
