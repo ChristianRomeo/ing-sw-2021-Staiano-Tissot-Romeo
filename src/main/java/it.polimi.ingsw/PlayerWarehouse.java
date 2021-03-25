@@ -11,7 +11,7 @@ public class PlayerWarehouse {
         middleRow = new SameTypePair<Resource>();
         lowerRow = new SameTypeTriple<Resource>();
     }
-    //method who takes a row and a column and returns the Resource in that position of the warehouse (or null)
+    //method which takes a row and a column and returns the Resource in that position of the warehouse (or null)
     public Resource getResource(int row, int col){
         if(row==1){
             return upperRow;
@@ -24,12 +24,12 @@ public class PlayerWarehouse {
         }
         return null;
     }
-    //the 3 following methods are getter too, if you prefer you can use them,
-    // but i reccomend to use getResource
+    /*the 3 following methods are getter too, if you prefer you can use them,
+     but I recommend to use getResource*/
     public Resource getUpperRow(){
         return upperRow;
     }
-    public Resource getMiddelRowResource(int col){
+    public Resource getMiddleRowResource(int col){
         return middleRow.get(col);
     }
     public Resource getLowerRowResource(int col){
