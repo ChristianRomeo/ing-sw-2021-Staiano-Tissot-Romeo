@@ -1,0 +1,17 @@
+[
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield",
+    "desc": "Production power: You will get 1 faith point at the cost of 1 coin; You will need 2 shield to buy this card. Furthermore it will give you 1 victory point at the end of the game"
+  },
+  {
+    "name": "Ares",
+    "property": "God of War",
+    "desc": "End of Your Turn: You may remove an unoccupied block (not dome) neighboring your unmoved Worker."
+  }
+]

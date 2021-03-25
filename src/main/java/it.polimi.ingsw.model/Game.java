@@ -14,18 +14,20 @@ import java.util.ArrayList;
  */
 
 public class Game {
+    public static final int MAXPLAYERS = 4;
 
     private int playersNumber=0;
     //private boolean gameStarted_Ended;
     private int winnerIndex; //not sure it goes here
     private final Board board;
-    private final ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<Player> players;
     private Player currentPlayer;
     private int currentPlayerId;
 
     /**Constructor Game creates a new Game instance. */
     public Game() {
         board = new Board();
+        players = new ArrayList<>();
     }
 
     /**
@@ -44,7 +46,7 @@ public class Game {
      * @param player of type Player not null - the player to be added.
      */
     public void addNewPlayer(@NotNull Player player) {
-        //to be checked to not exceed 4 players with getPlayerNumber()
+        //todo to be checked to not exceed MAXPLAYERS with getPlayerNumber()
         int idx=1;
         while (isNicknameTaken(player.getNickname()))
             player.setNickname(player.getNickname()+"_"+idx++);
@@ -79,7 +81,7 @@ public class Game {
     /**
      * Method getPlayerNumber returns the number of the players in this Game.
      *
-     * @return int that is the number (1 to 4) of players of this Game Object.
+     * @return int that is the number (1 to MAXPLAYERS) of players of this Game Object.
      */
     public int getPlayersNumber() {
         return playersNumber;
@@ -101,7 +103,7 @@ public class Game {
      * @return Player that is the desired player.
      */
     public Player getPlayerByIndex(int playerIndex){
-        //playerIndex must not exceed getPlayersNumber()
+        //todo playerIndex must not exceed getPlayersNumber()
         return players.get(playerIndex);
     }
 
@@ -114,12 +116,9 @@ public class Game {
         return getPlayerByNickname(nickname) != null;
     }
 
-    /** Method nextTurn skips to the next player in "players" order. */
+    /** Method nextTurn updates currentPlayer to the next player in "players" order. */
     public void nextTurn() {
-        currentPlayerId =
-                (currentPlayerId == players.size() - 1 || currentPlayerId == players.size())
-                        ? 0
-                        : currentPlayerId + 1; // Clockwise rotation
+        currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
         setCurrentPlayer(players.get(currentPlayerId));
     }
 }
