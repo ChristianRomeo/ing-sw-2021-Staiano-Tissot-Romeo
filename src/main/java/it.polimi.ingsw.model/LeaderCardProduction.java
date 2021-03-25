@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model;
 
 public class LeaderCardProduction extends LeaderCard {
     private Resource requestedResource;
