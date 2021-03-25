@@ -10,8 +10,435 @@
     "desc": "Production power: You will get 1 faith point at the cost of 1 coin; You will need 2 shield to buy this card. Furthermore it will give you 1 victory point at the end of the game"
   },
   {
-    "name": "Ares",
-    "property": "God of War",
-    "desc": "End of Your Turn: You may remove an unoccupied block (not dome) neighboring your unmoved Worker."
+    "id": "02",
+    "toGive": "1 stone",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "purple",
+    "level": "1",
+    "needs": "2 servant"
+  },
+  {
+    "id": "03",
+    "toGive": "1 shield",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "blue",
+    "level": "1",
+    "needs": "2 coins"
+  },
+  {
+    "id": "04",
+    "toGive": "1 servant",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "yellow",
+    "level": "1",
+    "needs": "2 stone"
+  },
+  {
+    "id": "05",
+    "toGive": "1 stone",
+    "toHave": "1 servant",
+    "victoryPoints": "2",
+    "type": "green",
+    "level": "1",
+    "needs": "1 shield,1 stone,1 servant"
+  },
+  {
+    "id": "06",
+    "toGive": "1 coin",
+    "toHave": "1 shield",
+    "victoryPoints": "2",
+    "type": "purple",
+    "level": "1",
+    "needs": "1 shield,1 coin,1 servant"
+  },
+  {
+    "id": "07",
+    "toGive": "1 servant",
+    "toHave": "1 stone",
+    "victoryPoints": "2",
+    "type": "blue",
+    "level": "1",
+    "needs": "1 coin,1 stone,1 servant"
+  },
+  {
+    "id": "08",
+    "toGive": "1 shield",
+    "toHave": "1 coin",
+    "victoryPoints": "2",
+    "type": "yellow",
+    "level": "1",
+    "needs": "1 shield,1 coin,1 stone"
+  },
+  {
+    "id": "09",
+    "toGive": "2 servant",
+    "toHave": "1 coin,1 shield,1 stone",
+    "victoryPoints": "3",
+    "type": "green",
+    "level": "1",
+    "needs": "3 shield"
+  },
+  {
+    "id": "10",
+    "toGive": "2 coin",
+    "toHave": "1 servant,1 shield,1 stone",
+    "victoryPoints": "3",
+    "type": "purple",
+    "level": "1",
+    "needs": "3 servant"
+  },
+  {
+    "id": "11",
+    "toGive": "2 stone",
+    "toHave": "1 coin,1 servant,1 shield",
+    "victoryPoints": "3",
+    "type": "blue",
+    "level": "1",
+    "needs": "3 coins"
+  },
+  {
+    "id": "12",
+    "toGive": "2 shield",
+    "toHave": "1 coin,1 servant,1 stone",
+    "victoryPoints": "3",
+    "type": "yellow",
+    "level": "1",
+    "needs": "3 stone"
+  },
+  {
+    "id": "13",
+    "toGive": "1 stone,1 servant",
+    "toHave": "2 coin,1 fp",
+    "victoryPoints": "4",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield, 2 coins"
+  },
+  {
+    "id": "14",
+    "toGive": [ "1 coin", "1 shield"],
+    "toHave": [ "1 fp" , "2 stone"],
+    "victoryPoints": "4",
+    "type": "purple",
+    "level": "1",
+    "needs": ["2 servant", "2 stone"]
+  },
+  {
+    "id": "15",
+    "toGive": ["1 shield", "1 stone"],
+    "toHave": ["1 fp", "2 servant"],
+    "victoryPoints": "4",
+    "type": "blue",
+    "level": "1",
+    "needs": ["2 coin", "2 servant"]
+  },
+  {
+    "id": "16",
+    "toGive": ["1 coin" , "1 servant"],
+    "toHave": ["1 fp" , "2 shield"],
+    "victoryPoints": "4",
+    "type": "yellow",
+    "level": "1",
+    "needs": ["2 shield","2 stone"]
+  },
+  {
+    "id": "17",
+    "toGive": "1 stone",
+    "toHave": "2 fp",
+    "victoryPoints": "5",
+    "type": "green",
+    "level": "2",
+    "needs": "4 shield"
+  },
+  {
+    "id": "18",
+    "toGive": "1 coin",
+    "toHave": "2 fp",
+    "victoryPoints": "5",
+    "type": "purple",
+    "level": "2",
+    "needs": "4 servant"
+  },
+  {
+    "id": "19",
+    "toGive": "1 servant",
+    "toHave": "2 fp",
+    "victoryPoints": "5",
+    "type": "blue",
+    "level": "2",
+    "needs": "4 coin"
+  },
+  {
+    "id": "20",
+    "toGive": "1 shield",
+    "toHave": "2 fp",
+    "victoryPoints": "5",
+    "type": "yellow",
+    "level": "2",
+    "needs": "4 stone"
+  },
+  {
+    "id": "21",
+    "toGive": ["1 shield","1 servant"],
+    "toHave": "3 stone",
+    "victoryPoints": "6",
+    "type": "green",
+    "level": "2",
+    "needs": ["3 shield","2 servant"]
+  },
+  {
+    "id": "22",
+    "toGive": ["1 coin", "1 servant"],
+    "toHave": "3 shield",
+    "victoryPoints": "6",
+    "type": "purple",
+    "level": "2",
+    "needs": ["3 servant", "2 coin"]
+  },
+  {
+    "id": "23",
+    "toGive": ["1 coin","1 stone"],
+    "toHave": "3 servant",
+    "victoryPoints": "6",
+    "type": "blue",
+    "level": "2",
+    "needs": ["3 coin", "2 stone"]
+  },
+  {
+    "id": "24",
+    "toGive": ["1 stone","1 shield"],
+    "toHave": "3 coin",
+    "victoryPoints": "6",
+    "type": "yellow",
+    "level": "2",
+    "needs": ["2 shield", "3 stone"]
+  },
+  {
+    "id": "25",
+    "toGive": "2 coin",
+    "toHave": ["2 fp","2 stone"],
+    "victoryPoints": "7",
+    "type": "green",
+    "level": "2",
+    "needs": "5 shield"
+  },
+  {
+    "id": "26",
+    "toGive": "2 stone",
+    "toHave": ["2 fp","2 coin"],
+    "victoryPoints": "7",
+    "type": "purple",
+    "level": "2",
+    "needs": "5 servant"
+  },
+  {
+    "id": "27",
+    "toGive": "2 servant",
+    "toHave": ["2 fp","2 shield"],
+    "victoryPoints": "7",
+    "type": "blue",
+    "level": "2",
+    "needs": "5 coin"
+  },
+  {
+    "id": "28",
+    "toGive": "2 shield",
+    "toHave": ["2 fp","2 servant"],
+    "victoryPoints": "7",
+    "type": "yellow",
+    "level": "2",
+    "needs": "5 stone"
+  },
+  {
+    "id": "29",
+    "toGive": "1 coin",
+    "toHave": ["1 fp","2 shield"],
+    "victoryPoints": "8",
+    "type": "green",
+    "level": "2",
+    "needs": ["3 shield","3 coin"]
+  },
+  {
+    "id": "30",
+    "toGive": "1 stone",
+    "toHave": ["1 fp","2 servant"],
+    "victoryPoints": "8",
+    "type": "purple",
+    "level": "2",
+    "needs": ["3 shield","3 servant"]
+  },
+  {
+    "id": "31",
+    "toGive": "1 servant",
+    "toHave": ["2 stone","1 fp"],
+    "victoryPoints": "8",
+    "type": "blue",
+    "level": "2",
+    "needs": ["3 stone","3 coin"]
+  },
+  {
+    "id": "32",
+    "toGive": "1 shield",
+    "toHave": ["1 fp","2 coin"],
+    "victoryPoints": "8",
+    "type": "yellow",
+    "level": "2",
+    "needs": ["3 stone","3 servant"]
+  },
+  {
+    "id": "33",
+    "toGive": "2 coin",
+    "toHave": ["3 stone","2 fp"],
+    "victoryPoints": "9",
+    "type": "green",
+    "level": "3",
+    "needs": "6 shield"
+  },
+  {
+    "id": "34",
+    "toGive": "2 stone",
+    "toHave": ["2 fp","3 coin"],
+    "victoryPoints": "9",
+    "type": "purple",
+    "level": "3",
+    "needs": "6 servant"
+  },
+  {
+    "id": "35",
+    "toGive": "2 servant",
+    "toHave": ["3 shield","2 fp"],
+    "victoryPoints": "9",
+    "type": "blue",
+    "level": "3",
+    "needs": "6 coin"
+  },
+  {
+    "id": "36",
+    "toGive": "2 shield",
+    "toHave": ["3 servant","2 fp"],
+    "victoryPoints": "9",
+    "type": "yellow",
+    "level": "3",
+    "needs": "6 stone"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
+  },
+  {
+    "id": "01",
+    "toGive": "1 coin",
+    "toHave": "1 fp",
+    "victoryPoints": "1",
+    "type": "green",
+    "level": "1",
+    "needs": "2 shield"
   }
 ]
