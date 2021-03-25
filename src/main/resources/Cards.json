@@ -25,7 +25,7 @@
     "victoryPoints": "1",
     "type": "blue",
     "level": "1",
-    "needs": "2 coins"
+    "needs": "2 coin"
   },
   {
     "id": "04",
@@ -43,7 +43,7 @@
     "victoryPoints": "2",
     "type": "green",
     "level": "1",
-    "needs": "1 shield,1 stone,1 servant"
+    "needs": ["1 shield", "1 stone", "1 servant"]
   },
   {
     "id": "06",
@@ -52,7 +52,7 @@
     "victoryPoints": "2",
     "type": "purple",
     "level": "1",
-    "needs": "1 shield,1 coin,1 servant"
+    "needs": ["1 shield", "1 coin", "1 servant"]
   },
   {
     "id": "07",
@@ -61,7 +61,7 @@
     "victoryPoints": "2",
     "type": "blue",
     "level": "1",
-    "needs": "1 coin,1 stone,1 servant"
+    "needs": ["1 coin", "1 stone", "1 servant"]
   },
   {
     "id": "08",
@@ -70,12 +70,12 @@
     "victoryPoints": "2",
     "type": "yellow",
     "level": "1",
-    "needs": "1 shield,1 coin,1 stone"
+    "needs": ["1 shield", "1 coin", "1 stone"]
   },
   {
     "id": "09",
     "toGive": "2 servant",
-    "toHave": "1 coin,1 shield,1 stone",
+    "toHave": ["1 coin", "1 shield", "1 stone"],
     "victoryPoints": "3",
     "type": "green",
     "level": "1",
@@ -84,7 +84,7 @@
   {
     "id": "10",
     "toGive": "2 coin",
-    "toHave": "1 servant,1 shield,1 stone",
+    "toHave": ["1 servant", "1 shield", "1 stone"],
     "victoryPoints": "3",
     "type": "purple",
     "level": "1",
@@ -93,16 +93,16 @@
   {
     "id": "11",
     "toGive": "2 stone",
-    "toHave": "1 coin,1 servant,1 shield",
+    "toHave": ["1 coin", "1 servant", "1 shield"],
     "victoryPoints": "3",
     "type": "blue",
     "level": "1",
-    "needs": "3 coins"
+    "needs": "3 coin"
   },
   {
     "id": "12",
     "toGive": "2 shield",
-    "toHave": "1 coin,1 servant,1 stone",
+    "toHave": ["1 coin", "1 servant", "1 stone"],
     "victoryPoints": "3",
     "type": "yellow",
     "level": "1",
@@ -110,12 +110,12 @@
   },
   {
     "id": "13",
-    "toGive": "1 stone,1 servant",
+    "toGive": ["1 stone", "1 servant"],
     "toHave": "2 coin,1 fp",
     "victoryPoints": "4",
     "type": "green",
     "level": "1",
-    "needs": "2 shield, 2 coins"
+    "needs": ["2 shield", "2 coin"]
   },
   {
     "id": "14",
