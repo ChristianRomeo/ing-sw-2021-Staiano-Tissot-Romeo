@@ -7,9 +7,9 @@ public class PersonalCardBoard {
     public int getNumberOfCards() {
         return numberOfCards;
     }
-    /*public DevelopmentCard getCard(int i, int j) {
-
-    }*/
+    public DevelopmentCard getCard(int i, int j) {
+        return developmentCards[i][j];
+    }
     public void addCard(DevelopmentCard card, int i) {
 
     }
