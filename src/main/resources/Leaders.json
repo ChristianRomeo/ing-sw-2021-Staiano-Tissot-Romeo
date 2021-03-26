@@ -1,21 +1,115 @@
 [
   {
-    "id": "49",
-    "toGive": "1 coin",
-    "toHave": "1 fp",
-    "victoryPoints": "1",
-    "type": "green",
-    "level": "1",
-    "needs": "2 shield",
+    "id": "01",
+    "ability": "LeaderCardDiscount",
+    "victoryPoints": "2",
+    "type": "servant",
+    "needs": ["1 yellow 1","1 green 1"],
     "desc": "Production power: You will get 1 faith point at the cost of 1 coin; You will need 2 shield to buy this card. Furthermore it will give you 1 victory point at the end of the game"
   },
   {
     "id": "02",
-    "toGive": "1 stone",
-    "toHave": "1 fp",
-    "victoryPoints": "1",
-    "type": "purple",
-    "level": "1",
-    "needs": "2 servant"
+    "ability": "LeaderCardDiscount",
+    "victoryPoints": "2",
+    "type": "shield",
+    "needs": ["1 blue 1","1 purple 1"]
+  },
+  {
+    "id": "03",
+    "ability": "LeaderCardDiscount",
+    "victoryPoints": "2",
+    "type": "stone",
+    "needs": ["1 blue 1","1 green 1"]
+  },
+  {
+    "id": "04",
+    "ability": "LeaderCardDiscount",
+    "victoryPoints": "2",
+    "type": "coin",
+    "needs": ["1 yellow 1","1 purple 1"]
+  },
+  {
+    "id": "05",
+    "ability": "LeaderCardSlots",
+    "victoryPoints": "3",
+    "type": "stone",
+    "needs": "5 coin"
+  },
+  {
+    "id": "06",
+    "ability": "LeaderCardSlots",
+    "victoryPoints": "3",
+    "type": "servant",
+    "needs": "5 stone"
+  },
+  {
+    "id": "07",
+    "ability": "LeaderCardSlots",
+    "victoryPoints": "3",
+    "type": "shield",
+    "needs": "5 servant"
+  },
+  {
+    "id": "08",
+    "ability": "LeaderCardSlots",
+    "victoryPoints": "3",
+    "type": "coin",
+    "needs": "5 shield"
+  },
+  {
+    "id": "09",
+    "ability": "LeaderCardWhiteMarble",
+    "victoryPoints": "5",
+    "type": "servant",
+    "needs": ["2 yellow 1","1 blue 1"]
+  },
+  {
+    "id": "10",
+    "ability": "LeaderCardWhiteMarble",
+    "victoryPoints": "5",
+    "type": "shield",
+    "needs": ["2 green 1","1 purple 1"]
+  },
+  {
+    "id": "11",
+    "ability": "LeaderCardWhiteMarble",
+    "victoryPoints": "5",
+    "type": "stone",
+    "needs": ["1 yellow 1","2 blue 1"]
+  },
+  {
+    "id": "12",
+    "ability": "LeaderCardWhiteMarble",
+    "victoryPoints": "5",
+    "type": "coin",
+    "needs": ["2 purple 1","1 green 1"]
+  },
+  {
+    "id": "13",
+    "ability": "LeaderCardProduction",
+    "victoryPoints": "4",
+    "type": "shield",
+    "needs": "1 yellow 2"
+  },
+  {
+    "id": "14",
+    "ability": "LeaderCardProduction",
+    "victoryPoints": "4",
+    "type": "servant",
+    "needs": "1 blue 2"
+  },
+  {
+    "id": "15",
+    "ability": "LeaderCardProduction",
+    "victoryPoints": "4",
+    "type": "stone",
+    "needs": "1 purple 2"
+  },
+  {
+    "id": "16",
+    "ability": "LeaderCardProduction",
+    "victoryPoints": "4",
+    "type": "coin",
+    "needs": "1 green 2"
   }
 ]
