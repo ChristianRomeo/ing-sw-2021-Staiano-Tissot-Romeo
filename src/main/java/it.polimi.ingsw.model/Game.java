@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 
-import org.jetbrains.annotations.NotNull;
+
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class Game {
      *
      * @param player of type Player not null - the player to be added.
      */
-    public void addNewPlayer(@NotNull Player player) {
+    public void addNewPlayer(Player player) {
         //todo to be checked to not exceed MAXPLAYERS with getPlayerNumber()
         int idx=1;
         while (isNicknameTaken(player.getNickname()))
