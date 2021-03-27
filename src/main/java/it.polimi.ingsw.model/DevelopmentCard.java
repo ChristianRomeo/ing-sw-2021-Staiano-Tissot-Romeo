@@ -9,28 +9,25 @@ import java.util.Map;
 
 public class DevelopmentCard {
     private final int id;
-    private String il;
     private final CardType type;                      //colore carta - type
     private final int level;                          //level
-    private final Map<Resource, Integer>[] cost;      //needs
+    private final Map<Resource, Integer>[] needs;      //cost
     private final int victoryPoints;                  //victoryPoints
-    private final Map<Resource, Integer>[] requiredResources;   //toGive
-    private final Map<Resource, Integer>[] producedResources;   //toHave
+    private final Map<Resource, Integer>[] toGive;   //requiredResources
+    private final Map<Resource, Integer>[] toHave;   //producedResources
     //private int producedFaithPoints;            //??
 
-    public DevelopmentCard(int id, Map<Resource, Integer>[] requiredResources, Map<Resource, Integer>[] producedResources, int victoryPoints, CardType type, int level, Map<Resource, Integer>[] cost) {
+    public DevelopmentCard(int id, Map<Resource, Integer>[] toGive, Map<Resource, Integer>[] toHave, int victoryPoints, CardType type, int level, Map<Resource, Integer>[] needs) {
         this.id = id;
         this.type = type;
         this.level = level;
-        this.cost = cost;
+        this.needs = needs;
         this.victoryPoints = victoryPoints;
-        this.requiredResources = requiredResources;
-        this.producedResources = producedResources;
+        this.toGive = toGive;
+        this.toHave = toHave;
     }
 
     public int getId(){ return id; }
-
-    public String getIl(){ return il; }
 
     public CardType getType() {
         return type;
@@ -40,18 +37,18 @@ public class DevelopmentCard {
         return level;
     }
 
-    public Map<Resource, Integer>[] getCost() {
-        return cost;
+    public Map<Resource, Integer>[] getNeeds() {
+        return needs;
     }
 
     public int getVictoryPoints() {
         return victoryPoints;
     }
 
-    public Map<Resource, Integer>[] getRequiredResources() { return requiredResources; }
+    public Map<Resource, Integer>[] getToGive() { return toGive; }
 
-    public Map<Resource, Integer>[] getProducedResources() {
-        return producedResources;
+    public Map<Resource, Integer>[] getToHave() {
+        return toHave;
     }
 
     //public int getProducedFaithPoints() {return producedFaithPoints;}
