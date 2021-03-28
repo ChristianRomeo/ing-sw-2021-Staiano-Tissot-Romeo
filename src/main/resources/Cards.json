@@ -142,7 +142,7 @@
     "victoryPoints": "4",
     "type": "yellow",
     "level": "1",
-    "needs": ["2 shield","2 stone"]
+    "needs": ["2 shield", "2 stone"]
   },
   {
     "id": "17",

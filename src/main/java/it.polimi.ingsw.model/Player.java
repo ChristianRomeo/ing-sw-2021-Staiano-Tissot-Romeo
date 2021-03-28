@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
-
+/**
+ * @author tommy
+ */
 public class Player {
     /**
      * The player's leader cards number, constant and common to all players
@@ -43,9 +45,8 @@ public class Player {
     }
     public void calculateAndSetVictoryPoints() {
         int sum = 0;
-        int totalNumOfResources = 0;
-        final int numOfLeaderCards = 2;
-        int popFavorTileMinNumOfVP = 2; //minimum number of
+        double totalNumOfResources = 0.0;
+        int popFavorTileMinNumOfVP = 2; //minimum number of victory points given, if any
 
         //calculate victory points based on faith track position.
         if (isBetween(statusPlayer.getFaithTrackPosition(), 3, 5))
@@ -69,7 +70,7 @@ public class Player {
         Only activated Leader cards points are being added.
         2 is the amount of Leader cards per player.
          */
-        for (int i = 0; i < numOfLeaderCards; i++) {
+        for (int i = 0; i < LEADER_CARDS_OWNED; i++) {
             if (statusPlayer.getPlayerLeaderCards()[i].isActivated())
                 sum += statusPlayer.getPlayerLeaderCards()[i].getVictoryPoints();
         }
@@ -115,7 +116,10 @@ public class Player {
 
         //todo: increase sum based on Leader Cards special ability
 
-        sum += totalNumOfResources;
+        totalNumOfResources = Math.floor(totalNumOfResources / 5);
+
+        for(int i = 0; i < totalNumOfResources; i++)
+            sum++;
         //final result: Victory Points
         victoryPoints = sum;
 

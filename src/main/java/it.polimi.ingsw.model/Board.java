@@ -11,7 +11,8 @@ public class Board {
     public int getBlackCrossPosition() {
         return blackCrossPosition;
     }
-    public void incrementBlackCrossPosition() {
+    public void increaseBlackCrossPosition() {
+
 
     }
     public void pickSoloAction() {

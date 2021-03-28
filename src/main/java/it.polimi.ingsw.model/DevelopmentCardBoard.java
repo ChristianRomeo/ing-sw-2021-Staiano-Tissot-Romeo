@@ -36,7 +36,11 @@ public class DevelopmentCardBoard {
     public static List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];
 
     /**
-     * Constructor of the matrix
+     * Constructor of the matrix.
+     * We use BufferedReader together with FileReader to buffer the input (text from "Cards.json") and to improve efficiency.
+     * Then, we create a JSON Array and we use the "fromJson" method which takes 2 parameters:
+     * the JSON string we want to parse and the class to parse JSON string.
+     * Then, we iterate over the enum CardType, in order to build the Card Board.
      * @throws FileNotFoundException whenever Cards.json couldn't be found
      */
     public DevelopmentCardBoard() throws FileNotFoundException {
@@ -50,19 +54,6 @@ public class DevelopmentCardBoard {
             cardBoard[1][i]   = list.stream().filter(x -> x.getLevel() == 2 && x.getType().equals(color)).collect(Collectors.toList());
             cardBoard[2][i++] = list.stream().filter(x -> x.getLevel() == 3 && x.getType().equals(color)).collect(Collectors.toList());
         }
-    }
-
-    /**
-     * Method getCard...
-     * @param i rows
-     * @param j columns
-     * @return DevelopmentCard type
-     */
-    public DevelopmentCard getCard(int i, int j) throws NullPointerException{   //todo throws deve scegliere un altra pila
-        if(!isCardPileEmpty(i,j))
-            return cardBoard[i][j].get(cardBoard[i][j].size() - 1);
-        else
-            return null; //exception
     }
 
     /**
