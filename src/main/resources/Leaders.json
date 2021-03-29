@@ -4,8 +4,7 @@
     "ability": "LeaderCardDiscount",
     "victoryPoints": "2",
     "type": "servant",
-    "needs": ["1 yellow 1","1 green 1"],
-    "desc": "Production power: You will get 1 faith point at the cost of 1 coin; You will need 2 shield to buy this card. Furthermore it will give you 1 victory point at the end of the game"
+    "needs": ["1 yellow 1","1 green 1"]
   },
   {
     "id": "02",
