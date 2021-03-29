@@ -28,19 +28,24 @@ public class StatusPlayer {
         public Map<Resource,Integer> getStrongboxResources() {
                 return strongboxResources;
         }
-
-        //you give to this method 0,1,2 and it returns the status of the first/second/third
-        //pope favor tile
+        /**
+         * Method getPopeFavorTile takes an integer between 0 and 2, and returns the
+         * the status of the first or second or third pope favor tile
+         * @param i number to check
+         * @return the status of the selected pope favor tile
+         */
         public PopeFavorTileStatus getPopeFavorTile(int i) {
                 return popeFavorTiles.get(i);
         }
-        //this method is used to increment the fairh track position,
-        //it also checks if a vatican report is activated
+
+        /**
+         * Method incrementFaithTrackPosition is used to increment the faith track position,
+         * it also checks if a vatican report is activated, in that case it throws an exception
+         */
         public void incrementFaithTrackPosition() throws VaticanReportException{
                 if(faithTrackPosition<24){
                         faithTrackPosition++;
                 }
-                //posso fare un metodo che contiene i controlli
                 if(faithTrackPosition>= 8 && popeFavorTiles.get(1)==PopeFavorTileStatus.INACTIVE){
                         throw new VaticanReportException(1);
                 }
@@ -48,13 +53,15 @@ public class StatusPlayer {
                         throw new VaticanReportException(2);
                 }
                 if(faithTrackPosition==24 && popeFavorTiles.get(3)==PopeFavorTileStatus.INACTIVE){
-                        // è finita la partita e io sono il primo ad arrivare
-                        //ora bisogna eventualmente fare gli ultimi turni
-                        throw new VaticanReportException(3); //qui devo mettere exception fine partita
+                        throw new VaticanReportException(3);
                 }
         }
 
-        //this method set the pope favor tiles when a vatican report is activated
+        /**
+         * Method vaticanReportHandler set the pope favor tiles when a vatican report is activated
+         * @param reportId is a int between 1 and 3, it indicates if the report activated
+         * is the first, the second or the third
+         */
         public void vaticanReportHandler(int reportId){
                 switch(reportId){
                         case 1:

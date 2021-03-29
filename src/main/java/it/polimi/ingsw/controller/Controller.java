@@ -147,9 +147,13 @@ public class Controller {
         return boughtResources;
     }
 
-    //this method is used to increment the faith track position of a player you choose
-    //If a vatican report is activated, it calls the handlers of the players
-    //It also checks if the match is ending (a player arrives in the last cell)
+    /**
+     * Method incrementFaithTrackPosition is used to increment the faith track position of a
+     * player you choose. If a vatican report is activated, it calls the handlers of the players.
+     * It also checks if the match is ending (a player arrives in the last cell)
+     *
+     * @param player is the chosen player
+     */
     private void incrementFaithTrackPosition(Player player){
         try{
             player.getStatusPlayer().incrementFaithTrackPosition();
