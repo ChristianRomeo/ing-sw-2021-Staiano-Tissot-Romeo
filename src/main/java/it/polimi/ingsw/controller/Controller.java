@@ -4,9 +4,16 @@ import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author enrico
+ */
 public class Controller {
     private Game game;
+
+    public Controller(Game game){
+        //costruttore creato a caso solo per fare testing
+        this.game=game;
+    }
 
     /**
      * Method useMarket allows the player to bought new resources at the Market
@@ -34,7 +41,7 @@ public class Controller {
         insertBoughtResources(boughtResources);
     }
 
-
+    //METODI EDIT E INSERT WAREHOUSE DOVRANNO CONSIDERARE ANCHE I DEPOSITI LEADER
     /**
      * Method editWarehouse allows the player to change the position of the resources in the warehouse
      */
@@ -98,7 +105,7 @@ public class Controller {
                 boughtResources.remove(r);
                 for(int k=0; k< game.getPlayersNumber(); k++){
                     if (game.getCurrentPlayerId()!=k){
-                        game.getPlayerByIndex(k).getStatusPlayer().incrementFaithTrackPosition();
+                        incrementFaithTrackPosition(game.getPlayerByIndex(k));
                     }
                 }
             }
@@ -121,7 +128,7 @@ public class Controller {
                     //controllo carta leader va qui
                     break;
                 case RED:
-                    game.getCurrentPlayer().getStatusPlayer().incrementFaithTrackPosition();
+                    incrementFaithTrackPosition(game.getCurrentPlayer());
                     break;
                 case BLUE:
                     boughtResources.add(Resource.SHIELD);
@@ -139,6 +146,24 @@ public class Controller {
         }
         return boughtResources;
     }
+
+    //this method is used to increment the faith track position of a player you choose
+    //If a vatican report is activated, it calls the handlers of the players
+    //It also checks if the match is ending (a player arrives in the last cell)
+    private void incrementFaithTrackPosition(Player player){
+        try{
+            player.getStatusPlayer().incrementFaithTrackPosition();
+        }catch(VaticanReportException e){
+            for(int i=0; i< game.getPlayersNumber(); i++){
+                game.getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
+                if(e.getReportId()==3){
+                    //a player is arrived in the last cell of the track, so the game is
+                    //in the final phase
+                }
+            }
+        }
+    }
+
 
 
 }

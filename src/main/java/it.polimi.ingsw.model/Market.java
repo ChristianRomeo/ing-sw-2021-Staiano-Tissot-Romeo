@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+/**
+ * @author enrico
+ */
 public class Market {
     private MarbleColor[][] marbles;
     private MarbleColor slideMarble;

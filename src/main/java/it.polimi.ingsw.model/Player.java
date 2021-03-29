@@ -3,6 +3,12 @@ package it.polimi.ingsw.model;
  * @author tommy
  */
 public class Player {
+
+    public Player(){
+        //costruttore creato a caso solo per fare testing
+        statusPlayer = new StatusPlayer();
+    }
+
     /**
      * The player's leader cards number, constant and common to all players
      */

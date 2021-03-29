@@ -1,4 +1,5 @@
 package it.polimi.ingsw;
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 
 import org.junit.jupiter.api.Test;
@@ -69,4 +70,48 @@ public class AppTest
             System.out.println("already full cell or invalid inseriment");
         }
     }
+
+    @Test //succede un fatto strano , non capisco se va o no
+    public void testDevelopmentCardBoardInit()
+    {
+        DevelopmentCardBoard developmentCardBoard;
+        try{
+            developmentCardBoard = new DevelopmentCardBoard();
+            System.out.println(developmentCardBoard.isCardPileEmpty(0,0));
+        }catch(Exception e){
+            //
+        }
+    }
+
+   /* @Test //test passed, vatican reports handling (i commented it because the method increment is private)
+    public void testVaticanReport()
+    {
+        Game game = new Game();
+        Player player1 = new Player();
+        Player player2 = new Player();
+        player1.setNickname("pl1");
+        player2.setNickname("pl2");
+
+        game.addNewPlayer(player1);
+        game.addNewPlayer(player2);
+        Controller controller = new Controller(game);
+
+        controller.incrementFaithTrackPosition(player2);
+        controller.incrementFaithTrackPosition(player2);
+        controller.incrementFaithTrackPosition(player2);
+        controller.incrementFaithTrackPosition(player2);
+        controller.incrementFaithTrackPosition(player2);
+
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+        controller.incrementFaithTrackPosition(player1);
+
+    }*/
+
 }

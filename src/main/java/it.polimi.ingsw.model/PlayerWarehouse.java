@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-
+/**
+ * @author enrico
+ */
 public class PlayerWarehouse {
     private Resource upperRow;
     private SameTypePair<Resource> middleRow;
