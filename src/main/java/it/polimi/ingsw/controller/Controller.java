@@ -2,31 +2,143 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
-    private Market market;
+    private Game game;
+
+    /**
+     * Method useMarket allows the player to bought new resources at the Market
+     *
+     * @param rowOrColumn is =r if the player wants to select a row, =c to select a column
+     * @param index is the index of the row/column the player wants to select
+     */
     public void useMarket(char rowOrColumn, int index){
-        //rowOrColumn=r if you want to select a row, c to select column
+        Market market = game.getBoard().getMarket();
+
         List<MarbleColor> takenMarbles;
+        List<Resource> boughtResources;
         if(rowOrColumn=='r'){
             takenMarbles=market.selectRow(index);
         }
         else
         {takenMarbles=market.selectColumn(index);}
 
-        for(MarbleColor m: takenMarbles){
-            if(m==MarbleColor.RED){
-                //metodo per incrementare faith track pointer del giocatore va qui
-                takenMarbles.remove(m);
-            }else{
-                if (m==MarbleColor.WHITE){
-                    //controllo carta leader va qui
-                    takenMarbles.remove(m);
+        boughtResources=fromMarblesToResources(takenMarbles);
+
+        /*the player can change the position of the resources in the warehouse
+            before the insertion of the new resources*/
+        editWarehouse();
+        //the player insert/discard the resources bought at the market
+        insertBoughtResources(boughtResources);
+    }
+
+
+    /**
+     * Method editWarehouse allows the player to change the position of the resources in the warehouse
+     */
+    //NB: this method can't work now, because it needs the view
+    private void editWarehouse(){
+        //the player says what resources in he warehouse he wants to move, so these resources
+        //are temporary removed from the warehouse and stored in a list. Than the player
+        //can reinsert these resources where he wants (or he can again temporary remove some resources).
+        //When he wants, the player can stop the edit of the warehouse, but only if he has
+        //inserted every temporary removed resource.
+
+        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
+        List<Resource> temporaryRemovedResources = new ArrayList<>();
+        int i=0,j=0;
+        int k=0;
+        while(true){ //la condizione di stop sarà detta da utente
+            //i valori di i, j e k devono essere detti dall'utente, interazione con la view
+
+            if(true /*player wants to temporary remove a resource*/){
+                if(warehouse.getResource(i,j)!=null){
+                    temporaryRemovedResources.add(warehouse.removeResource(i,j));
+                }
+            }
+            if(true /*player wants to reinsert one of the temporary removed resources*/){
+                if(k>=0 && k< temporaryRemovedResources.size()){
+                    try{
+                        warehouse.insertResource(temporaryRemovedResources.get(k),i,j);
+                    }catch(InvalidWarehouseInsertionException e){
+                        /*signal to the user, invalid insertion in the warehouse*/
+                    }
+                }
+            }
+            if(true/* the player wants to end the Warehouse edit*/){
+                if(temporaryRemovedResources.size()==0){
+                    break;
+                }else{
+                    /*signal the player that he has to insert every temporary removed resource*/
                 }
             }
         }
-        //metodo modificaWarehouse va qui
-        //metodo inserisci / scarta risorse comprate va qui
     }
+
+    /**
+     * Method insertBoughtResources allows the player to insert/discard the new
+     * resources bought at the market, in the warehouse
+     */
+    //NB: this method can't work now, because it needs the view
+    private void insertBoughtResources(List<Resource> boughtResources){
+        int i=0,j=0;
+        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
+        //i, j sono dati dall'utente per ogni risorsa
+        for(Resource r: boughtResources){
+            if(true /*the player wants to insert the resource*/){
+                try{
+                    warehouse.insertResource(r,i,j);
+                }catch (InvalidWarehouseInsertionException e){
+                    /*signal to the user, invalid inseriment in the warehouse*/
+                }
+            }
+            if(true /*the player wants to discard the resource*/){
+                boughtResources.remove(r);
+                for(int k=0; k< game.getPlayersNumber(); k++){
+                    if (game.getCurrentPlayerId()!=k){
+                        game.getPlayerByIndex(k).getStatusPlayer().incrementFaithTrackPosition();
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Method fromMarblesToResources transforms a list of marbles in the corresponding list of resources,
+     * (the red marbles are transformed in increments of the faith track position)
+     *
+     * @param marbles is a list of marbles
+     * @return a list of resources
+     */
+    private List<Resource> fromMarblesToResources(List<MarbleColor> marbles){
+        List<Resource> boughtResources = new ArrayList<>();
+        for(MarbleColor m: marbles){
+            switch(m){
+                case WHITE:
+                    //controllo carta leader va qui
+                    break;
+                case RED:
+                    game.getCurrentPlayer().getStatusPlayer().incrementFaithTrackPosition();
+                    break;
+                case BLUE:
+                    boughtResources.add(Resource.SHIELD);
+                    break;
+                case GREY:
+                    boughtResources.add(Resource.STONE);
+                    break;
+                case PURPLE:
+                    boughtResources.add(Resource.SERVANT);
+                    break;
+                case YELLOW:
+                    boughtResources.add(Resource.COIN);
+                    break;
+            }
+        }
+        return boughtResources;
+    }
+
+
 }

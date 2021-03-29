@@ -121,4 +121,12 @@ public class Game {
         currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
         setCurrentPlayer(players.get(currentPlayerId));
     }
+    /**
+     * Method getCurrentPlayerId is a getter of the current player id.
+     *
+     * @return the current player id
+     */
+    public int getCurrentPlayerId(){
+        return currentPlayerId;
+    }
 }

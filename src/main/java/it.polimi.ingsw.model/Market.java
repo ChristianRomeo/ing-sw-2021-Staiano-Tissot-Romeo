@@ -14,6 +14,10 @@ public class Market {
         initMarket();
     }
 
+    /**
+     * Method initMarket is an helper private method called by the constructor.
+     * It initialize the Market board.
+     */
     private void initMarket(){
         int randomNum;
         List<MarbleColor> colors = new ArrayList<MarbleColor>();
@@ -45,12 +49,31 @@ public class Market {
         }
     }
 
+    /**
+     * Method getColor is a getter of one of the marbles inside the Market (not the slide marble)
+     *
+     * @param i is the row of the marble you want to get
+     * @param j is the column of the marble you want to get
+     * @return the marble in that position of the market
+     */
     public MarbleColor getColor(int i, int j) {
        return marbles[i][j];
     }
+    /**
+     * Method getSlideMarble is the getter of the slide marble
+     * @return the slide marble
+     */
     public MarbleColor getSlideMarble() {
         return slideMarble;
     }
+    /**
+     * Method selectColumn takes the index of a column, shifts the column selected following the
+     * game's rules, and returns the list of the taken marbles (the marbles that were in that column
+     * in the beginning)
+     *
+     * @param i is the index of the column you want to select
+     * @return the list of the taken (bought) marbles
+     */
     public List<MarbleColor> selectColumn(int i) {
         List<MarbleColor> takenMarbles = new ArrayList<>();
         takenMarbles.add(marbles[0][i]);
@@ -65,6 +88,14 @@ public class Market {
 
         return takenMarbles;
     }
+    /**
+     * Method selectRow takes the index of a row, shifts the row selected following the
+     * game's rules, and returns the list of the taken marbles (the marbles that were in that row
+     * in the beginning)
+     *
+     * @param i is the index of the row you want to select
+     * @return the list of the taken (bought) marbles
+     */
     public List<MarbleColor> selectRow(int i) {
         List<MarbleColor> takenMarbles = new ArrayList<>();
         takenMarbles.add(marbles[i][0]);

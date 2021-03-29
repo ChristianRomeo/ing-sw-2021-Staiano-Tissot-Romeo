@@ -11,7 +11,14 @@ public class PlayerWarehouse {
         middleRow = new SameTypePair<Resource>();
         lowerRow = new SameTypeTriple<Resource>();
     }
-    //method which takes a row and a column and returns the Resource in that position of the warehouse (or null)
+    /**
+     * Method getResource takes a row and a column and returns the Resource
+     * in that position of the warehouse (or null)
+     *
+     * @param row is the row of the warehouse you want to select
+     * @param col is the column of the warehouse you want to select
+     * @return the resource in that position of the warehouse
+     */
     public Resource getResource(int row, int col){
         if(row==1){
             return upperRow;
@@ -24,6 +31,7 @@ public class PlayerWarehouse {
         }
         return null;
     }
+
     /*the 3 following methods are getter too, if you prefer you can use them,
      but I recommend to use getResource*/
     public Resource getUpperRow(){
@@ -35,9 +43,17 @@ public class PlayerWarehouse {
     public Resource getLowerRowResource(int col){
         return lowerRow.get(col);
     }
-    //this method is used to insert a Resource in a position in the warehouse, and it controls that the
-    // inseriment respects the rules of the warehouse (and that the position wasn't already full)
-    public void insertResource(Resource resource, int row, int col) throws InvalidWarehouseInserimentException{
+
+    /**
+     * Method insertResource is used to insert a Resource in a position in the warehouse,
+     * and it controls that the insertion respects the rules
+     * of the warehouse (and that the position wasn't already full)
+     *
+     * @param row is the row of the warehouse where you want to insert the resource
+     * @param col is the column of the warehouse where you want to insert the resource
+     * @param resource is the resource you want to insert in the warehouse
+     */
+    public void insertResource(Resource resource, int row, int col) throws InvalidWarehouseInsertionException{
         if(row==1){
             setUpperRow(resource);
         }
@@ -48,8 +64,14 @@ public class PlayerWarehouse {
             setLowerRow(resource,col);
         }
     }
-    //this method remove a resource from a position and returns the removed Resource
-    // (the position is setted as null)
+
+    /**
+     * Method removeResource removes a resource from a position in the warehouse
+     * and returns the removed Resource (the position is set as null)
+     * @param row is the row of the resource you want to remove
+     * @param col is the column of the resource you want to remove
+     * @return the removed resource
+     */
     public Resource removeResource(int row, int col){
         Resource removedResource;
         removedResource=getResource(row,col);
@@ -66,33 +88,33 @@ public class PlayerWarehouse {
     }
 
     //helper private methods
-    private void setUpperRow(Resource resource) throws InvalidWarehouseInserimentException{
+    private void setUpperRow(Resource resource) throws InvalidWarehouseInsertionException{
         if(upperRow!=null || middleRow.contains(resource)|| lowerRow.contains(resource)){
-            throw new InvalidWarehouseInserimentException();
+            throw new InvalidWarehouseInsertionException();
         }
         else{
             upperRow=resource;
         }
     }
-    private void setMiddleRow(Resource resource, int col) throws InvalidWarehouseInserimentException{
+    private void setMiddleRow(Resource resource, int col) throws InvalidWarehouseInsertionException{
         if(middleRow.get(col)!=null||upperRow==resource || lowerRow.contains(resource)){
-            throw new InvalidWarehouseInserimentException();
+            throw new InvalidWarehouseInsertionException();
         }
 
         for(Resource r: Resource.values()){
             if(r!=resource && middleRow.contains(r)){
-                throw new InvalidWarehouseInserimentException();
+                throw new InvalidWarehouseInsertionException();
             }
         }
         middleRow.set(resource,col);
     }
-    private void setLowerRow(Resource resource, int col) throws InvalidWarehouseInserimentException{
+    private void setLowerRow(Resource resource, int col) throws InvalidWarehouseInsertionException{
         if(lowerRow.get(col)!=null||upperRow==resource || middleRow.contains(resource)){
-            throw new InvalidWarehouseInserimentException();
+            throw new InvalidWarehouseInsertionException();
         }
         for(Resource r: Resource.values()){
             if(r!=resource && lowerRow.contains(r)){
-                throw new InvalidWarehouseInserimentException();
+                throw new InvalidWarehouseInsertionException();
             }
         }
         lowerRow.set(resource, col);
