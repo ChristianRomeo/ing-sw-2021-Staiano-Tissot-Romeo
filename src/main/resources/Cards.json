@@ -1,6 +1,6 @@
 [
   {
-    "id": "01",
+    "id": 1,
     "toGive": "1 coin",
     "toHave": "1 fp",
     "victoryPoints": "1",
@@ -10,7 +10,7 @@
     "desc": "Production power: You will get 1 faith point at the cost of 1 coin; You will need 2 shield to buy this card. Furthermore it will give you 1 victory point at the end of the game"
   },
   {
-    "id": "02",
+    "id": 2,
     "toGive": "1 stone",
     "toHave": "1 fp",
     "victoryPoints": "1",
@@ -19,7 +19,7 @@
     "needs": "2 servant"
   },
   {
-    "id": "03",
+    "id": 3,
     "toGive": "1 shield",
     "toHave": "1 fp",
     "victoryPoints": "1",
@@ -28,7 +28,7 @@
     "needs": "2 coin"
   },
   {
-    "id": "04",
+    "id": 4,
     "toGive": "1 servant",
     "toHave": "1 fp",
     "victoryPoints": "1",
@@ -37,7 +37,7 @@
     "needs": "2 stone"
   },
   {
-    "id": "05",
+    "id": 5,
     "toGive": "1 stone",
     "toHave": "1 servant",
     "victoryPoints": "2",
@@ -46,7 +46,7 @@
     "needs": ["1 shield", "1 stone", "1 servant"]
   },
   {
-    "id": "06",
+    "id": 6,
     "toGive": "1 coin",
     "toHave": "1 shield",
     "victoryPoints": "2",
@@ -55,7 +55,7 @@
     "needs": ["1 shield", "1 coin", "1 servant"]
   },
   {
-    "id": "07",
+    "id": 7,
     "toGive": "1 servant",
     "toHave": "1 stone",
     "victoryPoints": "2",
@@ -64,7 +64,7 @@
     "needs": ["1 coin", "1 stone", "1 servant"]
   },
   {
-    "id": "08",
+    "id": 8,
     "toGive": "1 shield",
     "toHave": "1 coin",
     "victoryPoints": "2",
@@ -73,7 +73,7 @@
     "needs": ["1 shield", "1 coin", "1 stone"]
   },
   {
-    "id": "09",
+    "id": 9,
     "toGive": "2 servant",
     "toHave": ["1 coin", "1 shield", "1 stone"],
     "victoryPoints": "3",
@@ -82,7 +82,7 @@
     "needs": "3 shield"
   },
   {
-    "id": "10",
+    "id": 10,
     "toGive": "2 coin",
     "toHave": ["1 servant", "1 shield", "1 stone"],
     "victoryPoints": "3",
@@ -91,7 +91,7 @@
     "needs": "3 servant"
   },
   {
-    "id": "11",
+    "id": 11,
     "toGive": "2 stone",
     "toHave": ["1 coin", "1 servant", "1 shield"],
     "victoryPoints": "3",
@@ -100,7 +100,7 @@
     "needs": "3 coin"
   },
   {
-    "id": "12",
+    "id": 12,
     "toGive": "2 shield",
     "toHave": ["1 coin", "1 servant", "1 stone"],
     "victoryPoints": "3",
@@ -109,7 +109,7 @@
     "needs": "3 stone"
   },
   {
-    "id": "13",
+    "id": 13,
     "toGive": ["1 stone", "1 servant"],
     "toHave": ["2 coin","1 fp"],
     "victoryPoints": "4",
@@ -118,7 +118,7 @@
     "needs": ["2 shield", "2 coin"]
   },
   {
-    "id": "14",
+    "id": 14,
     "toGive": [ "1 coin", "1 shield"],
     "toHave": [ "1 fp" , "2 stone"],
     "victoryPoints": "4",
@@ -127,7 +127,7 @@
     "needs": ["2 servant", "2 stone"]
   },
   {
-    "id": "15",
+    "id": 15,
     "toGive": ["1 shield", "1 stone"],
     "toHave": ["1 fp", "2 servant"],
     "victoryPoints": "4",
@@ -136,7 +136,7 @@
     "needs": ["2 coin", "2 servant"]
   },
   {
-    "id": "16",
+    "id": 16,
     "toGive": ["1 coin" , "1 servant"],
     "toHave": ["1 fp" , "2 shield"],
     "victoryPoints": "4",
@@ -145,7 +145,7 @@
     "needs": ["2 shield", "2 stone"]
   },
   {
-    "id": "17",
+    "id": 17,
     "toGive": "1 stone",
     "toHave": "2 fp",
     "victoryPoints": "5",
@@ -154,7 +154,7 @@
     "needs": "4 shield"
   },
   {
-    "id": "18",
+    "id": 18,
     "toGive": "1 coin",
     "toHave": "2 fp",
     "victoryPoints": "5",
@@ -163,7 +163,7 @@
     "needs": "4 servant"
   },
   {
-    "id": "19",
+    "id": 19,
     "toGive": "1 servant",
     "toHave": "2 fp",
     "victoryPoints": "5",
@@ -172,7 +172,7 @@
     "needs": "4 coin"
   },
   {
-    "id": "20",
+    "id": 20,
     "toGive": "1 shield",
     "toHave": "2 fp",
     "victoryPoints": "5",
@@ -181,7 +181,7 @@
     "needs": "4 stone"
   },
   {
-    "id": "21",
+    "id": 21,
     "toGive": ["1 shield","1 servant"],
     "toHave": "3 stone",
     "victoryPoints": "6",
@@ -190,7 +190,7 @@
     "needs": ["3 shield","2 servant"]
   },
   {
-    "id": "22",
+    "id": 22,
     "toGive": ["1 coin", "1 servant"],
     "toHave": "3 shield",
     "victoryPoints": "6",
@@ -199,7 +199,7 @@
     "needs": ["3 servant", "2 coin"]
   },
   {
-    "id": "23",
+    "id": 23,
     "toGive": ["1 coin","1 stone"],
     "toHave": "3 servant",
     "victoryPoints": "6",
@@ -208,7 +208,7 @@
     "needs": ["3 coin", "2 stone"]
   },
   {
-    "id": "24",
+    "id": 24,
     "toGive": ["1 stone","1 shield"],
     "toHave": "3 coin",
     "victoryPoints": "6",
@@ -217,7 +217,7 @@
     "needs": ["2 shield", "3 stone"]
   },
   {
-    "id": "25",
+    "id": 25,
     "toGive": "2 coin",
     "toHave": ["2 fp","2 stone"],
     "victoryPoints": "7",
@@ -226,7 +226,7 @@
     "needs": "5 shield"
   },
   {
-    "id": "26",
+    "id": 26,
     "toGive": "2 stone",
     "toHave": ["2 fp","2 coin"],
     "victoryPoints": "7",
@@ -235,7 +235,7 @@
     "needs": "5 servant"
   },
   {
-    "id": "27",
+    "id": 27,
     "toGive": "2 servant",
     "toHave": ["2 fp","2 shield"],
     "victoryPoints": "7",
@@ -244,7 +244,7 @@
     "needs": "5 coin"
   },
   {
-    "id": "28",
+    "id": 28,
     "toGive": "2 shield",
     "toHave": ["2 fp","2 servant"],
     "victoryPoints": "7",
@@ -253,7 +253,7 @@
     "needs": "5 stone"
   },
   {
-    "id": "29",
+    "id": 29,
     "toGive": "1 coin",
     "toHave": ["1 fp","2 shield"],
     "victoryPoints": "8",
@@ -262,7 +262,7 @@
     "needs": ["3 shield","3 coin"]
   },
   {
-    "id": "30",
+    "id": 30,
     "toGive": "1 stone",
     "toHave": ["1 fp","2 servant"],
     "victoryPoints": "8",
@@ -271,7 +271,7 @@
     "needs": ["3 shield","3 servant"]
   },
   {
-    "id": "31",
+    "id": 31,
     "toGive": "1 servant",
     "toHave": ["2 stone","1 fp"],
     "victoryPoints": "8",
@@ -280,7 +280,7 @@
     "needs": ["3 stone","3 coin"]
   },
   {
-    "id": "32",
+    "id": 32,
     "toGive": "1 shield",
     "toHave": ["1 fp","2 coin"],
     "victoryPoints": "8",
@@ -289,7 +289,7 @@
     "needs": ["3 stone","3 servant"]
   },
   {
-    "id": "33",
+    "id": 33,
     "toGive": "2 coin",
     "toHave": ["3 stone","2 fp"],
     "victoryPoints": "9",
@@ -298,7 +298,7 @@
     "needs": "6 shield"
   },
   {
-    "id": "34",
+    "id": 34,
     "toGive": "2 stone",
     "toHave": ["2 fp","3 coin"],
     "victoryPoints": "9",
@@ -307,7 +307,7 @@
     "needs": "6 servant"
   },
   {
-    "id": "35",
+    "id": 35,
     "toGive": "2 servant",
     "toHave": ["3 shield","2 fp"],
     "victoryPoints": "9",
@@ -316,7 +316,7 @@
     "needs": "6 coin"
   },
   {
-    "id": "36",
+    "id": 36,
     "toGive": "2 shield",
     "toHave": ["3 servant","2 fp"],
     "victoryPoints": "9",
@@ -325,7 +325,7 @@
     "needs": "6 stone"
   },
   {
-    "id": "37",
+    "id": 37,
     "toGive": ["1 coin","1 servant"],
     "toHave": ["1 fp","2 shield","2 stone"],
     "victoryPoints": "10",
@@ -334,7 +334,7 @@
     "needs": ["5 shield","2 servant"]
   },
   {
-    "id": "38",
+    "id": 38,
     "toGive": ["1 stone","1 shield"],
     "toHave": ["1 fp","2 servant","2 coin"],
     "victoryPoints": "10",
@@ -343,7 +343,7 @@
     "needs": ["2 coin","5 servant"]
   },
   {
-    "id": "39",
+    "id": 39,
     "toGive": ["1 coin","1 shield"],
     "toHave": ["1 fp","2 stone"," 2 servant"],
     "victoryPoints": "10",
@@ -352,7 +352,7 @@
     "needs": ["5 coin", "2 stone"]
   },
   {
-    "id": "40",
+    "id": 40,
     "toGive": ["1 stone","1 servant"],
     "toHave": ["1 fp","2 shield","2 coin"],
     "victoryPoints": "10",
@@ -361,7 +361,7 @@
     "needs": ["5 stone","2 servant"]
   },
   {
-    "id": "41",
+    "id": 41,
     "toGive": "1 servant",
     "toHave": ["3 fp","1 coin"],
     "victoryPoints": "11",
@@ -370,7 +370,7 @@
     "needs": "7 shield"
   },
   {
-    "id": "42",
+    "id": 42,
     "toGive": "1 coin",
     "toHave": ["1 stone","3 fp"],
     "victoryPoints": "11",
@@ -379,7 +379,7 @@
     "needs": "7 servant"
   },
   {
-    "id": "43",
+    "id": 43,
     "toGive": "1 stone",
     "toHave": ["3 fp","1 shield"],
     "victoryPoints": "11",
@@ -388,7 +388,7 @@
     "needs": "7 coin"
   },
   {
-    "id": "44",
+    "id": 44,
     "toGive": "1 shield",
     "toHave": ["3 fp","1 servant"],
     "victoryPoints": "11",
@@ -397,7 +397,7 @@
     "needs": "7 stone"
   },
   {
-    "id": "45",
+    "id": 45,
     "toGive": "1 stone",
     "toHave": ["1 shield","3 coin"],
     "victoryPoints": "12",
@@ -406,7 +406,7 @@
     "needs": ["4 shield","4 coin"]
   },
   {
-    "id": "46",
+    "id": 46,
     "toGive": "1 coin",
     "toHave": ["1 servant","3 stone"],
     "victoryPoints": "12",
@@ -415,7 +415,7 @@
     "needs": ["4 servant","4 shield"]
   },
   {
-    "id": "47",
+    "id": 47,
     "toGive": "1 servant",
     "toHave": ["1 coin","3 shield"],
     "victoryPoints": "12",
@@ -424,7 +424,7 @@
     "needs": ["4 coin","4 stone"]
   },
   {
-    "id": "48",
+    "id": 48,
     "toGive": "1 shield",
     "toHave": ["1 stone","3 servant"],
     "victoryPoints": "12",
