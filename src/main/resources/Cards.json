@@ -111,7 +111,7 @@
   {
     "id": "13",
     "toGive": ["1 stone", "1 servant"],
-    "toHave": "2 coin,1 fp",
+    "toHave": ["2 coin","1 fp"],
     "victoryPoints": "4",
     "type": "green",
     "level": "1",
