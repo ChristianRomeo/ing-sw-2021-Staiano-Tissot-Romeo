@@ -33,28 +33,28 @@
     "ability": "LeaderCardSlots",
     "victoryPoints": "3",
     "type": "stone",
-    "needs": "5 coin"
+    "needs": ["5 coin"]
   },
   {
     "id": "06",
     "ability": "LeaderCardSlots",
     "victoryPoints": "3",
     "type": "servant",
-    "needs": "5 stone"
+    "needs": ["5 stone"]
   },
   {
     "id": "07",
     "ability": "LeaderCardSlots",
     "victoryPoints": "3",
     "type": "shield",
-    "needs": "5 servant"
+    "needs": ["5 servant"]
   },
   {
     "id": "08",
     "ability": "LeaderCardSlots",
     "victoryPoints": "3",
     "type": "coin",
-    "needs": "5 shield"
+    "needs": ["5 shield"]
   },
   {
     "id": "09",
@@ -89,27 +89,27 @@
     "ability": "LeaderCardProduction",
     "victoryPoints": "4",
     "type": "shield",
-    "needs": "1 yellow 2"
+    "needs": ["1 yellow 2"]
   },
   {
     "id": "14",
     "ability": "LeaderCardProduction",
     "victoryPoints": "4",
     "type": "servant",
-    "needs": "1 blue 2"
+    "needs": ["1 blue 2"]
   },
   {
     "id": "15",
     "ability": "LeaderCardProduction",
     "victoryPoints": "4",
     "type": "stone",
-    "needs": "1 purple 2"
+    "needs": ["1 purple 2"]
   },
   {
     "id": "16",
     "ability": "LeaderCardProduction",
     "victoryPoints": "4",
     "type": "coin",
-    "needs": "1 green 2"
+    "needs": ["1 green 2"]
   }
 ]
