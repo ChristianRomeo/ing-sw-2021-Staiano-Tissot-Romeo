@@ -29,11 +29,11 @@ public class DevelopmentCardBoard {
      *  PATH contains the relative path to card's json file
      */
     public static final String PATH = "src/main/resources/Cards.json";
-    public static int i = 0; //todo temporaneo
+    public int col = 0, row;
     /**
      *  cardBoard is the card's matrix, where every cell is a list up to 4 cards
      */
-    public static List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];
+    public List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];
 
     /**
      * Constructor of the matrix.
@@ -50,9 +50,10 @@ public class DevelopmentCardBoard {
         List<DevelopmentCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
 
         for(CardType color : CardType.values()){
-            cardBoard[0][i]   = list.stream().filter(x -> x.getLevel() == 1 && x.getType().equals(color)).collect(Collectors.toList());
-            cardBoard[1][i]   = list.stream().filter(x -> x.getLevel() == 2 && x.getType().equals(color)).collect(Collectors.toList());
-            cardBoard[2][i++] = list.stream().filter(x -> x.getLevel() == 3 && x.getType().equals(color)).collect(Collectors.toList());
+            row=0;
+            cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 1 && x.getType().equals(color)).collect(Collectors.toList());
+            cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 2 && x.getType().equals(color)).collect(Collectors.toList());
+            cardBoard[row][col++] = list.stream().filter(x -> x.getLevel() == 3 && x.getType().equals(color)).collect(Collectors.toList());
         }
     }
 
