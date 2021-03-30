@@ -17,7 +17,8 @@ public class StatusPlayer {
         public StatusPlayer(){
                 popeFavorTiles = new SameTypeTriple<>(PopeFavorTileStatus.INACTIVE,PopeFavorTileStatus.INACTIVE,PopeFavorTileStatus.INACTIVE);
                 faithTrackPosition = 0; //it starts at 0 also in the game (the first cell is 0)
-
+                playerWarehouse = new PlayerWarehouse();
+                personalCardBoard = new PersonalCardBoard();
                 //c'è da inizializzare tutto il resto
         }
 
@@ -31,7 +32,7 @@ public class StatusPlayer {
         /**
          * Method getPopeFavorTile takes an integer between 0 and 2, and returns the
          * the status of the first or second or third pope favor tile
-         * @param i number to check
+         * @param i number of pope favor tile to get
          * @return the status of the selected pope favor tile
          */
         public PopeFavorTileStatus getPopeFavorTile(int i) {
