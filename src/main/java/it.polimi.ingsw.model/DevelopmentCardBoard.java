@@ -51,7 +51,6 @@ public class DevelopmentCardBoard {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
         List<DevelopmentCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
-
         for(CardType color : CardType.values()){
             row=0;
             cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 1 && x.getType().equals(color)).collect(Collectors.toList());
