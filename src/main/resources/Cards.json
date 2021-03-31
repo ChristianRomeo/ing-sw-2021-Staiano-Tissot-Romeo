@@ -1,482 +1,482 @@
 [
   {
     "id": 1,
-    "requiredResources":{"coin": 1},
-    "producedResources": {"":""},
+    "requiredResources":{"COIN": 1},
+    "producedResources": { },
     "producedFaithPoints": 1,
     "victoryPoints": 1,
-    "type": "green",
+    "type": "GREEN",
     "level": 1,
-    "cost": {"shield": 2}
+    "cost": {"SHIELD": 2}
   },
   {
     "id": 2,
-    "requiredResources": {"stone": 1},
-    "producedResources": {"":""},
+    "requiredResources": {"STONE": 1},
+    "producedResources": { },
     "producedFaithPoints": 1,
     "victoryPoints": 1,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 1,
-    "cost": {"servant": 1}
+    "cost": {"SERVANT": 1}
   },
   {
     "id": 3,
-    "requiredResources": {"shield": 1},
-    "producedResources": {"":""},
+    "requiredResources": {"SHIELD": 1},
+    "producedResources": { },
     "producedFaithPoints": 1,
     "victoryPoints": 1,
-    "type": "blue",
+    "type": "BLUE",
     "level": 1,
-    "cost": {"coin": 2}
+    "cost": {"COIN": 2}
   },
   {
     "id": 4,
-    "requiredResources": {"servant": 1},
-    "producedResources": {"":""},
+    "requiredResources": {"SERVANT": 1},
+    "producedResources": { },
     "producedFaithPoints": 1,
     "victoryPoints": 1,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 1,
-    "cost": {"stone": 2}
+    "cost": {"STONE": 2}
   },
   {
     "id": 5,
-    "requiredResources": {"stone": 1},
-    "producedResources": {"servant": 1},
+    "requiredResources": {"STONE": 1},
+    "producedResources": {"SERVANT": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 2,
-    "type": "green",
+    "type": "GREEN",
     "level": 1,
-    "cost": {"shield": 1, "stone": 1, "servant": 1}
+    "cost": {"SHIELD": 1, "STONE": 1, "SERVANT": 1}
   },
   {
     "id": 6,
-    "requiredResources": {"coin": 1},
-    "producedResources": {"shield": 1},
+    "requiredResources": {"COIN": 1},
+    "producedResources": {"SHIELD": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 2,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 1,
-    "cost": {"shield": 1, "coin": 1, "servant": 1}
+    "cost": {"SHIELD": 1, "COIN": 1, "SERVANT": 1}
   },
   {
     "id": 7,
-    "requiredResources": {"servant": 1},
-    "producedResources": {"stone": 1},
+    "requiredResources": {"SERVANT": 1},
+    "producedResources": {"STONE": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 2,
-    "type": "blue",
+    "type": "BLUE",
     "level": 1,
-    "cost": {"coin": 1, "stone": 1, "servant": 1}
+    "cost": {"COIN": 1, "STONE": 1, "SERVANT": 1}
   },
   {
     "id": 8,
-    "requiredResources": {"shield": 1},
-    "producedResources": {"coin": 1},
+    "requiredResources": {"SHIELD": 1},
+    "producedResources": {"COIN": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 2,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 1,
-    "cost": {"shield": 1, "coin": 1, "stone": 1}
+    "cost": {"SHIELD": 1, "COIN": 1, "STONE": 1}
   },
   {
     "id": 9,
-    "requiredResources": {"servant": 2},
-    "producedResources": {"coin": 1, "shield": 1, "stone": 1},
+    "requiredResources": {"SERVANT": 2},
+    "producedResources": {"COIN": 1, "SHIELD": 1, "STONE": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 3,
-    "type": "green",
+    "type": "GREEN",
     "level": 1,
-    "cost": {"shield": 3}
+    "cost": {"SHIELD": 3}
   },
   {
     "id": 10,
-    "requiredResources": {"coin": 2},
-    "producedResources": {"servant": 1, "shield": 1, "stone": 1},
+    "requiredResources": {"COIN": 2},
+    "producedResources": {"SERVANT": 1, "SHIELD": 1, "STONE": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 3,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 1,
-    "cost": {"servant": 3}
+    "cost": {"SERVANT": 3}
   },
   {
     "id": 11,
-    "requiredResources": {"stone": 2},
-    "producedResources": {"coin": 1, "servant": 1, "shield": 1},
+    "requiredResources": {"STONE": 2},
+    "producedResources": {"COIN": 1, "SERVANT": 1, "SHIELD": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 3,
-    "type": "blue",
+    "type": "BLUE",
     "level": 1,
-    "cost": {"coin": 3}
+    "cost": {"COIN": 3}
   },
   {
     "id": 12,
-    "requiredResources": {"shields": 2},
-    "producedResources": {"coin": 1, "servant": 1, "stone": 1},
+    "requiredResources": {"SHIELD": 2},
+    "producedResources": {"COIN": 1, "SERVANT": 1, "STONE": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 3,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 1,
-    "cost": {"stone": 3}
+    "cost": {"STONE": 3}
   },
   {
     "id": 13,
-    "requiredResources": {"stone": 1, "servant": 1},
-    "producedResources": {"coin": 2},
+    "requiredResources": {"STONE": 1, "SERVANT": 1},
+    "producedResources": {"COIN": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 4,
-    "type": "green",
+    "type": "GREEN",
     "level": 1,
-    "cost": {"shields": 2, "coin": 2}
+    "cost": {"SHIELDs": 2, "COIN": 2}
   },
   {
     "id": 14,
-    "requiredResources": {"coin": 1, "shield": 1},
-    "producedResources": {"stone": 2},
+    "requiredResources": {"COIN": 1, "SHIELD": 1},
+    "producedResources": {"STONE": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 4,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 1,
-    "cost": {"servant": 2, "stone": 2}
+    "cost": {"SERVANT": 2, "STONE": 2}
   },
   {
     "id": 15,
-    "requiredResources": {"shield": 1, "stone": 1},
-    "producedResources": {"servant": 2},
+    "requiredResources": {"SHIELD": 1, "STONE": 1},
+    "producedResources": {"SERVANT": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 4,
-    "type": "blue",
+    "type": "BLUE",
     "level": 1,
-    "cost": {"coin": 2, "servant": 2}
+    "cost": {"COIN": 2, "SERVANT": 2}
   },
   {
     "id": 16,
-    "requiredResources": {"coin": 1 , "servant": 1},
-    "producedResources": {"servant": 1},
+    "requiredResources": {"COIN": 1 , "SERVANT": 1},
+    "producedResources": {"SERVANT": 1},
     "producedFaithPoints": 1,
     "victoryPoints": 4,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 1,
-    "cost": {"shield": 2, "stone": 2}
+    "cost": {"SHIELD": 2, "STONE": 2}
   },
   {
     "id": 17,
-    "requiredResources": {"stone": 1},
-    "producedResources": {"":""},
+    "requiredResources": {"STONE": 1},
+    "producedResources": { },
     "producedFaithPoints": 2,
     "victoryPoints": 5,
-    "type": "green",
+    "type": "GREEN",
     "level": 2,
-    "cost": {"shields": 4}
+    "cost": {"SHIELDs": 4}
   },
   {
     "id": 18,
-    "requiredResources": {"coin": 1},
-    "producedResources": {"":""},
+    "requiredResources": {"COIN": 1},
+    "producedResources": { },
     "producedFaithPoints": 2,
     "victoryPoints": 5,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 2,
-    "cost": {"servant": 4}
+    "cost": {"SERVANT": 4}
   },
   {
     "id": 19,
-    "requiredResources": {"servant": 1},
-    "producedResources": {"":""},
+    "requiredResources": {"SERVANT": 1},
+    "producedResources": { },
     "producedFaithPoints": 2,
     "victoryPoints": 5,
-    "type": "blue",
+    "type": "BLUE",
     "level": 2,
-    "cost": {"coin": 4}
+    "cost": {"COIN": 4}
   },
   {
     "id": 20,
-    "requiredResources": {"shield": 1},
-    "producedResources": {"":""},
+    "requiredResources": {"SHIELD": 1},
+    "producedResources": { },
     "producedFaithPoints": 2,
     "victoryPoints": 5,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 2,
-    "cost": {"stone": 4}
+    "cost": {"STONE": 4}
   },
   {
     "id": 21,
-    "requiredResources": {"shield": 1, "servant": 1},
-    "producedResources": {"stone": 3},
+    "requiredResources": {"SHIELD": 1, "SERVANT": 1},
+    "producedResources": {"STONE": 3},
     "producedFaithPoints": 0,
     "victoryPoints": 6,
-    "type": "green",
+    "type": "GREEN",
     "level": 2,
-    "cost": {"shield": 3, "servant": 2}
+    "cost": {"SHIELD": 3, "SERVANT": 2}
   },
   {
     "id": 22,
-    "requiredResources": {"coin": 1, "servant": 1},
-    "producedResources": {"shield": 1},
+    "requiredResources": {"COIN": 1, "SERVANT": 1},
+    "producedResources": {"SHIELD": 1},
     "producedFaithPoints": 0,
     "victoryPoints": 6,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 2,
-    "cost": {"servant": 3, "coin": 2}
+    "cost": {"SERVANT": 3, "COIN": 2}
   },
   {
     "id": 23,
-    "requiredResources": {"coin": 1, "stone": 1},
-    "producedResources": {"servant": 3},
+    "requiredResources": {"COIN": 1, "STONE": 1},
+    "producedResources": {"SERVANT": 3},
     "producedFaithPoints": 0,
     "victoryPoints": 6,
-    "type": "blue",
+    "type": "BLUE",
     "level": 2,
-    "cost": {"coin": 3, "stone": 2}
+    "cost": {"COIN": 3, "STONE": 2}
   },
   {
     "id": 24,
-    "requiredResources": {"stone": 1, "shield": 1},
-    "producedResources": {"coin": 3},
+    "requiredResources": {"STONE": 1, "SHIELD": 1},
+    "producedResources": {"COIN": 3},
     "producedFaithPoints": 0,
     "victoryPoints": 6,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 2,
-    "cost": {"shield": 2, "stone": 3}
+    "cost": {"SHIELD": 2, "STONE": 3}
   },
   {
     "id": 25,
-    "requiredResources": {"coin": 2},
-    "producedResources": {"stone": 2},
+    "requiredResources": {"COIN": 2},
+    "producedResources": {"STONE": 2},
     "producedFaithPoints": 2,
     "victoryPoints": 7,
-    "type": "green",
+    "type": "GREEN",
     "level": 2,
-    "cost": {"shield": 5}
+    "cost": {"SHIELD": 5}
   },
   {
     "id": 26,
-    "requiredResources": {"stone": 2},
-    "producedResources": {"coin": 2},
+    "requiredResources": {"STONE": 2},
+    "producedResources": {"COIN": 2},
     "producedFaithPoints": 2,
     "victoryPoints": 7,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 2,
-    "cost": {"servant": 5}
+    "cost": {"SERVANT": 5}
   },
   {
     "id": 27,
-    "requiredResources": {"servant": 2},
-    "producedResources": {"shield": 2},
+    "requiredResources": {"SERVANT": 2},
+    "producedResources": {"SHIELD": 2},
     "producedFaithPoints": 2,
     "victoryPoints": 7,
-    "type": "blue",
+    "type": "BLUE",
     "level": 2,
-    "cost": {"coin": 5}
+    "cost": {"COIN": 5}
   },
   {
     "id": 28,
-    "requiredResources": {"shield": 2},
-    "producedResources": {"servant": 2},
+    "requiredResources": {"SHIELD": 2},
+    "producedResources": {"SERVANT": 2},
     "producedFaithPoints": 2,
     "victoryPoints": 7,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 2,
-    "cost": {"stone": 5}
+    "cost": {"STONE": 5}
   },
   {
     "id": 29,
-    "requiredResources": {"coin": 1},
-    "producedResources": {"shield": 1},
+    "requiredResources": {"COIN": 1},
+    "producedResources": {"SHIELD": 1},
     "producedFaithPoints": 1,
     "victoryPoints": 8,
-    "type": "green",
+    "type": "GREEN",
     "level": 2,
-    "cost": {"shields": 3, "coin": 3}
+    "cost": {"SHIELDs": 3, "COIN": 3}
   },
   {
     "id": 30,
-    "requiredResources": {"stone": 1},
-    "producedResources": {"servant": 2},
+    "requiredResources": {"STONE": 1},
+    "producedResources": {"SERVANT": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 8,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 2,
-    "cost": {"shield": 3, "servant": 3}
+    "cost": {"SHIELD": 3, "SERVANT": 3}
   },
   {
     "id": 31,
-    "requiredResources": {"servant": 1},
-    "producedResources": {"stone": 2},
+    "requiredResources": {"SERVANT": 1},
+    "producedResources": {"STONE": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 8,
-    "type": "blue",
+    "type": "BLUE",
     "level": 2,
-    "cost": {"stone": 3, "coin": 3}
+    "cost": {"STONE": 3, "COIN": 3}
   },
   {
     "id": 32,
-    "requiredResources": {"shield": 1},
-    "producedResources": {"coin": 2},
+    "requiredResources": {"SHIELD": 1},
+    "producedResources": {"COIN": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 8,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 2,
-    "cost": {"stone": 3, "servant": 3}
+    "cost": {"STONE": 3, "SERVANT": 3}
   },
   {
     "id": 33,
-    "requiredResources": {"coin": 2},
-    "producedResources": {"stone": 3},
+    "requiredResources": {"COIN": 2},
+    "producedResources": {"STONE": 3},
     "producedFaithPoints": 2,
     "victoryPoints": 9,
-    "type": "green",
+    "type": "GREEN",
     "level": 3,
-    "cost": {"shield": 6}
+    "cost": {"SHIELD": 6}
   },
   {
     "id": 34,
-    "requiredResources": {"stone": 2},
-    "producedResources": {"coin": 3},
+    "requiredResources": {"STONE": 2},
+    "producedResources": {"COIN": 3},
     "producedFaithPoints": 2,
     "victoryPoints": 9,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 3,
-    "cost": {"servant": 6}
+    "cost": {"SERVANT": 6}
   },
   {
     "id": 35,
-    "requiredResources": {"servant": 2},
-    "producedResources": {"shield": 1},
+    "requiredResources": {"SERVANT": 2},
+    "producedResources": {"SHIELD": 1},
     "producedFaithPoints": 1,
     "victoryPoints": 9,
-    "type": "blue",
+    "type": "BLUE",
     "level": 3,
-    "cost": {"coin": 6}
+    "cost": {"COIN": 6}
   },
   {
     "id": 36,
-    "requiredResources": {"shield": 2},
-    "producedResources": {"servant": 3},
+    "requiredResources": {"SHIELD": 2},
+    "producedResources": {"SERVANT": 3},
     "producedFaithPoints": 2,
     "victoryPoints": 9,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 3,
-    "cost": {"stone": 6}
+    "cost": {"STONE": 6}
   },
   {
     "id": 37,
-    "requiredResources": {"coin": 1, "servant": 1},
-    "producedResources": {"shield": 2, "stone": 2},
+    "requiredResources": {"COIN": 1, "SERVANT": 1},
+    "producedResources": {"SHIELD": 2, "STONE": 2},
     "producedFaithPoints": 2,
     "victoryPoints": 10,
-    "type": "green",
+    "type": "GREEN",
     "level": 3,
-    "cost": {"shield": 5, "servant": 2}
+    "cost": {"SHIELD": 5, "SERVANT": 2}
   },
   {
     "id": 38,
-    "requiredResources": {"stone": 1, "shield": 1},
-    "producedResources": {"servant": 2, "coin": 2},
+    "requiredResources": {"STONE": 1, "SHIELD": 1},
+    "producedResources": {"SERVANT": 2, "COIN": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 10,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 3,
-    "cost": {"coin": 2, "servant": 5}
+    "cost": {"COIN": 2, "SERVANT": 5}
   },
   {
     "id": 39,
-    "requiredResources": {"coin": 1, "shield": 1},
-    "producedResources": {"stone": 2, "servant": 2},
+    "requiredResources": {"COIN": 1, "SHIELD": 1},
+    "producedResources": {"STONE": 2, "SERVANT": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 10,
-    "type": "blue",
+    "type": "BLUE",
     "level": 3,
-    "cost": {"coin": 5, "stone": 2}
+    "cost": {"COIN": 5, "STONE": 2}
   },
   {
     "id": 40,
-    "requiredResources": {"stone": 1, "servant": 1},
-    "producedResources": {"shield": 2, "coin": 2},
+    "requiredResources": {"STONE": 1, "SERVANT": 1},
+    "producedResources": {"SHIELD": 2, "COIN": 2},
     "producedFaithPoints": 1,
     "victoryPoints": 10,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 3,
-    "cost": {"stone": 5, "servant": 2}
+    "cost": {"STONE": 5, "SERVANT": 2}
   },
   {
     "id": 41,
-    "requiredResources": {"servant": 1},
-    "producedResources": {"coin": 1},
+    "requiredResources": {"SERVANT": 1},
+    "producedResources": {"COIN": 1},
     "producedFaithPoints": 3,
     "victoryPoints": 11,
-    "type": "green",
+    "type": "GREEN",
     "level": 3,
-    "cost": {"shield": 7}
+    "cost": {"SHIELD": 7}
   },
   {
     "id": 42,
-    "requiredResources": {"coin": 1},
-    "producedResources": {"stone": 1},
+    "requiredResources": {"COIN": 1},
+    "producedResources": {"STONE": 1},
     "producedFaithPoints": 3,
     "victoryPoints": 11,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 3,
-    "cost": {"servant": 7}
+    "cost": {"SERVANT": 7}
   },
   {
     "id": 43,
-    "requiredResources": {"stone": 1},
-    "producedResources": {"shield": 1},
+    "requiredResources": {"STONE": 1},
+    "producedResources": {"SHIELD": 1},
     "producedFaithPoints": 3,
     "victoryPoints": 11,
-    "type": "blue",
+    "type": "BLUE",
     "level": 3,
-    "cost": {"coin": 7}
+    "cost": {"COIN": 7}
   },
   {
     "id": 44,
-    "requiredResources": {"shield": 1},
-    "producedResources": {"servant": 1},
+    "requiredResources": {"SHIELD": 1},
+    "producedResources": {"SERVANT": 1},
     "producedFaithPoints": 3,
     "victoryPoints": 11,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 3,
-    "cost": {"stone": 7}
+    "cost": {"STONE": 7}
   },
   {
     "id": 45,
-    "requiredResources": {"stone": 1},
-    "producedResources": {"shield": 1, "coin": 3},
+    "requiredResources": {"STONE": 1},
+    "producedResources": {"SHIELD": 1, "COIN": 3},
     "producedFaithPoints": 0,
     "victoryPoints": 12,
-    "type": "green",
+    "type": "GREEN",
     "level": 3,
-    "cost": {"shield": 4, "coin": 4}
+    "cost": {"SHIELD": 4, "COIN": 4}
   },
   {
     "id": 46,
-    "requiredResources": {"coin": 1},
-    "producedResources": {"servant": 1, "stone": 3},
+    "requiredResources": {"COIN": 1},
+    "producedResources": {"SERVANT": 1, "STONE": 3},
     "producedFaithPoints": 0,
     "victoryPoints": 12,
-    "type": "purple",
+    "type": "PURPLE",
     "level": 3,
-    "cost": {"servant": 4, "shield": 4}
+    "cost": {"SERVANT": 4, "SHIELD": 4}
   },
   {
     "id": 47,
-    "requiredResources": {"servant": 1},
-    "producedResources": {"coin": 1, "shield": 3},
+    "requiredResources": {"SERVANT": 1},
+    "producedResources": {"COIN": 1, "SHIELD": 3},
     "producedFaithPoints": 0,
     "victoryPoints": 12,
-    "type": "blue",
+    "type": "BLUE",
     "level": 3,
-    "cost": {"coin": 4, "stone": 4}
+    "cost": {"COIN": 4, "STONE": 4}
   },
   {
     "id": 48,
-    "requiredResources": {"shield": 1},
-    "producedResources": {"stone": 1, "servant": 3},
+    "requiredResources": {"SHIELD": 1},
+    "producedResources": {"STONE": 1, "SERVANT": 3},
     "producedFaithPoints": 0,
     "victoryPoints": 12,
-    "type": "yellow",
+    "type": "YELLOW",
     "level": 3,
-    "cost": {"stone": 4, "servant": 4}
+    "cost": {"STONE": 4, "SERVANT": 4}
   }
 ]
