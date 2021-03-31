@@ -12,13 +12,13 @@ public class DevelopmentCard {
     private final int id;
     private final CardType type;                      //colore carta - type
     private final int level;                          //level
-    private final Map<Resource, Integer>[] needs;      //cost
+    private final Map<Resource, Integer> needs;      //cost
     private final int victoryPoints;                  //victoryPoints
-    private final Map<Resource, Integer>[] toGive;   //requiredResources
-    private final Map<Resource, Integer>[] toHave;   //producedResources
+    private final Map<Resource, Integer> toGive;   //requiredResources
+    private final Map<Resource, Integer> toHave;   //producedResources
     //private int producedFaithPoints;            //??
 
-    public DevelopmentCard(int id, Map<Resource, Integer>[] toGive, Map<Resource, Integer>[] toHave, int victoryPoints, CardType type, int level, Map<Resource, Integer>[] needs) {
+    public DevelopmentCard(int id, Map<Resource, Integer> toGive, Map<Resource, Integer> toHave, int victoryPoints, CardType type, int level, Map<Resource, Integer> needs) {
         this.id = id;
         this.type = type;
         this.level = level;
@@ -38,7 +38,7 @@ public class DevelopmentCard {
         return level;
     }
 
-    public Map<Resource, Integer>[] getNeeds() {
+    public Map<Resource, Integer> getNeeds() {
         return needs;
     }
 
@@ -46,9 +46,11 @@ public class DevelopmentCard {
         return victoryPoints;
     }
 
-    public Map<Resource, Integer>[] getToGive() { return toGive; }
+    public Map<Resource, Integer> getToGive() {
+        return toGive;
+    }
 
-    public Map<Resource, Integer>[] getToHave() {
+    public Map<Resource, Integer> getToHave() {
         return toHave;
     }
 

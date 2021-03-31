@@ -2,11 +2,14 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.*;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.*;
 import java.util.stream.Collectors;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 
 /**
@@ -43,7 +46,7 @@ public class DevelopmentCardBoard {
      * Then, we iterate over the enum CardType, in order to build the Card Board.
      * @throws FileNotFoundException whenever Cards.json couldn't be found
      */
-    public DevelopmentCardBoard() throws FileNotFoundException {
+    public DevelopmentCardBoard() throws IOException {
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);

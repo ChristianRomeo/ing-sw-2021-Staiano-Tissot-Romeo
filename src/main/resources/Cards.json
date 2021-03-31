@@ -1,21 +1,21 @@
 [
   {
     "id": 1,
-    "toGive": ["1 coin"],
-    "toHave": ["1 fp"],
+    "toGive":{"coin":"1"},
+    "toHave": {"fp":"1"},
     "victoryPoints": 1,
     "type": "green",
     "level": 1,
-    "needs": ["2 shield"]
+    "needs": {"shield":"2"}
   },
   {
     "id": 2,
-    "toGive": ["1 stone"],
-    "toHave": ["1 fp"],
+    "toGive": {"stone":"1"},
+    "toHave": {"fp":"1"},
     "victoryPoints": 1,
     "type": "purple",
     "level": 1,
-    "needs": ["2 servant"]
+    "needs": {"servant":"2"}
   },
   {
     "id": 3,
