@@ -11,12 +11,12 @@ import java.util.Map;
 public class DevelopmentCard {
     private final int id;
     private final CardType type;                       //colore carta - type
-    private final int level;                          //level
-    private final Map<Resource, Integer> cost;      //cost
-    private final int victoryPoints;                //victoryPoints
-    private final Map<Resource, Integer> requiredResources;   //requiredResources
-    private final Map<Resource, Integer> producedResources;  //producedResources
-    private int producedFaithPoints;           //??
+    private final int level;
+    private final Map<Resource, Integer> cost;
+    private final int victoryPoints;
+    private final Map<Resource, Integer> requiredResources;
+    private final Map<Resource, Integer> producedResources;
+    private final int producedFaithPoints;
 
     public DevelopmentCard(int id, Map<Resource, Integer> requiredResources, Map<Resource, Integer> producedResources,int producedFaithPoints, int victoryPoints, CardType type, int level, Map<Resource, Integer> cost) {
         this.id = id;

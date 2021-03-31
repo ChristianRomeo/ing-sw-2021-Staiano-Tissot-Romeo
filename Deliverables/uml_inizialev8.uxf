@@ -28,8 +28,8 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>180</x>
-      <y>0</y>
+      <x>170</x>
+      <y>30</y>
       <w>230</w>
       <h>300</h>
     </coordinates>
@@ -63,14 +63,14 @@ Game
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>400</x>
+      <x>390</x>
       <y>60</y>
-      <w>430</w>
-      <h>30</h>
+      <w>440</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2=1..4</panel_attributes>
-    <additional_attributes>10.0;10.0;410.0;10.0</additional_attributes>
+    <additional_attributes>10.0;40.0;420.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -105,20 +105,15 @@ m2=1..4</panel_attributes>
     <panel_attributes>DevelopmentCard
 --
 -id: int
--name: String
--description: String
 -type: CardType
 -level: int
 -cost: Map&lt;Resource,Integer&gt;
 -victoryPoints: int
 -requiredResources: Map&lt;Resource,Integer&gt;
 -producedResources: Map&lt;Resource,Integer&gt;
--producedFaithPoints: int*
--pilePosition:int ??
+-producedFaithPoints:int
 --
 +getId(): int
-+getDescription(): String
-+getName(): String
 +getType(): CardType
 +getLevel(): int
 +getCost(): Map&lt;Resource,Integer&gt;
@@ -192,14 +187,17 @@ red</panel_attributes>
     <panel_attributes>StatusPlayer
 --
 -faithTrackPosition: int
+-playerWarehouse: PlayerWarehouse
 -strongboxResources: Map&lt;Resource,Integer&gt;
 -popeFavorTiles: Triple&lt;Integer,Integer,Integer&gt;
+-personalCardBoard:PersonalCardBoard
+-leaderCards:leaderCard[]
 --
 +getFaithTrackPosition(): int
 +getStrongboxResources(): Map&lt;Resource,Integer&gt;
-+getPopeFavorTilesSituation(): Triple&lt;Integer,Integer,Integer&gt;
++getPopeFavorTile(int): PopeFavorTileStatus
 +incrementFaithTrackPosition()
-+setPopeFavorTileState(tileId: int, tileNewState: int)
++vaticanReportHandler(int)
 +setResourceStrongbox(resources: Map&lt;Resource, Integer&gt;)
 +getPlayerWarehouse(): PlayerWarehouse
 +getPlayerCardBoard(): PersonalCardBoard
@@ -233,14 +231,14 @@ red</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>260</x>
-      <y>290</y>
-      <w>30</w>
-      <h>160</h>
+      <x>250</x>
+      <y>320</y>
+      <w>40</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;20.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -267,6 +265,7 @@ red</panel_attributes>
 -marbles: MarbleColor[4][3]
 -slideMarble: MarbleColor
 --
+-initMarket()
 +getColor(i: int,j: int): MarbleColor
 +getSlideMarble(): MarbleColor
 +selectColumn(i:int)
@@ -296,7 +295,9 @@ red</panel_attributes>
     </coordinates>
     <panel_attributes>DevelopmentCardBoard
 --
--availableCards[3][4]:List&lt;DevelopmentCard&gt;
+-MAXROWS: int
+-MAXCOLUMNS: int
+-cardBoard[3][4]:List&lt;DevelopmentCard&gt;
 --
 +getCard(i: int, j: int):DevelopmentCard
 +removeCard(i:int, j: int)
@@ -319,16 +320,18 @@ red</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>850</x>
-      <y>750</y>
+      <y>710</y>
       <w>290</w>
-      <h>100</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>PersonalCardBoard
 --
--cards: List&lt;DevelopmentCard&gt;[1..7]
+-nmberOfCards:int
+-ownedCards: List&lt;DevelopmentCard&gt;[1..7]
 -activeCards: List&lt;DevelopmentCard&gt;[1..3]
 --
 +getCard(i: int,j: int): DevelopmentCard
++getUpperCard(int):DevelopmentCard
 +addCard(card: DevelopmentCard,i: int)
 +getNumberOfCards():int
 //+payCardResources() Controller
@@ -341,24 +344,24 @@ red</panel_attributes>
       <x>990</x>
       <y>640</y>
       <w>30</w>
-      <h>130</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1130</x>
-      <y>770</y>
+      <y>740</y>
       <w>140</w>
-      <h>40</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2= 0..7
 </panel_attributes>
-    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+    <additional_attributes>10.0;10.0;120.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -620,10 +623,15 @@ ENUM??</panel_attributes>
 -middleRow: Pair&lt;Resource,Resource&gt;
 -lowerRow: Triple&lt;Resource,Resource,Resource&gt;
 --
-+getUpperRow(): Resource
-+getMiddelRow(): Pair&lt;Resource,Resource&gt;
-+getLowerRow(): Triple&lt;Resource,Resource,Resource&gt;
-+setOnePosition(resource: Resource, row: int, col: int)</panel_attributes>
++getResource(int, int): Resource
++getUpperRowResource(): Resource
++getMiddelRowResource(): Pair&lt;Resource,Resource&gt;
++getLowerRowResource(): Triple&lt;Resource,Resource,Resource&gt;
++removeResource( row: int, col: int)
++insertResource(Resource, int, int)
++setUpperRow(Resource)
++setMiddleRow(Resource,int)
++setLowerRow(Resource,int)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -641,8 +649,8 @@ ENUM??</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>520</x>
-      <y>110</y>
+      <x>530</x>
+      <y>140</y>
       <w>160</w>
       <h>90</h>
     </coordinates>
@@ -659,48 +667,6 @@ ENUM??</panel_attributes>
 21=punti 16
 24=punti 20</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>460</x>
-      <y>200</y>
-      <w>310</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>FaithTrack
-bg=yellow
---
--points: int
--reportLevel:int [0..3]
---
-+hasReportLevelActivated(reportLevel): boolean
-+isActivable(): boolean
-+activateReportLevel(reportLevel)
-//+altro di sicuro</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>490</x>
-      <y>350</y>
-      <w>30</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>730</x>
-      <y>350</y>
-      <w>30</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -751,12 +717,12 @@ m2= 0..48
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>400</x>
+      <x>390</x>
       <y>0</y>
-      <w>190</w>
-      <h>40</h>
+      <w>200</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>TO CONTROLLER </panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;20.0</additional_attributes>
+    <additional_attributes>180.0;10.0;10.0;50.0</additional_attributes>
   </element>
 </diagram>

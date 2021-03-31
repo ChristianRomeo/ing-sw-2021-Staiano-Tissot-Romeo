@@ -127,7 +127,7 @@
     "victoryPoints": 4,
     "type": "GREEN",
     "level": 1,
-    "cost": {"SHIELDs": 2, "COIN": 2}
+    "cost": {"SHIELD": 2, "COIN": 2}
   },
   {
     "id": 14,

@@ -36,7 +36,7 @@ public class PlayerWarehouse {
 
     /*the 3 following methods are getter too, if you prefer you can use them,
      but I recommend to use getResource*/
-    public Resource getUpperRow(){
+    public Resource getUpperRowResource(){
         return upperRow;
     }
     public Resource getMiddleRowResource(int col){

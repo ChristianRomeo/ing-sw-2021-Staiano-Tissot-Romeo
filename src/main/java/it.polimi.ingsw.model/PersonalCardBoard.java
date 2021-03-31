@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class PersonalCardBoard {
     private int numberOfCards;
-    private List<List<DevelopmentCard>> ownedCards;
+    private List<List<DevelopmentCard>> ownedCards;     //List<DevelopmentCard>[3]?
 
     public PersonalCardBoard(){
         ownedCards = new ArrayList<>();

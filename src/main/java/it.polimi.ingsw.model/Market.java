@@ -8,11 +8,14 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author enrico
  */
 public class Market {
+    private static final int MAXROWS=3;
+    private static final int MAXCOLUMNS=4;
+
     private MarbleColor[][] marbles;
     private MarbleColor slideMarble;
 
     public Market(){
-        marbles = new MarbleColor[3][4];
+        marbles = new MarbleColor[MAXROWS][MAXCOLUMNS];
         initMarket();
     }
 
@@ -21,8 +24,7 @@ public class Market {
      * It initialize the Market board.
      */
     private void initMarket(){
-        int randomNum;
-        List<MarbleColor> colors = new ArrayList<MarbleColor>();
+        List<MarbleColor> colors = new ArrayList<>();
 
         colors.add(MarbleColor.WHITE);
         colors.add(MarbleColor.WHITE);
@@ -38,12 +40,12 @@ public class Market {
         colors.add(MarbleColor.PURPLE);
         colors.add(MarbleColor.RED);
 
-        randomNum = ThreadLocalRandom.current().nextInt(0, colors.size());
+        int randomNum = ThreadLocalRandom.current().nextInt(0, colors.size());
         slideMarble= colors.get(randomNum);
         colors.remove(randomNum);
 
-        for(int i=0; i<3; i++){
-            for(int j=0; j<4;j++){
+        for(int i=0; i<MAXROWS; i++){
+            for(int j=0; j<MAXCOLUMNS;j++){
                 randomNum = ThreadLocalRandom.current().nextInt(0, colors.size());
                 marbles[i][j] = colors.get(randomNum);
                 colors.remove(randomNum);

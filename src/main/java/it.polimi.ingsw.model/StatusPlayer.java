@@ -12,7 +12,7 @@ public class StatusPlayer {
         private Map<Resource,Integer> strongboxResources;
         private SameTypeTriple<PopeFavorTileStatus> popeFavorTiles;
         private PersonalCardBoard personalCardBoard;
-        private LeaderCard[] leaderCards;
+        private LeaderCard[] leaderCards;       //pair?
 
         public StatusPlayer(){
                 popeFavorTiles = new SameTypeTriple<>(PopeFavorTileStatus.INACTIVE,PopeFavorTileStatus.INACTIVE,PopeFavorTileStatus.INACTIVE);

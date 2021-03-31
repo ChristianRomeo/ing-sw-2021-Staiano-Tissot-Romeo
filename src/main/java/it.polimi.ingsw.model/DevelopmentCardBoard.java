@@ -1,16 +1,11 @@
 package it.polimi.ingsw.model;
 
 import com.google.gson.*;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.*;
 import java.util.stream.Collectors;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-
 
 /**
  * DevelopmentCardBoard contains the Board's cards from where the player can pick his choice
@@ -68,6 +63,19 @@ public class DevelopmentCardBoard {
         if(!isCardPileEmpty(i,j))
             cardBoard[i][j].remove(cardBoard[i][j].size()-1);
 
+    }
+
+    /**
+     * Method getCard...
+     * @param i rows
+     * @param j columns
+     * @return DevelopmentCard type
+     */
+    public DevelopmentCard getCard(int i, int j) throws NullPointerException{   //todo throws deve scegliere un altra pila
+        if(!isCardPileEmpty(i,j))
+            return cardBoard[i][j].get(cardBoard[i][j].size() - 1);
+        else
+            return null; //exception
     }
 
     /**

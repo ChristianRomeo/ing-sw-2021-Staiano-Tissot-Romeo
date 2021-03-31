@@ -90,17 +90,16 @@ public class Player {
                     sum += statusPlayer.getPersonalCardBoard().getCard(i, j).getVictoryPoints();
         }
 
-        //calculate victory points based on Strongbox Resources
-        //statusPlayer.getStrongboxResources().forEach((resource, numOfResource)-> totalNumOfResources += numOfResource);
-        // int totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().reduce(0, Integer::tot);
-        //Collection<Integer> vals = statusPlayer.getStrongboxResources().values();
-        // vals.forEach(totalNumOfResources += vals);
+        /*  calculate victory points based on Strongbox Resources
+             statusPlayer.getStrongboxResources().forEach((resource, numOfResource)-> totalNumOfResources += numOfResource);
+             int totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().reduce(0, Integer::tot);
+             Collection<Integer> vals = statusPlayer.getStrongboxResources().values();
+             vals.forEach(totalNumOfResources += vals);*/
         totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().mapToInt(Integer::intValue).sum();
 
         /*increase sum based on Pop Favor Tiles.
         The number of points given are fixed, and specifically the minimum number of Victory Points assigned
-        (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.
-        */
+        (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
         for(int i = 0; i < 3; i++) {
             if (statusPlayer.getPopeFavorTile(i) == PopeFavorTileStatus.ACTIVE)
                 sum += popFavorTileMinNumOfVP;
