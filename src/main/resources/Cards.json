@@ -42,7 +42,7 @@
     "victoryPoints": 2,
     "type": "green",
     "level": 1,
-    "needs": [{"shield": 1}, {"stone": 1}, {"servant": 1}]
+    "needs": {"shield": 1, "stone": 1, "servant": 1}
   },
   {
     "id": 6,
@@ -51,7 +51,7 @@
     "victoryPoints": 2,
     "type": "purple",
     "level": 1,
-    "needs": [{"shield": 1}, {"coin": 1}, {"servant": 1}]
+    "needs": {"shield": 1, "coin": 1, "servant": 1}
   },
   {
     "id": 7,
@@ -60,7 +60,7 @@
     "victoryPoints": 2,
     "type": "blue",
     "level": 1,
-    "needs": [{"servant": 1}, {"stone": 1}, {"servant": 1}]
+    "needs": {"servant": 1, "stone": 1, "servant": 1}
   },
   {
     "id": 8,
@@ -69,12 +69,12 @@
     "victoryPoints": 2,
     "type": "yellow",
     "level": 1,
-    "needs": [{"shield": 1}, {"coin": 1}, {"stone": 1}]
+    "needs": {"shield": 1, "coin": 1, "stone": 1}
   },
   {
     "id": 9,
     "toGive": {"servant": 2},
-    "toHave": [{"coin": 1}, {"shield": 1}, {"stone": 1}],
+    "toHave": {"coin": 1, "shield": 1, "stone": 1},
     "victoryPoints": 3,
     "type": "green",
     "level": 1,
@@ -83,7 +83,7 @@
   {
     "id": 10,
     "toGive": {"coin": 2},
-    "toHave": [{"servant": 1}, {"shield": 1}, {"stone": 1}],
+    "toHave": {"servant": 1, "shield": 1, "stone": 1},
     "victoryPoints": 3,
     "type": "purple",
     "level": 1,
@@ -92,7 +92,7 @@
   {
     "id": 11,
     "toGive": {"stone": 2},
-    "toHave": [{"coin": 1}, {"servant": 1}, {"shield": 1}],
+    "toHave": {"coin": 1, "servant": 1, "shield": 1},
     "victoryPoints": 3,
     "type": "blue",
     "level": 1,
@@ -101,7 +101,7 @@
   {
     "id": 12,
     "toGive": {"shields": 2},
-    "toHave": [{"coin": 1}, {"servant": 1}, {"stone": 1}],
+    "toHave": {"coin": 1, "servant": 1, "stone": 1},
     "victoryPoints": 3,
     "type": "yellow",
     "level": 1,
@@ -109,39 +109,39 @@
   },
   {
     "id": 13,
-    "toGive": [{"stone": 1}, {"servant": 1}],
-    "toHave": [{"coin": 2}, {"fp": 1}],
+    "toGive": {"stone": 1, "servant": 1},
+    "toHave": {"coin": 2, "fp": 1},
     "victoryPoints": 4,
     "type": "green",
     "level": 1,
-    "needs": [{"shields": 2}, {"coin": 2}]
+    "needs": {"shields": 2, "coin": 2}
   },
   {
     "id": 14,
-    "toGive": [{"coin": 1}, {"shield": 1}],
-    "toHave": [{"fp": 1} , {"stone": 2}],
+    "toGive": {"coin": 1, "shield": 1},
+    "toHave": {"fp": 1 , "stone": 2},
     "victoryPoints": 4,
     "type": "purple",
     "level": 1,
-    "needs": [{"servant": 2}, {"stone": 2}]
+    "needs": {"servant": 2, "stone": 2}
   },
   {
     "id": 15,
-    "toGive": [{"shield": 1}, {"stone": 1}],
-    "toHave": [{"fp": 1}, {"servant": 2}],
+    "toGive": {"shield": 1, "stone": 1},
+    "toHave": {"fp": 1, "servant": 2},
     "victoryPoints": 4,
     "type": "blue",
     "level": 1,
-    "needs": [{"coin": 2}, {"servant": 2}]
+    "needs": {"coin": 2, "servant": 2}
   },
   {
     "id": 16,
-    "toGive": [{"coin": 1} , {"servant": 1}],
-    "toHave": [{"fp": 1} , {"servant": 1}],
+    "toGive": {"coin": 1 , "servant": 1},
+    "toHave": {"fp": 1 , "servant": 1},
     "victoryPoints": 4,
     "type": "yellow",
     "level": 1,
-    "needs": [{"shield": 2}, {"stone": 2}]
+    "needs": {"shield": 2, "stone": 2}
   },
   {
     "id": 17,
@@ -181,44 +181,44 @@
   },
   {
     "id": 21,
-    "toGive": [{"shield": 1}, {"servant": 1}],
+    "toGive": {"shield": 1, "servant": 1},
     "toHave": {"stone": 3},
     "victoryPoints": 6,
     "type": "green",
     "level": 2,
-    "needs": [{"servant": 1}, {"servant": 2}]
+    "needs": {"servant": 1, "servant": 2}
   },
   {
     "id": 22,
-    "toGive": [{"coin": 1}, {"servant": 1}],
+    "toGive": {"coin": 1, "servant": 1},
     "toHave": {"shield": 1},
     "victoryPoints": 6,
     "type": "purple",
     "level": 2,
-    "needs": [{"servant": 3}, {"coin": 2}]
+    "needs": {"servant": 3, "coin": 2}
   },
   {
     "id": 23,
-    "toGive": [{"coin": 1}, {"stone": 1}],
+    "toGive": {"coin": 1, "stone": 1},
     "toHave": {"servant": 3},
     "victoryPoints": 6,
     "type": "blue",
     "level": 2,
-    "needs": [{"coin": 3}, {"stone": 2}]
+    "needs": {"coin": 3, "stone": 2}
   },
   {
     "id": 24,
-    "toGive": [{"stone": 1}, {"shield": 1}],
+    "toGive": {"stone": 1, "shield": 1},
     "toHave": {"coin": 3},
     "victoryPoints": 6,
     "type": "yellow",
     "level": 2,
-    "needs": [{"shield": 2}, {"stone": 3}]
+    "needs": {"shield": 2, "stone": 3}
   },
   {
     "id": 25,
     "toGive": {"coin": 2},
-    "toHave": [{"fp": 2}, {"stone": 2}],
+    "toHave": {"fp": 2, "stone": 2},
     "victoryPoints": 7,
     "type": "green",
     "level": 2,
@@ -227,7 +227,7 @@
   {
     "id": 26,
     "toGive": {"stone": 2},
-    "toHave": [{"fp": 2}, {"coin": 2}],
+    "toHave": {"fp": 2, "coin": 2},
     "victoryPoints": 7,
     "type": "purple",
     "level": 2,
@@ -236,7 +236,7 @@
   {
     "id": 27,
     "toGive": {"servant": 2},
-    "toHave": [{"fp": 2}, {"shield": 2}],
+    "toHave": {"fp": 2, "shield": 2},
     "victoryPoints": 7,
     "type": "blue",
     "level": 2,
@@ -245,7 +245,7 @@
   {
     "id": 28,
     "toGive": {"shield": 2},
-    "toHave": [{"fp": 2}, {"servant": 2}],
+    "toHave": {"fp": 2, "servant": 2},
     "victoryPoints": 7,
     "type": "yellow",
     "level": 2,
@@ -254,43 +254,43 @@
   {
     "id": 29,
     "toGive": {"coin": 1},
-    "toHave": [{"fp": 1}, {"shield": 1}],
+    "toHave": {"fp": 1, "shield": 1},
     "victoryPoints": 8,
     "type": "green",
     "level": 2,
-    "needs": [{"shields": 3}, {"coin": 3}]
+    "needs": {"shields": 3, "coin": 3}
   },
   {
     "id": 30,
     "toGive": {"stone": 1},
-    "toHave": [{"fp": 1}, {"servant": 2}],
+    "toHave": {"fp": 1, "servant": 2},
     "victoryPoints": 8,
     "type": "purple",
     "level": 2,
-    "needs": [{"shield": 3}, {"servant": 3}]
+    "needs": {"shield": 3, "servant": 3}
   },
   {
     "id": 31,
     "toGive": {"servant": 1},
-    "toHave": [{"stone": 2}, {"fp": 1}],
+    "toHave": {"stone": 2, "fp": 1},
     "victoryPoints": 8,
     "type": "blue",
     "level": 2,
-    "needs": [{"stone": 3}, {"coin": 3}]
+    "needs": {"stone": 3, "coin": 3}
   },
   {
     "id": 32,
     "toGive": {"shield": 1},
-    "toHave": [{"fp": 1}, {"coin": 2}],
+    "toHave": {"fp": 1, "coin": 2},
     "victoryPoints": 8,
     "type": "yellow",
     "level": 2,
-    "needs": [{"stone": 3}, {"servant": 3}]
+    "needs": {"stone": 3, "servant": 3}
   },
   {
     "id": 33,
     "toGive": {"coin": 2},
-    "toHave": [{"stone": 3}, {"fp": 2}],
+    "toHave": {"stone": 3, "fp": 2},
     "victoryPoints": 9,
     "type": "green",
     "level": 3,
@@ -299,7 +299,7 @@
   {
     "id": 34,
     "toGive": {"stone": 2},
-    "toHave": [{"fp": 2}, {"coin": 3}],
+    "toHave": {"fp": 2, "coin": 3},
     "victoryPoints": 9,
     "type": "purple",
     "level": 3,
@@ -308,7 +308,7 @@
   {
     "id": 35,
     "toGive": {"servant": 2},
-    "toHave": [{"shield": 1}, {"fp": 1}],
+    "toHave": {"shield": 1, "fp": 1},
     "victoryPoints": 9,
     "type": "blue",
     "level": 3,
@@ -317,7 +317,7 @@
   {
     "id": 36,
     "toGive": {"shield": 2},
-    "toHave": ["3 servant", {"fp": 2}],
+    "toHave": {"servant": 3, "fp": 2},
     "victoryPoints": 9,
     "type": "yellow",
     "level": 3,
@@ -325,44 +325,44 @@
   },
   {
     "id": 37,
-    "toGive": [{"coin": 1}, {"servant": 1}],
-    "toHave": [{"fp": 1}, {"shield": 2}, {"stone": 2}],
+    "toGive": {"coin": 1, "servant": 1},
+    "toHave": {"fp": 1, "shield": 2, "stone": 2},
     "victoryPoints": 10,
     "type": "green",
     "level": 3,
-    "needs": [{"shield": 5}, {"servant": 2}]
+    "needs": {"shield": 5, "servant": 2}
   },
   {
     "id": 38,
-    "toGive": [{"stone": 1}, {"shield": 1}],
-    "toHave": [{"fp": 1}, {"servant": 2}, {"coin": 2}],
+    "toGive": {"stone": 1, "shield": 1},
+    "toHave": {"fp": 1, "servant": 2, "coin": 2},
     "victoryPoints": 10,
     "type": "purple",
     "level": 3,
-    "needs": [{"coin": 2}, {"servant": 5}]
+    "needs": {"coin": 2, "servant": 5}
   },
   {
     "id": 39,
-    "toGive": [{"coin": 1}, {"shield": 1}],
-    "toHave": [{"fp": 1}, {"stone": 2}, {"servant": 2}],
+    "toGive": {"coin": 1, "shield": 1},
+    "toHave": {"fp": 1, "stone": 2, "servant": 2},
     "victoryPoints": 10,
     "type": "blue",
     "level": 3,
-    "needs": [{"coin": 5}, {"stone": 2}]
+    "needs": {"coin": 5, "stone": 2}
   },
   {
     "id": 40,
-    "toGive": [{"stone": 1}, {"servant": 1}],
-    "toHave": [{"fp": 1}, {"shield": 2}, {"coin": 2}],
+    "toGive": {"stone": 1, "servant": 1},
+    "toHave": {"fp": 1, "shield": 2, "coin": 2},
     "victoryPoints": 10,
     "type": "yellow",
     "level": 3,
-    "needs": [{"stone": 5}, {"servant": 2}]
+    "needs": {"stone": 5, "servant": 2}
   },
   {
     "id": 41,
     "toGive": {"servant": 1},
-    "toHave": [{"fp": 3}, {"coin": 1}],
+    "toHave": {"fp": 3, "coin": 1},
     "victoryPoints": 11,
     "type": "green",
     "level": 3,
@@ -371,7 +371,7 @@
   {
     "id": 42,
     "toGive": {"coin": 1},
-    "toHave": [{"stone": 1}, {"fp": 3}],
+    "toHave": {"stone": 1, "fp": 3},
     "victoryPoints": 11,
     "type": "purple",
     "level": 3,
@@ -380,7 +380,7 @@
   {
     "id": 43,
     "toGive": {"stone": 1},
-    "toHave": [{"fp": 3}, {"shield": 1}],
+    "toHave": {"fp": 3, "shield": 1},
     "victoryPoints": 11,
     "type": "blue",
     "level": 3,
@@ -388,8 +388,8 @@
   },
   {
     "id": 44,
-    "toGive": [{"shield": 1}],
-    "toHave": [{"fp": 3}, {"servant": 1}],
+    "toGive": {"shield": 1},
+    "toHave": {"fp": 3, "servant": 1},
     "victoryPoints": 11,
     "type": "yellow",
     "level": 3,
@@ -398,37 +398,37 @@
   {
     "id": 45,
     "toGive": {"stone": 1},
-    "toHave": [{"shield": 1}, {"coin": 3}],
+    "toHave": {"shield": 1, "coin": 3},
     "victoryPoints": 12,
     "type": "green",
     "level": 3,
-    "needs": [{"shield": 4}, {"coin": 4}]
+    "needs": {"shield": 4, "coin": 4}
   },
   {
     "id": 46,
     "toGive": {"coin": 1},
-    "toHave": [{"servant": 1}, {"stone": 3}],
+    "toHave": {"servant": 1, "stone": 3},
     "victoryPoints": 12,
     "type": "purple",
     "level": 3,
-    "needs": [{"servant": 4}, {"shield": 4}]
+    "needs": {"servant": 4, "shield": 4}
   },
   {
     "id": 47,
     "toGive": {"servant": 1},
-    "toHave": [{"coin": 1}, {"shield": 3}],
+    "toHave": {"coin": 1, "shield": 3},
     "victoryPoints": 12,
     "type": "blue",
     "level": 3,
-    "needs": [{"coin": 4}, {"stone": 4}]
+    "needs": {"coin": 4, "stone": 4}
   },
   {
     "id": 48,
     "toGive": {"shield": 1},
-    "toHave": [{"stone": 1}, {"servant": 3}],
+    "toHave": {"stone": 1, "servant": 3},
     "victoryPoints": 12,
     "type": "yellow",
     "level": 3,
-    "needs": [{"stone": 4}, {"servant": 4}]
+    "needs": {"stone": 4, "servant": 4}
   }
 ]
