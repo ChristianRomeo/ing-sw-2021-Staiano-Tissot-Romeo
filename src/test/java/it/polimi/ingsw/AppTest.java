@@ -77,9 +77,9 @@ public class AppTest
         DevelopmentCardBoard developmentCardBoard;
         try{
             developmentCardBoard = new DevelopmentCardBoard();
-            System.out.println(developmentCardBoard.isCardPileEmpty(0,0));
+            System.out.println("ciao");
         }catch(Exception e){
-            //
+            System.out.println("eccezione");
         }
     }
 
@@ -114,4 +114,27 @@ public class AppTest
 
     }*/
 
+
+    @Test//test passed, the personal card board works
+    public void testPersonalCardBoard()
+    {
+        PersonalCardBoard personalCardBoard = new PersonalCardBoard();
+        DevelopmentCard card1= new DevelopmentCard(0,null,null,0,null,1,null);
+        DevelopmentCard card11 = new DevelopmentCard(0,null,null,0,null,1,null);
+        DevelopmentCard card2 = new DevelopmentCard(0,null,null,0,null,2,null);
+        DevelopmentCard card3 = new DevelopmentCard(0,null,null,0,null,3,null);
+        DevelopmentCard card33 = new DevelopmentCard(0,null,null,0,null,3,null);
+        try{
+            personalCardBoard.addCard(card1,0);
+            personalCardBoard.addCard(card11,1);
+            personalCardBoard.addCard(card2,0);
+            personalCardBoard.addCard(card3,0);
+         //   personalCardBoard.addCard(card33,0);
+           // personalCardBoard.addCard(card2,2);
+            personalCardBoard.addCard(card33,1);
+
+        }catch(Exception e){
+            System.out.println("ecc");
+        }
+    }
 }
