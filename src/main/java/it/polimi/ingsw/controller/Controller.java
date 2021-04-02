@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
+import modelExceptions.InvalidWarehouseInsertionException;
+import modelExceptions.VaticanReportException;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import modelExceptions.InvalidCardInsertionException;
+
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -59,7 +61,7 @@ public class PersonalCardBoard {
      * @param i it's the number of the pile you want to select (0,1,2)
      * @param card is the card you want to add
      */
-    public void addCard(DevelopmentCard card, int i) throws InvalidCardInsertionException{
+    public void addCard(DevelopmentCard card, int i) throws InvalidCardInsertionException {
         if(card.getLevel()==(ownedCards.get(i).size()+1)){
             ownedCards.get(i).add(card);
             numberOfCards++;

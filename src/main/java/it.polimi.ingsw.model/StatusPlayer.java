@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import modelExceptions.VaticanReportException;
+
 import java.util.Map;
 /**
  * @author enrico (vatican reports and increment faith position)
@@ -43,7 +45,7 @@ public class StatusPlayer {
          * Method incrementFaithTrackPosition is used to increment the faith track position,
          * it also checks if a vatican report is activated, in that case it throws an exception
          */
-        public void incrementFaithTrackPosition() throws VaticanReportException{
+        public void incrementFaithTrackPosition() throws VaticanReportException {
                 if(faithTrackPosition<24){
                         faithTrackPosition++;
                 }

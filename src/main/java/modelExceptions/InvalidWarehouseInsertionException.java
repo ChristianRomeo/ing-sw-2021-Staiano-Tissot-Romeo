@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package modelExceptions;
 /**
  *Exception called when the insertion doesn't respect the warehouse rules, or the cell was already full.
  */

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import modelExceptions.InvalidWarehouseInsertionException;
+
 /**
  * @author enrico
  */
@@ -55,7 +57,7 @@ public class PlayerWarehouse {
      * @param col is the column of the warehouse where you want to insert the resource
      * @param resource is the resource you want to insert in the warehouse
      */
-    public void insertResource(Resource resource, int row, int col) throws InvalidWarehouseInsertionException{
+    public void insertResource(Resource resource, int row, int col) throws InvalidWarehouseInsertionException {
         if(row==1){
             setUpperRow(resource);
         }
