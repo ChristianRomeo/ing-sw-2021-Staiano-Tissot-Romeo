@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.*;
 import java.util.stream.Collectors;
@@ -51,6 +52,11 @@ public class DevelopmentCardBoard {
             cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 1 && x.getType().equals(color)).collect(Collectors.toList());
             cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 2 && x.getType().equals(color)).collect(Collectors.toList());
             cardBoard[row][col++] = list.stream().filter(x -> x.getLevel() == 3 && x.getType().equals(color)).collect(Collectors.toList());
+        }
+        for(int i=0; i<MAXROWS;i++){
+            for (int j=0; j<MAXCOLUMNS; j++){
+                Collections.shuffle(cardBoard[i][j]);
+            }
         }
     }
 

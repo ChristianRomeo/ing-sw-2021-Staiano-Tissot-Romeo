@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.util.HashMap;
 import java.util.Map;
 /**
  * @author enrico (vatican reports and increment faith position)
@@ -26,9 +27,7 @@ public class StatusPlayer {
             return faithTrackPosition;
         }
 
-        public Map<Resource,Integer> getStrongboxResources() {
-                return strongboxResources;
-        }
+
         /**
          * Method getPopeFavorTile takes an integer between 0 and 2, and returns the
          * the status of the first or second or third pope favor tile
@@ -92,6 +91,18 @@ public class StatusPlayer {
                 }
         }
 
+        //you give to this method a resource, and it remove one resource of that type from the
+        //strongbox
+        public void removeStrongboxResource(Resource resource){
+                if(strongboxResources.containsKey(resource) && strongboxResources.get(resource)>0){
+                        strongboxResources.put(resource,strongboxResources.get(resource)-1);
+                }
+        }
+
+        public Map<Resource,Integer> getStrongboxResources() {
+                return strongboxResources;
+        }
+
         public void setResourceStrongbox(Map <Resource,Integer> resources) {
 
         }
@@ -106,6 +117,23 @@ public class StatusPlayer {
 
         public LeaderCard[] getPlayerLeaderCards(){
                 return leaderCards;
+        }
+
+        //this method returns all the resources of the player
+        public Map<Resource,Integer> getAllResources(){
+                Map<Resource, Integer> allResources = new HashMap<>(strongboxResources);
+
+                Map<Resource, Integer> warehouseResources= playerWarehouse.getAllResources();
+                for(Resource r: warehouseResources.keySet()){
+                        if(!allResources.containsKey(r)){
+                                allResources.put(r,warehouseResources.get(r));
+                        }else{
+                                allResources.put(r,allResources.get(r)+warehouseResources.get(r));
+                        }
+                }
+
+                //todo:qui vanno aggiunte eventuali risorse in depositi carte leader
+                return allResources;
         }
 
 }

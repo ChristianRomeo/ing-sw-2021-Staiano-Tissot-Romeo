@@ -29,6 +29,17 @@ public class DevelopmentCard {
         this.producedFaithPoints=producedFaithPoints;
     }
 
+    public DevelopmentCard(){
+        id=0;
+        type=null;
+        level=0;
+        cost=null;
+        victoryPoints=0;
+        requiredResources=null;
+        producedResources=null;
+        producedFaithPoints=0;
+    }
+
     public int getId(){ return id; }
 
     public CardType getType() {
@@ -56,5 +67,16 @@ public class DevelopmentCard {
     }
 
     public int getProducedFaithPoints() {return producedFaithPoints;}
+
+    //you give to this method your resources, and it tells you if you have enough resources
+    //to buy this card
+    public boolean isBuyable(Map<Resource,Integer> ownedResources){
+        for(Resource r: cost.keySet()){
+            if(!ownedResources.containsKey(r) || ownedResources.get(r)<cost.get(r)){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
