@@ -53,8 +53,8 @@ public class DevelopmentCardBoard {
             cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 2 && x.getType().equals(color)).collect(Collectors.toList());
             cardBoard[row][col++] = list.stream().filter(x -> x.getLevel() == 3 && x.getType().equals(color)).collect(Collectors.toList());
         }
-        for(int i=0; i<MAXROWS;i++){
-            for (int j=0; j<MAXCOLUMNS; j++){
+        for(int i=0; i<MAXROWS;++i){
+            for (int j=0; j<MAXCOLUMNS; ++j){
                 Collections.shuffle(cardBoard[i][j]);
             }
         }
@@ -62,36 +62,35 @@ public class DevelopmentCardBoard {
 
     /**
      * Method removeCard to remove a card from a given pile
-     * @param i rows
-     * @param j columns
+     * @param row -riga da estrarre
+     * @param column -colonna da estrarre
      */
-    public void removeCard(int i, int j) {
-        if(!isCardPileEmpty(i,j))
-            cardBoard[i][j].remove(cardBoard[i][j].size()-1);
-
+    public void removeCard(int row, int column) {
+        if(!isCardPileEmpty(row,column))
+            cardBoard[row][column].remove(cardBoard[row][column].size()-1);
     }
 
     /**
      * Method getCard...
-     * @param i rows
-     * @param j columns
+     * @param row
+     * @param column
      * @return DevelopmentCard type
      */
-    public DevelopmentCard getCard(int i, int j) throws NullPointerException{   //todo throws deve scegliere un altra pila
-        if(!isCardPileEmpty(i,j))
-            return cardBoard[i][j].get(cardBoard[i][j].size() - 1);
+    public DevelopmentCard getCard(int row, int column) throws NullPointerException{   //todo throws deve scegliere un altra pila
+        if(!isCardPileEmpty(row,column))
+            return cardBoard[row][column].get(cardBoard[row][column].size() - 1);
         else
             return null; //exception
     }
 
     /**
      * Method isCardPileEmpty to check whether a given pile is empty
-     * @param i rows
-     * @param j columns
+     * @param row
+     * @param column
      * @return true / false
      */
-    public boolean isCardPileEmpty(int i, int j) {
-        return (cardBoard[i][j] == null || cardBoard[i][j].size() == 0);
+    public boolean isCardPileEmpty(int row, int column) {
+        return (cardBoard[row][column] == null || cardBoard[row][column].size() == 0);
     }
 
 

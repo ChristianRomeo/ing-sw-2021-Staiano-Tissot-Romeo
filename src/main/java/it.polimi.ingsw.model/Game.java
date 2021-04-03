@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
 
-
-
-
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Game class contains the main logic of "Master of Renaissance", which is divided in several macro-areas. The
@@ -16,18 +15,22 @@ import java.util.ArrayList;
 public class Game {
     public static final int MAXPLAYERS = 4;
 
-    private int playersNumber=0;
+    private int playersNumber;
     //private boolean gameStarted_Ended;
     private int winnerIndex; //not sure it goes here
     private final Board board;
-    private final ArrayList<Player> players;
+    private final List<Player> players;
     private Player currentPlayer;
     private int currentPlayerId;
 
-    /**Constructor Game creates a new Game instance. */
-    public Game() {
+    /**
+     * Constructor Game creates a new Game instance.
+     */
+    public Game() throws IOException {
+        this.playersNumber=0;
         board = new Board();
         players = new ArrayList<>();
+        currentPlayerId=0;
     }
 
     /**
@@ -46,7 +49,7 @@ public class Game {
      * @param player of type Player not null - the player to be added.
      */
     public void addNewPlayer(Player player) {
-        //todo to be checked to not exceed MAXPLAYERS with getPlayerNumber()
+        //todo check to not exceed MAXPLAYERS with getPlayerNumber()
         int idx=1;
         while (isNicknameTaken(player.getNickname()))
             player.setNickname(player.getNickname()+"_"+idx++);
@@ -121,6 +124,7 @@ public class Game {
         currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
         setCurrentPlayer(players.get(currentPlayerId));
     }
+
     /**
      * Method getCurrentPlayerId is a getter of the current player id.
      *

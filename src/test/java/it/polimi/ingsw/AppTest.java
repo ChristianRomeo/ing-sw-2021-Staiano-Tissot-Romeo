@@ -1,29 +1,20 @@
 package it.polimi.ingsw;
-import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for simple App.
+ * Unit tests.
  */
 public class AppTest
 {
-    /*
-     * Rigorous Test :-)
-     */
-   @Test
-    public void shouldAnswerWithTrue()
-    {
-        System.out.println("hello");
-    }
-
 
     @Test //test passed, the inizialization create a correct random market
     public void testMarketInizialization()
     {
         Market market = new Market();
-        System.out.println("");
+        System.out.println("b");
     }
 
     @Test //test passed, the shift is correct (the resources collecting isn't implemented yet)
@@ -35,7 +26,7 @@ public class AppTest
         market.selectRow(0);
         market.selectRow(1);
         market.selectRow(2);
-        System.out.println("");
+        System.out.println("ciaomarket");
     }
 
     @Test // test passed, set a resource in the warehouse and removing resources should work

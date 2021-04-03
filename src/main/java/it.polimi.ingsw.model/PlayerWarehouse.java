@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * This class represent the warehouse of the player with 3 rows of storage.
  * @author enrico
  */
 public class PlayerWarehouse {
@@ -15,9 +16,10 @@ public class PlayerWarehouse {
 
     public PlayerWarehouse(){
         upperRow=null;
-        middleRow = new SameTypePair<Resource>();
-        lowerRow = new SameTypeTriple<Resource>();
+        middleRow = new SameTypePair<>();
+        lowerRow = new SameTypeTriple<>();
     }
+
     /**
      * Method getResource takes a row and a column and returns the Resource
      * in that position of the warehouse (or null)
@@ -26,21 +28,24 @@ public class PlayerWarehouse {
      * @param col is the column of the warehouse you want to select (1,2,3)
      * @return the resource in that position of the warehouse
      */
-    public Resource getResource(int row, int col){
-        if(row==1){
+    public Resource getResource(int row, int col){  //WEIRD, se provo a mettere lo switch qui dice che 2 e 3 sono "unreachable"
+        if(row==1)
             return upperRow;
-        }
-        if(row==2){
+
+        if(row==2)
             return middleRow.get(col);
-        }
-        if(row==3){
+
+        if(row==3)
             return lowerRow.get(col);
-        }
+
         return null;
     }
 
-    /*the 3 following methods are getter too, if you prefer you can use them,
-     but I recommend to use getResource*/
+    /**
+     * the following 3 methods are getter too, if you prefer you can use them,
+     * but I recommend to use getResource. #Utils
+     * @return Resource - type
+     */
     public Resource getUpperRowResource(){
         return upperRow;
     }
@@ -51,22 +56,25 @@ public class PlayerWarehouse {
         return lowerRow.get(col);
     }
 
-    //this method returns all the resources in the warehouse
+    /**
+     *  this method returns all the resources in the warehouse
+     * @return A Map of all the resources owned by a player
+     */
     public Map<Resource,Integer> getAllResources(){
         Map<Resource,Integer> resources = new HashMap<>();
         Resource r;
-        for(int i=1; i<=3; i++){
-            for(int j=1; j<=i; j++){
-                r=getResource(i,j);
-                if(r!=null){
-                    if(!resources.containsKey(r)){
+        for(int row=1; row<=3; ++row){
+            for(int column=1; column<=row; ++column){
+                r=getResource(row,column);
+
+                if(r!=null)
+                    if(!resources.containsKey(r))
                         resources.put(r,1);
-                    }else{
+                    else
                         resources.put(r,resources.get(r)+1);
-                    }
-                }
             }
         }
+
         return resources;
     }
     /**
@@ -79,14 +87,16 @@ public class PlayerWarehouse {
      * @param resource is the resource you want to insert in the warehouse
      */
     public void insertResource(Resource resource, int row, int col) throws InvalidWarehouseInsertionException {
-        if(row==1){
-            setUpperRow(resource);
-        }
-        if(row==2){
-            setMiddleRow(resource, col);
-        }
-        if(row==3){
-            setLowerRow(resource,col);
+        switch (row) {
+            case 1:
+                setUpperRow(resource);
+                break;
+            case 2:
+                setMiddleRow(resource,col);
+                break;
+            case 3:
+                setLowerRow(resource,col);
+                break;
         }
     }
 
@@ -98,50 +108,48 @@ public class PlayerWarehouse {
      * @return the removed resource
      */
     public Resource removeResource(int row, int col){
-        Resource removedResource;
-        removedResource=getResource(row,col);
-        if(row==1){
-            upperRow=null;
-        }
-        if(row==2){
-            middleRow.set(null,col);
-        }
-        if(row==3){
-            lowerRow.set(null,col);
+        Resource removedResource=getResource(row,col);
+        switch (row) {
+            case 1:
+                upperRow = null;
+                break;
+            case 2:
+                middleRow.set(null,col);
+                break;
+            case 3:
+                lowerRow.set(null,col);
+                break;
         }
         return removedResource;
     }
 
-    //helper private methods
+    /**
+     *     helper private methods
+     */
     private void setUpperRow(Resource resource) throws InvalidWarehouseInsertionException{
-        if(upperRow!=null || middleRow.contains(resource)|| lowerRow.contains(resource)){
+        if(upperRow!=null || middleRow.contains(resource)|| lowerRow.contains(resource))
             throw new InvalidWarehouseInsertionException();
-        }
-        else{
+        else
             upperRow=resource;
-        }
     }
     private void setMiddleRow(Resource resource, int col) throws InvalidWarehouseInsertionException{
-        if(middleRow.get(col)!=null||upperRow==resource || lowerRow.contains(resource)){
+        if(middleRow.get(col)!=null||upperRow==resource || lowerRow.contains(resource))
             throw new InvalidWarehouseInsertionException();
-        }
 
-        for(Resource r: Resource.values()){
-            if(r!=resource && middleRow.contains(r)){
+        for(Resource r: Resource.values())
+            if(r!=resource && middleRow.contains(r))
                 throw new InvalidWarehouseInsertionException();
-            }
-        }
+
         middleRow.set(resource,col);
     }
     private void setLowerRow(Resource resource, int col) throws InvalidWarehouseInsertionException{
-        if(lowerRow.get(col)!=null||upperRow==resource || middleRow.contains(resource)){
+        if(lowerRow.get(col)!=null||upperRow==resource || middleRow.contains(resource))
             throw new InvalidWarehouseInsertionException();
-        }
-        for(Resource r: Resource.values()){
-            if(r!=resource && lowerRow.contains(r)){
+
+        for(Resource r: Resource.values())
+            if(r!=resource && lowerRow.contains(r))
                 throw new InvalidWarehouseInsertionException();
-            }
-        }
+
         lowerRow.set(resource, col);
     }
 }

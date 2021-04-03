@@ -1,8 +1,13 @@
 package it.polimi.ingsw.model;
 
 public class SoloAction {
-    private SoloActionType type;
-    private CardType discardedCardsType;
+    private final SoloActionType type;
+    private final CardType discardedCardsType;
+
+    public SoloAction(SoloActionType type, CardType discardedCardsType) {
+        this.type = type;
+        this.discardedCardsType = discardedCardsType;
+    }
 
     public SoloActionType getType() {
         return type;

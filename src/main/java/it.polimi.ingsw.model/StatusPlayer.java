@@ -5,39 +5,47 @@ import modelExceptions.VaticanReportException;
 import java.util.HashMap;
 import java.util.Map;
 /**
+ * This class represent all about the player, faith track sit rep,
  * @author enrico (vatican reports and increment faith position)
  */
 
 public class StatusPlayer {
 
         private int faithTrackPosition;
-        private PlayerWarehouse playerWarehouse;
-        private Map<Resource,Integer> strongboxResources;
-        private SameTypeTriple<PopeFavorTileStatus> popeFavorTiles;
-        private PersonalCardBoard personalCardBoard;
+        private final PlayerWarehouse playerWarehouse;
+        private final Map<Resource,Integer> strongboxResources;
+        private final SameTypeTriple<PopeFavorTileStatus> popeFavorTiles;
+        private final PersonalCardBoard personalCardBoard;
         private LeaderCard[] leaderCards;       //pair?
 
+        /**
+         * Constructor
+         */
         public StatusPlayer(){
                 popeFavorTiles = new SameTypeTriple<>(PopeFavorTileStatus.INACTIVE,PopeFavorTileStatus.INACTIVE,PopeFavorTileStatus.INACTIVE);
-                faithTrackPosition = 0; //it starts at 0 also in the game (the first cell is 0)
+                faithTrackPosition = 0;
                 playerWarehouse = new PlayerWarehouse();
                 personalCardBoard = new PersonalCardBoard();
-                //c'è da inizializzare tutto il resto
+                strongboxResources= new HashMap<>();
+                //c'è da inizializzare leader cards
         }
 
+        /**
+         * Getter faithTrackPosition
+         * @return faithTrackPosition
+         */
         public int getFaithTrackPosition() {
             return faithTrackPosition;
         }
 
-
         /**
          * Method getPopeFavorTile takes an integer between 0 and 2, and returns the
-         * the status of the first or second or third pope favor tile
-         * @param i number of pope favor tile to get
+         * the status of the first, second or third pope favor tile correspondingly
+         * @param index number of pope favor tile to get
          * @return the status of the selected pope favor tile
          */
-        public PopeFavorTileStatus getPopeFavorTile(int i) {
-                return popeFavorTiles.get(i);
+        public PopeFavorTileStatus getPopeFavorTile(int index) {
+                return popeFavorTiles.get(index);
         }
 
         /**
@@ -45,18 +53,18 @@ public class StatusPlayer {
          * it also checks if a vatican report is activated, in that case it throws an exception
          */
         public void incrementFaithTrackPosition() throws VaticanReportException {
-                if(faithTrackPosition<24){
+                if(faithTrackPosition<24)
                         faithTrackPosition++;
-                }
-                if(faithTrackPosition>= 8 && popeFavorTiles.get(1)==PopeFavorTileStatus.INACTIVE){
+
+                if(faithTrackPosition>= 8 && popeFavorTiles.get(1)==PopeFavorTileStatus.INACTIVE)
                         throw new VaticanReportException(1);
-                }
-                if(faithTrackPosition>=16 && popeFavorTiles.get(2)==PopeFavorTileStatus.INACTIVE){
+
+                if(faithTrackPosition>=16 && popeFavorTiles.get(2)==PopeFavorTileStatus.INACTIVE)
                         throw new VaticanReportException(2);
-                }
-                if(faithTrackPosition==24 && popeFavorTiles.get(3)==PopeFavorTileStatus.INACTIVE){
+
+                if(faithTrackPosition==24 && popeFavorTiles.get(3)==PopeFavorTileStatus.INACTIVE)
                         throw new VaticanReportException(3);
-                }
+
         }
 
         /**

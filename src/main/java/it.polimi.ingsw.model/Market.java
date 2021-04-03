@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * Here lies the marble matrix logic, with initialization and player selection
  * @author enrico
  */
 public class Market {
     private static final int MAXROWS=3;
     private static final int MAXCOLUMNS=4;
 
-    private MarbleColor[][] marbles;
+    private final MarbleColor[][] marbles;    //è giusto sia final?
     private MarbleColor slideMarble;
 
     public Market(){
@@ -41,14 +42,12 @@ public class Market {
         colors.add(MarbleColor.RED);
 
         int randomNum = ThreadLocalRandom.current().nextInt(0, colors.size());
-        slideMarble= colors.get(randomNum);
-        colors.remove(randomNum);
+        slideMarble= colors.remove(randomNum); //remove Returns the element that was removed from the list.
 
-        for(int i=0; i<MAXROWS; i++){
-            for(int j=0; j<MAXCOLUMNS;j++){
+        for(int i=0; i<MAXROWS; ++i){
+            for(int j=0; j<MAXCOLUMNS;++j){
                 randomNum = ThreadLocalRandom.current().nextInt(0, colors.size());
-                marbles[i][j] = colors.get(randomNum);
-                colors.remove(randomNum);
+                marbles[i][j] = colors.remove(randomNum); //remove Returns the element that was removed from the list.
             }
         }
     }
@@ -56,12 +55,12 @@ public class Market {
     /**
      * Method getColor is a getter of one of the marbles inside the Market (not the slide marble)
      *
-     * @param i is the row of the marble you want to get
-     * @param j is the column of the marble you want to get
+     * @param row of the marble you want to get
+     * @param column of the marble you want to get
      * @return the marble in that position of the market
      */
-    public MarbleColor getColor(int i, int j) {
-       return marbles[i][j];
+    public MarbleColor getColor(int row, int column) {
+        return marbles[row][column];
     }
     /**
      * Method getSlideMarble is the getter of the slide marble
@@ -75,20 +74,20 @@ public class Market {
      * game's rules, and returns the list of the taken marbles (the marbles that were in that column
      * in the beginning)
      *
-     * @param i is the index of the column you want to select
+     * @param column is the index of the column you want to select
      * @return the list of the taken (bought) marbles
      */
-    public List<MarbleColor> selectColumn(int i) {
+    public List<MarbleColor> selectColumn(int column) {
         List<MarbleColor> takenMarbles = new ArrayList<>();
-        takenMarbles.add(marbles[0][i]);
-        takenMarbles.add(marbles[1][i]);
-        takenMarbles.add(marbles[2][i]);
+        takenMarbles.add(marbles[0][column]);
+        takenMarbles.add(marbles[1][column]);
+        takenMarbles.add(marbles[2][column]);
 
         MarbleColor tempMarble = slideMarble;
-        slideMarble = marbles[0][i];
-        marbles[0][i] = marbles[1][i];
-        marbles[1][i] = marbles[2][i];
-        marbles[2][i] = tempMarble;
+        slideMarble = marbles[0][column];
+        marbles[0][column] = marbles[1][column];
+        marbles[1][column] = marbles[2][column];
+        marbles[2][column] = tempMarble;
 
         return takenMarbles;
     }
@@ -97,22 +96,22 @@ public class Market {
      * game's rules, and returns the list of the taken marbles (the marbles that were in that row
      * in the beginning)
      *
-     * @param i is the index of the row you want to select
+     * @param row is the index of the row you want to select
      * @return the list of the taken (bought) marbles
      */
-    public List<MarbleColor> selectRow(int i) {
+    public List<MarbleColor> selectRow(int row) {
         List<MarbleColor> takenMarbles = new ArrayList<>();
-        takenMarbles.add(marbles[i][0]);
-        takenMarbles.add(marbles[i][1]);
-        takenMarbles.add(marbles[i][2]);
-        takenMarbles.add(marbles[i][3]);
+        takenMarbles.add(marbles[row][0]);
+        takenMarbles.add(marbles[row][1]);
+        takenMarbles.add(marbles[row][2]);
+        takenMarbles.add(marbles[row][3]);
 
         MarbleColor tempMarble = slideMarble;
-        slideMarble = marbles[i][0];
-        marbles[i][0] = marbles[i][1];
-        marbles[i][1] = marbles[i][2];
-        marbles[i][2] = marbles[i][3];
-        marbles[i][3] = tempMarble;
+        slideMarble = marbles[row][0];
+        marbles[row][0] = marbles[row][1];
+        marbles[row][1] = marbles[row][2];
+        marbles[row][2] = marbles[row][3];
+        marbles[row][3] = tempMarble;
 
         return takenMarbles;
     }
