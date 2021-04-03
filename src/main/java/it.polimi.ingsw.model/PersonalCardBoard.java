@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class PersonalCardBoard {
     private int numberOfCards;
-    private List<List<DevelopmentCard>> ownedCards;     //List<DevelopmentCard>[3]?
+    private List<List<DevelopmentCard>> ownedCards;     //final?
 
     public PersonalCardBoard(){
         ownedCards = new ArrayList<>();
@@ -24,13 +24,14 @@ public class PersonalCardBoard {
         return numberOfCards;
     }
 
-    //this method tells you if you can buy a card of level "level" or not (because there is no space)
+    /**
+     *   this method tells you if you can buy a card of level "level" or not (because there is no space)
+     */
     public boolean canBuyCardOfLevel(int level){
-        for(int i=0; i<=2; i++){
-            if(ownedCards.get(i).size() == level-1){
+        for(int i=0; i<=2; i++)
+            if(ownedCards.get(i).size() == level-1)
                 return true;
-            }
-        }
+
         return false;
     }
 
@@ -38,14 +39,14 @@ public class PersonalCardBoard {
      * Method getCard takes a int i between 0 and 2 to select one of the three pile of owned cards,
      * and a int j (between 0 and the size of the pile -1) and returns the owned development
      * card in that position
-     * @param i it's the number of the pile you want to select (0,1,2)
-     * @param j it's the number of the card you want to select in that pile
+     * @param pile it's the number of the pile you want to select (0,1,2)
+     * @param depth it's the number of the card you want to select in that pile
      * @return the card in that postion
      */
-    public DevelopmentCard getCard(int i, int j) {
-        if(j>=0 && j<ownedCards.get(i).size()){
-            return ownedCards.get(i).get(j);
-        }
+    public DevelopmentCard getCard(int pile, int depth) {
+        if(depth>=0 && depth<ownedCards.get(pile).size())
+            return ownedCards.get(pile).get(depth);
+
         return null;
     }
 
@@ -53,12 +54,12 @@ public class PersonalCardBoard {
      * Method getUpperCard takes a int i between 0 and 2 to select one of the three pile of owned cards,
      * and returns the card on top of that pile
      *
-     * @param i it's the number of the pile you want to select (0,1,2)
+     * @param pile it's the number of the pile you want to select (0,1,2)
      * @return the card on top of the selected pile
      */
-    public DevelopmentCard getUpperCard(int i) {
-        if(ownedCards.get(i).size()>0){
-            return ownedCards.get(i).get(ownedCards.get(i).size()-1);
+    public DevelopmentCard getUpperCard(int pile) {
+        if(ownedCards.get(pile).size()>0){
+            return ownedCards.get(pile).get(ownedCards.get(pile).size()-1);
         }
         return null;
     }
@@ -68,15 +69,14 @@ public class PersonalCardBoard {
      * the rules of the game (level 2 on level 1 ecc), and if the insertion is invalid it throws an
      * exception.
      *
-     * @param i it's the number of the pile you want to select (0,1,2)
+     * @param pile it's the number of the pile you want to select (0,1,2)
      * @param card is the card you want to add
      */
-    public void addCard(DevelopmentCard card, int i) throws InvalidCardInsertionException {
-        if(card.getLevel()==(ownedCards.get(i).size()+1)){
-            ownedCards.get(i).add(card);
+    public void addCard(DevelopmentCard card, int pile) throws InvalidCardInsertionException {
+        if(card.getLevel()==(ownedCards.get(pile).size()+1)){
+            ownedCards.get(pile).add(card);
             numberOfCards++;
-        }else{
+        }else
             throw new InvalidCardInsertionException();
-        }
     }
 }

@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model;
 
+/**
+ * type of three same type resources
+ * @param <T>
+ */
 public class SameTypeTriple<T>{
     private T val1;
     private T val2;
@@ -42,26 +46,26 @@ public class SameTypeTriple<T>{
     }
 
     public void set(T val, int i){
-        if(i==1){
+        if(i==1)
             val1=val;
-        }
-        if(i==2){
+
+        if(i==2)
             val2=val;
-        }
-        if(i==3){
+
+        if(i==3)
             val3=val;
-        }
     }
+
     public T get(int i){
-        if(i==1){
+        if(i==1)
             return val1;
-        }
-        if(i==2){
+
+        if(i==2)
             return val2;
-        }
-        if(i==3){
+
+        if(i==3)
             return val3;
-        }
+
         return null;
     }
     public boolean contains(T val){

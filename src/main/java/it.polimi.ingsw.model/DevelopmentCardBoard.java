@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken;
  *
  * @see DevelopmentCard
  *
- * @author chris tommy enrico
+ * @author chris tommà enrico
  */
 public class DevelopmentCardBoard {
     /**
@@ -32,7 +32,7 @@ public class DevelopmentCardBoard {
     /**
      *  cardBoard is the card's matrix, where every cell is a list up to 4 cards
      */
-    public List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];
+    public List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER?
 
     /**
      * Constructor of the matrix.
@@ -47,17 +47,18 @@ public class DevelopmentCardBoard {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
         List<DevelopmentCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
+
         for(CardType color : CardType.values()){
             row=0;
             cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 1 && x.getType().equals(color)).collect(Collectors.toList());
             cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 2 && x.getType().equals(color)).collect(Collectors.toList());
             cardBoard[row][col++] = list.stream().filter(x -> x.getLevel() == 3 && x.getType().equals(color)).collect(Collectors.toList());
         }
-        for(int i=0; i<MAXROWS;++i){
-            for (int j=0; j<MAXCOLUMNS; ++j){
+
+        for(int i=0; i<MAXROWS;++i)
+            for (int j=0; j<MAXCOLUMNS; ++j)
                 Collections.shuffle(cardBoard[i][j]);
-            }
-        }
+
     }
 
     /**
@@ -92,7 +93,5 @@ public class DevelopmentCardBoard {
     public boolean isCardPileEmpty(int row, int column) {
         return (cardBoard[row][column] == null || cardBoard[row][column].size() == 0);
     }
-
-
 
 }

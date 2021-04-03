@@ -1,5 +1,11 @@
 package it.polimi.ingsw.model;
 
+/**
+ * For now useless, check in the future
+ * @param <L>
+ * @param <M>
+ * @param <R>
+ */
 public class Triple<L,M,R> {
     private L val1;
     private M val2;

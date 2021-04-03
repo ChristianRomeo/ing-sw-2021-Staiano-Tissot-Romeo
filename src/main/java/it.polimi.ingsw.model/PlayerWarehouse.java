@@ -11,8 +11,8 @@ import java.util.Map;
  */
 public class PlayerWarehouse {
     private Resource upperRow;
-    private SameTypePair<Resource> middleRow;
-    private SameTypeTriple<Resource> lowerRow;
+    private final SameTypePair<Resource> middleRow;
+    private final SameTypeTriple<Resource> lowerRow;
 
     public PlayerWarehouse(){
         upperRow=null;

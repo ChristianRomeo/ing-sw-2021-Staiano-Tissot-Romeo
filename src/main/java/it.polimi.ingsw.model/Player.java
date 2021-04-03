@@ -1,16 +1,9 @@
 package it.polimi.ingsw.model;
 
-import java.rmi.activation.ActivateFailedException;
-
 /**
  * @author tommy
  */
 public class Player {
-
-    public Player(){
-        //costruttore creato a caso solo per fare testing
-        statusPlayer = new StatusPlayer();
-    }
 
     /**
      * The player's leader cards number, constant and common to all players
@@ -21,28 +14,40 @@ public class Player {
      */
     private String nickname;
     private int victoryPoints;
-    private StatusPlayer statusPlayer;
+    private final StatusPlayer statusPlayer;
+
+    /**
+     * Constructor
+     */
+    public Player(){
+        //costruttore creato a caso solo per fare testing
+        statusPlayer = new StatusPlayer();
+    }
 
     public String getNickname() {
         return nickname;
     }
+
     /**
-     * Setter of nickname
+     * Setter of nickname, used in game, maybe to be removed in future
      *
      * @param nickname a new nickname for the player
      */
     public void setNickname(String nickname) {
         this.nickname=nickname;
     }
+
     public int getVictoryPoints() {
         return victoryPoints;
     }
+
     /**
      *getter of StatusPlayer
      */
     public StatusPlayer getStatusPlayer(){
         return statusPlayer;
     }
+
     /**
      * @param x number to check
      * @param lower lower bound of the range to check
@@ -52,10 +57,13 @@ public class Player {
     public static boolean isBetween(int x, int lower, int upper) {
         return lower <= x && x <= upper;
     }
+
+    /**
+     * Method
+     */
     public void calculateAndSetVictoryPoints() {
-        int sum = 0;
+        int sum = 0, popFavorTileMinNumOfVP = 2; //minimum number of victory points given, if any
         double totalNumOfResources = 0.0;
-        int popFavorTileMinNumOfVP = 2; //minimum number of victory points given, if any
 
         //calculate victory points based on faith track position.
         if (isBetween(statusPlayer.getFaithTrackPosition(), 3, 5))
@@ -74,33 +82,35 @@ public class Player {
             sum += 16;
         else if (statusPlayer.getFaithTrackPosition() == 24)
             sum += 20;
+
         /*
         calculate victory points based on Leader cards.
         Only activated Leader cards points are being added.
         2 is the amount of Leader cards per player.
          */
-        for (int i = 0; i < LEADER_CARDS_OWNED; i++) {
+        for (int i = 0; i < LEADER_CARDS_OWNED; ++i)
             if (statusPlayer.getPlayerLeaderCards()[i].isActivated())
                 sum += statusPlayer.getPlayerLeaderCards()[i].getVictoryPoints();
-        }
+
         //calculate victory points based on Development cards
-        for (int i = 0; i < statusPlayer.getPersonalCardBoard().getNumberOfCards(); i++) {
-            for (int j = 0; j < statusPlayer.getPersonalCardBoard().getNumberOfCards(); i++)
+        for (int i = 0; i < statusPlayer.getPersonalCardBoard().getNumberOfCards(); ++i)
+            for (int j = 0; j < statusPlayer.getPersonalCardBoard().getNumberOfCards(); ++j)
                 if (statusPlayer.getPersonalCardBoard().getCard(i, j) != null)
                     sum += statusPlayer.getPersonalCardBoard().getCard(i, j).getVictoryPoints();
-        }
+
 
         /*  calculate victory points based on Strongbox Resources
              statusPlayer.getStrongboxResources().forEach((resource, numOfResource)-> totalNumOfResources += numOfResource);
              int totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().reduce(0, Integer::tot);
              Collection<Integer> vals = statusPlayer.getStrongboxResources().values();
-             vals.forEach(totalNumOfResources += vals);*/
+             vals.forEach(totalNumOfResources += vals);
+        */
         totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().mapToInt(Integer::intValue).sum();
 
         /*increase sum based on Pop Favor Tiles.
         The number of points given are fixed, and specifically the minimum number of Victory Points assigned
         (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 3; ++i) {
             if (statusPlayer.getPopeFavorTile(i) == PopeFavorTileStatus.ACTIVE)
                 sum += popFavorTileMinNumOfVP;
             popFavorTileMinNumOfVP++;
@@ -132,8 +142,8 @@ public class Player {
 
         totalNumOfResources = Math.floor(totalNumOfResources / 5);
 
-        for(int i = 0; i < totalNumOfResources; i++)
-            sum++;
+        for(int i = 0; i < totalNumOfResources; ++i)
+            ++sum;
         //final result: Victory Points
         victoryPoints = sum;
 

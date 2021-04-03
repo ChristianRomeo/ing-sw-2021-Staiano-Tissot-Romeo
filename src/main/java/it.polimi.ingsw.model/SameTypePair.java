@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Type that contains two resources to be of the same type
+ * @param <T>
+ */
 public class SameTypePair<T>{
     private T val1;
     private T val2;
@@ -26,22 +30,23 @@ public class SameTypePair<T>{
     }
 
     public void set(T val, int i){
-        if(i==1){
+        if(i==1)
             val1=val;
-        }
-        if(i==2){
+
+        if(i==2)
             val2=val;
-        }
     }
+
     public T get(int i){
-        if(i==1){
+        if(i==1)
             return val1;
-        }
-        if(i==2){
+
+        if(i==2)
             return val2;
-        }
+
         return null;
     }
+
     public boolean contains(T val){
         return (val1 == val || val2 == val);
     }

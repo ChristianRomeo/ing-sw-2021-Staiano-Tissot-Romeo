@@ -4,6 +4,7 @@ package modelExceptions;
  */
 public class VaticanReportException extends Exception{
     private final int reportId;
+
     public VaticanReportException(int i){
         reportId=i;
     }

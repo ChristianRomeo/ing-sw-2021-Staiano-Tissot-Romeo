@@ -69,44 +69,37 @@ public class StatusPlayer {
 
         /**
          * Method vaticanReportHandler set the pope favor tiles when a vatican report is activated
-         * @param reportId is a int between 1 and 3, it indicates if the report activated
-         * is the first, the second or the third
+         * @param reportId is a int between 1 and 3, it indicates if the report activated is the first, the second or the third
          */
         public void vaticanReportHandler(int reportId){
                 switch(reportId){
                         case 1:
-                                if(faithTrackPosition>=5){
+                                if(faithTrackPosition>=5)
                                         popeFavorTiles.set(PopeFavorTileStatus.ACTIVE,1);
-                                }
-                                else{
+                                else
                                         popeFavorTiles.set(PopeFavorTileStatus.DISCARDED,1);
-                                }
                                 break;
                         case 2:
-                                if(faithTrackPosition>=12){
+                                if(faithTrackPosition>=12)
                                         popeFavorTiles.set(PopeFavorTileStatus.ACTIVE,2);
-                                }
-                                else{
+                                else
                                         popeFavorTiles.set(PopeFavorTileStatus.DISCARDED,2);
-                                }
                                 break;
                         case 3:
-                                if(faithTrackPosition>=19){
+                                if(faithTrackPosition>=19)
                                         popeFavorTiles.set(PopeFavorTileStatus.ACTIVE,3);
-                                }
-                                else{
+                                else
                                         popeFavorTiles.set(PopeFavorTileStatus.DISCARDED,3);
-                                }
                                 break;
                 }
         }
 
-        //you give to this method a resource, and it remove one resource of that type from the
-        //strongbox
+        /**
+         *  you give to this method a resource, and it remove one resource of that type from the strongbox.
+         */
         public void removeStrongboxResource(Resource resource){
-                if(strongboxResources.containsKey(resource) && strongboxResources.get(resource)>0){
+                if(strongboxResources.containsKey(resource) && strongboxResources.get(resource)>0)
                         strongboxResources.put(resource,strongboxResources.get(resource)-1);
-                }
         }
 
         public Map<Resource,Integer> getStrongboxResources() {
@@ -129,18 +122,19 @@ public class StatusPlayer {
                 return leaderCards;
         }
 
-        //this method returns all the resources of the player
+        /**
+         * this method returns all the resources of the player.
+         * @return a Map with all of the player's resources.
+         */
         public Map<Resource,Integer> getAllResources(){
                 Map<Resource, Integer> allResources = new HashMap<>(strongboxResources);
 
                 Map<Resource, Integer> warehouseResources= playerWarehouse.getAllResources();
-                for(Resource r: warehouseResources.keySet()){
-                        if(!allResources.containsKey(r)){
+                for(Resource r: warehouseResources.keySet())
+                        if(!allResources.containsKey(r))
                                 allResources.put(r,warehouseResources.get(r));
-                        }else{
+                        else
                                 allResources.put(r,allResources.get(r)+warehouseResources.get(r));
-                        }
-                }
 
                 //todo:qui vanno aggiunte eventuali risorse in depositi carte leader
                 return allResources;

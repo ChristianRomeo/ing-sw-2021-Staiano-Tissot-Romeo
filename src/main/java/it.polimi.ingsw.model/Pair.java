@@ -1,5 +1,10 @@
 package it.polimi.ingsw.model;
 
+/**
+ * For now useless, check in the future
+ * @param <K>
+ * @param <V>
+ */
 public class Pair <K,V>{
     private K val1;
     private V val2;
