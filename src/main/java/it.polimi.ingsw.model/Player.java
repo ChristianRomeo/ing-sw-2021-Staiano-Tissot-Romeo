@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import java.rmi.activation.ActivateFailedException;
-
 /**
  * @author tommy
  */
@@ -101,7 +99,7 @@ public class Player {
         The number of points given are fixed, and specifically the minimum number of Victory Points assigned
         (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
         for(int i = 0; i < 3; i++) {
-            if (statusPlayer.getPopeFavorTile(i) == PopeFavorTileStatus.ACTIVE)
+            if (statusPlayer.getPopeFavorTile(i).equals(PopeFavorTileStatus.ACTIVE))
                 sum += popFavorTileMinNumOfVP;
             popFavorTileMinNumOfVP++;
         }

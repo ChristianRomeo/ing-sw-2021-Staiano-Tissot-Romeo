@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Class Board represents the Board object of the game which contains the progress of Lorenzo faith points, the blackCross
+ * Class Board represents the Board object of the game which contains the progress of Lorenzo faith points: the blackCross
  * a List of solo Action to be used in the single player mode, for more:
  * @see SoloAction
- * @author chris
+ * @author chris, tommy
  */
 public class Board {
     private int blackCrossPosition;
@@ -38,7 +38,7 @@ public class Board {
     }
 
     /**
-     * Method that shift by one position the BlackCross
+     * Method that shifts by one position the BlackCross
      */
     public void increaseBlackCrossPosition() {
         ++blackCrossPosition;
@@ -46,15 +46,24 @@ public class Board {
 
     /**
      * <p> Return and remove from the pile of Solo Actions one element </p>
-     * TODO:check se è MOVEONEANDSHUFFLE and call shuffleSoloActionPile
+     * if the action picked is MOVEONEANDSHUFFLE then it increases the black cross position and shuffle the list.
+     * Otherwise, if the action picked is MOVETWO, it simply increase the black cross position twice.
      * @return SoloAction - type
      */
     public SoloAction pickSoloAction() {
+        if(soloActions.get(0).getType().equals(SoloActionType.MOVEONEANDSHUFFLE)) {
+            increaseBlackCrossPosition();
+            shuffleSoloActionPile();
+        }
+        else if(soloActions.get(0).getType().equals(SoloActionType.MOVETWO)) {
+            increaseBlackCrossPosition();
+            increaseBlackCrossPosition();
+        }
         return soloActions.remove(0);
     }
 
     /**
-     * <p>Clears the list and repopulates it, once done it shuffle </p>
+     * <p>Clears the list and repopulates it, once done it shuffles it </p>
      * To be called during the init and when picked MOVEONEANDSHUFFLE
      */
     public void shuffleSoloActionPile() {
@@ -69,11 +78,11 @@ public class Board {
         Collections.shuffle(soloActions);
     }
 
-    public Market getMarket(){
+    public Market getMarket() {
         return market;
     }
 
-    public DevelopmentCardBoard getDevelopmentCardBoard(){
+    public DevelopmentCardBoard getDevelopmentCardBoard() {
         return developmentCardBoard;
     }
 }
