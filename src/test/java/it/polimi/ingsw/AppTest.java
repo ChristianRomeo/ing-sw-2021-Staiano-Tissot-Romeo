@@ -71,7 +71,7 @@ public class AppTest
         }
     }
 
-    @Test //succede un fatto strano , non capisco se va o no
+    @Test //test passed, the creation of the development card board works
     public void testDevelopmentCardBoardInit()
     {
         DevelopmentCardBoard developmentCardBoard;

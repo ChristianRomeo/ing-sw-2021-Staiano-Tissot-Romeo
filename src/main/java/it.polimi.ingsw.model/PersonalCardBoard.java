@@ -24,6 +24,16 @@ public class PersonalCardBoard {
         return numberOfCards;
     }
 
+    //this method tells you if you can buy a card of level "level" or not (because there is no space)
+    public boolean canBuyCardOfLevel(int level){
+        for(int i=0; i<=2; i++){
+            if(ownedCards.get(i).size() == level-1){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Method getCard takes a int i between 0 and 2 to select one of the three pile of owned cards,
      * and a int j (between 0 and the size of the pile -1) and returns the owned development

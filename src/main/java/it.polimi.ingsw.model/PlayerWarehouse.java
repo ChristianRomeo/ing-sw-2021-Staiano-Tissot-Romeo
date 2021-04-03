@@ -2,6 +2,9 @@ package it.polimi.ingsw.model;
 
 import modelExceptions.InvalidWarehouseInsertionException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author enrico
  */
@@ -19,8 +22,8 @@ public class PlayerWarehouse {
      * Method getResource takes a row and a column and returns the Resource
      * in that position of the warehouse (or null)
      *
-     * @param row is the row of the warehouse you want to select
-     * @param col is the column of the warehouse you want to select
+     * @param row is the row of the warehouse you want to select (1,2,3)
+     * @param col is the column of the warehouse you want to select (1,2,3)
      * @return the resource in that position of the warehouse
      */
     public Resource getResource(int row, int col){
@@ -48,6 +51,24 @@ public class PlayerWarehouse {
         return lowerRow.get(col);
     }
 
+    //this method returns all the resources in the warehouse
+    public Map<Resource,Integer> getAllResources(){
+        Map<Resource,Integer> resources = new HashMap<>();
+        Resource r;
+        for(int i=1; i<=3; i++){
+            for(int j=1; j<=i; j++){
+                r=getResource(i,j);
+                if(r!=null){
+                    if(!resources.containsKey(r)){
+                        resources.put(r,1);
+                    }else{
+                        resources.put(r,resources.get(r)+1);
+                    }
+                }
+            }
+        }
+        return resources;
+    }
     /**
      * Method insertResource is used to insert a Resource in a position in the warehouse,
      * and it controls that the insertion respects the rules
