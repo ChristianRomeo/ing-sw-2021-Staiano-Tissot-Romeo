@@ -24,6 +24,7 @@ public class Player {
     public String getNickname() {
         return nickname;
     }
+
     /**
      * Setter of nickname
      *
@@ -35,12 +36,14 @@ public class Player {
     public int getVictoryPoints() {
         return victoryPoints;
     }
+
     /**
      *getter of StatusPlayer
      */
     public StatusPlayer getStatusPlayer(){
         return statusPlayer;
     }
+
     /**
      * @param x number to check
      * @param lower lower bound of the range to check
@@ -50,10 +53,13 @@ public class Player {
     public static boolean isBetween(int x, int lower, int upper) {
         return lower <= x && x <= upper;
     }
+
+    /**
+     * Calculate VP
+     */
     public void calculateAndSetVictoryPoints() {
-        int sum = 0;
+        int sum = 0, popFavorTileMinNumOfVP = 2;//minimum number of victory points given, if any
         double totalNumOfResources = 0.0;
-        int popFavorTileMinNumOfVP = 2; //minimum number of victory points given, if any
 
         //calculate victory points based on faith track position.
         if (isBetween(statusPlayer.getFaithTrackPosition(), 3, 5))
@@ -77,31 +83,32 @@ public class Player {
         Only activated Leader cards points are being added.
         2 is the amount of Leader cards per player.
          */
-        for (int i = 0; i < LEADER_CARDS_OWNED; i++) {
+        for (int i = 0; i < LEADER_CARDS_OWNED; ++i)
             if (statusPlayer.getPlayerLeaderCards()[i].isActivated())
                 sum += statusPlayer.getPlayerLeaderCards()[i].getVictoryPoints();
-        }
+
         //calculate victory points based on Development cards
-        for (int i = 0; i < statusPlayer.getPersonalCardBoard().getNumberOfCards(); i++) {
-            for (int j = 0; j < statusPlayer.getPersonalCardBoard().getNumberOfCards(); i++)
+        for (int i = 0; i < statusPlayer.getPersonalCardBoard().getNumberOfCards(); ++i)
+            for (int j = 0; j < statusPlayer.getPersonalCardBoard().getNumberOfCards(); ++j)
                 if (statusPlayer.getPersonalCardBoard().getCard(i, j) != null)
                     sum += statusPlayer.getPersonalCardBoard().getCard(i, j).getVictoryPoints();
-        }
+
 
         /*  calculate victory points based on Strongbox Resources
              statusPlayer.getStrongboxResources().forEach((resource, numOfResource)-> totalNumOfResources += numOfResource);
              int totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().reduce(0, Integer::tot);
              Collection<Integer> vals = statusPlayer.getStrongboxResources().values();
-             vals.forEach(totalNumOfResources += vals);*/
+             vals.forEach(totalNumOfResources += vals);
+        */
         totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().mapToInt(Integer::intValue).sum();
 
         /*increase sum based on Pop Favor Tiles.
         The number of points given are fixed, and specifically the minimum number of Victory Points assigned
         (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 3; ++i) {
             if (statusPlayer.getPopeFavorTile(i).equals(PopeFavorTileStatus.ACTIVE))
                 sum += popFavorTileMinNumOfVP;
-            popFavorTileMinNumOfVP++;
+            ++popFavorTileMinNumOfVP;
         }
         /*
         if (isBetween(statusPlayer.getFaithTrackPosition(), 5, 8))
@@ -119,19 +126,17 @@ public class Player {
                 if(statusPlayer.getPlayerWarehouse().getResource(i,j) != null)
                     totalNumOfResources ++; }
         }*/
-        if(statusPlayer.getPlayerWarehouse().getResource(1,1)!=null) totalNumOfResources++;
-        if(statusPlayer.getPlayerWarehouse().getResource(2,1)!=null) totalNumOfResources++;
-        if(statusPlayer.getPlayerWarehouse().getResource(2,2)!=null) totalNumOfResources++;
-        if(statusPlayer.getPlayerWarehouse().getResource(3,1)!=null) totalNumOfResources++;
-        if(statusPlayer.getPlayerWarehouse().getResource(3,2)!=null) totalNumOfResources++;
-        if(statusPlayer.getPlayerWarehouse().getResource(3,3)!=null) totalNumOfResources++;
+        if(statusPlayer.getPlayerWarehouse().getResource(1,1)!=null) ++totalNumOfResources;
+        if(statusPlayer.getPlayerWarehouse().getResource(2,1)!=null) ++totalNumOfResources;
+        if(statusPlayer.getPlayerWarehouse().getResource(2,2)!=null) ++totalNumOfResources;
+        if(statusPlayer.getPlayerWarehouse().getResource(3,1)!=null) ++totalNumOfResources;
+        if(statusPlayer.getPlayerWarehouse().getResource(3,2)!=null) ++totalNumOfResources;
+        if(statusPlayer.getPlayerWarehouse().getResource(3,3)!=null) ++totalNumOfResources;
 
         //todo: increase sum based on Leader Cards special ability
 
-        totalNumOfResources = Math.floor(totalNumOfResources / 5);
+        sum += Math.floor(totalNumOfResources / 5);
 
-        for(int i = 0; i < totalNumOfResources; i++)
-            sum++;
         //final result: Victory Points
         victoryPoints = sum;
 
