@@ -93,5 +93,8 @@ public class DevelopmentCardBoard {
     public boolean isCardPileEmpty(int row, int column) {
         return (cardBoard[row][column] == null || cardBoard[row][column].size() == 0);
     }
-
+    //togliere?
+    public int getSize(int row, int column) {
+        return cardBoard[row][column].size();
+    }
 }

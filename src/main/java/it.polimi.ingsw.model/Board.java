@@ -12,6 +12,12 @@ import java.util.List;
  * @author chris, tommy
  */
 public class Board {
+    public static final int GREENCOLUMN = 0;
+    public static final int BLUECOLUMN = 1;
+    public static final int YELLOWCOLUMN = 2;
+    public static final int PURPLECOLUMN = 3;
+    public static final int MAXCARDSLEVEL = 3;
+
     private int blackCrossPosition;
     private final Market market;
     private final List<SoloAction> soloActions = new ArrayList<>();
@@ -47,18 +53,67 @@ public class Board {
     /**
      * <p> Return and remove from the pile of Solo Actions one element </p>
      * if the action picked is MOVEONEANDSHUFFLE then it increases the black cross position and shuffle the list.
-     * Otherwise, if the action picked is MOVETWO, it simply increase the black cross position twice.
+     * If the action picked is MOVETWO, it simply increase the black cross position twice.
+     * Otherwise, if the action picked is DISCARDTWOCARDS, the methods firstly checks which Card Type has been picked to be removed
+     * (2 of them) and it checks whether the List of the Card Type picked has two or more cards of level 1 left;
+     * If not, it goes on and checks for level 2, and so on until level 3 which is the maximum level for the cards.
+     * IMPORTANT: keep in mind that we buildt the card's matrix with level 0 in the first row, contrary to the
+     * game graphics; so, for example, to check the first level for green cards the method takes cardBoard[0][0].
      * @return SoloAction - type
      */
     public SoloAction pickSoloAction() {
-        if(soloActions.get(0).getType().equals(SoloActionType.MOVEONEANDSHUFFLE)) {
-            increaseBlackCrossPosition();
-            shuffleSoloActionPile();
+        switch (soloActions.get(0).getType()) {
+            case MOVETWO -> {
+                increaseBlackCrossPosition();
+                increaseBlackCrossPosition();
+            }
+            case MOVEONEANDSHUFFLE -> {
+                increaseBlackCrossPosition();
+                shuffleSoloActionPile();
+
+            }
+            case DISCARDTWOCARDS -> {
+                switch (soloActions.get(0).getDiscardedCardsType()) {
+                    case GREEN -> {
+                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                            if (getDevelopmentCardBoard().cardBoard[i][GREENCOLUMN].size() >= 2) {
+                                getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
+                                getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
+                                break;
+                            }
+                        }
+                    }
+                    case BLUE -> {
+                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                            if (getDevelopmentCardBoard().cardBoard[i][BLUECOLUMN].size() >= 2) {
+                                getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
+                                getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
+                                break;
+                            }
+                        }
+                    }
+                    case YELLOW -> {
+                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                            if (getDevelopmentCardBoard().cardBoard[i][YELLOWCOLUMN].size() >= 2) {
+                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
+                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
+                                break;
+                            }
+                        }
+                    }
+                    case PURPLE -> {
+                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                            if (getDevelopmentCardBoard().cardBoard[i][PURPLECOLUMN].size() >= 2) {
+                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
+                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
-        else if(soloActions.get(0).getType().equals(SoloActionType.MOVETWO)) {
-            increaseBlackCrossPosition();
-            increaseBlackCrossPosition();
-        }
+
         return soloActions.remove(0);
     }
 
