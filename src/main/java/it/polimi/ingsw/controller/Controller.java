@@ -1,11 +1,15 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
+import modelExceptions.CannotBuyCardException;
+import modelExceptions.InvalidCardInsertionException;
 import modelExceptions.InvalidWarehouseInsertionException;
 import modelExceptions.VaticanReportException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 /**
  * @author enrico
  */
@@ -18,7 +22,52 @@ public class Controller {
     }
 
     /**
-     * Method useMarket allows the player to bought new resources at the Market
+     * Method buyDevelopmentCard allows the player to buy a new development card from the board.
+     * You have to give the position of the card you want to buy on the board.
+     *
+     * @param row is the row of the selected card, 0<=row<=2,
+     *            row 0 is for card of level 1,..., row 2 is for card of level 3
+     *
+     * @param col is the column of the selected card, 0<=col<=3
+     */
+    public void buyDevelopmentCard(int row, int col) throws CannotBuyCardException,IllegalArgumentException{
+        DevelopmentCardBoard developmentCardBoard = game.getBoard().getDevelopmentCardBoard();
+        StatusPlayer statusCurrentPlayer = game.getCurrentPlayer().getStatusPlayer();
+
+        //check if the selected pile in the board is empty
+        if(developmentCardBoard.isCardPileEmpty(row,col)){
+            throw new IllegalArgumentException();
+        }
+        //check if the player has space in his personal card board
+        if(!statusCurrentPlayer.getPersonalCardBoard().canBuyCardOfLevel(row+1)){
+            throw new CannotBuyCardException();
+        }
+        DevelopmentCard card = developmentCardBoard.getCard(row, col);
+        //check if the player has the resources to buy the card
+        if(!card.isBuyable(statusCurrentPlayer.getAllResources())) {
+            throw new CannotBuyCardException();
+        }
+        //the player can buy the card
+        developmentCardBoard.removeCard(row, col);
+        statusCurrentPlayer.removeResources(card.getCost());
+
+        //the player has to decide where he wants to put his new card, in what position(between 0 and 2)
+        //of his personal card board. If he selects an invalid position, he has to try again.
+        //THE FOLLOWING PART NEEDS THE INTERACTION WITH THE VIEW
+        int position = 0;
+        while(true){
+            try{
+                statusCurrentPlayer.getPersonalCardBoard().addCard(card,position);
+                break;
+            }catch (InvalidCardInsertionException e){
+                //this position was invalid, insert another position
+            }
+        }
+    }
+
+
+    /**
+     * Method useMarket allows the player to buy new resources at the Market
      *
      * @param rowOrColumn is =r if the player wants to select a row, =c to select a column
      * @param index is the index of the row/column the player wants to select

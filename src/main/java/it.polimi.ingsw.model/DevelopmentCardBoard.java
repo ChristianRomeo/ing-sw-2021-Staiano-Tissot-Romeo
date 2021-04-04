@@ -73,15 +73,15 @@ public class DevelopmentCardBoard {
 
     /**
      * Method getCard...
-     * @param row
-     * @param column
-     * @return DevelopmentCard type
+     * @param row between 0 and 2
+     * @param column between 0 and 3
+     * @return DevelopmentCard type or null if there is no card in that position
      */
-    public DevelopmentCard getCard(int row, int column) throws NullPointerException{   //todo throws deve scegliere un altra pila
+    public DevelopmentCard getCard(int row, int column){
         if(!isCardPileEmpty(row,column))
             return cardBoard[row][column].get(cardBoard[row][column].size() - 1);
         else
-            return null; //exception
+            return null;
     }
 
     /**

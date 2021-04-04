@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -40,7 +41,10 @@ public class DevelopmentCard {
     }
 
     public Map<Resource, Integer> getCost() {
-        return cost;
+        if(cost!=null){
+            return new HashMap<>(cost);
+        }
+        return null;
     }
 
     public int getVictoryPoints() {
@@ -48,11 +52,17 @@ public class DevelopmentCard {
     }
 
     public Map<Resource, Integer> getRequiredResources() {
-        return requiredResources;
+        if(requiredResources!=null){
+            return new HashMap<>(requiredResources);
+        }
+        return null;
     }
 
     public Map<Resource, Integer> getProducedResources() {
-        return producedResources;
+        if(producedResources!=null){
+            return new HashMap<>(producedResources);
+        }
+        return null;
     }
 
     public int getProducedFaithPoints() {return producedFaithPoints;}
@@ -63,7 +73,9 @@ public class DevelopmentCard {
      * @return  true/false
      */
     public boolean isBuyable(Map<Resource,Integer> ownedResources){
-        assert cost != null;    //todo testare, se non è un problema, togliere
+        if(cost==null){
+            return true;
+        }
         for(Resource r: cost.keySet())
             if(!ownedResources.containsKey(r) || ownedResources.get(r) < cost.get(r))
                 return false;

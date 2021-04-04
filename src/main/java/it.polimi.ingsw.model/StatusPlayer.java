@@ -140,4 +140,31 @@ public class StatusPlayer {
                 return allResources;
         }
 
+        //this method removes resources: the priority is to remove resources from the warehouse,
+        //then from the leader cards, then from the strongbox (it's the most favorable strategy
+        //for the player)
+        //PRECONDITION: before you call this method you have to be sure that the player owns the
+        //              resources you want to remove
+        public void removeResources(Map<Resource,Integer> resources){
+                int i=0;
+                for(Resource r: resources.keySet()){
+                        i=resources.get(r);
+                        //search and remove resources from the warehouse
+                        for(int rowW=1; rowW<=3 && i>0; ++rowW){
+                                for(int colW=1; colW<=rowW && i>0; ++colW){
+                                        if(r==playerWarehouse.getResource(rowW,colW)){
+                                                playerWarehouse.removeResource(rowW,colW);
+                                                i--;
+                                        }
+                                }
+                        }
+                        //rimozione risorse da depositi carte leader va qui (se i>0)
+                        while(i>0){
+                                removeStrongboxResource(r);
+                                i--;
+                        }
+                }
+        }
+
+
 }

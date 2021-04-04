@@ -26,6 +26,7 @@ public class PersonalCardBoard {
 
     /**
      *   this method tells you if you can buy a card of level "level" or not (because there is no space)
+     *   level must be between 1 and 3
      */
     public boolean canBuyCardOfLevel(int level){
         for(int i=0; i<=2; i++)
