@@ -73,14 +73,7 @@ public class DevelopmentCard {
      * @return  true/false
      */
     public boolean isBuyable(Map<Resource,Integer> ownedResources){
-        if(cost==null){
-            return true;
-        }
-        for(Resource r: cost.keySet())
-            if(!ownedResources.containsKey(r) || ownedResources.get(r) < cost.get(r))
-                return false;
-
-        return true;
+        return Resource.enoughResources(ownedResources,cost);
     }
 
 }

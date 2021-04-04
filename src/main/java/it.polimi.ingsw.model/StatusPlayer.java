@@ -13,7 +13,7 @@ public class StatusPlayer {
 
         private int faithTrackPosition;
         private final PlayerWarehouse playerWarehouse;
-        private final Map<Resource,Integer> strongboxResources;
+        private Map<Resource,Integer> strongboxResources;
         private final SameTypeTriple<PopeFavorTileStatus> popeFavorTiles;
         private final PersonalCardBoard personalCardBoard;
         private LeaderCard[] leaderCards;       //pair?
@@ -103,11 +103,13 @@ public class StatusPlayer {
         }
 
         public Map<Resource,Integer> getStrongboxResources() {
-                return strongboxResources;
+                return new HashMap<>(strongboxResources);
         }
 
-        public void setResourceStrongbox(Map <Resource,Integer> resources) {
-
+        //you give to this method a map of resources and it adds the resources in the strongbox
+        //(so in the end you have in the strongbox the old resources + the new resources)
+        public void addResourcesStrongbox(Map <Resource,Integer> resources) {
+                strongboxResources = Resource.sumResourcesMap(strongboxResources,resources);
         }
 
         public PlayerWarehouse getPlayerWarehouse(){
@@ -127,14 +129,7 @@ public class StatusPlayer {
          * @return a Map with all of the player's resources.
          */
         public Map<Resource,Integer> getAllResources(){
-                Map<Resource, Integer> allResources = new HashMap<>(strongboxResources);
-
-                Map<Resource, Integer> warehouseResources= playerWarehouse.getAllResources();
-                for(Resource r: warehouseResources.keySet())
-                        if(!allResources.containsKey(r))
-                                allResources.put(r,warehouseResources.get(r));
-                        else
-                                allResources.put(r,allResources.get(r)+warehouseResources.get(r));
+                Map<Resource,Integer> allResources= Resource.sumResourcesMap(strongboxResources,playerWarehouse.getAllResources());
 
                 //todo:qui vanno aggiunte eventuali risorse in depositi carte leader
                 return allResources;
