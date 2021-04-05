@@ -5,8 +5,8 @@ import modelExceptions.VaticanReportException;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * This class represent all about the player, faith track sit rep,
- * @author enrico (vatican reports and increment faith position)
+ * This class represents all about the player, faith track sit rep,
+ * @author enrico
  */
 
 public class StatusPlayer {
@@ -106,8 +106,11 @@ public class StatusPlayer {
                 return new HashMap<>(strongboxResources);
         }
 
-        //you give to this method a map of resources and it adds the resources in the strongbox
-        //(so in the end you have in the strongbox the old resources + the new resources)
+
+        /**
+         *  you give to this method a map of resources and it adds the resources in the strongbox
+         *  (so in the end you have in the strongbox the old resources + the new resources)
+         */
         public void addResourcesStrongbox(Map <Resource,Integer> resources) {
                 strongboxResources = Resource.sumResourcesMap(strongboxResources,resources);
         }
@@ -135,11 +138,13 @@ public class StatusPlayer {
                 return allResources;
         }
 
-        //this method removes resources: the priority is to remove resources from the warehouse,
-        //then from the leader cards, then from the strongbox (it's the most favorable strategy
-        //for the player)
-        //PRECONDITION: before you call this method you have to be sure that the player owns the
-        //              resources you want to remove
+        /**
+         * this method removes resources: the priority is to remove resources from the warehouse,
+         * then from the leader cards, then from the strongbox (it's the most favorable strategy
+         * for the player)
+         * PRECONDITION: before you call this method you have to be sure that the player owns the
+         *               resources you want to remove
+         */
         public void removeResources(Map<Resource,Integer> resources){
                 int i=0;
                 for(Resource r: resources.keySet()){

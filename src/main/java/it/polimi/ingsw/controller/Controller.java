@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.*;
 import modelExceptions.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +18,11 @@ public class Controller {
         this.game=game;
     }
 
+    /**
+     * Method activateProduction allows the player to activate the production of one or more cards.
+     * Also the base production can be activated.
+     *
+     */
     public void activateProduction() throws CannotActivateProductionException,IllegalArgumentException{
         PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
         //l'utente mi dice quali produzioni vuole attivare tramite la view
