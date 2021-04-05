@@ -1,114 +1,130 @@
 [
   {
-    "id": "01",
+    "id": 1,
     "ability": "LeaderCardDiscount",
-    "victoryPoints": "2",
-    "type": "servant",
-    "needs": ["1 yellow 1","1 green 1"]
+    "victoryPoints": 2,
+    "discountedResource": "SERVANT",
+    "requiredCards": {"YELLOW": 1,"GREEN": 1},
+    "requiredResources": {}
   },
   {
-    "id": "02",
+    "id": 2,
     "ability": "LeaderCardDiscount",
-    "victoryPoints": "2",
-    "type": "shield",
-    "needs": ["1 blue 1","1 purple 1"]
+    "victoryPoints": 2,
+    "discountedResource": "SHIELD",
+    "requiredCards": {"BLUE": 1,"PURPLE": 1},
+    "requiredResources": {}
   },
   {
-    "id": "03",
+    "id": 3,
     "ability": "LeaderCardDiscount",
-    "victoryPoints": "2",
-    "type": "stone",
-    "needs": ["1 blue 1","1 green 1"]
+    "victoryPoints": 2,
+    "discountedResource": "STONE",
+    "requiredCards": {"BLUE": 1,"GREEN": 1},
+    "requiredResources": {}
   },
   {
-    "id": "04",
+    "id": 4,
     "ability": "LeaderCardDiscount",
-    "victoryPoints": "2",
-    "type": "coin",
-    "needs": ["1 yellow 1","1 purple 1"]
+    "victoryPoints": 2,
+    "discountedResource": "COIN",
+    "requiredCards": {"YELLOW": 1,"PURPLE": 1},
+    "requiredResources": {}
   },
   {
-    "id": "05",
+    "id": 5,
     "ability": "LeaderCardSlots",
-    "victoryPoints": "3",
-    "type": "stone",
-    "needs": ["5 coin"]
+    "victoryPoints": 3,
+    "discountedResource": "STONE",
+    "requiredCards": {},
+    "requiredResources": {"COIN": 5}
   },
   {
-    "id": "06",
+    "id": 6,
     "ability": "LeaderCardSlots",
-    "victoryPoints": "3",
-    "type": "servant",
-    "needs": ["5 stone"]
+    "victoryPoints": 3,
+    "discountedResource": "SERVANT",
+    "requiredCards": {},
+    "requiredResources": {"STONE": 5}
   },
   {
-    "id": "07",
+    "id": 7,
     "ability": "LeaderCardSlots",
-    "victoryPoints": "3",
-    "type": "shield",
-    "needs": ["5 servant"]
+    "victoryPoints": 3,
+    "discountedResource": "SHIELD",
+    "requiredCards": {},
+    "requiredResources": {"SERVANT": 5}
   },
   {
-    "id": "08",
+    "id": 8,
     "ability": "LeaderCardSlots",
-    "victoryPoints": "3",
-    "type": "coin",
-    "needs": ["5 shield"]
+    "victoryPoints": 3,
+    "discountedResource": "COIN",
+    "requiredCards": {},
+    "requiredResources": {"SHIELD": 5}
   },
   {
-    "id": "09",
+    "id": 9,
     "ability": "LeaderCardWhiteMarble",
-    "victoryPoints": "5",
-    "type": "servant",
-    "needs": ["2 yellow 1","1 blue 1"]
+    "victoryPoints": 5,
+    "discountedResource": "SERVANT",
+    "requiredCards": {"YELLOW": 2,"BLUE": 1},
+    "requiredResources": {}
   },
   {
-    "id": "10",
+    "id": 10,
     "ability": "LeaderCardWhiteMarble",
-    "victoryPoints": "5",
-    "type": "shield",
-    "needs": ["2 green 1","1 purple 1"]
+    "victoryPoints": 5,
+    "discountedResource": "SHIELD",
+    "requiredCards": {"GREEN": 2,"PURPLE": 1},
+    "requiredResources": {}
   },
   {
-    "id": "11",
+    "id": 11,
     "ability": "LeaderCardWhiteMarble",
-    "victoryPoints": "5",
-    "type": "stone",
-    "needs": ["1 yellow 1","2 blue 1"]
+    "victoryPoints": 5,
+    "discountedResource": "STONE",
+    "requiredCards": {"YELLOW": 1,"BLUE": 2},
+    "requiredResources": {}
   },
   {
-    "id": "12",
+    "id": 12,
     "ability": "LeaderCardWhiteMarble",
-    "victoryPoints": "5",
-    "type": "coin",
-    "needs": ["2 purple 1","1 green 1"]
+    "victoryPoints": 5,
+    "discountedResource": "COIN",
+    "requiredCards": {"PURPLE": 2,"GREEN": 1},
+    "requiredResources": {}
   },
   {
-    "id": "13",
+    "id": 13,
     "ability": "LeaderCardProduction",
-    "victoryPoints": "4",
-    "type": "shield",
-    "needs": ["1 yellow 2"]
+    "victoryPoints": 4,
+    "discountedResource": "SHIELD",
+    "requiredCards": {"YELLOW": 1},
+    "requiredResources": {}
   },
   {
-    "id": "14",
+    "id": 14,
     "ability": "LeaderCardProduction",
-    "victoryPoints": "4",
-    "type": "servant",
-    "needs": ["1 blue 2"]
+    "victoryPoints": 4,
+    "discountedResource": "SERVANT",
+    "requiredCards": {"BLUE": 1},
+    "requiredResources": {}
   },
   {
-    "id": "15",
+    "id": 15,
     "ability": "LeaderCardProduction",
-    "victoryPoints": "4",
-    "type": "stone",
-    "needs": ["1 purple 2"]
+    "victoryPoints": 4,
+    "discountedResource": "STONE",
+    "requiredCards": {"PURPLE": 1},
+    "requiredResources": {}
   },
   {
-    "id": "16",
+    "id": 16,
     "ability": "LeaderCardProduction",
-    "victoryPoints": "4",
-    "type": "coin",
-    "needs": ["1 green 2"]
+    "victoryPoints": 4,
+    "discountedResource": "COIN",
+    "requiredCards": {"GREEN": 1},
+    "requiredResources": {}
   }
 ]

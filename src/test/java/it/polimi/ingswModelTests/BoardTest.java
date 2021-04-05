@@ -12,4 +12,8 @@ public class BoardTest {
     public void soloActionShuffleTest(){
 
     }
+    @Test
+    public void IncreaseBlackCrossTest(){
+
+    }
 }

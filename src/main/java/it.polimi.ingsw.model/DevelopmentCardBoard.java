@@ -27,12 +27,12 @@ public class DevelopmentCardBoard {
     /**
      *  PATH contains the relative path to card's json file
      */
-    public static final String PATH = "src/main/resources/Cards.json";
+    public static final String CARDPATH = "src/main/resources/Cards.json";
     public int col = 0, row;
     /**
      *  cardBoard is the card's matrix, where every cell is a list up to 4 cards
      */
-    public List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER?
+    public List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER
 
     /**
      * Constructor of the matrix.
@@ -44,7 +44,7 @@ public class DevelopmentCardBoard {
      */
     public DevelopmentCardBoard() throws IOException {
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(CARDPATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
         List<DevelopmentCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
 

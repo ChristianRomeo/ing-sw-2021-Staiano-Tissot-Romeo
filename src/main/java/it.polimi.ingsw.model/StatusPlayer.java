@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import modelExceptions.VaticanReportException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -18,6 +19,7 @@ public class StatusPlayer {
         private final PersonalCardBoard personalCardBoard;
         private LeaderCard[] leaderCards;       //pair?
 
+
         /**
          * Constructor
          */
@@ -27,6 +29,7 @@ public class StatusPlayer {
                 playerWarehouse = new PlayerWarehouse();
                 personalCardBoard = new PersonalCardBoard();
                 strongboxResources= new HashMap<>();
+                //leaderCards
                 //c'è da inizializzare leader cards
         }
 
@@ -132,10 +135,9 @@ public class StatusPlayer {
          * @return a Map with all of the player's resources.
          */
         public Map<Resource,Integer> getAllResources(){
-                Map<Resource,Integer> allResources= Resource.sumResourcesMap(strongboxResources,playerWarehouse.getAllResources());
 
                 //todo:qui vanno aggiunte eventuali risorse in depositi carte leader
-                return allResources;
+                return Resource.sumResourcesMap(strongboxResources,playerWarehouse.getAllResources());
         }
 
         /**
@@ -154,14 +156,14 @@ public class StatusPlayer {
                                 for(int colW=1; colW<=rowW && i>0; ++colW){
                                         if(r==playerWarehouse.getResource(rowW,colW)){
                                                 playerWarehouse.removeResource(rowW,colW);
-                                                i--;
+                                                --i;
                                         }
                                 }
                         }
                         //rimozione risorse da depositi carte leader va qui (se i>0)
                         while(i>0){
                                 removeStrongboxResource(r);
-                                i--;
+                                --i;
                         }
                 }
         }

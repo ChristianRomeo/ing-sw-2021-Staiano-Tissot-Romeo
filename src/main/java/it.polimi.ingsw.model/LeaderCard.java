@@ -3,24 +3,26 @@ package it.polimi.ingsw.model;
 import java.util.Map;
 
 public abstract class LeaderCard {
-    private Map<Resource,Integer> requiredResources;
-    private Map<CardType,Integer> requiredCards;
-    private Map<CardType,Integer> requiredCardsWithLevel;
-    private int victoryPoints;
-    private boolean isDiscarded;
-    private boolean isActivated;
 
-    public Map<Resource, Integer> getRequiredResources() {
-        return requiredResources;
-    }
+    protected int id;
+    protected int victoryPoints;
+    protected CardType discountedResource;
+    protected Map<CardType, Integer> requiredCards;
+    protected Map<Resource, Integer> requiredResources;
+    protected boolean isDiscarded;
+    protected boolean isActivated;
 
-    public Map<CardType, Integer> getRequiredCards() {
+    public Map<CardType, Integer> getRequiredCards(){
         return requiredCards;
     }
 
-    public Map<CardType, Integer> getRequiredCardsWithLevel() {
-        return requiredCardsWithLevel;
+    public Map<Resource, Integer> getRequiredResources(){
+        return requiredResources;
     }
+
+    public int getId(){ return id; }
+
+    public CardType getDiscountedResource(){ return  discountedResource; }
 
     public int getVictoryPoints() {
         return victoryPoints;
@@ -35,10 +37,10 @@ public abstract class LeaderCard {
     }
 
     public void discard() {
-
+        this.isDiscarded=true;
     }
     public void activate() {
-
+        this.isActivated=true;
     }
 
 }

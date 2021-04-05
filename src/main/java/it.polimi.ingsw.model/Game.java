@@ -1,7 +1,14 @@
 package it.polimi.ingsw.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,23 +21,40 @@ import java.util.List;
 
 public class Game {
     public static final int MAXPLAYERS = 4;
+    public static final String LEADERPATH = "src/main/resources/Leaders.json";
 
-    private int playersNumber;
+    private static Game instance;
+
     //private boolean gameStarted_Ended;
     private int winnerIndex; //not sure it goes here
     private final Board board;
     private final List<Player> players;
     private Player currentPlayer;
     private int currentPlayerId;
+    private final List<LeaderCard> leaderCards = new ArrayList<>();
 
     /**
      * Constructor Game creates a new Game instance.
      */
     public Game() throws IOException {
-        this.playersNumber=0;
         board = new Board();
         players = new ArrayList<>();
         currentPlayerId=0;
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(LEADERPATH));
+        JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
+        List<LeaderCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<LeaderCard>>() { }.getType());
+        Collections.shuffle(list);
+    }
+
+    /**
+     *
+     * @return the singleton instance
+     * @throws IOException
+     */
+    public static Game getInstance() throws IOException {
+        if(instance == null)
+            instance=new Game();
+        return instance;
     }
 
     /**
@@ -54,7 +78,6 @@ public class Game {
         while (isNicknameTaken(player.getNickname()))
             player.setNickname(player.getNickname()+"_"+idx++);
         players.add(player);
-        ++playersNumber;
     }
 
     /**
@@ -87,7 +110,7 @@ public class Game {
      * @return int that is the number (1 to MAXPLAYERS) of players of this Game Object.
      */
     public int getPlayersNumber() {
-        return playersNumber;
+        return players.size();
     }
 
     /**

@@ -1,10 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.util.Map;
+
 public class LeaderCardDiscount extends LeaderCard {
-    private Resource discountedResource;
 
-    public Resource getDiscountedResource() {
-        return discountedResource;
+    @Override
+    public Map getCost() {
+        return ;
     }
-
 }

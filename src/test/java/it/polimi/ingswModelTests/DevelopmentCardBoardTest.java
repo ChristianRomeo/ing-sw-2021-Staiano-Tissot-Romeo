@@ -12,4 +12,16 @@ public class DevelopmentCardBoardTest {
     public void removeCardTest(){
 
     }
+    @Test //test passed, the creation of the development card board works
+    public void testDevelopmentCardBoardInit()
+    {
+        DevelopmentCardBoard developmentCardBoard;
+        try{
+            developmentCardBoard = new DevelopmentCardBoard();
+            System.out.println(developmentCardBoard.getCard(1,2).getId());
+            System.out.println(developmentCardBoard.getCard(2,1).getId());
+        }catch(Exception e){
+            System.out.println("eccezione");
+        }
+    }
 }
