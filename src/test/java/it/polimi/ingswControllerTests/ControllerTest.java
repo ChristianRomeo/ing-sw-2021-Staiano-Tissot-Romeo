@@ -14,7 +14,7 @@ public class ControllerTest {
     }
 
     @Test //test passed
-    public void buyCard(){
+    public void buyCardTest(){
         try{
             Game game = new Game();
             Controller controller = new Controller(game);
@@ -32,6 +32,31 @@ public class ControllerTest {
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,3);
             controller.buyDevelopmentCard(0,0);
             //controller.buyDevelopmentCard(1,0);
+            System.out.println("");
+        }catch (Exception e){
+            System.out.println("eccezione");
+        }
+    }
+
+    @Test //test
+    public void productionTest(){
+        try{
+            Game game = new Game();
+            Controller controller = new Controller(game);
+            Player player = new Player();
+            player.setNickname("player1");
+            game.addNewPlayer(player);
+            game.setCurrentPlayer(player);
+
+            player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.COIN,1,0);
+            player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SERVANT,2,1);
+            player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SERVANT,2,2);
+            player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,1);
+            player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,2);
+            player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,3);
+            controller.buyDevelopmentCard(0,1);
+
+            controller.activateProduction();
             System.out.println("");
         }catch (Exception e){
             System.out.println("eccezione");

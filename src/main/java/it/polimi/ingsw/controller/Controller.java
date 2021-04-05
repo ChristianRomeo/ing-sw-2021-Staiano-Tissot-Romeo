@@ -1,12 +1,10 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
-import modelExceptions.CannotBuyCardException;
-import modelExceptions.InvalidCardInsertionException;
-import modelExceptions.InvalidWarehouseInsertionException;
-import modelExceptions.VaticanReportException;
+import modelExceptions.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +18,44 @@ public class Controller {
         //costruttore creato a caso solo per fare testing
         this.game=game;
     }
+
+    public void activateProduction() throws CannotActivateProductionException,IllegalArgumentException{
+        PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
+        //l'utente mi dice quali produzioni vuole attivare tramite la view
+        List<Integer> activatedProductions = new ArrayList<>();//contiene numeri da 0 a 2 che ti dicono
+                                                                // quali produzioni di carte attivare
+        boolean activateBaseProduction = false; //detto da utente
+        Resource reqBaseProduction1 = Resource.COIN;//per esempio
+        Resource reqBaseProduction2 = Resource.SERVANT;
+        Resource producedResBaseProd = Resource.STONE;
+
+        activatedProductions.add(0); //per esempio, detto da utente
+
+        Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
+
+        if(activateBaseProduction /*the player wants to activate the base production too*/){
+            requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction1);
+            requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction2);
+        }
+        Map<Resource,Integer> ownedResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
+
+        if(!Resource.enoughResources(ownedResources,requiredResources)){
+            throw new CannotActivateProductionException();
+        }
+
+        game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
+        Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
+
+        if(activateBaseProduction /*the player wants to activate the base production too*/){
+            producedResources= Resource.addOneResource(producedResources,producedResBaseProd);
+        }
+        game.getCurrentPlayer().getStatusPlayer().addResourcesStrongbox(producedResources);
+        int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
+        for(int i=0; i<producedFaithPoints; i++){
+            incrementFaithTrackPosition(game.getCurrentPlayer());
+        }
+    }
+
 
     /**
      * Method buyDevelopmentCard allows the player to buy a new development card from the board.

@@ -15,6 +15,19 @@ public enum Resource {
     SHIELD;
 
     /**
+     * this static method adds one resource to a map of resources, and returns the new map
+     * example1:
+     * map1={(coin,1),(servant,2)} resource = servant => return = {(coin,1), (servant,3)}
+     * example2:
+     * map1={(coin,1),(servant,2)} resource = stone => return={(coin,1), (servant,2), (stone,1)}
+     */
+    public static Map<Resource,Integer> addOneResource(Map<Resource,Integer> map, Resource resource){
+        Map<Resource,Integer> newMap = new HashMap<>();
+        newMap.put(resource,1);
+        return sumResourcesMap(newMap,map);
+    }
+
+    /**
      * this static method sum two map of resources, example:
      * map1={(coin,1),(servant,2)} map2={(coin,2) , (shield,1)} => sum={(coin,3), (servant,2), (shield,1)}
      */

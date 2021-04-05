@@ -2,8 +2,11 @@ package it.polimi.ingsw.model;
 
 import modelExceptions.InvalidCardInsertionException;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+
 /**
  *
  * @author enrico
@@ -79,5 +82,70 @@ public class PersonalCardBoard {
             numberOfCards++;
         }else
             throw new InvalidCardInsertionException();
+    }
+
+    public boolean isCardPileEmpty(int pile) {
+        return (ownedCards.get(pile)== null || ownedCards.get(pile).size() == 0);
+    }
+
+    /**
+     * you give to this method a list in which you say the positions of the card you want to activate for
+     * the production, and it returns the required resources for that production.
+     * Example: if you want to activate the production for cards in position 0 and 2
+     *          you have to pass a list =(0,2)
+     */
+    public Map<Resource,Integer> getReqResProduction(List<Integer> activatedProductions) throws IllegalArgumentException{
+        if (activatedProductions==null){
+            throw new IllegalArgumentException();
+        }
+        Map<Resource,Integer> requiredResources = new HashMap<>();
+        for(Integer pos: activatedProductions){
+            if(isCardPileEmpty(pos)){
+                throw new IllegalArgumentException();
+            }
+            requiredResources = Resource.sumResourcesMap(requiredResources,getUpperCard(pos).getRequiredResources());
+        }
+        return requiredResources;
+    }
+
+    /**
+     * you give to this method a list in which you say the positions of the card you want to activate for
+     * the production, and it returns the produced resources of that production.
+     * Example: if you want to activate the production for cards in position 0 and 2
+     *          you have to pass a list =(0,2)
+     * NB: it doesn't return the produced faith points
+     */
+    public Map<Resource,Integer> getProductionResources(List<Integer> activatedProductions) throws IllegalArgumentException{
+        if (activatedProductions==null){
+            throw new IllegalArgumentException();
+        }
+        Map<Resource,Integer> producedResources = new HashMap<>();
+        for(Integer pos: activatedProductions){
+            if(isCardPileEmpty(pos)){
+                throw new IllegalArgumentException();
+            }
+            producedResources = Resource.sumResourcesMap(producedResources,getUpperCard(pos).getProducedResources());
+        }
+        return producedResources;
+    }
+
+    /**
+     * you give to this method a list in which you say the positions of the card you want to activate for
+     * the production, and it returns the produced faith points of that production.
+     * Example: if you want to activate the production for cards in position 0 and 2
+     *          you have to pass a list =(0,2)
+     */
+    public int getProductionFP(List<Integer> activatedProductions) throws IllegalArgumentException{
+        if (activatedProductions==null){
+            throw new IllegalArgumentException();
+        }
+        int producedFP=0;
+        for(Integer pos: activatedProductions){
+            if(isCardPileEmpty(pos)){
+                throw new IllegalArgumentException();
+            }
+            producedFP = producedFP + getUpperCard(pos).getProducedFaithPoints();
+        }
+        return producedFP;
     }
 }
