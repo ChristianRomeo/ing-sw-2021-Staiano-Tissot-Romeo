@@ -6,7 +6,7 @@ public abstract class LeaderCard {
 
     protected int id;
     protected int victoryPoints;
-    protected CardType discountedResource;
+    protected Resource discountedResource;
     protected Map<CardType, Integer> requiredCards;
     protected Map<Resource, Integer> requiredResources;
     protected boolean isDiscarded;
@@ -22,7 +22,7 @@ public abstract class LeaderCard {
 
     public int getId(){ return id; }
 
-    public CardType getDiscountedResource(){ return  discountedResource; }
+    public Resource getDiscountedResource(){ return  discountedResource; }
 
     public int getVictoryPoints() {
         return victoryPoints;
