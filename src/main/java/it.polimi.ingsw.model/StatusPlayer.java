@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
- * This class represents all about the player, faith track sit rep,
+ * This class represents all about the player.
  * @author enrico
  */
 
