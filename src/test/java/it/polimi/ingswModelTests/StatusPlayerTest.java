@@ -3,6 +3,7 @@ import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +85,46 @@ public class StatusPlayerTest {
         assert (statusPlayer.getStrongboxResources().get(Resource.SHIELD)==10);
     }
 
-    /* @Test //test passed, vatican reports handling (i commented it because the method increment is private)
+    @Test//test passed, method removeResources works
+    public void removeResourcesMethodTest() throws Exception{
+
+
+        StatusPlayer statusPlayer = new StatusPlayer();
+        PlayerWarehouse playerWarehouse = statusPlayer.getPlayerWarehouse();
+
+        playerWarehouse.insertResource(Resource.COIN,1,0);
+        playerWarehouse.insertResource(Resource.SERVANT,2,1);
+        playerWarehouse.insertResource(Resource.SERVANT,2,2);
+        playerWarehouse.insertResource(Resource.SHIELD,3,1);
+        playerWarehouse.insertResource(Resource.SHIELD,3,2);
+        playerWarehouse.insertResource(Resource.SHIELD,3,3);
+
+        Map<Resource,Integer> resources = new HashMap<>();
+        resources.put(Resource.STONE,3);
+        resources.put(Resource.COIN,2);
+        resources.put(Resource.SHIELD,10);
+        statusPlayer.addResourcesStrongbox(resources);
+
+        resources.clear();
+        resources.put(Resource.COIN,2);
+        resources.put(Resource.STONE,3);
+        resources.put(Resource.SHIELD,3);
+
+        statusPlayer.removeResources(resources);
+        assert (statusPlayer.getStrongboxResources().size()==3);
+        assert (statusPlayer.getStrongboxResources().get(Resource.STONE)==0);
+        assert (statusPlayer.getStrongboxResources().get(Resource.COIN)==1);
+        assert (statusPlayer.getStrongboxResources().get(Resource.SHIELD)==10);
+        assertNull (playerWarehouse.getResource(1,0));
+        assertNull (playerWarehouse.getResource(3,1));
+        assertNull (playerWarehouse.getResource(3,2));
+        assertNull (playerWarehouse.getResource(3,3));
+        assert (playerWarehouse.getResource(2,1)==Resource.SERVANT);
+        assert (playerWarehouse.getResource(2,2)==Resource.SERVANT);
+    }
+
+    /* @Test //test passed, vatican reports handling
+    //(I commented it because the method increment is private)
     public void testVaticanReport()
     {
         Game game = new Game();
