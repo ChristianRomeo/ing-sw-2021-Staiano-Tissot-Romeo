@@ -83,6 +83,11 @@ public class Controller {
             throw new CannotBuyCardException();
         }
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
+
+        /*
+            cost = handlerDiscountLeader(cost);
+            Resource.enoughResources(allResources, cost);
+         */
         //check if the player has the resources to buy the card
         if(!card.isBuyable(statusCurrentPlayer.getAllResources())) {
             throw new CannotBuyCardException();
@@ -130,6 +135,33 @@ public class Controller {
         editWarehouse();
         //the player insert/discard the resources bought at the market
         insertBoughtResources(boughtResources);
+    }
+
+    /**
+     * Method activateLeaderCard allows the player to activate one of his leader cards.
+     * @param index is the position of that leader card (owned by the player)
+     */
+    public void activateLeaderCard(int index) throws IllegalArgumentException{
+        LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
+        if(leaderCard.isActivated() || leaderCard.isDiscarded()) {
+            //the card is already active, or is discarded, so you can't activate it
+        }else{
+            //todo: controllo requisiti carte leader
+            leaderCard.activate();
+        }
+    }
+    /**
+     * Method discardLeaderCard allows the player to discard one of his leader cards.
+     * @param index is the position of that leader card (owned by the player)
+     */
+    public void discardLeaderCard(int index) throws IllegalArgumentException{
+        LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
+        if(leaderCard.isActivated() || leaderCard.isDiscarded()){
+            //the card is already discarded, or is active, so you can't discard it
+        }else{
+            leaderCard.discard();
+            incrementFaithTrackPosition(game.getCurrentPlayer());
+        }
     }
 
     //METODI EDIT E INSERT WAREHOUSE DOVRANNO CONSIDERARE ANCHE I DEPOSITI LEADER
@@ -217,6 +249,11 @@ public class Controller {
             switch(m){
                 case WHITE:
                     //controllo carta leader va qui
+                    /*
+                    if(handlerMarbleLeader()!=null){
+                        boughtResources.add(handlerMarbleLeader());
+                    }
+                     */
                     break;
                 case RED:
                     incrementFaithTrackPosition(game.getCurrentPlayer());
@@ -260,5 +297,35 @@ public class Controller {
     }
 
 
+
+    //metodi di prova per carte leader
+    private Map<Resource,Integer> handlerDiscountLeader(Map<Resource,Integer> cost){
+        if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.DISCOUNT,0)!=null){
+            //togli una risors da cost
+        }
+        if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.DISCOUNT,1)!=null){
+            //togli una risorsa da cost
+        }
+        return cost;
+    }
+
+    private Resource handlerMarbleLeader(){
+        boolean choice=false;
+        Resource resource=null;
+        if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,0)!=null){
+            resource = game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,0);
+            choice=true;
+        }
+        if(choice){
+            if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,1)!=null){
+                //scelta utente tra le due risorse
+            }
+        }else{
+            if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,1)!=null){
+                resource = game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,1);
+            }
+        }
+        return resource;
+    }
 
 }

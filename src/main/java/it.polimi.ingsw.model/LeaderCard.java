@@ -11,6 +11,7 @@ public abstract class LeaderCard {
     protected Map<Resource, Integer> requiredResources;
     protected boolean isDiscarded;
     protected boolean isActivated;
+    protected LeaderCardType ability;
 
     public Map<CardType, Integer> getRequiredCards(){
         return requiredCards;
@@ -41,6 +42,10 @@ public abstract class LeaderCard {
     }
     public void activate() {
         this.isActivated=true;
+    }
+
+    public LeaderCardType getAbility(){
+        return ability;
     }
 
 }

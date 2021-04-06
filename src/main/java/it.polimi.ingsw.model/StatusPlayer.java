@@ -4,6 +4,7 @@ import modelExceptions.VaticanReportException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /**
  * This class represents all about the player, faith track sit rep,
@@ -17,7 +18,7 @@ public class StatusPlayer {
         private Map<Resource,Integer> strongboxResources;
         private final SameTypeTriple<PopeFavorTileStatus> popeFavorTiles;
         private final PersonalCardBoard personalCardBoard;
-        private LeaderCard[] leaderCards;       //pair?
+        private List<LeaderCard> leaderCards;       //pair?
 
 
         /**
@@ -126,8 +127,17 @@ public class StatusPlayer {
                 return personalCardBoard;
         }
 
-        public LeaderCard[] getPlayerLeaderCards(){
+        public List<LeaderCard> getPlayerLeaderCards(){
                 return leaderCards;
+        }
+        /**
+         *  you give to this method an index and it returns the player's leader card in that position
+         */
+        public LeaderCard getLeaderCard(int index) throws IllegalArgumentException{
+                if(index>=0 && index<=1){
+                        return leaderCards.get(index);
+                }
+                throw new IllegalArgumentException();
         }
 
         /**
@@ -166,6 +176,16 @@ public class StatusPlayer {
                                 --i;
                         }
                 }
+        }
+
+        //METODO DI PROVA, NON SO SE LO USEREMO
+        public Resource getLeaderResource(LeaderCardType type, int index){
+                if(leaderCards.get(index).getAbility() == type){
+
+                }
+                //se la carta leader al posto index è attiva ed è di quel tipo
+                //allora ritorna la risorsa, se no null
+                return null;
         }
 
 

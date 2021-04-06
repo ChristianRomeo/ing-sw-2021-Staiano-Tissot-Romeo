@@ -84,8 +84,8 @@ public class Player {
         2 is the amount of Leader cards per player.
          */
         for (int i = 0; i < LEADER_CARDS_OWNED; ++i)
-            if (statusPlayer.getPlayerLeaderCards()[i].isActivated())
-                sum += statusPlayer.getPlayerLeaderCards()[i].getVictoryPoints();
+            if (statusPlayer.getPlayerLeaderCards().get(i).isActivated())
+                sum += statusPlayer.getPlayerLeaderCards().get(i).getVictoryPoints();
 
         //calculate victory points based on Development cards
         for (int i = 0; i < statusPlayer.getPersonalCardBoard().getNumberOfCards(); ++i)
