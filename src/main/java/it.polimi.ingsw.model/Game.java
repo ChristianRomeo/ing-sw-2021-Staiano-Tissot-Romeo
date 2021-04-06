@@ -3,7 +3,6 @@ package it.polimi.ingsw.model;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,13 +19,15 @@ import java.util.List;
  */
 
 public class Game {
-    public static final int MAXPLAYERS = 4;
-    public static final String LEADERPATH = "src/main/resources/Leaders.json";
-
+    private static final int MAXPLAYERS = 4;
+    private static final String LEADERPATH = "src/main/resources/Leaders.json";
+    /**
+     * singleton
+     */
     private static Game instance;
 
     //private boolean gameStarted_Ended;
-    private int winnerIndex; //not sure it goes here
+    //private int winnerIndex; //not sure it goes here
     private final Board board;
     private final List<Player> players;
     private Player currentPlayer;
