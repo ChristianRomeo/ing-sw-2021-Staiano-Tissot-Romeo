@@ -76,7 +76,7 @@ public class Board {
                 switch (soloActions.get(0).getDiscardedCardsType()) {
                     case GREEN -> {
                         for (int i = 0; i < MAXCARDSLEVEL; i++) {
-                            if (getDevelopmentCardBoard().cardBoard[i][GREENCOLUMN].size() >= 2) {
+                            if (getDevelopmentCardBoard().getPileSize(i,GREENCOLUMN) >= 2) {
                                 getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
                                 getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
                                 break;
@@ -85,7 +85,7 @@ public class Board {
                     }
                     case BLUE -> {
                         for (int i = 0; i < MAXCARDSLEVEL; i++) {
-                            if (getDevelopmentCardBoard().cardBoard[i][BLUECOLUMN].size() >= 2) {
+                            if (getDevelopmentCardBoard().getPileSize(i,BLUECOLUMN) >= 2) {
                                 getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
                                 getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
                                 break;
@@ -94,16 +94,16 @@ public class Board {
                     }
                     case YELLOW -> {
                         for (int i = 0; i < MAXCARDSLEVEL; i++) {
-                            if (getDevelopmentCardBoard().cardBoard[i][YELLOWCOLUMN].size() >= 2) {
-                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
-                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
+                            if (getDevelopmentCardBoard().getPileSize(i,YELLOWCOLUMN) >= 2) {
+                                getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
+                                getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
                                 break;
                             }
                         }
                     }
                     case PURPLE -> {
                         for (int i = 0; i < MAXCARDSLEVEL; i++) {
-                            if (getDevelopmentCardBoard().cardBoard[i][PURPLECOLUMN].size() >= 2) {
+                            if (getDevelopmentCardBoard().getPileSize(i,PURPLECOLUMN) >= 2) {
                                 getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
                                 getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
                                 break;

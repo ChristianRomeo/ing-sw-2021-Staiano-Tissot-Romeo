@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
  */
 public class MarketTest {
     @Test //test passed, the inizialization create a correct random market
-    public void testMarketInizialization()
+    public void testMarketInitialization()
     {
         Market market = new Market();
         System.out.println("b");
     }
 
-    @Test //test passed, the shift is correct (the resources collecting isn't implemented yet)
+    @Test //test passed, the shift is correct
     public void testMarketSelectRowSelectColomn()
     {
         Market market = new Market();

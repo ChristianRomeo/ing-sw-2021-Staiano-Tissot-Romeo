@@ -19,20 +19,20 @@ public class DevelopmentCardBoard {
     /**
      *  MAXROWS contains the rows of the card's matrix
      */
-    public static final int MAXROWS = 3;
+    private static final int MAXROWS = 3;
     /**
      *  MAXCOLUMNS contains the columns of the card's matrix
      */
-    public static final int MAXCOLUMNS = 4;
+    private static final int MAXCOLUMNS = 4;
     /**
      *  PATH contains the relative path to card's json file
      */
-    public static final String CARDPATH = "src/main/resources/Cards.json";
-    public int col = 0, row;
+    private static final String CARDPATH = "src/main/resources/Cards.json";
+    private int col = 0, row;
     /**
      *  cardBoard is the card's matrix, where every cell is a list up to 4 cards
      */
-    public List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER
+    private List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER
 
     /**
      * Constructor of the matrix.
@@ -83,6 +83,18 @@ public class DevelopmentCardBoard {
         else
             return null;
     }
+    /**
+     * Method getPileSize returns the size of a selected pile of the board
+     * @param row between 0 and 2
+     * @param column between 0 and 3
+     * @return size of the pile
+     */
+    public int getPileSize(int row, int column){
+        if(isCardPileEmpty(row,column))
+            return 0;
+        else
+            return cardBoard[row][column].size();
+    }
 
     /**
      * Method isCardPileEmpty to check whether a given pile is empty
@@ -93,8 +105,5 @@ public class DevelopmentCardBoard {
     public boolean isCardPileEmpty(int row, int column) {
         return (cardBoard[row][column] == null || cardBoard[row][column].size() == 0);
     }
-    //togliere?
-    public int getSize(int row, int column) {
-        return cardBoard[row][column].size();
-    }
+
 }

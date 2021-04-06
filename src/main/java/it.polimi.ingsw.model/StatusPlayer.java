@@ -106,10 +106,12 @@ public class StatusPlayer {
                         strongboxResources.put(resource,strongboxResources.get(resource)-1);
         }
 
+        /**
+         *  this method returns a map with the resources inside the strongbox
+         */
         public Map<Resource,Integer> getStrongboxResources() {
                 return new HashMap<>(strongboxResources);
         }
-
 
         /**
          *  you give to this method a map of resources and it adds the resources in the strongbox

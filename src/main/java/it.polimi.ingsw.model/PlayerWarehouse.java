@@ -28,16 +28,18 @@ public class PlayerWarehouse {
      * @param col is the column of the warehouse you want to select (1,2,3)
      * @return the resource in that position of the warehouse
      */
-    public Resource getResource(int row, int col){  //WEIRD, se provo a mettere lo switch qui dice che 2 e 3 sono "unreachable"
-        if(row==1)
-            return upperRow;
-
-        if(row==2)
-            return middleRow.get(col);
-
-        if(row==3)
-            return lowerRow.get(col);
-
+    public Resource getResource(int row, int col){
+        switch (row) {
+            case 1 -> {
+                return upperRow;
+            }
+            case 2 -> {
+                return middleRow.get(col);
+            }
+            case 3 -> {
+                return lowerRow.get(col);
+            }
+        }
         return null;
     }
 
@@ -88,15 +90,9 @@ public class PlayerWarehouse {
      */
     public void insertResource(Resource resource, int row, int col) throws InvalidWarehouseInsertionException {
         switch (row) {
-            case 1:
-                setUpperRow(resource);
-                break;
-            case 2:
-                setMiddleRow(resource,col);
-                break;
-            case 3:
-                setLowerRow(resource,col);
-                break;
+            case 1 -> setUpperRow(resource);
+            case 2 -> setMiddleRow(resource, col);
+            case 3 -> setLowerRow(resource, col);
         }
     }
 
@@ -110,15 +106,9 @@ public class PlayerWarehouse {
     public Resource removeResource(int row, int col){
         Resource removedResource=getResource(row,col);
         switch (row) {
-            case 1:
-                upperRow = null;
-                break;
-            case 2:
-                middleRow.set(null,col);
-                break;
-            case 3:
-                lowerRow.set(null,col);
-                break;
+            case 1 -> upperRow = null;
+            case 2 -> middleRow.set(null, col);
+            case 3 -> lowerRow.set(null, col);
         }
         return removedResource;
     }
