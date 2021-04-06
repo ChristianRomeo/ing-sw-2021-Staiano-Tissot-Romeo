@@ -12,11 +12,11 @@ import java.util.List;
  * @author chris, tommy
  */
 public class Board {
-    public static final int GREENCOLUMN = 0;
-    public static final int BLUECOLUMN = 1;
-    public static final int YELLOWCOLUMN = 2;
-    public static final int PURPLECOLUMN = 3;
-    public static final int MAXCARDSLEVEL = 3;
+    private static final int GREENCOLUMN = 0;
+    private static final int BLUECOLUMN = 1;
+    private static final int YELLOWCOLUMN = 2;
+    private static final int PURPLECOLUMN = 3;
+    private static final int MAXCARDSLEVEL = 3;
 
     private int blackCrossPosition;
     private final Market market;
@@ -47,6 +47,7 @@ public class Board {
      * Method that shifts by one position the BlackCross
      */
     public void increaseBlackCrossPosition() {
+        if (getBlackCrossPosition()<24)
         ++blackCrossPosition;
     }
 
@@ -75,7 +76,7 @@ public class Board {
             case DISCARDTWOCARDS -> {
                 switch (soloActions.get(0).getDiscardedCardsType()) {
                     case GREEN -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
                             if (getDevelopmentCardBoard().getPileSize(i,GREENCOLUMN) >= 2) {
                                 getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
                                 getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
@@ -84,7 +85,7 @@ public class Board {
                         }
                     }
                     case BLUE -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
                             if (getDevelopmentCardBoard().getPileSize(i,BLUECOLUMN) >= 2) {
                                 getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
                                 getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
@@ -93,7 +94,7 @@ public class Board {
                         }
                     }
                     case YELLOW -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
                             if (getDevelopmentCardBoard().getPileSize(i,YELLOWCOLUMN) >= 2) {
                                 getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
                                 getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
@@ -102,7 +103,7 @@ public class Board {
                         }
                     }
                     case PURPLE -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; i++) {
+                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
                             if (getDevelopmentCardBoard().getPileSize(i,PURPLECOLUMN) >= 2) {
                                 getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
                                 getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);

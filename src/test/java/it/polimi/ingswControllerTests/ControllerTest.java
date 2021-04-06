@@ -57,7 +57,7 @@ public class ControllerTest {
             resources.put(Resource.SERVANT,10);
             resources.put(Resource.SHIELD,10);
 
-            player.getStatusPlayer().addResourcesStrongbox(resources);
+            player.getStatusPlayer().addStrongboxResources(resources);
 
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.COIN,1,0);
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SERVANT,2,1);

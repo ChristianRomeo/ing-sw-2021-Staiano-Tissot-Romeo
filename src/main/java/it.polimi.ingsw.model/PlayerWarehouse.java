@@ -65,7 +65,7 @@ public class PlayerWarehouse {
     public Map<Resource,Integer> getAllResources(){
         Map<Resource,Integer> resources = new HashMap<>();
         Resource r;
-        for(int row=1; row<=3; ++row){
+        for(int row=1; row<=3; ++row)
             for(int column=1; column<=row; ++column){
                 r=getResource(row,column);
 
@@ -75,10 +75,11 @@ public class PlayerWarehouse {
                     else
                         resources.put(r,resources.get(r)+1);
             }
-        }
+
 
         return resources;
     }
+
     /**
      * Method insertResource is used to insert a Resource in a position in the warehouse,
      * and it controls that the insertion respects the rules
