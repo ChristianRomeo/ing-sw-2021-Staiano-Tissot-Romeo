@@ -62,11 +62,12 @@ public class PersonalCardBoard {
      * @return the card on top of the selected pile
      */
     public DevelopmentCard getUpperCard(int pile) {
-        if(ownedCards.get(pile).size()>0){
+        if(ownedCards.get(pile).size()>0)
             return ownedCards.get(pile).get(ownedCards.get(pile).size()-1);
-        }
+
         return null;
     }
+
     /**
      * Method addCard takes a int i between 0 and 2 to select one of the three pile of owned cards,
      * and add a card on top of that pile. It checks that the insertion in that pile respects
@@ -95,14 +96,14 @@ public class PersonalCardBoard {
      *          you have to pass a list =(0,2)
      */
     public Map<Resource,Integer> getReqResProduction(List<Integer> activatedProductions) throws IllegalArgumentException{
-        if (activatedProductions==null){
+        if (activatedProductions==null)
             throw new IllegalArgumentException();
-        }
+
         Map<Resource,Integer> requiredResources = new HashMap<>();
         for(Integer pos: activatedProductions){
-            if(isCardPileEmpty(pos)){
+            if(isCardPileEmpty(pos))
                 throw new IllegalArgumentException();
-            }
+
             requiredResources = Resource.sumResourcesMap(requiredResources,getUpperCard(pos).getRequiredResources());
         }
         return requiredResources;
@@ -116,14 +117,14 @@ public class PersonalCardBoard {
      * NB: it doesn't return the produced faith points
      */
     public Map<Resource,Integer> getProductionResources(List<Integer> activatedProductions) throws IllegalArgumentException{
-        if (activatedProductions==null){
+        if (activatedProductions==null)
             throw new IllegalArgumentException();
-        }
+
         Map<Resource,Integer> producedResources = new HashMap<>();
         for(Integer pos: activatedProductions){
-            if(isCardPileEmpty(pos)){
+            if(isCardPileEmpty(pos))
                 throw new IllegalArgumentException();
-            }
+
             producedResources = Resource.sumResourcesMap(producedResources,getUpperCard(pos).getProducedResources());
         }
         return producedResources;
@@ -136,14 +137,14 @@ public class PersonalCardBoard {
      *          you have to pass a list =(0,2)
      */
     public int getProductionFP(List<Integer> activatedProductions) throws IllegalArgumentException{
-        if (activatedProductions==null){
+        if (activatedProductions==null)
             throw new IllegalArgumentException();
-        }
+
         int producedFP=0;
         for(Integer pos: activatedProductions){
-            if(isCardPileEmpty(pos)){
+            if(isCardPileEmpty(pos))
                 throw new IllegalArgumentException();
-            }
+
             producedFP = producedFP + getUpperCard(pos).getProducedFaithPoints();
         }
         return producedFP;

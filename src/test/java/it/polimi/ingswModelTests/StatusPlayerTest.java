@@ -34,7 +34,7 @@ public class StatusPlayerTest {
             Map<Resource,Integer> resources = new HashMap<>();
             resources.put(Resource.STONE,3);
             resources.put(Resource.COIN,2);
-            statusPlayer.addResourcesStrongbox(resources);
+            statusPlayer.addStrongboxResources(resources);
 
             allResources=statusPlayer.getAllResources();
 
@@ -55,7 +55,7 @@ public class StatusPlayerTest {
         resources.put(Resource.COIN,2);
         resources.put(Resource.SHIELD,10);
 
-        statusPlayer.addResourcesStrongbox(resources);
+        statusPlayer.addStrongboxResources(resources);
 
         assert (statusPlayer.getStrongboxResources().size()==3);
         assert (statusPlayer.getStrongboxResources().get(Resource.STONE)==3);
@@ -74,7 +74,7 @@ public class StatusPlayerTest {
         resources.put(Resource.COIN,1);
         resources.put(Resource.SHIELD,10);
 
-        statusPlayer.addResourcesStrongbox(resources);
+        statusPlayer.addStrongboxResources(resources);
 
         statusPlayer.removeStrongboxResource(Resource.COIN);
         statusPlayer.removeStrongboxResource(Resource.STONE);
@@ -103,7 +103,7 @@ public class StatusPlayerTest {
         resources.put(Resource.STONE,3);
         resources.put(Resource.COIN,2);
         resources.put(Resource.SHIELD,10);
-        statusPlayer.addResourcesStrongbox(resources);
+        statusPlayer.addStrongboxResources(resources);
 
         resources.clear();
         resources.put(Resource.COIN,2);

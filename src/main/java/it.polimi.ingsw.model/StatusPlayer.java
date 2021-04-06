@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
- * This class represents all about the player, faith track sit rep,
+ * This class represents all about the player.
  * @author enrico
  */
 
@@ -18,7 +18,7 @@ public class StatusPlayer {
         private Map<Resource,Integer> strongboxResources;
         private final SameTypeTriple<PopeFavorTileStatus> popeFavorTiles;
         private final PersonalCardBoard personalCardBoard;
-        private List<LeaderCard> leaderCards;       //pair?
+        private List<LeaderCard> leaderCards;
 
 
         /**
@@ -117,7 +117,7 @@ public class StatusPlayer {
          *  you give to this method a map of resources and it adds the resources in the strongbox
          *  (so in the end you have in the strongbox the old resources + the new resources)
          */
-        public void addResourcesStrongbox(Map <Resource,Integer> resources) {
+        public void addStrongboxResources(Map <Resource,Integer> resources) {
                 strongboxResources = Resource.sumResourcesMap(strongboxResources,resources);
         }
 
@@ -136,9 +136,9 @@ public class StatusPlayer {
          *  you give to this method an index and it returns the player's leader card in that position
          */
         public LeaderCard getLeaderCard(int index) throws IllegalArgumentException{
-                if(index>=0 && index<=1){
+                if(index>=0 && index<=1)
                         return leaderCards.get(index);
-                }
+
                 throw new IllegalArgumentException();
         }
 
@@ -160,18 +160,18 @@ public class StatusPlayer {
          *               resources you want to remove
          */
         public void removeResources(Map<Resource,Integer> resources){
-                int i=0;
+                int i;
                 for(Resource r: resources.keySet()){
                         i=resources.get(r);
                         //search and remove resources from the warehouse
-                        for(int rowW=1; rowW<=3 && i>0; ++rowW){
-                                for(int colW=1; colW<=rowW && i>0; ++colW){
+                        for(int rowW=1; rowW<=3 && i>0; ++rowW)
+                                for(int colW=1; colW<=rowW && i>0; ++colW)
                                         if(r==playerWarehouse.getResource(rowW,colW)){
                                                 playerWarehouse.removeResource(rowW,colW);
                                                 --i;
                                         }
-                                }
-                        }
+
+
                         //rimozione risorse da depositi carte leader va qui (se i>0)
                         while(i>0){
                                 removeStrongboxResource(r);

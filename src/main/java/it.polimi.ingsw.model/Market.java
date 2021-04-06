@@ -44,12 +44,12 @@ public class Market {
         int randomNum = ThreadLocalRandom.current().nextInt(0, colors.size());
         slideMarble= colors.remove(randomNum); //remove Returns the element that was removed from the list.
 
-        for(int i=0; i<MAXROWS; ++i){
+        for(int i=0; i<MAXROWS; ++i)
             for(int j=0; j<MAXCOLUMNS;++j){
                 randomNum = ThreadLocalRandom.current().nextInt(0, colors.size());
                 marbles[i][j] = colors.remove(randomNum); //remove Returns the element that was removed from the list.
             }
-        }
+
     }
 
     /**

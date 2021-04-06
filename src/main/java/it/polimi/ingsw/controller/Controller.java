@@ -43,21 +43,22 @@ public class Controller {
         }
         Map<Resource,Integer> ownedResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
 
-        if(!Resource.enoughResources(ownedResources,requiredResources)){
+        if(!Resource.enoughResources(ownedResources,requiredResources))
             throw new CannotActivateProductionException();
-        }
+
 
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
         Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
 
-        if(activateBaseProduction /*the player wants to activate the base production too*/){
+        if(activateBaseProduction /*the player wants to activate the base production too*/)
             producedResources= Resource.addOneResource(producedResources,producedResBaseProd);
-        }
-        game.getCurrentPlayer().getStatusPlayer().addResourcesStrongbox(producedResources);
+
+        game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
         int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
-        for(int i=0; i<producedFaithPoints; i++){
+
+        for(int i=0; i<producedFaithPoints; i++)
             incrementFaithTrackPosition(game.getCurrentPlayer());
-        }
+
     }
 
 
@@ -75,13 +76,13 @@ public class Controller {
         StatusPlayer statusCurrentPlayer = game.getCurrentPlayer().getStatusPlayer();
 
         //check if the selected pile in the board is empty
-        if(developmentCardBoard.isCardPileEmpty(row,col)){
+        if(developmentCardBoard.isCardPileEmpty(row,col))
             throw new IllegalArgumentException();
-        }
+
         //check if the player has space in his personal card board
-        if(!statusCurrentPlayer.getPersonalCardBoard().canBuyCardOfLevel(row+1)){
+        if(!statusCurrentPlayer.getPersonalCardBoard().canBuyCardOfLevel(row+1))
             throw new CannotBuyCardException();
-        }
+
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
         /*
@@ -89,9 +90,9 @@ public class Controller {
             Resource.enoughResources(allResources, cost);
          */
         //check if the player has the resources to buy the card
-        if(!card.isBuyable(statusCurrentPlayer.getAllResources())) {
+        if(!card.isBuyable(statusCurrentPlayer.getAllResources()))
             throw new CannotBuyCardException();
-        }
+
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);
         statusCurrentPlayer.removeResources(card.getCost());
@@ -122,11 +123,10 @@ public class Controller {
 
         List<MarbleColor> takenMarbles;
         List<Resource> boughtResources;
-        if(rowOrColumn=='r'){
+        if(rowOrColumn=='r')
             takenMarbles=market.selectRow(index);
-        }
         else
-        {takenMarbles=market.selectColumn(index);}
+            takenMarbles=market.selectColumn(index);
 
         boughtResources=fromMarblesToResources(takenMarbles);
 
@@ -143,6 +143,7 @@ public class Controller {
      */
     public void activateLeaderCard(int index) throws IllegalArgumentException{
         LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
+
         if(leaderCard.isActivated() || leaderCard.isDiscarded()) {
             //the card is already active, or is discarded, so you can't activate it
         }else{
@@ -155,6 +156,7 @@ public class Controller {
      * @param index is the position of that leader card (owned by the player)
      */
     public void discardLeaderCard(int index) throws IllegalArgumentException{
+
         LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
         if(leaderCard.isActivated() || leaderCard.isDiscarded()){
             //the card is already discarded, or is active, so you can't discard it
@@ -178,17 +180,16 @@ public class Controller {
 
         PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
         List<Resource> temporaryRemovedResources = new ArrayList<>();
-        int i=0,j=0;
-        int k=0;
+        int i=0,j=0,k=0;
         while(true){ //la condizione di stop sarà detta da utente
             //i valori di i, j e k devono essere detti dall'utente, interazione con la view
 
-            if(true /*player wants to temporary remove a resource*/){
-                if(warehouse.getResource(i,j)!=null){
+            if(true /*player wants to temporary remove a resource*/)
+                if(warehouse.getResource(i,j)!=null)
                     temporaryRemovedResources.add(warehouse.removeResource(i,j));
-                }
-            }
-            if(true /*player wants to reinsert one of the temporary removed resources*/){
+
+
+            if(true /*player wants to reinsert one of the temporary removed resources*/)
                 if(k>=0 && k< temporaryRemovedResources.size()){
                     try{
                         warehouse.insertResource(temporaryRemovedResources.get(k),i,j);
@@ -196,14 +197,14 @@ public class Controller {
                         /*signal to the user, invalid insertion in the warehouse*/
                     }
                 }
-            }
-            if(true/* the player wants to end the Warehouse edit*/){
+
+            if(true/* the player wants to end the Warehouse edit*/)
                 if(temporaryRemovedResources.size()==0){
                     break;
                 }else{
                     /*signal the player that he has to insert every temporary removed resource*/
                 }
-            }
+
         }
     }
 
@@ -213,24 +214,24 @@ public class Controller {
      */
     //NB: this method can't work now, because it needs the view
     private void insertBoughtResources(List<Resource> boughtResources){
+
         int i=0,j=0;
         PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
         //i, j sono dati dall'utente per ogni risorsa
         for(Resource r: boughtResources){
-            if(true /*the player wants to insert the resource*/){
+            if(true /*the player wants to insert the resource*/)
                 try{
                     warehouse.insertResource(r,i,j);
                 }catch (InvalidWarehouseInsertionException e){
                     /*signal to the user, invalid inseriment in the warehouse*/
                 }
-            }
+
             if(true /*the player wants to discard the resource*/){
                 boughtResources.remove(r);
-                for(int k=0; k< game.getPlayersNumber(); k++){
-                    if (game.getCurrentPlayerId()!=k){
+                for(int k=0; k< game.getPlayersNumber(); k++)
+                    if (game.getCurrentPlayerId()!=k)
                         incrementFaithTrackPosition(game.getPlayerByIndex(k));
-                    }
-                }
+
             }
         }
     }
@@ -244,8 +245,9 @@ public class Controller {
      * @return a list of resources
      */
     private List<Resource> fromMarblesToResources(List<MarbleColor> marbles){
+
         List<Resource> boughtResources = new ArrayList<>();
-        for(MarbleColor m: marbles){
+        for(MarbleColor m: marbles)
             switch(m){
                 case WHITE:
                     //controllo carta leader va qui
@@ -271,7 +273,7 @@ public class Controller {
                     boughtResources.add(Resource.COIN);
                     break;
             }
-        }
+
         return boughtResources;
     }
 

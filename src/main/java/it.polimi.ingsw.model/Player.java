@@ -4,12 +4,6 @@ package it.polimi.ingsw.model;
  * @author tommy
  */
 public class Player {
-
-    public Player(){
-        //costruttore creato a caso solo per fare testing
-        statusPlayer = new StatusPlayer();
-    }
-
     /**
      * The player's leader cards number, constant and common to all players
      */
@@ -33,8 +27,21 @@ public class Player {
     public void setNickname(String nickname) {
         this.nickname=nickname;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getVictoryPoints() {
         return victoryPoints;
+    }
+
+    /**
+     * Constructor
+     */
+    public Player(){
+        //costruttore creato a caso solo per fare testing
+        statusPlayer = new StatusPlayer();
     }
 
     /**
@@ -50,7 +57,7 @@ public class Player {
      * @param upper upper bound of the range to check
      * Checks if the number x is between the range [lower,upper]
      */
-    public static boolean isBetween(int x, int lower, int upper) {
+    private static boolean isBetween(int x, int lower, int upper) {
         return lower <= x && x <= upper;
     }
 

@@ -28,11 +28,10 @@ public class DevelopmentCardBoard {
      *  PATH contains the relative path to card's json file
      */
     private static final String CARDPATH = "src/main/resources/Cards.json";
-    private int col = 0, row;
     /**
      *  cardBoard is the card's matrix, where every cell is a list up to 4 cards
      */
-    private List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER
+    private final List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER
 
     /**
      * Constructor of the matrix.
@@ -47,7 +46,7 @@ public class DevelopmentCardBoard {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(CARDPATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
         List<DevelopmentCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
-
+        int col = 0,row;
         for(CardType color : CardType.values()){
             row=0;
             cardBoard[row++][col] = list.stream().filter(x -> x.getLevel() == 1 && x.getType().equals(color)).collect(Collectors.toList());
