@@ -37,10 +37,12 @@ public class Game {
         board = new Board();
         players = new ArrayList<>();
         currentPlayerId=0;
+        /*
         BufferedReader bufferedReader = new BufferedReader(new FileReader(LEADERPATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
         List<LeaderCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<LeaderCard>>() { }.getType());
         Collections.shuffle(list);
+        */
     }
 
 

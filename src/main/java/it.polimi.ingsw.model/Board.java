@@ -62,6 +62,8 @@ public class Board {
      * game graphics; so, for example, to check the first level for green cards the method takes cardBoard[0][0].
      * @return SoloAction - type
      */
+    //TODO: DA SISTEMARE, PERCHE SE AD ESEMPIO C'E UNA SOLA CARTA DI LIVELLO 1 LUI DEVE SCARTARE QUELLA E POI PASSIAMO
+    //TODO: A ELIMINARE QUELLE DI LIVELLO 2 O 3 (SE CI SONO). IN OGNI CASO SE C'E ANCHE SOLO UNA CARTA, LA TOGLIE.
     public SoloAction pickSoloAction() {
         switch (soloActions.get(0).getType()) {
             case MOVETWO -> {

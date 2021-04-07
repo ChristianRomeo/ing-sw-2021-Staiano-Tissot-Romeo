@@ -90,16 +90,17 @@ public class Player {
         Only activated Leader cards points are being added.
         2 is the amount of Leader cards per player.
          */
-        for (int i = 0; i < LEADER_CARDS_OWNED; ++i)
+        /*for (int i = 0; i < LEADER_CARDS_OWNED; ++i)
             if (statusPlayer.getPlayerLeaderCards().get(i).isActivated())
                 sum += statusPlayer.getPlayerLeaderCards().get(i).getVictoryPoints();
-
+    */
         //calculate victory points based on Development cards
+        /*
         for (int i = 0; i < statusPlayer.getPersonalCardBoard().getNumberOfCards(); ++i)
             for (int j = 0; j < statusPlayer.getPersonalCardBoard().getNumberOfCards(); ++j)
                 if (statusPlayer.getPersonalCardBoard().getCard(i, j) != null)
                     sum += statusPlayer.getPersonalCardBoard().getCard(i, j).getVictoryPoints();
-
+        */
 
         /*  calculate victory points based on Strongbox Resources
              statusPlayer.getStrongboxResources().forEach((resource, numOfResource)-> totalNumOfResources += numOfResource);
@@ -107,12 +108,11 @@ public class Player {
              Collection<Integer> vals = statusPlayer.getStrongboxResources().values();
              vals.forEach(totalNumOfResources += vals);
         */
-        totalNumOfResources = statusPlayer.getStrongboxResources().values().stream().mapToInt(Integer::intValue).sum();
-
+       totalNumOfResources = getStatusPlayer().getStrongboxResources().values().stream().mapToInt(Integer::intValue).sum();
         /*increase sum based on Pop Favor Tiles.
         The number of points given are fixed, and specifically the minimum number of Victory Points assigned
         (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
-        for(int i = 0; i < 3; ++i) {
+       /* for(int i = 0; i < 3; ++i) {
             if (statusPlayer.getPopeFavorTile(i).equals(PopeFavorTileStatus.ACTIVE))
                 sum += popFavorTileMinNumOfVP;
             ++popFavorTileMinNumOfVP;
