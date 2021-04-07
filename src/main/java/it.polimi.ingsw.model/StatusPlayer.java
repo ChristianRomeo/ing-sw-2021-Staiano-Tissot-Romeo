@@ -129,9 +129,16 @@ public class StatusPlayer {
                 return personalCardBoard;
         }
 
+        /**
+         *  This method returns a list with the leader cards of the player.
+         */
         public List<LeaderCard> getPlayerLeaderCards(){
-                return leaderCards;
+                if(leaderCards!=null){
+                        return new ArrayList<>(leaderCards);
+                }
+                return null;
         }
+
         /**
          *  you give to this method an index and it returns the player's leader card in that position
          */
@@ -188,7 +195,7 @@ public class StatusPlayer {
                 //se la carta leader al posto index è attiva ed è di quel tipo
                 //allora ritorna la risorsa, se no null
                 return null;
-        }
+        }//CREDO DA LEVARE STO METODO
 
 
 }

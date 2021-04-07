@@ -77,7 +77,7 @@ public class ControllerTest {
         assert(player.getStatusPlayer().getPersonalCardBoard().getUpperCard(0).getType()==CardType.GREEN);
 
     }
-    @Test //test passed
+    @Test //test passed, VECCHIO TEST, NON CONSIDERARE
     public void buyCardTest(){
         try{
             Game game = new Game();
@@ -102,7 +102,7 @@ public class ControllerTest {
         }
     }
 
-    @Test //test passed
+    @Test //test passed, VECCHIO TEST, NON CONSIDERARE
     public void productionTest(){
         try{
             Game game = new Game();
@@ -151,7 +151,7 @@ public class ControllerTest {
 
             LeaderCardDiscount leaderCardDiscount = (LeaderCardDiscount) leaderCard;
 
-            System.out.println(leaderCardDiscount.getDiscountedResource());
+            System.out.println(leaderCardDiscount.getAbilityResource());
             System.out.println("");
         }catch (Exception e){
             System.out.println("eccezione");

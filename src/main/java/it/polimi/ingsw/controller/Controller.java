@@ -91,17 +91,13 @@ public class Controller {
 
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
-        /*
-            cost = handlerDiscountLeader(cost);
-            Resource.enoughResources(allResources, cost);
-         */
         //check if the player has the resources to buy the card
-        if(!card.isBuyable(statusCurrentPlayer.getAllResources()))
+        if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards()))
             throw new CannotBuyCardException();
 
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);
-        statusCurrentPlayer.removeResources(card.getCost());
+        statusCurrentPlayer.removeResources(card.getCost(statusCurrentPlayer.getPlayerLeaderCards()));
 
         //the player has to decide where he wants to put his new card, in what position(between 0 and 2)
         //of his personal card board. If he selects an invalid position, he has to try again.
@@ -115,6 +111,8 @@ public class Controller {
                 //this position was invalid, insert another position
             }
         }
+        //QUESTA PARTE POTREI FARLA CHE L'UTENTE TI DA GIA DALL'INIZIO LA POSIZIONE E LUI CONTROLLA
+        //SUBITO, COSI DEVI PURE FA MENO CONTROLLI E RIDUCI INTERAZIONE CON UTENTE
     }
 
 
@@ -242,7 +240,7 @@ public class Controller {
         }
     }
 
-
+    // STO METODO ANDREBBE MEGLIO COME STATICO IN MARBLE COLOR O RESOURCE ENUM (aggiungi parametro current player)
     /**
      * Method fromMarblesToResources transforms a list of marbles in the corresponding list of resources,
      * (the red marbles are transformed in increments of the faith track position)
@@ -256,12 +254,14 @@ public class Controller {
         for(MarbleColor m: marbles)
             switch(m){
                 case WHITE:
-                    //controllo carta leader va qui
-                    /*
-                    if(handlerMarbleLeader()!=null){
-                        boughtResources.add(handlerMarbleLeader());
+                    //QUA NON STO CONSIDERANDO IL CASO IN CUI CI SONO 2 CARTE LEADER WHITE MARBLE
+                    //(QUANDO L'UTENTE DOVREBBE SCEGLIERE). QUEL CASO POI VEDIAMO CON LA VIEW.
+                    if(game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource()!=null){
+                        boughtResources.add(game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource());
                     }
-                     */
+                    if(game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource()!=null){
+                        boughtResources.add(game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource());
+                    }
                     break;
                 case RED:
                     incrementFaithTrackPosition(game.getCurrentPlayer());
@@ -305,7 +305,7 @@ public class Controller {
     }
 
 
-
+/*  //  METODO VECCHIO, PROBABILMENTE DA ELIMINARE
     //metodi di prova per carte leader
     private Map<Resource,Integer> handlerDiscountLeader(Map<Resource,Integer> cost){
         if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.DISCOUNT,0)!=null){
@@ -316,7 +316,7 @@ public class Controller {
         }
         return cost;
     }
-
+*/
     private Resource handlerMarbleLeader(){
         boolean choice=false;
         Resource resource=null;
