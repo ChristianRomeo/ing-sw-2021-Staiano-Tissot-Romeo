@@ -1,11 +1,17 @@
 package it.polimi.ingsw.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.*;
 import modelExceptions.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author enrico
@@ -330,4 +336,31 @@ public class Controller {
         return resource;
     }
 
-}
+    /**
+     * Reader LeaderCards
+     */
+    private static final String LEADERPATH = "src/main/resources/Leaders.json";
+    private void leaderCardReader() throws FileNotFoundException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(LEADERPATH));
+        JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
+        Gson gson= new Gson();
+        /*
+        List<LeaderCard> list = gson.<List<LeaderCard>>fromJson(String.valueOf(json), new TypeToken<List<LeaderCard>>() { }.getType())
+                                .stream().parallel().filter(x ->x.getAbility()==LeaderCardType.DISCOUNT).findAny()
+                .map((Function<LeaderCardType, <LeaderCard>) LeaderCardType.DISCOUNT -> gson.fromJson(LeaderCardType.DISCOUNT, LeaderCardDiscount.class))
+                .collect(Collectors.toList());
+
+        List<LeaderCard> leaderCardList = new ArrayList<>();
+        for (LeaderCard list1: list)
+        switch (list1.getAbility()){
+            case DISCOUNT ->
+            leaderCardList.add(new LeaderCardDiscount());
+            case PRODUCTION ->
+                    leaderCardList.add(new LeaderCardProduction());
+
+        }*/
+
+    }
+        //Collections.shuffle(list);
+
+    }

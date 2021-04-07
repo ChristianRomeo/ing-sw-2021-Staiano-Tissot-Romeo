@@ -5,7 +5,7 @@ import java.util.Map;
 public class LeaderCardDiscount extends LeaderCard {
 
 
-    public Map getCost() {
+    /*public Map getCost() {
         return null;
-    }
+    }*/
 }

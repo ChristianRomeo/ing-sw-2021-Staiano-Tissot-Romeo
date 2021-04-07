@@ -5,13 +5,14 @@ import java.util.Map;
 public abstract class LeaderCard {
 
     protected int id;
+    protected LeaderCardType ability;
     protected int victoryPoints;
     protected Resource discountedResource;
     protected Map<CardType, Integer> requiredCards;
     protected Map<Resource, Integer> requiredResources;
+
     protected boolean isDiscarded;
     protected boolean isActivated;
-    protected LeaderCardType ability;
 
     public Map<CardType, Integer> getRequiredCards(){
         return requiredCards;
@@ -40,6 +41,7 @@ public abstract class LeaderCard {
     public void discard() {
         this.isDiscarded=true;
     }
+
     public void activate() {
         this.isActivated=true;
     }
