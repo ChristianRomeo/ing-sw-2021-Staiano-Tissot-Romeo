@@ -95,7 +95,7 @@ public class PersonalCardBoard {
      * Example: if you want to activate the production for cards in position 0 and 2
      *          you have to pass a list =(0,2)
      */
-    public Map<Resource,Integer> getReqResProduction(List<Integer> activatedProductions) throws IllegalArgumentException{
+    public Map<Resource,Integer> getReqResProduction(List<Integer> activatedProductions) throws IllegalArgumentException{   //nome più intuitivo
         if (activatedProductions==null)
             throw new IllegalArgumentException();
 

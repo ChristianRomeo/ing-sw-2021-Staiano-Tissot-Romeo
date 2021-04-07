@@ -21,10 +21,6 @@ import java.util.List;
 public class Game {
     private static final int MAXPLAYERS = 4;
     private static final String LEADERPATH = "src/main/resources/Leaders.json";
-    /**
-     * singleton
-     */
-    private static Game instance;
 
     //private boolean gameStarted_Ended;
     //private int winnerIndex; //not sure it goes here
@@ -47,16 +43,6 @@ public class Game {
         Collections.shuffle(list);
     }
 
-    /**
-     *
-     * @return the singleton instance
-     * @throws IOException
-     */
-    public static Game getInstance() throws IOException {
-        if(instance == null)
-            instance=new Game();
-        return instance;
-    }
 
     /**
      * Method getBoard returns the board of this Game object.

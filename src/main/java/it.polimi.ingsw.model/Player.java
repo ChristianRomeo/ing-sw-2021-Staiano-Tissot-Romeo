@@ -64,7 +64,7 @@ public class Player {
     /**
      * Calculate VP
      */
-    public void calculateAndSetVictoryPoints() {
+    public void calculateAndSetVictoryPoints() {        //non è meglio nel controller dove alla fine fa il calcolo per ogni giocatore?
         int sum = 0, popFavorTileMinNumOfVP = 2;//minimum number of victory points given, if any
         double totalNumOfResources = 0.0;
 
