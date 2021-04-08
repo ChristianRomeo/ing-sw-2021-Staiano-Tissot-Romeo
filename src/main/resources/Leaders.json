@@ -3,7 +3,7 @@
     "id": 1,
     "ability": "DISCOUNT",
     "victoryPoints": 2,
-    "discountedResource": "SERVANT",
+    "abilityResource": "SERVANT",
     "requiredCards": {"YELLOW": 1,"GREEN": 1},
     "requiredResources": {}
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "ability": "DISCOUNT",
     "victoryPoints": 2,
-    "discountedResource": "SHIELD",
+    "abilityResource": "SHIELD",
     "requiredCards": {"BLUE": 1,"PURPLE": 1},
     "requiredResources": {}
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "ability": "DISCOUNT",
     "victoryPoints": 2,
-    "discountedResource": "STONE",
+    "abilityResource": "STONE",
     "requiredCards": {"BLUE": 1,"GREEN": 1},
     "requiredResources": {}
   },
@@ -27,7 +27,7 @@
     "id": 4,
     "ability": "DISCOUNT",
     "victoryPoints": 2,
-    "discountedResource": "COIN",
+    "abilityResource": "COIN",
     "requiredCards": {"YELLOW": 1,"PURPLE": 1},
     "requiredResources": {}
   },
@@ -35,7 +35,7 @@
     "id": 5,
     "ability": "SLOTS",
     "victoryPoints": 3,
-    "discountedResource": "STONE",
+    "abilityResource": "STONE",
     "requiredCards": {},
     "requiredResources": {"COIN": 5}
   },
@@ -43,7 +43,7 @@
     "id": 6,
     "ability": "SLOTS",
     "victoryPoints": 3,
-    "discountedResource": "SERVANT",
+    "abilityResource": "SERVANT",
     "requiredCards": {},
     "requiredResources": {"STONE": 5}
   },
@@ -51,7 +51,7 @@
     "id": 7,
     "ability": "SLOTS",
     "victoryPoints": 3,
-    "discountedResource": "SHIELD",
+    "abilityResource": "SHIELD",
     "requiredCards": {},
     "requiredResources": {"SERVANT": 5}
   },
@@ -59,7 +59,7 @@
     "id": 8,
     "ability": "SLOTS",
     "victoryPoints": 3,
-    "discountedResource": "COIN",
+    "abilityResource": "COIN",
     "requiredCards": {},
     "requiredResources": {"SHIELD": 5}
   },
@@ -67,7 +67,7 @@
     "id": 9,
     "ability": "WHITEMARBLE",
     "victoryPoints": 5,
-    "discountedResource": "SERVANT",
+    "abilityResource": "SERVANT",
     "requiredCards": {"YELLOW": 2,"BLUE": 1},
     "requiredResources": {}
   },
@@ -75,7 +75,7 @@
     "id": 10,
     "ability": "WHITEMARBLE",
     "victoryPoints": 5,
-    "discountedResource": "SHIELD",
+    "abilityResource": "SHIELD",
     "requiredCards": {"GREEN": 2,"PURPLE": 1},
     "requiredResources": {}
   },
@@ -83,7 +83,7 @@
     "id": 11,
     "ability": "WHITEMARBLE",
     "victoryPoints": 5,
-    "discountedResource": "STONE",
+    "abilityResource": "STONE",
     "requiredCards": {"YELLOW": 1,"BLUE": 2},
     "requiredResources": {}
   },
@@ -91,7 +91,7 @@
     "id": 12,
     "ability": "WHITEMARBLE",
     "victoryPoints": 5,
-    "discountedResource": "COIN",
+    "abilityResource": "COIN",
     "requiredCards": {"PURPLE": 2,"GREEN": 1},
     "requiredResources": {}
   },
@@ -99,7 +99,7 @@
     "id": 13,
     "ability": "PRODUCTION",
     "victoryPoints": 4,
-    "discountedResource": "SHIELD",
+    "abilityResource": "SHIELD",
     "requiredCards": {"YELLOW": 1},
     "requiredResources": {}
   },
@@ -107,7 +107,7 @@
     "id": 14,
     "ability": "PRODUCTION",
     "victoryPoints": 4,
-    "discountedResource": "SERVANT",
+    "abilityResource": "SERVANT",
     "requiredCards": {"BLUE": 1},
     "requiredResources": {}
   },
@@ -115,7 +115,7 @@
     "id": 15,
     "ability": "PRODUCTION",
     "victoryPoints": 4,
-    "discountedResource": "STONE",
+    "abilityResource": "STONE",
     "requiredCards": {"PURPLE": 1},
     "requiredResources": {}
   },
@@ -123,7 +123,7 @@
     "id": 16,
     "ability": "PRODUCTION",
     "victoryPoints": 4,
-    "discountedResource": "COIN",
+    "abilityResource": "COIN",
     "requiredCards": {"GREEN": 1},
     "requiredResources": {}
   }

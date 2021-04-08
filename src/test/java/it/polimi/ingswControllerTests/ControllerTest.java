@@ -156,4 +156,19 @@ public class ControllerTest {
         }
     }
 
+    @Test
+    public void testReadingLeaderCards() throws Exception{
+
+        Game game = new Game();
+        Controller controller = new Controller(game);
+        Player player = new Player();
+        player.setNickname("player1");
+        game.addNewPlayer(player);
+        game.setCurrentPlayer(player);
+
+        controller.leaderCardReader();
+        System.out.println("passed");
+
+    }
+
 }

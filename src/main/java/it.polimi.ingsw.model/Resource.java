@@ -15,7 +15,7 @@ public enum Resource {
     SHIELD;
 
     /**
-     * this static method adds one resource to a map of resources, and returns the new map
+     * this static method adds one resource to a map of resources, and returns the new map (not old one modified)
      * example1:
      * map1={(coin,1),(servant,2)} resource = servant => return = {(coin,1), (servant,3)}
      * example2:

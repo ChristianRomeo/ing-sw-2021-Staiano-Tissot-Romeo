@@ -42,7 +42,7 @@ public class Controller {
 
         Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
 
-        if(activateBaseProduction /*the player wants to activate the base production too*/){
+        if(activateBaseProduction /*the player wants to activate the base production too*/){//DA METTERE IN PERSONAL CARD BOARD??
             requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction1);
             requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction2);
         }
@@ -306,7 +306,8 @@ public class Controller {
         return cost;
     }
 */
-    private Resource handlerMarbleLeader(){
+  /*   //  METODO VECCHIO, PROBABILMENTE DA ELIMINARE
+        private Resource handlerMarbleLeader(){
         boolean choice=false;
         Resource resource=null;
         if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,0)!=null){
@@ -324,7 +325,7 @@ public class Controller {
         }
         return resource;
     }
-
+*/
     /**
      * Reader LeaderCards
      */

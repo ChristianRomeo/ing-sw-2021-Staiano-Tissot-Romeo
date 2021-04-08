@@ -1,12 +1,8 @@
 package it.polimi.ingsw.model;
 
 public class LeaderCardSlots extends LeaderCard{
-    private Resource slotTypeResource;
     private int fullSlotsNumber;
 
-    public Resource getSlotTypeResource() {
-        return slotTypeResource;
-    }
 
     public int getFullSlotsNumber() {
         return fullSlotsNumber;

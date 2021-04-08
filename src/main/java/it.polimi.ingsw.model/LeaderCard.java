@@ -7,7 +7,9 @@ public abstract class LeaderCard {
     protected int id;
     protected LeaderCardType ability;
     protected int victoryPoints;
-    protected Resource abilityResource;
+    protected Resource abilityResource; //this is the resource used for the ability of the card,
+                                        // for example it's the discounted resource, or the resource type
+                                        //of the slots.
     protected Map<CardType, Integer> requiredCards;
     protected Map<Resource, Integer> requiredResources;
 
@@ -70,4 +72,28 @@ public abstract class LeaderCard {
         return null;
     }
 
+    /**
+     * this method is for the production card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything but returns the argument you pass.
+     * In the production card type, it returns the updated required resources for the production.
+     */
+    public Map<Resource,Integer> getTotalRequiredResources(Map<Resource,Integer> oldRequiredResources){
+        return oldRequiredResources;
+    }
+    /**
+     * this method is for the production card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything but returns the argument you pass.
+     * In the production card type, it returns the updated produced resources of the production.
+     */
+    public Map<Resource,Integer> getTotalProducedResources(Map<Resource,Integer> oldProducedResources, Resource addedResource){
+        return oldProducedResources;
+    }
+    /**
+     * this method is for the production card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything but returns the argument you pass.
+     * In the production card type, it returns the updated produced faith points of the production.
+     */
+    public int getTotalProducedFP(int oldProducedFP){
+        return oldProducedFP;
+    }
 }

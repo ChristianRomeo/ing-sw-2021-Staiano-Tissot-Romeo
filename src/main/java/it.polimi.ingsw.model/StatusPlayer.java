@@ -32,6 +32,7 @@ public class StatusPlayer {
                 strongboxResources= new HashMap<>();
                 //leaderCards
                 //c'è da inizializzare leader cards
+                leaderCards = new ArrayList<>();
         }
 
         /**
