@@ -155,9 +155,15 @@ public class StatusPlayer {
          * @return a Map with all of the player's resources.
          */
         public Map<Resource,Integer> getAllResources(){
-
-                //todo:qui vanno aggiunte eventuali risorse in depositi carte leader
-                return Resource.sumResourcesMap(strongboxResources,playerWarehouse.getAllResources());
+                Map<Resource,Integer> allResources = Resource.sumResourcesMap(strongboxResources,playerWarehouse.getAllResources());
+                for(LeaderCard leaderCard: leaderCards){
+                        if(leaderCard.getFullSlotsNumber()!=null){
+                                for(int i=0; i<leaderCard.getFullSlotsNumber();i++){
+                                        allResources =Resource.addOneResource(allResources,leaderCard.getAbilityResource());
+                                }
+                        }
+                }
+                return allResources;
         }
 
         /**
@@ -172,31 +178,28 @@ public class StatusPlayer {
                 for(Resource r: resources.keySet()){
                         i=resources.get(r);
                         //search and remove resources from the warehouse
-                        for(int rowW=1; rowW<=3 && i>0; ++rowW)
-                                for(int colW=1; colW<=rowW && i>0; ++colW)
-                                        if(r==playerWarehouse.getResource(rowW,colW)){
-                                                playerWarehouse.removeResource(rowW,colW);
+                        for(int rowW=1; rowW<=3 && i>0; ++rowW) {
+                                for (int colW = 1; colW <= rowW && i > 0; ++colW){
+                                        if (r == playerWarehouse.getResource(rowW, colW)) {
+                                                playerWarehouse.removeResource(rowW, colW);
                                                 --i;
                                         }
-
-
-                        //rimozione risorse da depositi carte leader va qui (se i>0)
+                                }
+                        }
+                        if(i>0){
+                                for(LeaderCard leaderCard: leaderCards){
+                                        if(leaderCard.getFullSlotsNumber()!=null && leaderCard.getAbilityResource()==r){
+                                                while(leaderCard.getFullSlotsNumber()>0 && i>0){
+                                                        leaderCard.removeResource();
+                                                        i--;
+                                                }
+                                        }
+                                }
+                        }
                         while(i>0){
                                 removeStrongboxResource(r);
                                 --i;
                         }
                 }
         }
-
-        //METODO DI PROVA, NON SO SE LO USEREMO
-        public Resource getLeaderResource(LeaderCardType type, int index){
-                if(leaderCards.get(index).getAbility() == type){
-
-                }
-                //se la carta leader al posto index è attiva ed è di quel tipo
-                //allora ritorna la risorsa, se no null
-                return null;
-        }//CREDO DA LEVARE STO METODO
-
-
 }

@@ -4,10 +4,19 @@ public class LeaderCardSlots extends LeaderCard{
     private int fullSlotsNumber;
 
 
-    public int getFullSlotsNumber() {
+    public Integer getFullSlotsNumber() {
         return fullSlotsNumber;
     }
-    public void setSlots(int n) {
 
+    public void addResource() {
+        if(fullSlotsNumber<=1){
+            fullSlotsNumber++;
+        }
+    }
+
+    public void removeResource() {
+        if(fullSlotsNumber>=1){
+            fullSlotsNumber--;
+        }
     }
 }

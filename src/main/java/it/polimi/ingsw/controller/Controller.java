@@ -25,7 +25,7 @@ public class Controller {
 
     /**
      * Method activateProduction allows the player to activate the production of one or more cards.
-     * Also the base production can be activated.
+     * Also the base production and the leader card production can be activated.
      *
      */
     public void activateProduction() throws CannotActivateProductionException,IllegalArgumentException{
@@ -37,33 +37,35 @@ public class Controller {
         Resource reqBaseProduction1 = Resource.COIN;//per esempio
         Resource reqBaseProduction2 = Resource.SERVANT;
         Resource producedResBaseProd = Resource.STONE;
-
+        Resource leaderProductionRes = Resource.SHIELD;
         activatedProductions.add(0); //per esempio, detto da utente
 
         Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
+        Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
+        int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
 
         if(activateBaseProduction /*the player wants to activate the base production too*/){//DA METTERE IN PERSONAL CARD BOARD??
             requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction1);
             requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction2);
+            producedResources = Resource.addOneResource(producedResources,producedResBaseProd);
+        }
+        if(true /*the player wants to activate the production of the leader card too*/){
+            requiredResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalRequiredResources(requiredResources);
+            producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalProducedResources(producedResources, leaderProductionRes);
+            producedFaithPoints = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalProducedFP(producedFaithPoints);
+            requiredResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalRequiredResources(requiredResources);
+            producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalProducedResources(producedResources, leaderProductionRes);
+            producedFaithPoints = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalProducedFP(producedFaithPoints);
         }
         Map<Resource,Integer> ownedResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
 
         if(!Resource.enoughResources(ownedResources,requiredResources))
             throw new CannotActivateProductionException();
 
-
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
-        Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
-
-        if(activateBaseProduction /*the player wants to activate the base production too*/)
-            producedResources= Resource.addOneResource(producedResources,producedResBaseProd);
-
         game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
-        int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
-
         for(int i=0; i<producedFaithPoints; i++)
             incrementFaithTrackPosition(game.getCurrentPlayer());
-
     }
 
 

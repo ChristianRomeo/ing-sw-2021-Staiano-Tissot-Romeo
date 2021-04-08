@@ -96,4 +96,25 @@ public abstract class LeaderCard {
     public int getTotalProducedFP(int oldProducedFP){
         return oldProducedFP;
     }
+
+    /**
+     * this method is for the slots card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything but returns null.
+     * In the slots card type, it returns the number of full slots in the card (0,1,2).
+     */
+    public Integer getFullSlotsNumber() {
+        return null;
+    }
+    /**
+     * this method is for the slots card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything.
+     * In the slots card type, it adds (if there is space) a Resource in a slot.
+     */
+    public void addResource() {}
+    /**
+     * this method is for the slots card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything.
+     * In the slots card type, it removes a Resource (if there is one) from a slot.
+     */
+    public void removeResource() {}
 }
