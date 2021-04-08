@@ -13,4 +13,8 @@ public class LeaderCardDiscount extends LeaderCard {
         }
         return discountedCost;
     }
+
+    public LeaderCardDiscount getCopy(LeaderCard leader){
+        return (LeaderCardDiscount) leader;
+    }
 }

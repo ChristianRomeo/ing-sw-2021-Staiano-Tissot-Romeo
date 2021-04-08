@@ -26,7 +26,7 @@ public class ControllerTest {
         player.setNickname("player1");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
-        assertThrows(CannotBuyCardException.class, ()->{controller.buyDevelopmentCard(0,0);});
+        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(0,0));
 
     }
 
@@ -48,7 +48,7 @@ public class ControllerTest {
         resources.put(Resource.SHIELD,10);
         player.getStatusPlayer().addStrongboxResources(resources);
 
-        assertThrows(CannotBuyCardException.class, ()->{controller.buyDevelopmentCard(1,0);});
+        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(1,0));
 
     }
 
@@ -96,7 +96,7 @@ public class ControllerTest {
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,3);
             controller.buyDevelopmentCard(0,0);
             //controller.buyDevelopmentCard(1,0);
-            System.out.println("");
+            System.out.println("passed");
         }catch (Exception e){
             System.out.println("eccezione");
         }
@@ -130,7 +130,7 @@ public class ControllerTest {
             controller.buyDevelopmentCard(1,1);
 
             controller.activateProduction();
-            System.out.println("");
+            System.out.println("passed");
         }catch (Exception e){
             System.out.println("eccezione");
         }
@@ -147,12 +147,10 @@ public class ControllerTest {
             game.addNewPlayer(player);
             game.setCurrentPlayer(player);
 
-            LeaderCard leaderCard = new LeaderCardDiscount();
-
-            LeaderCardDiscount leaderCardDiscount = (LeaderCardDiscount) leaderCard;
+            LeaderCardDiscount leaderCardDiscount = new LeaderCardDiscount();
 
             System.out.println(leaderCardDiscount.getAbilityResource());
-            System.out.println("");
+            System.out.println("passed");
         }catch (Exception e){
             System.out.println("eccezione");
         }
