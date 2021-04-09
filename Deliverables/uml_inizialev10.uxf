@@ -31,13 +31,11 @@ fontsize=10
       <x>136</x>
       <y>88</y>
       <w>184</w>
-      <h>232</h>
+      <h>208</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;singleton&gt;&gt;
-Game
+    <panel_attributes>Game
 --
 -MAXPLAYERS: int
--LEADERPATH: String
 -board: Board
 -instance: Game
 -players:ArrayList&lt;Player&gt;
@@ -46,7 +44,6 @@ Game
 -leaderCards: ArrayList&lt;LeaderCard&gt;
 --
 +Game()
-+getInstance(): Game
 +getBoard(): Board
 +addNewPlayer(Player)
 +getPlayerByNickname(String): Player
@@ -217,7 +214,7 @@ RED</panel_attributes>
 +getLeaderCard(int):LeaderCard
 +getAllResources():Map&lt;Resource,Integer&gt;
 +removeResources(Map&lt;Resource,Integer&gt;)
-+getLeaderResource(LeaderCardType,int):Resource
+
 
 //+useBaseProduction(resources: Resource[2]):Resource controller??
 //+endRound() Controller
@@ -252,13 +249,13 @@ RED</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>208</x>
-      <y>312</y>
+      <y>288</y>
       <w>24</w>
-      <h>112</h>
+      <h>136</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -391,28 +388,45 @@ m2= 0..7
     <id>UMLClass</id>
     <coordinates>
       <x>1000</x>
-      <y>80</y>
-      <w>320</w>
-      <h>224</h>
+      <y>32</y>
+      <w>328</w>
+      <h>296</h>
     </coordinates>
     <panel_attributes>&lt;&lt;abstract&gt;&gt;
 LeaderCard
 --
+-id: int
+-ability: LeaderCardType
+-abilityResource: Resource
 -requiredResources: Map&lt;Resource,Integer&gt;
 -requiredCards: Map&lt;CardType,Integer&gt;
--requiredCardsWithLevel: Map&lt;CardType,Integer&gt;
 -victoryPoints: int
 -isDiscarded: boolean
 -isActivated: boolean
 --
++getId(): int
++getAbility(): LeaderCardType
++getAbilityResource(): Resource
 +getRequiredResources(): Map&lt;Resource,Integer&gt;
 +getRequiredCards(): Map&lt;CardType,Integer&gt;
-+getRequiredCardsWithLevel(): Map&lt;CardType,Integer&gt;
 +getVictoryPoints(): int
 +discard()
 +activate()
 +getIsDiscarded(): boolean
-+getIsActivated(): boolean</panel_attributes>
++getIsActivated(): boolean
++getDiscountedCost(Map&lt;Resource,Integer): Map&lt;Resource,Integer&gt;
++getWhiteMarbleResource(): Resource
++getTotalRequiredResources(Map&lt;Resource,Integer&gt;):Map&lt;Resource,Integer&gt;
++getTotalProducedResources(Map&lt;Resource,Integer&gt;,Resource):Map&lt;Resource,Integer&gt;
++getTotalProducedFP(int):int
++getFullSlotsNumber(): Integer
++addResource()
++removeResource()
+
+
+
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -420,73 +434,75 @@ LeaderCard
     <coordinates>
       <x>904</x>
       <y>432</y>
-      <w>208</w>
+      <w>256</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>LeaderCardDiscount
 --
--discountedResource: Resource
+
 --
-+getDiscountedResource(): Resource</panel_attributes>
++getDiscountedCost(Map&lt;Resource,Integer): Map&lt;Resource,Integer&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1152</x>
-      <y>296</y>
+      <y>320</y>
       <w>24</w>
-      <h>96</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1168</x>
+      <x>1192</x>
       <y>536</y>
-      <w>208</w>
-      <h>56</h>
+      <w>328</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>LeaderCardProduction
 --
--requestedResource: Resource
+
 --
-+getRequestedResource(): Resource</panel_attributes>
++getTotalRequiredResources(Map&lt;Resource,Integer&gt;):Map&lt;Resource,Integer&gt;
++getTotalProducedResources(Map&lt;Resource,Integer&gt;,Resource):Map&lt;Resource,Integer&gt;
++getTotalProducedFP(int):int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1216</x>
+      <x>1248</x>
       <y>416</y>
       <w>168</w>
-      <h>96</h>
+      <h>64</h>
     </coordinates>
     <panel_attributes>LeaderCardSlots
 --
--slotTypeResource: Resource
 -fullSlotsNumber: int
 --
-+getSlotType(): Resource
-+getFullSlotsNumber(): int
-+setSlots(n: int)</panel_attributes>
++getFullSlotsNumber(): Integer
++addResource()
++removeResource()
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>904</x>
+      <x>928</x>
       <y>536</y>
       <w>248</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>LeaderCardWhiteMarble
 --
--resourceChangeWithWhite: Resource
+
 --
-+getResourceChangeWithWhite(): Resource</panel_attributes>
++getWhiteMarbleResource(): Resource</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -494,12 +510,12 @@ LeaderCard
     <coordinates>
       <x>1040</x>
       <y>360</y>
-      <w>240</w>
+      <w>272</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;20.0;280.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;320.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -516,7 +532,7 @@ LeaderCard
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1120</x>
+      <x>1160</x>
       <y>368</y>
       <w>24</w>
       <h>184</h>
@@ -528,7 +544,7 @@ LeaderCard
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1184</x>
+      <x>1208</x>
       <y>368</y>
       <w>24</w>
       <h>184</h>
@@ -540,7 +556,7 @@ LeaderCard
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1256</x>
+      <x>1288</x>
       <y>368</y>
       <w>24</w>
       <h>64</h>
@@ -553,13 +569,13 @@ LeaderCard
     <id>Relation</id>
     <coordinates>
       <x>848</x>
-      <y>232</y>
+      <y>208</y>
       <w>168</w>
-      <h>128</h>
+      <h>152</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2=2..4</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0;190.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0;190.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -761,10 +777,10 @@ DISCARDED</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1688</x>
+      <x>1616</x>
       <y>112</y>
-      <w>168</w>
-      <h>168</h>
+      <w>240</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>Controller
 --
@@ -781,8 +797,7 @@ DISCARDED</panel_attributes>
 -insertBoughtResources(List&lt;Resource&gt;)
 -fromMarblesToResources(List&lt;MarbleColor&gt;):List&lt;Resource&gt;
 -incrementFaithTrackPosition(Player)
--handlerDiscountLeader(Map&lt;Resource,Integer&gt;):Map&lt;Resource,Integer&gt;
--handlerMarbleLeader():Resource
+
 
 
 </panel_attributes>
