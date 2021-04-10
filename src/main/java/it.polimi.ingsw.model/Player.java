@@ -57,7 +57,7 @@ public class Player {
      * @param upper upper bound of the range to check
      * Checks if the number x is between the range [lower,upper]
      */
-    private static boolean isBetween(int x, int lower, int upper) {
+    public static boolean isBetween(int x, int lower, int upper) {
         return lower <= x && x <= upper;
     }
 
