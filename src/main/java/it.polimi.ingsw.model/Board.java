@@ -90,11 +90,10 @@ public class Board {
                             else if(getDevelopmentCardBoard().getPileSize(i, GREENCOLUMN) == 1) {
                                 getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
                                 ++discardedCards;
-
                             }
                             else {
-                                getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
-                                getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
+                                for(int j = discardedCards; j < 2; ++j)
+                                    getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
                             }
                             if (discardedCards == 2)
                                 break;
@@ -108,11 +107,10 @@ public class Board {
                             else if(getDevelopmentCardBoard().getPileSize(i, BLUECOLUMN) == 1) {
                                 getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
                                 ++discardedCards;
-
                             }
                             else {
-                                getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
-                                getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
+                                for(int j = discardedCards; j < 2; ++j)
+                                    getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
                             }
                             if (discardedCards == 2)
                                 break;
@@ -126,11 +124,10 @@ public class Board {
                             else if(getDevelopmentCardBoard().getPileSize(i, YELLOWCOLUMN) == 1) {
                                 getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
                                 ++discardedCards;
-
                             }
                             else {
-                                getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
-                                getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
+                                for(int j = discardedCards; j < 2; ++j)
+                                    getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
                             }
                             if (discardedCards == 2)
                                 break;
@@ -144,11 +141,10 @@ public class Board {
                             else if(getDevelopmentCardBoard().getPileSize(i, PURPLECOLUMN) == 1) {
                                 getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
                                 ++discardedCards;
-
                             }
                             else {
-                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
-                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
+                                for(int j = discardedCards; j < 2; ++j)
+                                    getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
                             }
                             if (discardedCards == 2)
                                 break;
