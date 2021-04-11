@@ -244,6 +244,7 @@ public class Controller {
                                 else
                                     canActivate = true;
                         }
+                        matchedCardType = 0; //restore its value to 0 so in case there is more than one card required it works
                     }
 
                 }
