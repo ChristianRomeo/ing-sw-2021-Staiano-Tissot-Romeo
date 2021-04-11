@@ -6,7 +6,9 @@ import modelExceptions.CannotBuyCardException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +28,7 @@ public class ControllerTest {
         player.setNickname("player1");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
-        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(0,0));
+        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(0,0,0));
 
     }
 
@@ -48,7 +50,7 @@ public class ControllerTest {
         resources.put(Resource.SHIELD,10);
         player.getStatusPlayer().addStrongboxResources(resources);
 
-        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(1,0));
+        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(1,0,0));
 
     }
 
@@ -69,7 +71,7 @@ public class ControllerTest {
         resources.put(Resource.SHIELD,10);
         player.getStatusPlayer().addStrongboxResources(resources);
 
-        controller.buyDevelopmentCard(0,0);
+        controller.buyDevelopmentCard(0,0,0);
 
         assert(!player.getStatusPlayer().getPersonalCardBoard().isCardPileEmpty(0));
         assert(player.getStatusPlayer().getPersonalCardBoard().getNumberOfCards()==1);
@@ -94,7 +96,7 @@ public class ControllerTest {
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,1);
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,2);
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,3);
-            controller.buyDevelopmentCard(0,0);
+            controller.buyDevelopmentCard(0,0,0);
             //controller.buyDevelopmentCard(1,0);
             System.out.println("passed");
         }catch (Exception e){
@@ -126,10 +128,12 @@ public class ControllerTest {
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,1);
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,2);
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD,3,3);
-            controller.buyDevelopmentCard(0,1);
-            controller.buyDevelopmentCard(1,1);
+            controller.buyDevelopmentCard(0,1,0);
+            controller.buyDevelopmentCard(1,1,0);
 
-            controller.activateProduction();
+            List<Integer> activatedProductions = new ArrayList<>();
+            activatedProductions.add(0);
+            controller.activateProduction(activatedProductions,false,null,null,null);
             System.out.println("passed");
         }catch (Exception e){
             System.out.println("eccezione");

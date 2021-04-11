@@ -26,37 +26,45 @@ public class Controller {
     /**
      * Method activateProduction allows the player to activate the production of one or more cards.
      * Also the base production and the leader card production can be activated.
+     * @param activatedProductions tells which card productions the player want to activate, it contains
+     *                             numbers between 0 and 2, the indexes of the cards he wants to activate
+     *                             in his personal card board.
+     * @param baseProd tells if the player wants to activate the base production or not.
+     * @param baseRes it's a triple that contains three resources: the first two are the selected required
+     *                resources of the base production, the third is the selected produced resource.
+     * @param leaderRes1 it's the resource you want to produce using the first leader card you own.
+     *                   If you can't or don't want to activate the production of that leader card
+     *                   you have to set leaderRes1 to null.
+     * @param leaderRes2 it's the resource you want to produce using the first leader card you own.
+     *                   If you can't or don't want to activate the production of that leader card
+     *                   you have to set leaderRes1 to null.
      *
      */
-    public void activateProduction() throws CannotActivateProductionException,IllegalArgumentException{
+    public void activateProduction(List<Integer> activatedProductions, boolean baseProd, SameTypeTriple<Resource> baseRes, Resource leaderRes1, Resource leaderRes2) throws CannotActivateProductionException,IllegalArgumentException{
         PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
         //l'utente mi dice quali produzioni vuole attivare tramite la view
-        List<Integer> activatedProductions = new ArrayList<>();//contiene numeri da 0 a 2 che ti dicono
-                                                                // quali produzioni di carte attivare
-        boolean activateBaseProduction = false; //detto da utente
-        Resource reqBaseProduction1 = Resource.COIN;//per esempio
-        Resource reqBaseProduction2 = Resource.SERVANT;
-        Resource producedResBaseProd = Resource.STONE;
-        Resource leaderProductionRes = Resource.SHIELD;
-        activatedProductions.add(0); //per esempio, detto da utente
+        //activatedProductions contiene numeri da 0 a 2 che ti dicono quali produzioni di carte attivare
 
         Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
         Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
         int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
 
-        if(activateBaseProduction /*the player wants to activate the base production too*/){//DA METTERE IN PERSONAL CARD BOARD??
-            requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction1);
-            requiredResources = Resource.addOneResource(requiredResources,reqBaseProduction2);
-            producedResources = Resource.addOneResource(producedResources,producedResBaseProd);
+        if(baseProd /*the player wants to activate the base production too*/){//DA METTERE IN PERSONAL CARD BOARD??
+            requiredResources = Resource.addOneResource(requiredResources,baseRes.getVal1());
+            requiredResources = Resource.addOneResource(requiredResources,baseRes.getVal2());
+            producedResources = Resource.addOneResource(producedResources,baseRes.getVal3());
         }
-        if(true /*the player wants to activate the production of the leader card too*/){
+        if(leaderRes1!=null /*the player wants to activate the production of the first leader card too*/){
             requiredResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalRequiredResources(requiredResources);
-            producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalProducedResources(producedResources, leaderProductionRes);
+            producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalProducedResources(producedResources, leaderRes1);
             producedFaithPoints = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalProducedFP(producedFaithPoints);
+        }
+        if(leaderRes2!=null /*the player wants to activate the production of the second leader card too*/){
             requiredResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalRequiredResources(requiredResources);
-            producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalProducedResources(producedResources, leaderProductionRes);
+            producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalProducedResources(producedResources, leaderRes2);
             producedFaithPoints = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalProducedFP(producedFaithPoints);
         }
+
         Map<Resource,Integer> ownedResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
 
         if(!Resource.enoughResources(ownedResources,requiredResources))
@@ -71,14 +79,16 @@ public class Controller {
 
     /**
      * Method buyDevelopmentCard allows the player to buy a new development card from the board.
-     * You have to give the position of the card you want to buy on the board.
+     * You have to give the position of the card you want to buy on the board and the pile of your
+     * personal card board where you want to insert the bought card.
      *
      * @param row is the row of the selected card, 0<=row<=2,
      *            row 0 is for card of level 1,..., row 2 is for card of level 3
      *
      * @param col is the column of the selected card, 0<=col<=3
+     * @param pile is the number of the pile where you want to insert the bought card, 0<=pile<=2
      */
-    public void buyDevelopmentCard(int row, int col) throws CannotBuyCardException,IllegalArgumentException{
+    public void buyDevelopmentCard(int row, int col, int pile) throws CannotBuyCardException,IllegalArgumentException, InvalidCardInsertionException{
         DevelopmentCardBoard developmentCardBoard = game.getBoard().getDevelopmentCardBoard();
         StatusPlayer statusCurrentPlayer = game.getCurrentPlayer().getStatusPlayer();
 
@@ -86,8 +96,8 @@ public class Controller {
         if(developmentCardBoard.isCardPileEmpty(row,col))
             throw new IllegalArgumentException();
 
-        //check if the player has space in his personal card board
-        if(!statusCurrentPlayer.getPersonalCardBoard().canBuyCardOfLevel(row+1))
+        //check if the player has space in his personal card board, in the pile selected
+        if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile))
             throw new CannotBuyCardException();
 
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
@@ -100,20 +110,7 @@ public class Controller {
         developmentCardBoard.removeCard(row, col);
         statusCurrentPlayer.removeResources(card.getCost(statusCurrentPlayer.getPlayerLeaderCards()));
 
-        //the player has to decide where he wants to put his new card, in what position(between 0 and 2)
-        //of his personal card board. If he selects an invalid position, he has to try again.
-        //THE FOLLOWING PART NEEDS THE INTERACTION WITH THE VIEW
-        int position = 0;
-        while(true){
-            try{
-                statusCurrentPlayer.getPersonalCardBoard().addCard(card,position);
-                break;
-            }catch (InvalidCardInsertionException e){
-                //this position was invalid, insert another position
-            }
-        }
-        //QUESTA PARTE POTREI FARLA CHE L'UTENTE TI DA GIA DALL'INIZIO LA POSIZIONE E LUI CONTROLLA
-        //SUBITO, COSI DEVI PURE FA MENO CONTROLLI E RIDUCI INTERAZIONE CON UTENTE
+        statusCurrentPlayer.getPersonalCardBoard().addCard(card,pile);
     }
 
 
@@ -123,7 +120,7 @@ public class Controller {
      * @param rowOrColumn is =r if the player wants to select a row, =c to select a column
      * @param index is the index of the row/column the player wants to select
      */
-    public void useMarket(char rowOrColumn, int index){
+    public void useMarket(char rowOrColumn, int index){ //METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
         Market market = game.getBoard().getMarket();
 
         List<MarbleColor> takenMarbles;
@@ -157,7 +154,6 @@ public class Controller {
 
         if(leaderCard.isActivated() || leaderCard.isDiscarded()) {
             //the card is already active, or is discarded, so you can't activate it
-
         }
         else {
             //check if the player has the required resources to be able to activate the Leader Card
@@ -171,7 +167,7 @@ public class Controller {
             }
             //check if the player has the required cards to be able to activate the Leader Card
             else if(leaderCard.getRequiredCards().size() > 0) {
-                if (leaderCard.getAbility().equals(LeaderCardType.PRODUCTION)) {
+                if (leaderCard.getAbility().equals(LeaderCardType.PRODUCTION)) { //level 2 richiesto sempre
                     /*gets the first (and only) element of the cards requirements since the Card Type is PRODUCTION,
                     there will be only one card required with its associated level*/
                     CardType requiredCardType = leaderCard.getRequiredCards().entrySet().iterator().next().getKey();
