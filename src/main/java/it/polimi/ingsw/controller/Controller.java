@@ -145,15 +145,113 @@ public class Controller {
     /**
      * Method activateLeaderCard allows the player to activate one of his leader cards.
      * @param index is the position of that leader card (owned by the player)
+     *
      */
     public void activateLeaderCard(int index) throws IllegalArgumentException{
         LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
+        Map<Resource, Integer> playerResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
+        PersonalCardBoard playerCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
+         final int PILE_DEPTH = 3;
+         int matchedCardType = 0;
+         boolean canActivate = false;
 
         if(leaderCard.isActivated() || leaderCard.isDiscarded()) {
             //the card is already active, or is discarded, so you can't activate it
-        }else{
-            //todo: controllo requisiti carte leader
-            leaderCard.activate();
+
+        }
+        else {
+            //check if the player has the required resources to be able to activate the Leader Card
+            if (leaderCard.getRequiredResources().size() > 0) {
+                for (Map.Entry<Resource, Integer> playerResource : playerResources.entrySet()) {
+                    for (Map.Entry<Resource, Integer> leaderResource : leaderCard.getRequiredResources().entrySet()) {
+                        if (playerResource.getKey().equals(leaderResource.getKey()) && playerResource.getValue().equals(leaderResource.getValue()))
+                            canActivate = true;
+                    }
+                }
+            }
+            //check if the player has the required cards to be able to activate the Leader Card
+            else if(leaderCard.getRequiredCards().size() > 0) {
+                if (leaderCard.getAbility().equals(LeaderCardType.PRODUCTION)) {
+                    /*gets the first (and only) element of the cards requirements since the Card Type is PRODUCTION,
+                    there will be only one card required with its associated level*/
+                    CardType requiredCardType = leaderCard.getRequiredCards().entrySet().iterator().next().getKey();
+                    int requiredLevel = leaderCard.getRequiredCards().entrySet().iterator().next().getValue();
+                    for(int i = 0; i < PILE_DEPTH; i++) {
+                        for (int j = 0; j < PILE_DEPTH; j++) {
+                            if (playerCardBoard.getCard(i, j).getType().equals(requiredCardType) && playerCardBoard.getCard(i, j).getLevel() == requiredLevel) {
+                                canActivate = true;
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                else {
+                    for (Map.Entry<CardType, Integer> leaderRequiredCards : leaderCard.getRequiredCards().entrySet()) {
+                        switch (leaderRequiredCards.getKey()) {
+                            case GREEN:
+                                for (int i = 0; i < PILE_DEPTH; i++) {
+                                    for (int j = 0; j < PILE_DEPTH; j++) {
+                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.GREEN))
+                                            matchedCardType++;
+                                    }
+                                }
+                                if(matchedCardType < leaderRequiredCards.getValue()) {
+                                    canActivate = false;
+                                    break;
+                                }
+                                else
+                                    canActivate = true;
+
+                            case BLUE:
+                                for (int i = 0; i < PILE_DEPTH; i++) {
+                                    for (int j = 0; j < PILE_DEPTH; j++) {
+                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.BLUE))
+                                            matchedCardType++;
+                                    }
+                                }
+                                if(matchedCardType < leaderRequiredCards.getValue()) {
+                                    canActivate = false;
+                                    break;
+                                }
+                                else
+                                    canActivate = true;
+
+                            case YELLOW:
+                                for (int i = 0; i < PILE_DEPTH; i++) {
+                                    for (int j = 0; j < PILE_DEPTH; j++) {
+                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.YELLOW))
+                                            matchedCardType++;
+                                    }
+                                }
+                                if(matchedCardType < leaderRequiredCards.getValue()) {
+                                    canActivate = false;
+                                    break;
+                                }
+                                else
+                                    canActivate = true;
+                            case PURPLE:
+                                for (int i = 0; i < PILE_DEPTH; i++) {
+                                    for (int j = 0; j < PILE_DEPTH; j++) {
+                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.PURPLE))
+                                            matchedCardType++;
+                                    }
+                                }
+                                if(matchedCardType < leaderRequiredCards.getValue()) {
+                                    canActivate = false;
+                                    break;
+                                }
+                                else
+                                    canActivate = true;
+                        }
+                    }
+
+                }
+            }
+            if(canActivate)
+                leaderCard.activate();
+            //else
+                //not enough resources/cards to be able to activate the Leader Card
         }
     }
     /**
