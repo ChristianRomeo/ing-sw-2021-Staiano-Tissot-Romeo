@@ -1,26 +1,121 @@
 package it.polimi.ingsw.controller;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.*;
-import modelExceptions.*;
+import it.polimi.ingsw.model.modelExceptions.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.logging.Logger;
+
 
 /**
- * @author enrico
+ * Controller, also
+ * @see VirtualView
  */
 public class Controller {
-    private Game game;
+    private final Game game;
+    private VirtualView virtualView;
+    private Player currentPlayer;
+    private final static Logger logger = Logger.getLogger(Server.class.getName());
+    private List<LeaderCard> leaderCardList = new ArrayList<>();
+
 
     public Controller(Game game){
-        //costruttore creato a caso solo per fare testing
         this.game=game;
+    }
+
+    public void setVirtualView(VirtualView virtualView) {
+        this.virtualView = virtualView;
+    }
+
+    public boolean gameIsReady() {
+        return (game != null) && game.gameReady();
+    }
+
+    public void gameStarter() throws InterruptedException, DisconnectionException {
+        synchronized (this) {
+            while (!gameIsReady() && isRunning()) {
+                this.wait();
+            }
+        }
+        logger.info("Starting the game");
+        List<Player> players = game.getPlayers();
+
+        //for all players
+        //virtualview.getclienthandler.getnickname.send setLeaderCardChoice ; leaderCardList - 4 ; logger.info(waiting cards) ;
+        /* synchronized (this) {
+            while (!(areCardsChosen()) && isRunning()) {
+                this.wait();
+            }
+        } */
+        //logger.info(card chosen) ;
+
+        //set player 2, 3 , 4 theirs resources
+
+        game();
+    }
+
+    private void game() throws InterruptedException, DisconnectionException {
+        while (!game.hasWinner()) {
+
+            //if currentplayer turn hasEnded
+            //currentplayer = nextTurnPlayer
+            //else
+            //scelta mossa giocatore; synch this ; wait;
+            //sendToEveryone mossa
+        }
+             manageWin();
+
+    }
+
+    private void manageWin() {
+
+        logger.info("Game ended: " + currentPlayer.getNickname() + " has won");
+        for (Player p : game.getPlayers()) {
+            //virtualView.getClientHandlerByNickname sendTo winner EndMessage
+        }
+    }
+
+    private void manageLose(){
+        //che succede ai giocatori che perdono?
+        //removePlayer(currentPlayer);
+    }
+    public void setNewNickname(){
+        //bisogna capire come fare
+    }
+
+    public void actionDispatch(){
+        //riceve l'azione dall'utente e chiama il metodo adeguato
+        notifyController();
+    }
+
+    public void setDisconnected(String nickname) {
+        if (game.getPlayerByNickname(nickname) != null && game.hasWinner()) {
+            game.getPlayerByNickname(nickname).setConnected(false);
+            return;
+        }
+
+        //virtualView.sendToEveryone disconnection nickname
+        virtualView.closeAll();
+        game.setActive(true);
+        notifyController();
+        //wakeUpServerLauncher();   //synchronized (game) game.notifyAll();   //PER PARTITE MULTIPLE DOVREBBE STARE SEMPRE SVEGLIO RIGHT?
+    }
+
+    public boolean isRunning() throws DisconnectionException {
+        if (!game.isActive())
+            throw new DisconnectionException();
+        return true;
+    }
+
+    public void notifyController() {
+        synchronized (this) {
+            this.notifyAll();
+        }
     }
 
     /**
@@ -149,6 +244,7 @@ public class Controller {
      *
      */
     public void activateLeaderCard(int index) throws IllegalArgumentException{
+        //sendToEveryone che il current player ha attivato la carta x
         LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
         Map<Resource, Integer> playerResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
         PersonalCardBoard playerCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
@@ -254,6 +350,7 @@ public class Controller {
             //else
                 //not enough resources/cards to be able to activate the Leader Card
         }
+        notifyController();
     }
     /**
      * Method discardLeaderCard allows the player to discard one of his leader cards.
@@ -436,7 +533,6 @@ public class Controller {
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader(LEADERPATH));
         Gson gson = new Gson();
-        List<LeaderCard> leaderCardList = new ArrayList<>();
         JsonArray json = gson.fromJson(bufferedReader, JsonArray.class);
 
         for (int i = 0; i < json.size(); ++i)
@@ -454,11 +550,12 @@ public class Controller {
                     leaderCardList.add(gson.fromJson(json.get(i), LeaderCardWhiteMarble.class));
         }
 
-        leaderCardList.forEach(System.out::println);
+        //leaderCardList.forEach(System.out::println);
 
         Collections.shuffle(leaderCardList);
 
-        leaderCardList.forEach(System.out::println);
+        //leaderCardList.forEach(System.out::println);
 
     }
+
 }

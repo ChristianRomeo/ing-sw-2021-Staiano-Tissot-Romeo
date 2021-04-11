@@ -1,4 +1,4 @@
-package modelExceptions;
+package it.polimi.ingsw.model.modelExceptions;
 
 /**
  * Exception called when you try to insert in the personal card board a card in a wrong position.

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import modelExceptions.VaticanReportException;
+import it.polimi.ingsw.model.modelExceptions.VaticanReportException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

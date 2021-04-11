@@ -1,4 +1,4 @@
-package modelExceptions;
+package it.polimi.ingsw.model.modelExceptions;
 /**
  *Exception called when the increment of a Faith Track Position causes a Vatican Report
  */

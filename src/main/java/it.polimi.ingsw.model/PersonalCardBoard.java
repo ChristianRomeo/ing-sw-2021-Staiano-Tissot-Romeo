@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import modelExceptions.InvalidCardInsertionException;
+import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
 
 import java.util.HashMap;
 import java.util.List;

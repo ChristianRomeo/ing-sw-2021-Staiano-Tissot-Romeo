@@ -4,8 +4,8 @@ import it.polimi.ingsw.model.PersonalCardBoard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.StatusPlayer;
-import modelExceptions.InvalidWarehouseInsertionException;
-import modelExceptions.VaticanReportException;
+import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
+import it.polimi.ingsw.model.modelExceptions.VaticanReportException;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

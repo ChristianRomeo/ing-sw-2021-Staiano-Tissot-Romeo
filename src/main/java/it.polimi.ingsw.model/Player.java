@@ -15,6 +15,15 @@ public class Player {
     private int victoryPoints;
     private StatusPlayer statusPlayer;
     private boolean isWinner;
+    private boolean isConnected;
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
+    }
 
     public String getNickname() {
         return nickname;
@@ -68,7 +77,7 @@ public class Player {
      */
     public void calculateAndSetVictoryPoints() {        //non è meglio nel controller dove alla fine fa il calcolo per ogni giocatore?
         int sum = 0, popFavorTileMinNumOfVP = 2;//minimum number of victory points given, if any
-        double totalNumOfResources = 0.0;
+        double totalNumOfResources;
 
         //calculate victory points based on faith track position.
         if (isBetween(statusPlayer.getFaithTrackPosition(), 3, 5))
@@ -151,9 +160,10 @@ public class Player {
 
     }
 
-    public void setIsWinnerTrue(){
-        isWinner=true;
+    public void setIsWinner(){
+        this.isWinner=true;
     }
 
+    public boolean isWinner() { return isWinner; }
 
 }

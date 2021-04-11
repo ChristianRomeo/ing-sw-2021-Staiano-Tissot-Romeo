@@ -1,13 +1,7 @@
 package it.polimi.ingsw.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +22,8 @@ public class Game {
     private int currentPlayerId;
     private final List<LeaderCard> leaderCards = new ArrayList<>();
     private boolean lastTurns;
-
+    private int numPlayers;
+    private boolean isActive;
     /**
      * Constructor Game creates a new Game instance.
      */
@@ -39,6 +34,29 @@ public class Game {
         lastTurns = false;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
+    }
+
+    public List<Player> getPlayers(){   //questi sono tutti, connessi e disconnessi eventuali, se servono sono quelli connessi fare altro metodo
+        return new ArrayList<>(players);
+    }
+
+    public boolean gameReady() {
+        return players.size() == numPlayers;
+    }
 
     /**
      * Method getBoard returns the board of this Game object.
@@ -57,10 +75,12 @@ public class Game {
      */
     public void addNewPlayer(Player player) {
         //todo check to not exceed MAXPLAYERS with getPlayerNumber()
-        int idx=1;
-        while (isNicknameTaken(player.getNickname()))
-            player.setNickname(player.getNickname()+"_"+idx++);
-        players.add(player);
+         int idx=1;
+        if (players.size() < numPlayers) {
+            while (isNicknameTaken(player.getNickname()))
+                player.setNickname(player.getNickname() + "_" + idx++);
+            players.add(player);
+        }
     }
 
     /**
@@ -127,7 +147,7 @@ public class Game {
 
     /** Method nextTurn updates currentPlayer to the next player in "players" order. */
     public void nextTurn() {
-        if(!lastTurns || currentPlayerId!=(players.size()-1)){
+        if(!lastTurns || currentPlayerId!=(players.size()-1)){  //controlli tipo player == null || !players.contains(player) ci vanno?
             currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
             setCurrentPlayer(players.get(currentPlayerId));
         }
@@ -174,8 +194,17 @@ public class Game {
             }
         }
         for(Player p: bestPlayers){
-            p.setIsWinnerTrue();
+            p.setIsWinner();
         }
+    }
+
+    public boolean hasWinner() {
+        for (Player player : players) {
+            if (player.isWinner()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 /*METODO VECCHIO DA TOGLIERE

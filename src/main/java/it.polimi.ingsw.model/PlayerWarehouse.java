@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import modelExceptions.InvalidWarehouseInsertionException;
+import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -123,6 +123,7 @@ public class PlayerWarehouse {
         else
             upperRow=resource;
     }
+    //DRY violation
     private void setMiddleRow(Resource resource, int col) throws InvalidWarehouseInsertionException{
         if(middleRow.get(col)!=null||upperRow==resource || lowerRow.contains(resource))
             throw new InvalidWarehouseInsertionException();

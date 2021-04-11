@@ -1,8 +1,7 @@
 package it.polimi.ingswModelTests;
-import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
 
-import modelExceptions.InvalidWarehouseInsertionException;
+import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -52,7 +51,7 @@ public class PlayerWarehouseTest {
             playerWarehouse.insertResource(Resource.SHIELD,3,3);
 
             assertThrows(InvalidWarehouseInsertionException.class,
-                    ()->{playerWarehouse.insertResource(Resource.SERVANT,2,2);});
+                    ()-> playerWarehouse.insertResource(Resource.SERVANT,2,2));
             //full cell test
     }
 
@@ -65,7 +64,7 @@ public class PlayerWarehouseTest {
         playerWarehouse.insertResource(Resource.SERVANT,2,1);
 
         assertThrows(InvalidWarehouseInsertionException.class,
-                ()->{playerWarehouse.insertResource(Resource.SHIELD,2,2);});
+                ()-> playerWarehouse.insertResource(Resource.SHIELD,2,2));
 
     }
 
@@ -78,7 +77,7 @@ public class PlayerWarehouseTest {
         playerWarehouse.insertResource(Resource.SERVANT,2,1);
 
         assertThrows(InvalidWarehouseInsertionException.class,
-                ()->{playerWarehouse.insertResource(Resource.COIN,3,1);});
+                ()-> playerWarehouse.insertResource(Resource.COIN,3,1));
     }
 
     @Test // test passed, removing resources should work
@@ -99,7 +98,7 @@ public class PlayerWarehouseTest {
     public void getAllWarehouseResourcesTest() throws Exception
     {
         PlayerWarehouse playerWarehouse = new PlayerWarehouse();
-        Map<Resource,Integer> allResources = new HashMap<>();
+        Map<Resource,Integer> allResources;
 
         playerWarehouse.insertResource(Resource.COIN,1,0);
         playerWarehouse.insertResource(Resource.SERVANT,2,1);

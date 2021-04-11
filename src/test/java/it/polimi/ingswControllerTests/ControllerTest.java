@@ -2,10 +2,11 @@ package it.polimi.ingswControllerTests;
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
 
-import modelExceptions.CannotBuyCardException;
+import it.polimi.ingsw.model.modelExceptions.CannotBuyCardException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
