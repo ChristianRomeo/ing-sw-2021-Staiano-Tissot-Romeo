@@ -14,6 +14,7 @@ public class Player {
     private String nickname;
     private int victoryPoints;
     private StatusPlayer statusPlayer;
+    private boolean isWinner;
 
     public String getNickname() {
         return nickname;
@@ -30,7 +31,7 @@ public class Player {
 
     /**
      *
-     * @return
+     * @return victory points of the player
      */
     public int getVictoryPoints() {
         return victoryPoints;
@@ -42,6 +43,7 @@ public class Player {
     public Player(){
         //costruttore creato a caso solo per fare testing
         statusPlayer = new StatusPlayer();
+        isWinner=false;
     }
 
     /**
@@ -148,5 +150,10 @@ public class Player {
         victoryPoints = sum;
 
     }
+
+    public void setIsWinnerTrue(){
+        isWinner=true;
+    }
+
 
 }

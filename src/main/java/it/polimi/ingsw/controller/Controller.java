@@ -111,6 +111,10 @@ public class Controller {
         statusCurrentPlayer.removeResources(card.getCost(statusCurrentPlayer.getPlayerLeaderCards()));
 
         statusCurrentPlayer.getPersonalCardBoard().addCard(card,pile);
+        if(statusCurrentPlayer.getPersonalCardBoard().getNumberOfCards()>=7){
+            //a player has bought 7 cards, so we enter the last phase of the game
+            game.setLastTurnsTrue();
+        }
     }
 
 
@@ -385,6 +389,7 @@ public class Controller {
                 if(e.getReportId()==3){
                     //a player is arrived in the last cell of the track, so the game is
                     //in the final phase
+                    game.setLastTurnsTrue();
                 }
             }
         }

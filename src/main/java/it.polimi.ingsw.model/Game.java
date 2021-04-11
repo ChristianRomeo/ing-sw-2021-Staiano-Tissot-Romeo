@@ -22,12 +22,12 @@ public class Game {
     private static final int MAXPLAYERS = 4;
 
     //private boolean gameStarted_Ended;
-    //private int winnerIndex; //not sure it goes here
     private final Board board;
     private final List<Player> players;
     private Player currentPlayer;
     private int currentPlayerId;
     private final List<LeaderCard> leaderCards = new ArrayList<>();
+    private boolean lastTurns;
 
     /**
      * Constructor Game creates a new Game instance.
@@ -36,6 +36,7 @@ public class Game {
         board = new Board();
         players = new ArrayList<>();
         currentPlayerId=0;
+        lastTurns = false;
     }
 
 
@@ -126,8 +127,13 @@ public class Game {
 
     /** Method nextTurn updates currentPlayer to the next player in "players" order. */
     public void nextTurn() {
-        currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
-        setCurrentPlayer(players.get(currentPlayerId));
+        if(!lastTurns || currentPlayerId!=(players.size()-1)){
+            currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
+            setCurrentPlayer(players.get(currentPlayerId));
+        }
+        else{
+            endGame();
+        }
     }
 
     /**
@@ -138,4 +144,46 @@ public class Game {
     public int getCurrentPlayerId(){
         return currentPlayerId;
     }
+
+    /**
+     * Method setLastTurnsTrue set the flag lastTurns=true.
+     */
+    public void setLastTurnsTrue(){
+        lastTurns=true;
+    }
+
+    public boolean getLastTurns(){
+        return lastTurns;
+    }
+
+    private void endGame(){
+        for(Player p: players){
+            p.calculateAndSetVictoryPoints();
+        }
+        List<Player> bestPlayers = new ArrayList<>(players);
+        for(Player p: bestPlayers){
+            for(Player p1: bestPlayers){
+                if(p1.getVictoryPoints()>p.getVictoryPoints()){
+                    bestPlayers.remove(p);
+                    break;
+                }
+                if(p1.getVictoryPoints()==p.getVictoryPoints() && p1.getStatusPlayer().getResourcesNumber()>p.getStatusPlayer().getResourcesNumber()){
+                    bestPlayers.remove(p);
+                    break;
+                }
+            }
+        }
+        for(Player p: bestPlayers){
+            p.setIsWinnerTrue();
+        }
+    }
+
+/*METODO VECCHIO DA TOGLIERE
+    private void setWinnerIndex(Player winner){
+        if(players.contains(winner)){
+            winnerIndex = players.indexOf(winner);
+        }
+    }
+
+ */
 }

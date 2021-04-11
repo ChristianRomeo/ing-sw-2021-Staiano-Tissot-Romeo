@@ -165,6 +165,17 @@ public class StatusPlayer {
                 }
                 return allResources;
         }
+        /**
+         * this method returns the number of all the resources of the player.
+         */
+        public int getResourcesNumber(){
+                int resourcesNumber=0;
+                Map<Resource,Integer> allResources = getAllResources();
+                for(Resource r: allResources.keySet()){
+                        resourcesNumber += allResources.get(r);
+                }
+                return  resourcesNumber;
+        }
 
         /**
          * this method removes resources: the priority is to remove resources from the warehouse,
