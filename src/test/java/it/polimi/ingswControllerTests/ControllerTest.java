@@ -176,4 +176,11 @@ public class ControllerTest {
 
     }
 
+    @Test
+    public void readerLeaderCardTest () throws IOException {
+
+        new Controller(new Game()).leaderCardReader();
+
+    }
+
 }
