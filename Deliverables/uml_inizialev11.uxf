@@ -809,7 +809,7 @@ DISCARDED</panel_attributes>
       <x>1776</x>
       <y>280</y>
       <w>216</w>
-      <h>248</h>
+      <h>200</h>
     </coordinates>
     <panel_attributes>ClientHandler
 --
@@ -865,7 +865,7 @@ DISCARDED</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1808</x>
-      <y>608</y>
+      <y>568</y>
       <w>152</w>
       <h>136</h>
     </coordinates>
@@ -904,12 +904,12 @@ communicates with</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1880</x>
-      <y>520</y>
+      <y>472</y>
       <w>24</w>
-      <h>104</h>
+      <h>112</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
