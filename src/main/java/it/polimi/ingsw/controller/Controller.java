@@ -428,39 +428,6 @@ public class Controller {
         }
     }
 
-
-/*  //  METODO VECCHIO, PROBABILMENTE DA ELIMINARE
-    //metodi di prova per carte leader
-    private Map<Resource,Integer> handlerDiscountLeader(Map<Resource,Integer> cost){
-        if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.DISCOUNT,0)!=null){
-            //togli una risors da cost
-        }
-        if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.DISCOUNT,1)!=null){
-            //togli una risorsa da cost
-        }
-        return cost;
-    }
-*/
-  /*   //  METODO VECCHIO, PROBABILMENTE DA ELIMINARE
-        private Resource handlerMarbleLeader(){
-        boolean choice=false;
-        Resource resource=null;
-        if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,0)!=null){
-            resource = game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,0);
-            choice=true;
-        }
-        if(choice){
-            if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,1)!=null){
-                //scelta utente tra le due risorse
-            }
-        }else{
-            if(game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,1)!=null){
-                resource = game.getCurrentPlayer().getStatusPlayer().getLeaderResource(LeaderCardType.WHITEMARBLE,1);
-            }
-        }
-        return resource;
-    }
-*/
     /**
      * Reader LeaderCards
      */

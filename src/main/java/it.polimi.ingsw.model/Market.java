@@ -20,6 +20,9 @@ public class Market {
         initMarket();
     }
 
+    //NB: the first row of the market from above is the row 0 of the matrix,
+    // the second row of the market from above is the row 1 of the matrix ecc.
+
     /**
      * Method initMarket is an helper private method called by the constructor.
      * It initialize the Market board.
@@ -54,7 +57,7 @@ public class Market {
 
     /**
      * Method getColor is a getter of one of the marbles inside the Market (not the slide marble)
-     *
+     * Insert 0 for the first row from above, 1 for the second one ecc.
      * @param row of the marble you want to get
      * @param column of the marble you want to get
      * @return the marble in that position of the market
