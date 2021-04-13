@@ -162,4 +162,33 @@ public class PersonalCardBoard {
         }
         return producedFP;
     }
+
+    /**
+     * this method returns a map with how many cards of each type there are in this personal card board.
+     */
+    public Map<CardType,Integer> getCardsType(){
+        Map<CardType,Integer> cardsType = new HashMap<>();
+        for(List<DevelopmentCard> pile: ownedCards) {
+            for(DevelopmentCard card: pile) {
+                if (!cardsType.containsKey(card.getType()))
+                    cardsType.put(card.getType(), 1);
+                else
+                    cardsType.put(card.getType(), cardsType.get(card.getType()) + 1);
+            }
+        }
+        return cardsType;
+    }
+
+    /**
+     * this method tells you if the personal board contains a card of a certain type and level.
+     */
+    public boolean containsTypeLevel(CardType cardType, int level){
+        for(List<DevelopmentCard> pile: ownedCards) {
+            for(DevelopmentCard card: pile) {
+                if (card.getType()==cardType && card.getLevel()==level)
+                    return true;
+            }
+        }
+        return false;
+    }
 }

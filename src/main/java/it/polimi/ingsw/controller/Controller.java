@@ -248,101 +248,36 @@ public class Controller {
         LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
         Map<Resource, Integer> playerResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
         PersonalCardBoard playerCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
-         final int PILE_DEPTH = 3;
-         int matchedCardType = 0;
-         boolean canActivate = false;
+        boolean canActivate = false;
 
         if(leaderCard.isActivated() || leaderCard.isDiscarded()) {
             //the card is already active, or is discarded, so you can't activate it
         }
         else {
             //check if the player has the required resources to be able to activate the Leader Card
-            if (leaderCard.getRequiredResources().size() > 0) {
-                for (Map.Entry<Resource, Integer> playerResource : playerResources.entrySet()) {
-                    for (Map.Entry<Resource, Integer> leaderResource : leaderCard.getRequiredResources().entrySet()) {
-                        if (playerResource.getKey().equals(leaderResource.getKey()) && playerResource.getValue().equals(leaderResource.getValue()))
-                            canActivate = true;
-                    }
+            if (leaderCard.getRequiredResources()!=null && leaderCard.getRequiredResources().size() > 0) {
+                if(Resource.enoughResources(playerResources,leaderCard.getRequiredResources())){
+                    canActivate=true;
                 }
             }
             //check if the player has the required cards to be able to activate the Leader Card
             else if(leaderCard.getRequiredCards().size() > 0) {
-                if (leaderCard.getAbility().equals(LeaderCardType.PRODUCTION)) { //level 2 richiesto sempre
+                if (leaderCard.getAbility().equals(LeaderCardType.PRODUCTION)) {
                     /*gets the first (and only) element of the cards requirements since the Card Type is PRODUCTION,
-                    there will be only one card required with its associated level*/
+                    there will be only one card required with its associated level*/ //level 2 richiesto sempre
                     CardType requiredCardType = leaderCard.getRequiredCards().entrySet().iterator().next().getKey();
-                    int requiredLevel = leaderCard.getRequiredCards().entrySet().iterator().next().getValue();
-                    for(int i = 0; i < PILE_DEPTH; i++) {
-                        for (int j = 0; j < PILE_DEPTH; j++) {
-                            if (playerCardBoard.getCard(i, j).getType().equals(requiredCardType) && playerCardBoard.getCard(i, j).getLevel() == requiredLevel) {
-                                canActivate = true;
-                                break;
-                            }
-                        }
-                    }
-
+                    //int requiredLevel = leaderCard.getRequiredCards().entrySet().iterator().next().getValue();
+                    canActivate = playerCardBoard.containsTypeLevel(requiredCardType,2);
                 }
                 else {
-                    for (Map.Entry<CardType, Integer> leaderRequiredCards : leaderCard.getRequiredCards().entrySet()) {
-                        switch (leaderRequiredCards.getKey()) {
-                            case GREEN:
-                                for (int i = 0; i < PILE_DEPTH; i++) {
-                                    for (int j = 0; j < PILE_DEPTH; j++) {
-                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.GREEN))
-                                            matchedCardType++;
-                                    }
-                                }
-                                if(matchedCardType < leaderRequiredCards.getValue()) {
-                                    canActivate = false;
-                                    break;
-                                }
-                                else
-                                    canActivate = true;
-
-                            case BLUE:
-                                for (int i = 0; i < PILE_DEPTH; i++) {
-                                    for (int j = 0; j < PILE_DEPTH; j++) {
-                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.BLUE))
-                                            matchedCardType++;
-                                    }
-                                }
-                                if(matchedCardType < leaderRequiredCards.getValue()) {
-                                    canActivate = false;
-                                    break;
-                                }
-                                else
-                                    canActivate = true;
-
-                            case YELLOW:
-                                for (int i = 0; i < PILE_DEPTH; i++) {
-                                    for (int j = 0; j < PILE_DEPTH; j++) {
-                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.YELLOW))
-                                            matchedCardType++;
-                                    }
-                                }
-                                if(matchedCardType < leaderRequiredCards.getValue()) {
-                                    canActivate = false;
-                                    break;
-                                }
-                                else
-                                    canActivate = true;
-                            case PURPLE:
-                                for (int i = 0; i < PILE_DEPTH; i++) {
-                                    for (int j = 0; j < PILE_DEPTH; j++) {
-                                        if (playerCardBoard.getCard(i, j).getType().equals(CardType.PURPLE))
-                                            matchedCardType++;
-                                    }
-                                }
-                                if(matchedCardType < leaderRequiredCards.getValue()) {
-                                    canActivate = false;
-                                    break;
-                                }
-                                else
-                                    canActivate = true;
+                    Map<CardType,Integer> playerCardsType = playerCardBoard.getCardsType();
+                    canActivate= true;
+                    for(CardType cardType: leaderCard.getRequiredCards().keySet()){
+                        if(!playerCardsType.containsKey(cardType) || playerCardsType.get(cardType) < leaderCard.getRequiredCards().get(cardType)) {
+                            canActivate = false;
+                            break;
                         }
-                        matchedCardType = 0; //restore its value to 0 so in case there is more than one card required it works
                     }
-
                 }
             }
             if(canActivate)
@@ -352,6 +287,7 @@ public class Controller {
         }
         notifyController();
     }
+
     /**
      * Method discardLeaderCard allows the player to discard one of his leader cards.
      * @param index is the position of that leader card (owned by the player)
@@ -372,7 +308,7 @@ public class Controller {
      * Method editWarehouse allows the player to change the position of the resources in the warehouse
      */
     //NB: this method can't work now, because it needs the view
-    private void editWarehouse(){
+    private void editWarehouse(){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
         //the player says what resources in he warehouse he wants to move, so these resources
         //are temporary removed from the warehouse and stored in a list. Than the player
         //can reinsert these resources where he wants (or he can again temporary remove some resources).
@@ -414,7 +350,7 @@ public class Controller {
      * resources bought at the market, in the warehouse
      */
     //NB: this method can't work now, because it needs the view
-    private void insertBoughtResources(List<Resource> boughtResources){
+    private void insertBoughtResources(List<Resource> boughtResources){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
 
         int i=0,j=0;
         PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
