@@ -25,8 +25,7 @@ public class PlayerTest {
         assert(!(player.isBetween(statusPlayer.getFaithTrackPosition(), 10, 15))); //should be false
         */ //commentato perché isBetween è privato
     }
-    //TODO: THIS TEST IS NOW COMMENTED CAUSE ITS LINKED METHOD IS NOT FULLY WORKING (LEADER CARDS MISSING...)
-    //BUT SO FAR IT WORKS.
+
     @Test //test successful
     public void calculateAndSetVictoryPointsTest() throws VaticanReportException, InvalidWarehouseInsertionException {
             Player player = new Player();
@@ -60,8 +59,6 @@ public class PlayerTest {
             player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.COIN, 3, 3);
             player.calculateAndSetVictoryPoints();
             assert(player.getVictoryPoints() == 3);
-
-
     }
 
 

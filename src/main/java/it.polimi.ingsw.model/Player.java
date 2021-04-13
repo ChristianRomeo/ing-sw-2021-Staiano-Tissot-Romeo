@@ -101,9 +101,9 @@ public class Player {
         Only activated Leader cards points are being added.
         2 is the amount of Leader cards per player.
          */
-        for (int i = 0; i < LEADER_CARDS_OWNED; ++i)
-            if (statusPlayer.getPlayerLeaderCards().get(i).isActivated())
-                sum += statusPlayer.getPlayerLeaderCards().get(i).getVictoryPoints();
+        for (int i = 0; i < statusPlayer.getPlayerLeaderCards().size(); ++i)
+            if (statusPlayer.getLeaderCard(i).isActivated())
+                sum += statusPlayer.getLeaderCard(i).getVictoryPoints();
 
         //calculate victory points based on Development cards
         for (int i = 0; i < 3; ++i)
@@ -115,7 +115,7 @@ public class Player {
         The number of points given are fixed, and specifically the minimum number of Victory Points assigned
         (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
        for(int i = 0; i < 3; ++i) {
-            if (statusPlayer.getPopeFavorTile(i).equals(PopeFavorTileStatus.ACTIVE))
+            if (statusPlayer.getPopeFavorTile(i)==PopeFavorTileStatus.ACTIVE)
                 sum += popFavorTileMinNumOfVP;
             ++popFavorTileMinNumOfVP;
         }
