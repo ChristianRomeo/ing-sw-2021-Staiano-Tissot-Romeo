@@ -84,7 +84,7 @@ public class Server {
         //executor.submit(clientHandler);   //runnables
         ++addedPlayers;
 
-        // Sleep until the number of players of the game has been set
+        // Sleep until the number of players of the game has been set   //vedere
         synchronized (currentGame) {
             while (currentGame.getPlayersNumber() == -1 && currentGame.isActive()) {
                 currentGame.wait();
