@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 
+import it.polimi.ingsw.model.SameTypePair;
+
 import java.io.*;
 import java.net.*;
 import java.util.logging.Logger;
@@ -27,6 +29,8 @@ public class ClientHandlerProva implements Runnable{
      *
      * @see Thread#run()
      */
+
+    /* //run con invio di stringhe
     @Override
     public void run() {
         PrintWriter out = null;
@@ -54,6 +58,49 @@ public class ClientHandlerProva implements Runnable{
             }
         }
         catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                    clientSocket.close();
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+*/
+    //run con  invio oggetti
+    @Override
+    public void run() {
+        ObjectOutputStream out = null;
+        ObjectInputStream in = null;
+        try {
+
+            // get the outputstream of client
+            out = new ObjectOutputStream(clientSocket.getOutputStream());
+
+            // get the inputstream of client
+            in = new ObjectInputStream(clientSocket.getInputStream());
+
+            SameTypePair<Integer> pair = new SameTypePair<>();
+
+            pair = (SameTypePair) in.readObject();
+
+            System.out.println(pair.getVal1() +" "+ pair.getVal2());
+            pair.setVal1(2* pair.getVal1());
+            pair.setVal2(2* pair.getVal2());
+
+            out.writeObject(pair);
+            out.flush();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         finally {
