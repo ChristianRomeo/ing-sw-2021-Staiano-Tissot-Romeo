@@ -1,10 +1,12 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * Type that contains two resources to be of the same type
  * @param <T>
  */
-public class SameTypePair<T>{
+public class SameTypePair<T> implements Serializable {
     private T val1;
     private T val2;
 
