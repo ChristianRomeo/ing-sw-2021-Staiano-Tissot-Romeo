@@ -73,14 +73,12 @@ public class Board {
             case MOVETWO -> {
                 increaseBlackCrossPosition();
                 increaseBlackCrossPosition();
-                break;
             }
             case MOVEONEANDSHUFFLE -> {
                 increaseBlackCrossPosition();
                 shuffleSoloActionPile();
-                break;
 
-            }
+            }   //DRY
             case DISCARDTWOCARDS -> {
                 switch (soloActions.get(firstActionPosition).getDiscardedCardsType()) {
                     case GREEN -> {
@@ -98,7 +96,6 @@ public class Board {
                             if (discardedCards == 2)
                                 break;
                         }
-                        break;
                     }
                     case BLUE -> {
                         for (int i = 0; i < MAXCARDSLEVEL; ++i) {
@@ -115,7 +112,6 @@ public class Board {
                             if (discardedCards == 2)
                                 break;
                         }
-                        break;
                     }
                     case YELLOW -> {
                         for (int i = 0; i < MAXCARDSLEVEL; ++i) {
@@ -132,7 +128,6 @@ public class Board {
                             if (discardedCards == 2)
                                 break;
                         }
-                        break;
                     }
                     case PURPLE -> {
                         for (int i = 0; i < MAXCARDSLEVEL; ++i) {
