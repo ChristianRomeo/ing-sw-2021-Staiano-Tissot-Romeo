@@ -44,7 +44,7 @@ public class StatusPlayer {
         }
 
         /**
-         * Method getPopeFavorTile takes an integer between 0 and 2, and returns the
+         * Method getPopeFavorTile takes an integer between 1 and 3, and returns the
          * the status of the first, second or third pope favor tile correspondingly
          * @param index number of pope favor tile to get
          * @return the status of the selected pope favor tile

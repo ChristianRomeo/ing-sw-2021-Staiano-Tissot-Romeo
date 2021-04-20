@@ -77,7 +77,7 @@ public class Player {
      */
     public void calculateAndSetVictoryPoints() {
         int sum = 0, popFavorTileMinNumOfVP = 2;//minimum number of victory points given, if any
-        double totalNumOfResources;
+        double totalNumOfResources = 0;
 
         //calculate victory points based on faith track position.
         if (isBetween(statusPlayer.getFaithTrackPosition(), 3, 5))
@@ -114,7 +114,7 @@ public class Player {
         /*increase sum based on Pop Favor Tiles.
         The number of points given are fixed, and specifically the minimum number of Victory Points assigned
         (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
-       for(int i = 0; i < 3; ++i) {
+       for(int i = 1; i <= 3; ++i) {
             if (statusPlayer.getPopeFavorTile(i)==PopeFavorTileStatus.ACTIVE)
                 sum += popFavorTileMinNumOfVP;
             ++popFavorTileMinNumOfVP;
