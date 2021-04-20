@@ -19,4 +19,10 @@ public class LeaderCardSlots extends LeaderCard{
             fullSlotsNumber--;
         }
     }
+
+    public void setFullSlotsNumber(int n){
+        if(n>=0 && n<=2){
+            fullSlotsNumber=n;
+        }
+    }
 }

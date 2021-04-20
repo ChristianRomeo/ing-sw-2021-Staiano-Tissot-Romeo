@@ -13,7 +13,7 @@ public class Player {
      */
     private String nickname;
     private int victoryPoints;
-    private StatusPlayer statusPlayer;
+    private final StatusPlayer statusPlayer;
     private boolean isWinner;
     private boolean isConnected;
 

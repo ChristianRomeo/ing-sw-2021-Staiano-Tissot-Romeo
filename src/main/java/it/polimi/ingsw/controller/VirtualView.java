@@ -3,7 +3,7 @@ package it.polimi.ingsw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VirtualView {
+public class VirtualView implements ClientEventHandler {
     private final List<ClientHandler> clientHandlers;
     private final Controller controller;
 
@@ -71,4 +71,13 @@ public class VirtualView {
             }
         }
     }
+
+    public void handleEvent(BoughtCardEvent event){
+        //chiama metodo del controller perchè è stata comprata una carta
+    }
+
+    public void handleEvent(LeaderCardActionEvent event){
+        //chiama metodo del controller perchè è stata attivata/scartata una carta leader
+    }
+
 }

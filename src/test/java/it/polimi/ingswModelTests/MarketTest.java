@@ -2,11 +2,14 @@ package it.polimi.ingswModelTests;
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 /**
@@ -16,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MarketTest {
 
     @Test //test passed, the initialization is correct
-    public void testMarketInitialization1() throws IOException{
+    public void testMarketInitialization1() {
         Market market = new Market();
         int numberWhite=4;
         int numberBlu=2;
@@ -92,59 +95,57 @@ public class MarketTest {
     }
 
 
-    @Test //The column 0 returns the correct resources
-    public void testMarketInitialization() throws IOException {
-        ArrayList<MarbleColor> color = new ArrayList<>();
-        ArrayList<Resource> check =new ArrayList<>();
-        List<MarbleColor> taken=new ArrayList<>();
+    @Disabled //todo non funziona per il metodo controller insertResources da finire (il true negli if da cambiare)
+    public void checkMarketReturnResources() throws IOException {
         Market market = new Market();
-        Game game=new Game();
+        List<MarbleColor> color = new ArrayList<>();
+
+        Game game = new Game();
         Controller controller= new Controller(game);
+
+        Player player = new Player();
+
+        player.setNickname("pl1");
+
+        game.addNewPlayer(player);
+        game.setCurrentPlayer(player);
+
+
         color.add(market.getColor(0,0));
         color.add(market.getColor(1,0));
         color.add(market.getColor(2,0));
-        for(MarbleColor color1 : color)
-            switch(color1){
-                case WHITE:
-                    //controllo carta leader va qui
-                    /*
-                    if(handlerMarbleLeader()!=null){
-                        boughtResources.add(handlerMarbleLeader());
-                    }
-                     */
-                    break;
-                case RED:
-                   // check.add();
-                    break;
-                case BLUE:
-                    check.add(Resource.SHIELD);
-                    break;
-                case GREY:
-                    check.add(Resource.STONE);
-                    break;
-                case PURPLE:
-                    check.add(Resource.SERVANT);
-                    break;
-                case YELLOW:
-                    check.add(Resource.COIN);
-                    break;
+
+        List<MarbleColor> taken = market.selectColumn(0);
+
+        assertEquals(color, taken);
+
+        Map<Resource,Integer> oldResources = player.getStatusPlayer().getAllResources();
+        int oldFaithTrackPosition = player.getStatusPlayer().getFaithTrackPosition();
+
+        //todo non funziona per il metodo insertResources da finire
+
+        // controller.useMarket('c',0); //sto cambiando useMarket
+
+        for(MarbleColor m: color)
+            switch (m) {
+                case WHITE -> { }
+                case RED ->{
+                    assert player.getStatusPlayer().getFaithTrackPosition() == oldFaithTrackPosition + 1;
+                }
+                case BLUE -> {
+                    assert player.getStatusPlayer().getAllResources().get(Resource.SHIELD) == oldResources.get(Resource.SHIELD)+1;
+                }
+                case GREY -> {
+                    assert player.getStatusPlayer().getAllResources().get(Resource.STONE) == oldResources.get(Resource.STONE)+1;
+                }
+                case PURPLE -> {
+                    assert player.getStatusPlayer().getAllResources().get(Resource.SERVANT) == oldResources.get(Resource.SERVANT)+1;
+                }
+                case YELLOW -> {
+                    assert player.getStatusPlayer().getAllResources().get(Resource.COIN) == oldResources.get(Resource.COIN)+1;
+                }
             }
-        taken=market.selectColumn(0);
-
-        //?? assertArrayEquals(controller.useMarket('c',0), check )
 
     }
 
-
-    @Test //test passed, the shift is correct, VECCHIO TEST NON CONSIDERARE
-    public void testMarketSelectRowSelectColumn()
-    {
-        Market market = new Market();
-        market.selectColumn(0);
-        market.selectColumn(3);
-        market.selectRow(0);
-        market.selectRow(1);
-        market.selectRow(2);
-        System.out.println("ciaomarket");
-    }
 }

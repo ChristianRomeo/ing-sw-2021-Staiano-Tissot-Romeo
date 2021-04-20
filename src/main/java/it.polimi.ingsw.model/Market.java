@@ -77,10 +77,13 @@ public class Market {
      * game's rules, and returns the list of the taken marbles (the marbles that were in that column
      * in the beginning)
      *
-     * @param column is the index of the column you want to select
+     * @param column is the index of the column you want to select (0,1,2,3)
      * @return the list of the taken (bought) marbles
      */
     public List<MarbleColor> selectColumn(int column) {
+        if(column<0 || column>3){
+            return null;
+        }
         List<MarbleColor> takenMarbles = new ArrayList<>();
         takenMarbles.add(marbles[0][column]);
         takenMarbles.add(marbles[1][column]);
@@ -99,10 +102,13 @@ public class Market {
      * game's rules, and returns the list of the taken marbles (the marbles that were in that row
      * in the beginning)
      *
-     * @param row is the index of the row you want to select
+     * @param row is the index of the row you want to select (0,1,2)
      * @return the list of the taken (bought) marbles
      */
     public List<MarbleColor> selectRow(int row) {
+        if(row<0||row>2){
+            return null;
+        }
         List<MarbleColor> takenMarbles = new ArrayList<>();
         takenMarbles.add(marbles[row][0]);
         takenMarbles.add(marbles[row][1]);
@@ -117,5 +123,24 @@ public class Market {
         marbles[row][3] = tempMarble;
 
         return takenMarbles;
+    }
+
+    //this method doesn't activate the market, it just returns the colors of a row
+    public List<MarbleColor> getRowColors(int row){
+        List<MarbleColor> rowMarbles = new ArrayList<>();
+        rowMarbles.add(marbles[row][0]);
+        rowMarbles.add(marbles[row][1]);
+        rowMarbles.add(marbles[row][2]);
+        rowMarbles.add(marbles[row][3]);
+        return rowMarbles;
+    }
+
+    //this method doesn't activate the market, it just returns the colors of a column
+    public List<MarbleColor> getColumnColors(int column){
+        List<MarbleColor> columnMarbles = new ArrayList<>();
+        columnMarbles.add(marbles[0][column]);
+        columnMarbles.add(marbles[1][column]);
+        columnMarbles.add(marbles[2][column]);
+        return columnMarbles;
     }
 }

@@ -97,7 +97,10 @@ public class ClientHandler implements Runnable {
             try {
 
                 //receive messages by input.readObject
-                input.readObject();
+                ClientEvent clientEvent = (ClientEvent) input.readObject();
+                //viene chiamata la virtualview che gestirà l'evento chiamando il controller
+                clientEvent.notifyHandler(virtualView);
+
                 }
             catch (IOException | ClassNotFoundException e) {
                 if (isConnected) {

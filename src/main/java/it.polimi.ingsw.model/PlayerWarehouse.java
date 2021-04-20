@@ -115,6 +115,63 @@ public class PlayerWarehouse {
     }
 
     /**
+     *     this method tells you if the warehouse respects the rules of the warehouse or not.
+     */
+    public boolean checkWarehouse() {
+        if(middleRow.contains(upperRow)|| lowerRow.contains(upperRow)){
+            return false;
+        }
+        for(Resource r: Resource.values()) {
+            if (middleRow.contains(r) && lowerRow.contains(r)) {
+                return false;
+            }
+        }
+        for(int row=2; row<=3; ++row) {
+            for (int col = 1; col <= row-1; ++col) {
+                if (getResource(row, col) != null && getResource(row, col + 1) != null && getResource(row, col) != getResource(row, col + 1)) {
+                    return false;
+                }
+            }
+        }
+        if(getResource(3,1)!=null &&getResource(3,3)!=null && getResource(3,1)!=getResource(3,3)){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *     this method removes all the resources from the warehouse.
+     */
+    public void clear(){
+        for(int row=1; row<=3; ++row) {
+            for (int column = 1; column <= row; ++column) {
+                removeResource(row,column);
+            }
+        }
+    }
+
+    /**
+     *     this method set all the resources in the warehouse, based on another warehouse you pass.
+     *     If the warehouse you pass isn't valid it doesn't do anything (the warehouse won't change).
+     */
+    public void setWarehouse(PlayerWarehouse newWarehouse){
+        if(!newWarehouse.checkWarehouse()){
+            return;
+        }
+        this.clear();
+        for(int row=1; row<=3; ++row) {
+            for (int column = 1; column <= row; ++column) {
+                try{
+                    insertResource(newWarehouse.getResource(row,column),row,column);
+                }catch (InvalidWarehouseInsertionException e){
+                    System.out.println("");//this exception won't be called, because before i do a check.
+                }
+            }
+        }
+    }
+
+    //STI METODI POSSONO ESSERE CAMBIATI USANDO CHECK WAREHOUSE CREDO
+    /**
      *     helper private methods
      */
     private void setUpperRow(Resource resource) throws InvalidWarehouseInsertionException{

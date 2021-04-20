@@ -19,11 +19,11 @@ import java.util.logging.Logger;
 public class Controller {
     private final Game game;
     private VirtualView virtualView;
-    private Player currentPlayer;
+    //private Player currentPlayer; //credo meglio non tenerlo anche qui, o se vogliamo tenerlo dobbiamo aggiornarlo tutti i turni
     private final static Logger logger = Logger.getLogger(Server.class.getName());
     private List<LeaderCard> leaderCardList = new ArrayList<>();
 
-
+    //constructor
     public Controller(Game game){
         this.game=game;
     }
@@ -74,7 +74,7 @@ public class Controller {
 
     private void manageWin() {
 
-        logger.info("Game ended: " + currentPlayer.getNickname() + " has won");
+        logger.info("Game ended: " + game.getCurrentPlayer().getNickname() + " has won");
         for (Player p : game.getPlayers()) {
             //virtualView.getClientHandlerByNickname sendTo winner EndMessage
         }
@@ -137,7 +137,6 @@ public class Controller {
      */
     public void activateProduction(List<Integer> activatedProductions, boolean baseProd, SameTypeTriple<Resource> baseRes, Resource leaderRes1, Resource leaderRes2) throws CannotActivateProductionException,IllegalArgumentException{
         PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
-        //l'utente mi dice quali produzioni vuole attivare tramite la view
         //activatedProductions contiene numeri da 0 a 2 che ti dicono quali produzioni di carte attivare
 
         Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
@@ -211,31 +210,82 @@ public class Controller {
             game.setLastTurnsTrue();
         }
     }
-
-
     /**
      * Method useMarket allows the player to buy new resources at the Market
      *
      * @param rowOrColumn is =r if the player wants to select a row, =c to select a column
      * @param index is the index of the row/column the player wants to select
+     * @param newWarehouse is the new warehouse of the player after the editing and the inserting of the new resources
+     * @param discardedRes is the map of the resources the player wants to discard
+     * @param leaderCardSlots1 is the number of full slots the player wants to set in his first leader card
+     * @param leaderCardSlots2 is the number of full slots the player wants to set in his second leader card
      */
-    public void useMarket(char rowOrColumn, int index){ //METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
-        Market market = game.getBoard().getMarket();
+    public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2) throws IllegalMarketUseException{
+        Player currentPlayer = game.getCurrentPlayer();
+        if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2)){
+            throw new IllegalMarketUseException();
+        }
+        if(rowOrColumn=='c'){
+            fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true);
+        }else{
+            fromMarblesToResources(game.getBoard().getMarket().selectRow(index),true);
+        }
+        currentPlayer.getStatusPlayer().getPlayerWarehouse().setWarehouse(newWarehouse);
+        //i parametri leadercardslots1 e 2 ti dicono quanti slot della carta leader 1 e 2 sono pieni (nella versione dell'utente)
+        currentPlayer.getStatusPlayer().getLeaderCard(0).setFullSlotsNumber(leaderCardSlots1);
+        currentPlayer.getStatusPlayer().getLeaderCard(1).setFullSlotsNumber(leaderCardSlots2);
 
-        List<MarbleColor> takenMarbles;
-        List<Resource> boughtResources;
-        if(rowOrColumn=='r')
-            takenMarbles=market.selectRow(index);
-        else
-            takenMarbles=market.selectColumn(index);
+        for(int i=0; i<Resource.resourcesNum(discardedRes);i++){
+            for(int k=0; k< game.getPlayersNumber(); k++){
+                if (game.getCurrentPlayerId()!=k){
+                    incrementFaithTrackPosition(game.getPlayerByIndex(k));
+                }
+            }
+        }
+    }
 
-        boughtResources=fromMarblesToResources(takenMarbles);
-
-        /*the player can change the position of the resources in the warehouse
-            before the insertion of the new resources*/
-        editWarehouse();
-        //the player insert/discard the resources bought at the market
-        insertBoughtResources(boughtResources);
+    /**
+     * Helper private method that checks if the operations made by the player in the process of using
+     * the market are legitimate or not.
+     * @return false if the operation is illegal, otherwise it returns true.
+     */
+    private boolean useMarketCheck(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2){
+        Map<Resource,Integer> takenResources;
+        Player currentPlayer = game.getCurrentPlayer();
+        if((rowOrColumn!='c'&&rowOrColumn!='r')|| leaderCardSlots1>2 || leaderCardSlots2>2|| leaderCardSlots1<0||leaderCardSlots2<0){
+            return false; //invalid message
+        }
+        if(rowOrColumn=='c'){
+            takenResources = fromMarblesToResources(game.getBoard().getMarket().getColumnColors(index),false);
+        }else{
+            takenResources = fromMarblesToResources(game.getBoard().getMarket().getRowColors(index),false);
+        }
+        if(!Resource.enoughResources(takenResources,discardedRes)){
+            return false; //the player has discarded resources he couldn't discard, so the action fails.
+        }
+        if(!newWarehouse.checkWarehouse()){
+            return false; //the player has sent an invalid warehouse
+        }
+        Map<Resource,Integer> newAllResources = Resource.sumResourcesMap(newWarehouse.getAllResources(),currentPlayer.getStatusPlayer().getStrongboxResources());
+        if(currentPlayer.getStatusPlayer().getLeaderCard(0).getFullSlotsNumber()!=null){
+            for(int i=0; i<leaderCardSlots1;i++){
+                newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(0).getAbilityResource());
+            }
+        }
+        if(currentPlayer.getStatusPlayer().getLeaderCard(1).getFullSlotsNumber()!=null){
+            for(int i=0; i<leaderCardSlots2;i++){
+                newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(1).getAbilityResource());
+            }
+        }
+        //newALLresources sarebbero tutte le risorse che avrebbe mo l'utente
+        //controlResources sono le risorse che l'utente dovrebbe avere dopo l'acquisto al mercato
+        takenResources = Resource.removeResourcesMap(takenResources,discardedRes);
+        Map<Resource,Integer> controlResources= Resource.sumResourcesMap(takenResources,currentPlayer.getStatusPlayer().getAllResources());
+        if(!controlResources.equals(newAllResources)){
+            return false;
+        }
+        //se sono arrivato qui allora l'acquisto è lecito, allora posso effettivamente fare le modifiche
+        return true;
     }
 
     /**
@@ -303,104 +353,44 @@ public class Controller {
         }
     }
 
-    //METODI EDIT E INSERT WAREHOUSE DOVRANNO CONSIDERARE ANCHE I DEPOSITI LEADER
-    /**
-     * Method editWarehouse allows the player to change the position of the resources in the warehouse
-     */
-    //NB: this method can't work now, because it needs the view
-    private void editWarehouse(){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
-        //the player says what resources in he warehouse he wants to move, so these resources
-        //are temporary removed from the warehouse and stored in a list. Than the player
-        //can reinsert these resources where he wants (or he can again temporary remove some resources).
-        //When he wants, the player can stop the edit of the warehouse, but only if he has
-        //inserted every temporary removed resource.
-
-        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
-        List<Resource> temporaryRemovedResources = new ArrayList<>();
-        int i=0,j=0,k=0;
-        while(true){ //la condizione di stop sarà detta da utente
-            //i valori di i, j e k devono essere detti dall'utente, interazione con la view
-
-            if(true /*player wants to temporary remove a resource*/)
-                if(warehouse.getResource(i,j)!=null)
-                    temporaryRemovedResources.add(warehouse.removeResource(i,j));
-
-
-            if(true /*player wants to reinsert one of the temporary removed resources*/)
-                if(k>=0 && k< temporaryRemovedResources.size()){
-                    try{
-                        warehouse.insertResource(temporaryRemovedResources.get(k),i,j);
-                    }catch(InvalidWarehouseInsertionException e){
-                        /*signal to the user, invalid insertion in the warehouse*/
-                    }
-                }
-
-            if(true/* the player wants to end the Warehouse edit*/)
-                if(temporaryRemovedResources.size()==0){
-                    break;
-                }else{
-                    /*signal the player that he has to insert every temporary removed resource*/
-                }
-
-        }
-    }
-
-    /**
-     * Method insertBoughtResources allows the player to insert/discard the new
-     * resources bought at the market, in the warehouse
-     */
-    //NB: this method can't work now, because it needs the view
-    private void insertBoughtResources(List<Resource> boughtResources){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
-
-        int i=0,j=0;
-        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
-        //i, j sono dati dall'utente per ogni risorsa
-        for(Resource r: boughtResources){
-            if(true /*the player wants to insert the resource*/)
-                try{
-                    warehouse.insertResource(r,i,j);
-                }catch (InvalidWarehouseInsertionException e){
-                    /*signal to the user, invalid inseriment in the warehouse*/
-                }
-
-            if(true /*the player wants to discard the resource*/){
-                boughtResources.remove(r);
-                for(int k=0; k< game.getPlayersNumber(); k++)
-                    if (game.getCurrentPlayerId()!=k)
-                        incrementFaithTrackPosition(game.getPlayerByIndex(k));
-
-            }
-        }
-    }
-
     // STO METODO ANDREBBE MEGLIO COME STATICO IN MARBLE COLOR O RESOURCE ENUM (aggiungi parametro current player)
+    //O PROPRIO IN MARKET
     /**
      * Method fromMarblesToResources transforms a list of marbles in the corresponding list of resources,
      * (the red marbles are transformed in increments of the faith track position)
      *
      * @param marbles is a list of marbles
+     * @param incrementPosition must be true if you want that the player will increment his faith track position
+     *                          if there is a red marble in the list, must be false if you don't want this
+     *                          and you just want the resources.
      * @return a list of resources
      */
-    private List<Resource> fromMarblesToResources(List<MarbleColor> marbles){
-
-        List<Resource> boughtResources = new ArrayList<>();
+    public Map<Resource,Integer> fromMarblesToResources(List<MarbleColor> marbles, boolean incrementPosition){
+        if(marbles==null){
+            return null;
+        }
+        Map<Resource,Integer> boughtResources = new HashMap<>();
         for(MarbleColor m: marbles)
             switch (m) {
                 case WHITE -> {
                     //QUA NON STO CONSIDERANDO IL CASO IN CUI CI SONO 2 CARTE LEADER WHITE MARBLE
                     //(QUANDO L'UTENTE DOVREBBE SCEGLIERE). QUEL CASO POI VEDIAMO CON LA VIEW.
                     if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource() != null) {
-                        boughtResources.add(game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource());
+                        boughtResources =Resource.addOneResource(boughtResources,game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource());
                     }
                     if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource() != null) {
-                        boughtResources.add(game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource());
+                        boughtResources =Resource.addOneResource(boughtResources,game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource());
                     }
                 }
-                case RED -> incrementFaithTrackPosition(game.getCurrentPlayer());
-                case BLUE -> boughtResources.add(Resource.SHIELD);
-                case GREY -> boughtResources.add(Resource.STONE);
-                case PURPLE -> boughtResources.add(Resource.SERVANT);
-                case YELLOW -> boughtResources.add(Resource.COIN);
+                case RED -> {
+                    if(incrementPosition){
+                        incrementFaithTrackPosition(game.getCurrentPlayer());
+                    }
+                }
+                case BLUE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SHIELD);
+                case GREY -> boughtResources = Resource.addOneResource(boughtResources, Resource.STONE);
+                case PURPLE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SERVANT);
+                case YELLOW -> boughtResources = Resource.addOneResource(boughtResources, Resource.COIN);
             }
 
         return boughtResources;
@@ -462,3 +452,69 @@ public class Controller {
     }
 
 }
+
+ /*
+    //METODI EDIT E INSERT WAREHOUSE DA NON USARE, FORSE ANDRANNO NELLA VIEW
+    //METODI EDIT E INSERT WAREHOUSE DOVRANNO CONSIDERARE ANCHE I DEPOSITI LEADER
+    // Method editWarehouse allows the player to change the position of the resources in the warehouse
+    private void editWarehouse(){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
+        //the player says what resources in he warehouse he wants to move, so these resources
+        //are temporary removed from the warehouse and stored in a list. Than the player
+        //can reinsert these resources where he wants (or he can again temporary remove some resources).
+        //When he wants, the player can stop the edit of the warehouse, but only if he has
+        //inserted every temporary removed resource.
+
+        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
+        List<Resource> temporaryRemovedResources = new ArrayList<>();
+        int i=0,j=0,k=0;
+        while(true){ //la condizione di stop sarà detta da utente
+            //i valori di i, j e k devono essere detti dall'utente, interazione con la view
+
+            if(true) //player wants to temporary remove a resource
+                if(warehouse.getResource(i,j)!=null)
+                    temporaryRemovedResources.add(warehouse.removeResource(i,j));
+
+
+            if(true )//player wants to reinsert one of the temporary removed resources
+                if(k>=0 && k< temporaryRemovedResources.size()){
+                    try{
+                        warehouse.insertResource(temporaryRemovedResources.get(k),i,j);
+                    }catch(InvalidWarehouseInsertionException e){
+                        //signal to the user, invalid insertion in the warehouse
+                    }
+                }
+
+            if(true)//the player wants to end the Warehouse edit
+                if(temporaryRemovedResources.size()==0){
+                    break;
+                }else{
+                    //signal the player that he has to insert every temporary removed resource
+                }
+
+        }
+    }
+    // Method insertBoughtResources allows the player to insert/discard the new
+    //resources bought at the market, in the warehouse
+    private void insertBoughtResources(List<Resource> boughtResources){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
+
+        int i=0,j=0;
+        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
+        //i, j sono dati dall'utente per ogni risorsa
+        for(Resource r: boughtResources){
+            if(true )//the player wants to insert the resource
+                try{
+                    warehouse.insertResource(r,i,j);
+                }catch (InvalidWarehouseInsertionException e){
+                    //signal to the user, invalid inseriment in the warehouse
+                }
+
+            if(true ){  //the player wants to discard the resource
+                boughtResources.remove(r);
+                for(int k=0; k< game.getPlayersNumber(); k++)
+                    if (game.getCurrentPlayerId()!=k)
+                        incrementFaithTrackPosition(game.getPlayerByIndex(k));
+
+            }
+        }
+    }
+*/
