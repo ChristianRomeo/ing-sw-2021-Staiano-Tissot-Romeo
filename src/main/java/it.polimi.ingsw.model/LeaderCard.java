@@ -117,4 +117,10 @@ public abstract class LeaderCard {
      * In the slots card type, it removes a Resource (if there is one) from a slot.
      */
     public void removeResource() {}
+    /**
+     * this method is for the slots card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything.
+     * In the slots card type, it set to n the number of full slots in that card .
+     */
+    public void setFullSlotsNumber(int n){}
 }

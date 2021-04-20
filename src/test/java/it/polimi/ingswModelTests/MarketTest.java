@@ -123,7 +123,8 @@ public class MarketTest {
         int oldFaithTrackPosition = player.getStatusPlayer().getFaithTrackPosition();
 
         //todo non funziona per il metodo insertResources da finire
-        controller.useMarket('c',0);
+
+        // controller.useMarket('c',0); //sto cambiando useMarket
 
         for(MarbleColor m: color)
             switch (m) {

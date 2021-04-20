@@ -3,6 +3,7 @@ import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
 
 import it.polimi.ingsw.model.modelExceptions.CannotBuyCardException;
+import it.polimi.ingsw.model.modelExceptions.IllegalMarketUseException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -183,4 +184,34 @@ public class ControllerTest {
 
     }
 
+    @Test //è difficile testare use market
+    public void useMarketTest() throws Exception{
+        Game game = new Game();
+        Player player = new Player();
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
+
+        Controller controller = new Controller(game);
+        game.addNewPlayer(player);
+        game.setCurrentPlayer(player);
+        PlayerWarehouse playerWarehouse = new PlayerWarehouse();
+        playerWarehouse.insertResource(Resource.COIN,1,0);
+        playerWarehouse.insertResource(Resource.SERVANT,2,1);
+        playerWarehouse.insertResource(Resource.SERVANT,2,2);
+        playerWarehouse.insertResource(Resource.SHIELD,3,1);
+        playerWarehouse.insertResource(Resource.SHIELD,3,2);
+        playerWarehouse.insertResource(Resource.SHIELD,3,3);
+
+        player.getStatusPlayer().getPlayerWarehouse().setWarehouse(playerWarehouse);
+
+        Map<Resource,Integer> discardedRes =  new HashMap<>(controller.fromMarblesToResources(game.getBoard().getMarket().getRowColors(0),false));
+
+        controller.useMarket('r',0,playerWarehouse,discardedRes,0,0);
+
+        playerWarehouse.removeResource(1,1);
+
+        assertThrows(IllegalMarketUseException.class,()->controller.useMarket('r',0,playerWarehouse,discardedRes,0,0));
+
+
+    }
 }

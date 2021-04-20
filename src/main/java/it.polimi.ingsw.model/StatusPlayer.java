@@ -149,7 +149,14 @@ public class StatusPlayer {
 
                 throw new IllegalArgumentException();
         }
-
+        /**
+         *  you give to this method a leader card and it adds it to the player leader cards list.
+         */
+        public void addLeaderCard(LeaderCard leaderCard){
+                if(leaderCard!=null){
+                        leaderCards.add(leaderCard);
+                }
+        }
         /**
          * this method returns all the resources of the player.
          * @return a Map with all of the player's resources.
@@ -169,12 +176,7 @@ public class StatusPlayer {
          * this method returns the number of all the resources of the player.
          */
         public int getResourcesNumber(){
-                int resourcesNumber=0;
-                Map<Resource,Integer> allResources = getAllResources();
-                for(Resource r: allResources.keySet()){
-                        resourcesNumber += allResources.get(r);
-                }
-                return  resourcesNumber;
+                return Resource.resourcesNum(getAllResources());
         }
 
         /**

@@ -48,6 +48,23 @@ public enum Resource {
         return sum;
     }
 
+    /**
+     * this static method removes a map of resources from another map (map1-map2).
+     * you can call this method only if the map1 contains all the resources of map2
+     */
+    public static Map<Resource,Integer> removeResourcesMap(Map<Resource,Integer> map1,Map<Resource,Integer> map2){
+        if(!Resource.enoughResources(map1,map2)){
+            return null;
+        }
+        Map<Resource, Integer> newMap = new HashMap<>(map1);
+        for(Resource r: map2.keySet()) {
+            newMap.put(r,newMap.get(r)-map2.get(r));
+            if(newMap.get(r)==0){
+                newMap.remove(r);
+            }
+        }
+        return newMap;
+    }
 
     /**
      * this static method tells if in map1 you have all the resources of map2.
@@ -66,5 +83,19 @@ public enum Resource {
                 return false;
 
         return true;
+    }
+
+    /**
+     * this static method returns the number of all the resources in map1.
+     */
+    public static int resourcesNum(Map<Resource,Integer> map1){
+        if(map1==null){
+            return 0;
+        }
+        int resourcesNumber=0;
+        for(Resource r: map1.keySet()){
+            resourcesNumber += map1.get(r);
+        }
+        return  resourcesNumber;
     }
 }
