@@ -1,7 +1,9 @@
 package it.polimi.ingsw.controller;
 
+import java.io.Serializable;
+
 //the client has bought a development card
-public class BoughtCardEvent extends ClientEvent{
+public class BoughtCardEvent extends ClientEvent implements Serializable {
 
     private final int row; // row is the row of the selected card, 0<=row<=2
                     // row 0 is for card of level 1,..., row 2 is for card of level 3

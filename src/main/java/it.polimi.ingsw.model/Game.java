@@ -24,6 +24,8 @@ public class Game {
     private boolean lastTurns;
     private int numPlayers;
     private boolean isActive;
+
+    private List<IllegalAction> illegalActions;
     /**
      * Constructor Game creates a new Game instance.
      */
@@ -32,6 +34,7 @@ public class Game {
         players = new ArrayList<>();
         currentPlayerId=0;
         lastTurns = false;
+        illegalActions =new ArrayList<>();
     }
 
     public boolean isActive() {
@@ -205,6 +208,10 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public void addIllegalAction(IllegalAction illegalAction){
+        illegalActions.add(illegalAction);
     }
 
 /*METODO VECCHIO DA TOGLIERE

@@ -28,6 +28,10 @@ public class Controller {
         this.game=game;
     }
 
+    public Game getGame(){
+        return game;
+    }
+
     public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
     }
@@ -37,11 +41,12 @@ public class Controller {
     }
 
     public void gameStarter() throws InterruptedException, DisconnectionException {
+        /*
         synchronized (this) {
             while (!gameIsReady() && isRunning()) {
                 this.wait();
             }
-        }
+        }*/
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
 
@@ -135,7 +140,7 @@ public class Controller {
      *                   you have to set leaderRes1 to null.
      *
      */
-    public void activateProduction(List<Integer> activatedProductions, boolean baseProd, SameTypeTriple<Resource> baseRes, Resource leaderRes1, Resource leaderRes2) throws CannotActivateProductionException,IllegalArgumentException{
+    public void activateProduction(List<Integer> activatedProductions, boolean baseProd, SameTypeTriple<Resource> baseRes, Resource leaderRes1, Resource leaderRes2) throws IllegalArgumentException{
         PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
         //activatedProductions contiene numeri da 0 a 2 che ti dicono quali produzioni di carte attivare
 
@@ -161,8 +166,11 @@ public class Controller {
 
         Map<Resource,Integer> ownedResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
 
-        if(!Resource.enoughResources(ownedResources,requiredResources))
-            throw new CannotActivateProductionException();
+        if(!Resource.enoughResources(ownedResources,requiredResources)){
+            //throw new CannotActivateProductionException();
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
+        }
+
 
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
         game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
@@ -182,23 +190,26 @@ public class Controller {
      * @param col is the column of the selected card, 0<=col<=3
      * @param pile is the number of the pile where you want to insert the bought card, 0<=pile<=2
      */
-    public void buyDevelopmentCard(int row, int col, int pile) throws CannotBuyCardException,IllegalArgumentException, InvalidCardInsertionException{
+    public void buyDevelopmentCard(int row, int col, int pile) throws IllegalArgumentException, InvalidCardInsertionException{
         DevelopmentCardBoard developmentCardBoard = game.getBoard().getDevelopmentCardBoard();
         StatusPlayer statusCurrentPlayer = game.getCurrentPlayer().getStatusPlayer();
 
         //check if the selected pile in the board is empty
         if(developmentCardBoard.isCardPileEmpty(row,col))
-            throw new IllegalArgumentException();
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
+            //throw new IllegalArgumentException();
 
         //check if the player has space in his personal card board, in the pile selected
         if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile))
-            throw new CannotBuyCardException();
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
+        //throw new CannotBuyCardException();
 
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
         //check if the player has the resources to buy the card
         if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards()))
-            throw new CannotBuyCardException();
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
+        //throw new CannotBuyCardException();
 
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);

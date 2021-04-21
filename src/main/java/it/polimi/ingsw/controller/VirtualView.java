@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.SameTypeTriple;
+import it.polimi.ingsw.model.modelExceptions.IllegalMarketUseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,7 @@ public class VirtualView implements ClientEventHandler {
     public void handleEvent(BoughtCardEvent event){
         //chiama metodo del controller perchè è stata comprata una carta
         try{
+            System.out.println("compra carta"); //per debug
             controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
         }catch (Exception e){
             //qui deve essere messo nel model che c'è stato un errore
@@ -108,5 +110,15 @@ public class VirtualView implements ClientEventHandler {
             //o sto controllo lo posso fa direttamente nel controller
         }
     }
+    public void handleEvent(UseMarketEvent event){
+        try {
+            controller.useMarket(event.getRowOrColumn(), event.getIndex(),event.getNewWarehouse(),event.getDiscardedRes(),event.getLeaderCardSlots1(),event.getLeaderCardSlots2());
+        } catch (IllegalMarketUseException e) {
+            //qui deve essere messo nel model che sta un error, o posso controllare dirett nel controller
+        }
+    }
 
+    public void handleEvent(EndTurnEvent event){
+        controller.getGame().nextTurn();
+    }
 }

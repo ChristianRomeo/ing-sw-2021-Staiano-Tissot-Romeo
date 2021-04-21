@@ -91,7 +91,15 @@ public class ClientHandler implements Runnable {
      */
     @Override
     public void run() {
-
+        /* ok?
+        if(isFirstPlayer){
+            try {
+                int playersNum = (Integer) input.readObject();
+            }catch (Exception e){
+                //
+            }
+        }
+        */
         connectionSetUp();
         while (isConnected) {
             try {

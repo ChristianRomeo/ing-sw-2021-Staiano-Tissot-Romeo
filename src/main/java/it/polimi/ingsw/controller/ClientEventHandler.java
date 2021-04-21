@@ -9,4 +9,9 @@ public interface ClientEventHandler {
     void handleEvent(LeaderCardActionEvent event);
 
     void handleEvent(ActivatedProductionEvent event);
+
+    void handleEvent(UseMarketEvent event);
+
+    void handleEvent(EndTurnEvent event);
+
 }
