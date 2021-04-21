@@ -113,7 +113,9 @@ public class Controller {
 
     public boolean isRunning() throws DisconnectionException {
         if (!game.isActive())
-            throw new DisconnectionException();
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"DisconnectionError"));
+            //throw new DisconnectionException();
+
         return true;
     }
 
@@ -166,10 +168,11 @@ public class Controller {
 
         Map<Resource,Integer> ownedResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
 
-        if(!Resource.enoughResources(ownedResources,requiredResources)){
-            //throw new CannotActivateProductionException();
+        if(!Resource.enoughResources(ownedResources,requiredResources))
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
-        }
+            //throw new CannotActivateProductionException();
+
+
 
 
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
@@ -202,14 +205,16 @@ public class Controller {
         //check if the player has space in his personal card board, in the pile selected
         if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile))
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-        //throw new CannotBuyCardException();
+            //throw new CannotBuyCardException();
 
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
         //check if the player has the resources to buy the card
         if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards()))
-            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-        //throw new CannotBuyCardException();
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "CannotBuyCard"));
+            //throw new CannotBuyCardException();
+
+
 
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);
@@ -233,9 +238,12 @@ public class Controller {
      */
     public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2) throws IllegalMarketUseException{
         Player currentPlayer = game.getCurrentPlayer();
-        if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2)){
-            throw new IllegalMarketUseException();
-        }
+        if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2))
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalMarketUse"));
+            //throw new IllegalMarketUseException();
+
+
+
         if(rowOrColumn=='c'){
             fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true);
         }else{
