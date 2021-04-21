@@ -32,7 +32,7 @@ public class Server {
         this.addedPlayers = 0;
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         Server server = new Server();
 
         try{

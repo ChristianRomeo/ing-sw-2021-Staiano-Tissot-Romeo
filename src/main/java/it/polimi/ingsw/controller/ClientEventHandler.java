@@ -7,4 +7,6 @@ public interface ClientEventHandler {
     void handleEvent(BoughtCardEvent event);
 
     void handleEvent(LeaderCardActionEvent event);
+
+    void handleEvent(ActivatedProductionEvent event);
 }

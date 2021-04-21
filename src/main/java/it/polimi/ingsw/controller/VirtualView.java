@@ -1,5 +1,8 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.Resource;
+import it.polimi.ingsw.model.SameTypeTriple;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,10 +77,36 @@ public class VirtualView implements ClientEventHandler {
 
     public void handleEvent(BoughtCardEvent event){
         //chiama metodo del controller perchè è stata comprata una carta
+        try{
+            controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
+        }catch (Exception e){
+            //qui deve essere messo nel model che c'è stato un errore
+            //o sto controllo lo posso fa direttamente nel controller
+        }
     }
 
     public void handleEvent(LeaderCardActionEvent event){
         //chiama metodo del controller perchè è stata attivata/scartata una carta leader
+        try{
+            if(event.getDiscardOrActivate()=='d'){
+                controller.discardLeaderCard(event.getIndex());
+            }
+            if(event.getDiscardOrActivate()=='a'){
+                controller.activateLeaderCard(event.getIndex());
+            }
+        }catch (IllegalArgumentException e){
+            //qui deve essere messo nel model che c'è stato un errore
+            //o sto controllo lo posso fa direttamente nel controller
+        }
+    }
+    public void handleEvent(ActivatedProductionEvent event){
+        SameTypeTriple<Resource> BPResources = new SameTypeTriple<>(event.getRequestedResBP1(),event.getRequestedResBP2(),event.getProducedResBP());
+        try{
+            controller.activateProduction(event.getActivatedProduction(),event.isBPActivated(),BPResources,event.getProducedResLC1(),event.getProducedResLC2());
+        }catch (Exception e){
+            //qui deve essere messo nel model che c'è stato un errore
+            //o sto controllo lo posso fa direttamente nel controller
+        }
     }
 
 }
