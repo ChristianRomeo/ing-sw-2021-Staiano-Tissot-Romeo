@@ -9,7 +9,7 @@ import java.util.List;
  * Class Board represents the Board object of the game which contains the progress of Lorenzo faith points: the blackCross
  * a List of solo Action to be used in the single player mode, for more:
  * @see SoloAction
- * @author chris, tommy
+ * @author chris, tommy, enrico
  */
 public class Board {
     private static final int GREENCOLUMN = 0;
@@ -18,41 +18,24 @@ public class Board {
     private static final int PURPLECOLUMN = 3;
     private static final int MAXCARDSLEVEL = 3;
     private static final int firstActionPosition = 0;
-    private static final int lastFaithTrackPosition = 24;
 
-    private int blackCrossPosition;
-    private int discardedCards = 0;
     private final Market market;
     private final List<SoloAction> soloActions = new ArrayList<>();
     private final DevelopmentCardBoard developmentCardBoard;
 
+    private Player lorenzo;
+
     /**
-     * Constructor that initializes blackCross position and the Solo Actions pile
+     * Constructor that initializes the board.
      * @throws IOException from DevelopmentCardBoard where json is used
      */
     public Board() throws IOException {
-        this.blackCrossPosition = 0;
         this.market = new Market();
         shuffleSoloActionPile();
         this.developmentCardBoard = new DevelopmentCardBoard();
-
+        lorenzo= new Player();
     }
 
-    /**
-     * Getter of BlackCrossPosition
-     * @return blackCrossPosition - int
-     */
-    public int getBlackCrossPosition() {
-        return blackCrossPosition;
-    }
-
-    /**
-     * Method that shifts by one position the BlackCross
-     */
-    public void increaseBlackCrossPosition() {
-        if (getBlackCrossPosition() < lastFaithTrackPosition)
-        ++blackCrossPosition;
-    }
 
     /**
      * <p> Return and remove from the pile of Solo Actions one element </p>
@@ -66,93 +49,38 @@ public class Board {
      * game graphics; so, for example, to check the first level for green cards the method takes cardBoard[0][0].
      * @return SoloAction - type
      */
-    //TODO: DA SISTEMARE, PERCHE SE AD ESEMPIO C'E UNA SOLA CARTA DI LIVELLO 1 LUI DEVE SCARTARE QUELLA E POI PASSIAMO
-    //TODO: A ELIMINARE QUELLE DI LIVELLO 2 O 3 (SE CI SONO). IN OGNI CASO SE C'E ANCHE SOLO UNA CARTA, LA TOGLIE.
     public SoloAction pickSoloAction() {
-        switch (soloActions.get(firstActionPosition).getType()) {
+        SoloAction removedSoloAction = soloActions.remove(firstActionPosition);
+        switch (removedSoloAction.getType()) {
             case MOVETWO -> {
-                increaseBlackCrossPosition();
-                increaseBlackCrossPosition();
+                //non fa niente, semplicemente ritorna il solo action selezionato e poi il controller agisce
             }
             case MOVEONEANDSHUFFLE -> {
-                increaseBlackCrossPosition();
                 shuffleSoloActionPile();
-
+                //poi il controller incrementa posizione
             }   //DRY
             case DISCARDTWOCARDS -> {
-                switch (soloActions.get(firstActionPosition).getDiscardedCardsType()) {
-                    case GREEN -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
-                            if(getDevelopmentCardBoard().getPileSize(i, GREENCOLUMN) == 0)
-                                continue;
-                            else if(getDevelopmentCardBoard().getPileSize(i, GREENCOLUMN) == 1) {
-                                getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
-                                ++discardedCards;
-                            }
-                            else {
-                                for(int j = discardedCards; j < 2; ++j)
-                                    getDevelopmentCardBoard().removeCard(i, GREENCOLUMN);
-                            }
-                            if (discardedCards == 2)
-                                break;
-                        }
-                    }
-                    case BLUE -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
-                            if(getDevelopmentCardBoard().getPileSize(i, BLUECOLUMN) == 0)
-                                continue;
-                            else if(getDevelopmentCardBoard().getPileSize(i, BLUECOLUMN) == 1) {
-                                getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
-                                ++discardedCards;
-                            }
-                            else {
-                                for(int j = discardedCards; j < 2; ++j)
-                                    getDevelopmentCardBoard().removeCard(i, BLUECOLUMN);
-                            }
-                            if (discardedCards == 2)
-                                break;
-                        }
-                    }
-                    case YELLOW -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
-                            if(getDevelopmentCardBoard().getPileSize(i, YELLOWCOLUMN) == 0)
-                                continue;
-                            else if(getDevelopmentCardBoard().getPileSize(i, YELLOWCOLUMN) == 1) {
-                                getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
-                                ++discardedCards;
-                            }
-                            else {
-                                for(int j = discardedCards; j < 2; ++j)
-                                    getDevelopmentCardBoard().removeCard(i, YELLOWCOLUMN);
-                            }
-                            if (discardedCards == 2)
-                                break;
-                        }
-                    }
-                    case PURPLE -> {
-                        for (int i = 0; i < MAXCARDSLEVEL; ++i) {
-                            if(getDevelopmentCardBoard().getPileSize(i, PURPLECOLUMN) == 0)
-                                continue;
-                            else if(getDevelopmentCardBoard().getPileSize(i, PURPLECOLUMN) == 1) {
-                                getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
-                                ++discardedCards;
-                            }
-                            else {
-                                for(int j = discardedCards; j < 2; ++j)
-                                    getDevelopmentCardBoard().removeCard(i, PURPLECOLUMN);
-                            }
-                            if (discardedCards == 2)
-                                break;
-                        }
-                        break;
-                    }
+                int discardedCards=0;
+                int selectedColumn=0;
+
+                switch (removedSoloAction.getDiscardedCardsType()) {
+                    case GREEN -> selectedColumn = GREENCOLUMN;
+                    case BLUE -> selectedColumn = BLUECOLUMN;
+                    case YELLOW -> selectedColumn = YELLOWCOLUMN;
+                    case PURPLE -> selectedColumn = PURPLECOLUMN;
                 }
-                discardedCards = 0; //restore the value of discardedCards to 0, so it will work for other DISCARDTWOCARDS actions
-                break;
+                for (int i = 0; i < MAXCARDSLEVEL; ++i) {
+                    while (discardedCards<2 && getDevelopmentCardBoard().getPileSize(i,selectedColumn)>0){
+                        getDevelopmentCardBoard().removeCard(i,GREENCOLUMN);
+                        discardedCards++;
+                    }
+                    if (discardedCards == 2)
+                        break;
+                }
             }
         }
 
-        return soloActions.remove(firstActionPosition);
+        return removedSoloAction;
     }
 
     /**
@@ -177,5 +105,9 @@ public class Board {
 
     public DevelopmentCardBoard getDevelopmentCardBoard() {
         return developmentCardBoard;
+    }
+
+    public Player getLorenzo(){
+        return lorenzo;
     }
 }

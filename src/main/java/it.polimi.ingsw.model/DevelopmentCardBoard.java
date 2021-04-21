@@ -105,4 +105,16 @@ public class DevelopmentCardBoard {
         return (cardBoard[row][column] == null || cardBoard[row][column].size() == 0);
     }
 
+    /**
+     * @return true if a column of the board is all empty, otherwise false.
+     */
+    public boolean isAColumnEmpty(){
+        for(int col=0; col<4; col++){
+            if(isCardPileEmpty(0,col) && isCardPileEmpty(1,col) && isCardPileEmpty(2,col)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -3,6 +3,9 @@ package it.polimi.ingsw.model;
 public class LeaderCardWhiteMarble extends LeaderCard{
 
     public Resource getWhiteMarbleResource() {
-        return abilityResource;
+        if(isActivated){
+            return abilityResource;
+        }
+        return null;
     }
 }

@@ -5,24 +5,33 @@ public class LeaderCardSlots extends LeaderCard{
 
 
     public Integer getFullSlotsNumber() {
-        return fullSlotsNumber;
+        if(isActivated){
+            return fullSlotsNumber;
+        }
+        return null;
     }
 
     public void addResource() {
-        if(fullSlotsNumber<=1){
-            fullSlotsNumber++;
+        if(isActivated){
+            if(fullSlotsNumber<=1){
+                fullSlotsNumber++;
+            }
         }
     }
 
     public void removeResource() {
-        if(fullSlotsNumber>=1){
-            fullSlotsNumber--;
+        if(isActivated){
+            if(fullSlotsNumber>=1){
+                fullSlotsNumber--;
+            }
         }
     }
 
     public void setFullSlotsNumber(int n){
-        if(n>=0 && n<=2){
-            fullSlotsNumber=n;
+        if(isActivated){
+            if(n>=0 && n<=2){
+                fullSlotsNumber=n;
+            }
         }
     }
 }

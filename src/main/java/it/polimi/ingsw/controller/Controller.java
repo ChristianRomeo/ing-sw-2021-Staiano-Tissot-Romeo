@@ -241,6 +241,9 @@ public class Controller {
                     incrementFaithTrackPosition(game.getPlayerByIndex(k));
                 }
             }
+            if(game.getPlayersNumber()==1){
+                incrementFaithTrackPosition(game.getBoard().getLorenzo());
+            }
         }
     }
 
@@ -449,6 +452,24 @@ public class Controller {
 
         //leaderCardList.forEach(System.out::println);
 
+    }
+
+    public void lorenzoTurn(){
+        SoloActionType activatedSoloAction = game.getBoard().pickSoloAction().getType();
+        if(game.getBoard().getDevelopmentCardBoard().isAColumnEmpty()){
+            game.setLastTurnsTrue();
+            return;
+        }
+        if(activatedSoloAction==SoloActionType.MOVEONEANDSHUFFLE){
+            incrementFaithTrackPosition(game.getBoard().getLorenzo());
+        }
+        if(activatedSoloAction==SoloActionType.MOVETWO){
+            incrementFaithTrackPosition(game.getBoard().getLorenzo());
+            incrementFaithTrackPosition(game.getBoard().getLorenzo());
+        }
+        if(game.getBoard().getDevelopmentCardBoard().isAColumnEmpty()){
+            game.setLastTurnsTrue();
+        }
     }
 
 }

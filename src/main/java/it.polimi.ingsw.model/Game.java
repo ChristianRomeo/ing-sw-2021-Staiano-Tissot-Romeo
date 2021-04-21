@@ -41,11 +41,11 @@ public class Game {
     public void setActive(boolean active) {
         isActive = active;
     }
-
-    public int getNumPlayers() {
+/*
+    public int getNumPlayers() { //c'è gia un getter per il numero dei giocatori
         return numPlayers;
     }
-
+*/
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
