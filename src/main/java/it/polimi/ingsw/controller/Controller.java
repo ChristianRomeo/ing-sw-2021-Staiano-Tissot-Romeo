@@ -22,10 +22,12 @@ public class Controller {
     //private Player currentPlayer; //credo meglio non tenerlo anche qui, o se vogliamo tenerlo dobbiamo aggiornarlo tutti i turni
     private final static Logger logger = Logger.getLogger(Server.class.getName());
     private List<LeaderCard> leaderCardList = new ArrayList<>();
+    private ServerEventCreator eventCreator;
 
     //constructor
     public Controller(Game game){
         this.game=game;
+        eventCreator = new ServerEventCreator(this);
     }
 
     public Game getGame(){
@@ -112,10 +114,9 @@ public class Controller {
     }
 
     public boolean isRunning() throws DisconnectionException {
-        if (!game.isActive())
-            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"DisconnectionError"));
-            //throw new DisconnectionException();
-
+        if (!game.isActive()){
+            throw new DisconnectionException();
+        }
         return true;
     }
 
@@ -172,13 +173,12 @@ public class Controller {
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
             //throw new CannotActivateProductionException();
 
-
-
-
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
         game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
         for(int i=0; i<producedFaithPoints; i++)
             incrementFaithTrackPosition(game.getCurrentPlayer());
+
+        game.setHasDoneAction();
     }
 
 
@@ -193,7 +193,7 @@ public class Controller {
      * @param col is the column of the selected card, 0<=col<=3
      * @param pile is the number of the pile where you want to insert the bought card, 0<=pile<=2
      */
-    public void buyDevelopmentCard(int row, int col, int pile) throws IllegalArgumentException, InvalidCardInsertionException{
+    public void buyDevelopmentCard(int row, int col, int pile) throws IllegalArgumentException{
         DevelopmentCardBoard developmentCardBoard = game.getBoard().getDevelopmentCardBoard();
         StatusPlayer statusCurrentPlayer = game.getCurrentPlayer().getStatusPlayer();
 
@@ -214,17 +214,21 @@ public class Controller {
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "CannotBuyCard"));
             //throw new CannotBuyCardException();
 
-
-
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);
         statusCurrentPlayer.removeResources(card.getCost(statusCurrentPlayer.getPlayerLeaderCards()));
 
-        statusCurrentPlayer.getPersonalCardBoard().addCard(card,pile);
+        try {
+            statusCurrentPlayer.getPersonalCardBoard().addCard(card,pile);
+        } catch (InvalidCardInsertionException e) {
+            System.out.println("error"); //this shouldn't happen, because earlier the method does a check.
+        }
         if(statusCurrentPlayer.getPersonalCardBoard().getNumberOfCards()>=7){
             //a player has bought 7 cards, so we enter the last phase of the game
             game.setLastTurnsTrue();
         }
+        game.setHasDoneAction();
+        (eventCreator.createBoughtCardEvent()).notifyHandler(virtualView);
     }
     /**
      * Method useMarket allows the player to buy new resources at the Market
@@ -236,13 +240,11 @@ public class Controller {
      * @param leaderCardSlots1 is the number of full slots the player wants to set in his first leader card
      * @param leaderCardSlots2 is the number of full slots the player wants to set in his second leader card
      */
-    public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2) throws IllegalMarketUseException{
+    public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2){
         Player currentPlayer = game.getCurrentPlayer();
         if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2))
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalMarketUse"));
             //throw new IllegalMarketUseException();
-
-
 
         if(rowOrColumn=='c'){
             fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true);
@@ -264,6 +266,7 @@ public class Controller {
                 incrementFaithTrackPosition(game.getBoard().getLorenzo());
             }
         }
+        game.setHasDoneAction();
     }
 
     /**
@@ -323,6 +326,7 @@ public class Controller {
         boolean canActivate = false;
 
         if(leaderCard.isActivated() || leaderCard.isDiscarded()) {
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
             //the card is already active, or is discarded, so you can't activate it
         }
         else {
@@ -352,12 +356,15 @@ public class Controller {
                     }
                 }
             }
-            if(canActivate)
+            if(canActivate){
                 leaderCard.activate();
-            //else
-                //not enough resources/cards to be able to activate the Leader Card
+                //creation event to send to the clients
+                (eventCreator.createLeaderActionEvent()).notifyHandler(virtualView);
+            }
+            else
+                game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
         }
-        notifyController();
+        notifyController(); //??
     }
 
     /**
@@ -369,9 +376,12 @@ public class Controller {
         LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
         if(leaderCard.isActivated() || leaderCard.isDiscarded()){
             //the card is already discarded, or is active, so you can't discard it
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
         }else{
             leaderCard.discard();
             incrementFaithTrackPosition(game.getCurrentPlayer());
+            //creation event to send to the clients
+            (eventCreator.createLeaderActionEvent()).notifyHandler(virtualView);
         }
     }
 

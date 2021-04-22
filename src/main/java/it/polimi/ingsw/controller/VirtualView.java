@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.IllegalAction;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.SameTypeTriple;
 import it.polimi.ingsw.model.modelExceptions.IllegalMarketUseException;
@@ -7,7 +8,7 @@ import it.polimi.ingsw.model.modelExceptions.IllegalMarketUseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VirtualView implements ClientEventHandler {
+public class VirtualView implements ClientEventHandler, ServerEventObserver {
     private final List<ClientHandler> clientHandlers;
     private final Controller controller;
 
@@ -77,48 +78,52 @@ public class VirtualView implements ClientEventHandler {
     }
 
     public void handleEvent(BoughtCardEvent event){
-        //chiama metodo del controller perchè è stata comprata una carta
-        try{
-            System.out.println("compra carta"); //per debug
+
+        System.out.println("compra carta"); //per debug
+        if(!controller.getGame().hasDoneAction()){
             controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
-        }catch (Exception e){
-            //qui deve essere messo nel model che c'è stato un errore
-            //o sto controllo lo posso fa direttamente nel controller
         }
     }
 
     public void handleEvent(LeaderCardActionEvent event){
-        //chiama metodo del controller perchè è stata attivata/scartata una carta leader
-        try{
-            if(event.getDiscardOrActivate()=='d'){
-                controller.discardLeaderCard(event.getIndex());
-            }
-            if(event.getDiscardOrActivate()=='a'){
-                controller.activateLeaderCard(event.getIndex());
-            }
-        }catch (IllegalArgumentException e){
-            //qui deve essere messo nel model che c'è stato un errore
-            //o sto controllo lo posso fa direttamente nel controller
+
+        if(event.getDiscardOrActivate()=='d'){
+            controller.discardLeaderCard(event.getIndex());
+        }
+        if(event.getDiscardOrActivate()=='a'){
+            controller.activateLeaderCard(event.getIndex());
         }
     }
     public void handleEvent(ActivatedProductionEvent event){
         SameTypeTriple<Resource> BPResources = new SameTypeTriple<>(event.getRequestedResBP1(),event.getRequestedResBP2(),event.getProducedResBP());
-        try{
+        if(!controller.getGame().hasDoneAction()){
             controller.activateProduction(event.getActivatedProduction(),event.isBPActivated(),BPResources,event.getProducedResLC1(),event.getProducedResLC2());
-        }catch (Exception e){
-            //qui deve essere messo nel model che c'è stato un errore
-            //o sto controllo lo posso fa direttamente nel controller
         }
     }
     public void handleEvent(UseMarketEvent event){
-        try {
+        if(!controller.getGame().hasDoneAction()){
             controller.useMarket(event.getRowOrColumn(), event.getIndex(),event.getNewWarehouse(),event.getDiscardedRes(),event.getLeaderCardSlots1(),event.getLeaderCardSlots2());
-        } catch (IllegalMarketUseException e) {
-            //qui deve essere messo nel model che sta un error, o posso controllare dirett nel controller
         }
     }
 
     public void handleEvent(EndTurnEvent event){
-        controller.getGame().nextTurn();
+        if(controller.getGame().hasDoneAction()){
+            controller.getGame().nextTurn();
+        }else{ //the player has to do a main action before he can end his turn
+            controller.getGame().addIllegalAction(new IllegalAction(controller.getGame().getCurrentPlayer(),"IllegalAction"));
+        }
+    }
+
+    //      ---- SERVER TO CLIENT EVENTS ----
+
+
+    @Override
+    public void handleEvent(LeaderCardActionEventS2C event) {
+        //invia evento ai dovuti client
+    }
+
+    @Override
+    public void handleEvent(BoughtCardEventS2C event) {
+        //invia evento ai dovuti client
     }
 }

@@ -25,7 +25,9 @@ public class Game {
     private int numPlayers;
     private boolean isActive;
 
-    private List<IllegalAction> illegalActions;
+    private final List<IllegalAction> illegalActions; //list of illegal action
+    private boolean hasDoneAction; // true if the current player already did a main action (leader actions not included)
+
     /**
      * Constructor Game creates a new Game instance.
      */
@@ -150,6 +152,7 @@ public class Game {
 
     /** Method nextTurn updates currentPlayer to the next player in "players" order. */
     public void nextTurn() {
+        hasDoneAction=false;
         if(!lastTurns || currentPlayerId!=(players.size()-1)){  //controlli tipo player == null || !players.contains(player) ci vanno?
             currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
             setCurrentPlayer(players.get(currentPlayerId));
@@ -209,12 +212,21 @@ public class Game {
         }
         return false;
     }
-
+    /**
+     * Adds an illegal action to the list.
+     */
     public void addIllegalAction(IllegalAction illegalAction){
         illegalActions.add(illegalAction);
     }
 
-/*METODO VECCHIO DA TOGLIERE
+    public boolean hasDoneAction() {
+        return hasDoneAction;
+    }
+
+    public void setHasDoneAction() {
+        hasDoneAction=true;
+    }
+    /*METODO VECCHIO DA TOGLIERE
     private void setWinnerIndex(Player winner){
         if(players.contains(winner)){
             winnerIndex = players.indexOf(winner);
