@@ -77,6 +77,8 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         }
     }
 
+    // ---- events from the client----
+
     public void handleEvent(BoughtCardEvent event){
 
         System.out.println("compra carta"); //per debug
@@ -124,6 +126,16 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
+        //invia evento ai dovuti client
+    }
+
+    @Override
+    public void handleEvent(ActivatedProductionEventS2C event) {
+        //invia evento ai dovuti client
+    }
+
+    @Override
+    public void handleEvent(IncrementPositionEventS2C event) {
         //invia evento ai dovuti client
     }
 }

@@ -91,7 +91,7 @@ public class ClientHandler implements Runnable {
      */
     @Override
     public void run() {
-        /* ok?
+
         if(isFirstPlayer){
             try {
                 int playersNum = (Integer) input.readObject();
@@ -99,7 +99,7 @@ public class ClientHandler implements Runnable {
                 //
             }
         }
-        */
+
         connectionSetUp();
         while (isConnected) {
             try {

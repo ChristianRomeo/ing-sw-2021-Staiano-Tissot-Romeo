@@ -83,7 +83,7 @@ public class Server {
         //clientHandler.start();    //thread
         //executor.submit(clientHandler);   //runnables
         ++addedPlayers;
-/* //commentato  per prove
+ //commentato  per prove
         // Sleep until the number of players of the game has been set   //vedere
         synchronized (currentGame) {
             while (currentGame.getPlayersNumber() == -1 && currentGame.isActive()) {
@@ -93,7 +93,7 @@ public class Server {
         if (addedPlayers == currentGame.getPlayersNumber() || !currentGame.isActive()) {
             clearGameRoom();
         }
-*/
+
 
     }
 
