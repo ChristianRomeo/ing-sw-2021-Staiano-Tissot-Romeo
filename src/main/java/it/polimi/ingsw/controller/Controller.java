@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import com.google.gson.*;
 import it.polimi.ingsw.controller.Events.ServerEventCreator;
+import it.polimi.ingsw.controller.Events.ServerObservable;
 import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.*;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  * Controller, also
  * @see VirtualView
  */
-public class Controller extends ServerObservable{
+public class Controller extends ServerObservable {
     private final Game game;
     private VirtualView virtualView;
     //private Player currentPlayer; //credo meglio non tenerlo anche qui, o se vogliamo tenerlo dobbiamo aggiornarlo tutti i turni
@@ -181,7 +182,7 @@ public class Controller extends ServerObservable{
             incrementFaithTrackPosition(game.getCurrentPlayer());
 
         game.setHasDoneAction();
-        notifyAllObservers(eventCreator.createProductionEvent());
+        //notifyAllObservers(eventCreator.createProductionEvent()); //DAVA ERRORE
     }
 
 
