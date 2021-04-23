@@ -3,10 +3,8 @@ package it.polimi.ingsw.controller.Events;
 //sta classe crea gli eventi che poi mandiamo al client
 //è una classe ausiliaria per non mettere tutto nel controller
 
-import it.polimi.ingsw.controller.ActivatedProductionEventS2C;
-import it.polimi.ingsw.controller.IncrementPositionEventS2C;
 import it.polimi.ingsw.model.*;
-
+import it.polimi.ingsw.controller.Events.*;
 import java.util.Map;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.DevelopmentCardBoard;
