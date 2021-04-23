@@ -89,7 +89,7 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        /* ok?
+
         if(isFirstPlayer){
             try {
                // output.writeObject();
@@ -98,7 +98,7 @@ public class ClientHandler implements Runnable {
                 logger.warning("errore nel leggere il numero giocatori");
             }
         }
-        */
+
         connectionSetUp();
         while (isConnected) {
             try {

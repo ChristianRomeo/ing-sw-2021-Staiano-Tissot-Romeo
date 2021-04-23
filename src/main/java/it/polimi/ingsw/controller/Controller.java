@@ -17,13 +17,13 @@ import java.util.logging.Logger;
  * Controller, also
  * @see VirtualView
  */
-public class Controller {
+public class Controller extends ServerObservable{
     private final Game game;
     private VirtualView virtualView;
     //private Player currentPlayer; //credo meglio non tenerlo anche qui, o se vogliamo tenerlo dobbiamo aggiornarlo tutti i turni
     private final static Logger logger = Logger.getLogger(Server.class.getName());
     private List<LeaderCard> leaderCardList = new ArrayList<>();
-    private ServerEventCreator eventCreator;
+    private final ServerEventCreator eventCreator;
 
     //constructor
     public Controller(Game game){
@@ -37,6 +37,7 @@ public class Controller {
 
     public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
+        addObserver(virtualView); //così la virtual view riceverà i server events inviati dal controller
     }
 
     public boolean gameIsReady() {
@@ -180,6 +181,7 @@ public class Controller {
             incrementFaithTrackPosition(game.getCurrentPlayer());
 
         game.setHasDoneAction();
+        notifyAllObservers(eventCreator.createProductionEvent());
     }
 
 
@@ -229,7 +231,7 @@ public class Controller {
             game.setLastTurnsTrue();
         }
         game.setHasDoneAction();
-        (eventCreator.createBoughtCardEvent()).notifyHandler(virtualView);
+        notifyAllObservers(eventCreator.createBoughtCardEvent());
     }
     /**
      * Method useMarket allows the player to buy new resources at the Market
@@ -360,7 +362,7 @@ public class Controller {
             if(canActivate){
                 leaderCard.activate();
                 //creation event to send to the clients
-                (eventCreator.createLeaderActionEvent()).notifyHandler(virtualView);
+                notifyAllObservers(eventCreator.createLeaderActionEvent());
             }
             else
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
@@ -382,7 +384,8 @@ public class Controller {
             leaderCard.discard();
             incrementFaithTrackPosition(game.getCurrentPlayer());
             //creation event to send to the clients
-            (eventCreator.createLeaderActionEvent()).notifyHandler(virtualView);
+            notifyAllObservers(eventCreator.createLeaderActionEvent());
+
         }
     }
 
