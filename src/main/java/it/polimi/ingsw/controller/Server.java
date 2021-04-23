@@ -1,6 +1,9 @@
 package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Game;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,7 +15,9 @@ import java.util.logging.Logger;
  *
  */
 public class Server {
-    private static final int DEFAULTPORT = 9838;            //da file config
+
+
+   // private static final int DEFAULTPORT = 9838;            //da file config
     //private static final String HOSTNAME = "127.0.0.1";   //da file config
 
     private static ServerSocket serverSocket;
@@ -25,27 +30,27 @@ public class Server {
     /**
      * Constructor: build a Server
      */
-    public Server() {
+    public Server() throws FileNotFoundException {
         this.executor = Executors.newCachedThreadPool();
         this.currentGame = null;
         this.currentVirtualView = null;
         this.addedPlayers = 0;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Server server = new Server();
 
         try{
             server.launch();
         }catch (IOException e){
-            logger.warning("Fatal error: Could not start the server. Cannot open server on port " + DEFAULTPORT); //server catch
+            logger.warning("Fatal error: Could not start the server. Cannot open server on port " + Configs.getServerPort()); //server catch
              //close server
         }
     }
 
     public void launch() throws IOException {   //eccezione per il file di configurazione della porta e ip
-        serverSocket = new ServerSocket(DEFAULTPORT);   //ascolto, una porta un server per tutti i clienti
-        logger.info("Server started successfully");
+        serverSocket = new ServerSocket(Configs.getServerPort());   //ascolto, una porta un server per tutti i clienti
+        logger.info("Server started successfully on port "+ Configs.getServerPort());
 
         while(true){
             try {

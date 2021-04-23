@@ -20,7 +20,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
 
     public void addClientHandler(ClientHandler clientHandler) {
-        synchronized (clientHandlers) {
+        synchronized (clientHandlers) { //setnewnick before add
             clientHandlers.add(clientHandler);
         }
     }

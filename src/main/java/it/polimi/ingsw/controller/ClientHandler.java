@@ -29,7 +29,7 @@ public class ClientHandler implements Runnable {
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
         socket.setSoTimeout(30000); //// Sets the connection timeout to 30 seconds
-        //(new PingSender(this, true)).start(); //dobbiamo mandare un ping al client ogni 5 secondi per vedere se è connesso ancora dato che è tcp
+        //(new PingSender(this, true)).start(); //dobbiamo mandare un ping al client ogni 2 secondi per vedere se è connesso ancora dato che è tcp
         this.nickname=null;
     }
 
