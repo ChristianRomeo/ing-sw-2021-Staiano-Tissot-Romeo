@@ -19,6 +19,9 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         this.controller = controller;
     }
 
+    public Controller getController(){
+        return controller;
+    }
 
     public void addClientHandler(ClientHandler clientHandler) {
         synchronized (clientHandlers) {
@@ -114,6 +117,12 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
             controller.getGame().addIllegalAction(new IllegalAction(controller.getGame().getCurrentPlayer(),"IllegalAction"));
         }
     }
+
+    public void handleEvent(NewConnectionEvent event){
+
+    }
+
+
 
     //      ---- SERVER TO CLIENT EVENTS ----
 

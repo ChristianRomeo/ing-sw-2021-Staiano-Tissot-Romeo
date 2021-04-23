@@ -89,17 +89,28 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+        //connectionSetUp();
+
+        try {
+            NewConnectionEvent newConnectionEvent = (NewConnectionEvent) input.readObject();
+            setNickname(newConnectionEvent.getNickname());
+            virtualView.addClientHandler(this);
+        } catch (IOException | ClassNotFoundException e) {
+            logger.warning("errore nel leggere il nickname");
+        }
+
 
         if(isFirstPlayer){
             try {
                // output.writeObject();
                 int playersNum = (Integer) input.readObject();
+                virtualView.getController().getGame().setWantedNumPlayers(playersNum);
             }catch (Exception e){
                 logger.warning("errore nel leggere il numero giocatori");
             }
         }
 
-        connectionSetUp();
+
         while (isConnected) {
             try {
                 //receive messages by input.readObject

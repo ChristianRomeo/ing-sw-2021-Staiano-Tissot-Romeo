@@ -21,7 +21,7 @@ public class Game {
     private int currentPlayerId;
     private final List<LeaderCard> leaderCards = new ArrayList<>();
     private boolean lastTurns;
-    private int numPlayers;
+    private int wantedNumPlayers;
     private boolean isActive;
 
     private final List<IllegalAction> illegalActions; //list of illegal action
@@ -45,13 +45,13 @@ public class Game {
     public void setActive(boolean active) {
         isActive = active;
     }
-/*
-    public int getNumPlayers() { //c'è gia un getter per il numero dei giocatori
-        return numPlayers;
+
+    public int getWantedNumPlayers() {
+        return wantedNumPlayers;
     }
-*/
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
+
+    public void setWantedNumPlayers(int numPlayers) {
+        this.wantedNumPlayers = numPlayers;
     }
 
     public List<Player> getPlayers(){   //questi sono tutti, connessi e disconnessi eventuali, se servono sono quelli connessi fare altro metodo
@@ -59,7 +59,7 @@ public class Game {
     }
 
     public boolean gameReady() {
-        return players.size() == numPlayers;
+        return players.size() == wantedNumPlayers;
     }
 
     /**
