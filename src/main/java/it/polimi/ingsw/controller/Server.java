@@ -1,4 +1,5 @@
 package it.polimi.ingsw.controller;
+import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.Game;
 
 import java.io.BufferedReader;
@@ -12,13 +13,9 @@ import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 /**
- *
+ *  One single server instance that accepts all the clients
  */
 public class Server {
-
-
-   // private static final int DEFAULTPORT = 9838;            //da file config
-    //private static final String HOSTNAME = "127.0.0.1";   //da file config
 
     private static ServerSocket serverSocket;
     private Game currentGame;
@@ -30,21 +27,21 @@ public class Server {
     /**
      * Constructor: build a Server
      */
-    public Server() throws FileNotFoundException {
+    public Server() {
         this.executor = Executors.newCachedThreadPool();
         this.currentGame = null;
         this.currentVirtualView = null;
         this.addedPlayers = 0;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Server server = new Server();
 
         try{
             server.launch();
         }catch (IOException e){
             logger.warning("Fatal error: Could not start the server. Cannot open server on port " + Configs.getServerPort()); //server catch
-             //close server
+            serverSocket.close();
         }
     }
 
@@ -55,22 +52,19 @@ public class Server {
         while(true){
             try {
                 initClient();
-            } catch (IOException | InterruptedException e) {
-                logger.warning("Connection Error: Could not accept the connection.");   //client catch
-                e.printStackTrace();
-                if(serverSocket != null && !serverSocket.isClosed()) {
+            } catch (IOException | InterruptedException | DisconnectionException e) {
+                logger.warning("Connection Error: Could not accept the connection." + e);   //client catch
+                if(serverSocket != null && !serverSocket.isClosed())
                     try {
                         serverSocket.close();   //giusto?
                         //executor.shutdown();    //qui?
-                    } catch (IOException ignored) {
-                    }
-                }
+                    } catch (IOException ignored) {}
             }
         }
+
     }
 
-    public void initClient() throws IOException, InterruptedException {
-        //ClientHandler clientHandler;
+    public void initClient() throws IOException, InterruptedException, DisconnectionException {
 
         Socket socket = serverSocket.accept();  //accetto un singolo cliente ogni volta
         logger.info( socket.getRemoteSocketAddress() + " has connected.");
@@ -79,15 +73,18 @@ public class Server {
         if (currentGame == null) {
             initGame();
             executor.submit(new ClientHandler(true, socket, currentVirtualView));
-            //clientHandler = new ClientHandler(currentVirtualView, socket, true);
-        } else {
+        } else
             executor.submit(new ClientHandler(false, socket, currentVirtualView));
-            //clientHandler = new ClientHandler(currentVirtualView, socket, false);
-        }
+
         //currentVirtualView.addClientHandler(clientHandler);   //crea effettivamente diversi thread o no??
         //clientHandler.start();    //thread
         //executor.submit(clientHandler);   //runnables
-        ++addedPlayers;
+
+        if(++addedPlayers == currentGame.getWantedNumPlayers()){
+            currentVirtualView.getController().gameStarter();
+            clearGameRoom();
+        }
+
 /* //commentato  per prove
         // Sleep until the number of players of the game has been set   //vedere
         synchronized (currentGame) {
@@ -127,13 +124,13 @@ public class Server {
         //executor.submit(controller.gameStarter());
         //OR
         // Starts the game controller
-        (new Thread(() -> {
+        /*(new Thread(() -> {
             try {
                 controller.gameStarter();
             } catch (Exception ignored) {
             }
             logger.warning("Status: Controller has stopped.");
-        })).start();
+        })).start();*/
     }
     //executor.shutdown();  //dentro alla funzione dove si usa
 }

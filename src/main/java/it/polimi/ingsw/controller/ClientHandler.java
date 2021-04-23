@@ -1,11 +1,17 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.Events.ClientEvent;
+import it.polimi.ingsw.controller.Events.NewConnectionEvent;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+/**
+ *  Uno per giocatore , legge i messaggi, setta il nickname, setta numero giocatori IF FIRST, manda il ping ogni 2 secondi, manda il giocatore alla virtualview
+ */
 public class ClientHandler implements Runnable {
     private final Socket socket;
     private final VirtualView virtualView;
@@ -17,10 +23,6 @@ public class ClientHandler implements Runnable {
     private boolean isConnected;
     private final static Logger logger = Logger.getLogger(Server.class.getName());
 
-
-    /**
-     *
-     */
     public ClientHandler(boolean isFirstPlayer, Socket socket, VirtualView virtualView) throws IOException {
         this.isFirstPlayer = isFirstPlayer;
         this.socket = socket;
@@ -42,6 +44,9 @@ public class ClientHandler implements Runnable {
     }
 
     private void connectionSetUp() {
+        //SEND setupgame dove c'è execute di asknickname, if(newgame) asknumplayer
+        //il client dopo aver inserito il nick e avviato la connessione al server resta in attesa per l'esito e per l'eventuale inserimento di numero giocatori
+        //manda il nickname (così se viene modificato lo sa) al client e se è first player chiede il numero di giocatori
         //send(new SetUpGame(isFirstPlayer, nickname)); //Sends the initial connectionSetUp message to the client
     }
 
@@ -56,11 +61,10 @@ public class ClientHandler implements Runnable {
     public void closeSocket() {
         try {
             socket.close();
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) {}
     }
 
-     /*public void send(Message message) {
+     /* public void send(ServerEvent message) {
         if (isConnected) {
             try {
                 synchronized (lock) {
@@ -83,32 +87,25 @@ public class ClientHandler implements Runnable {
         }
     }*/
 
-    /**
-     * When an object implementing interface {@code Runnable} is used to create a thread, starting the thread causes the object's
-     * {@code run} method to be called in that separately executing thread.The general contract of the method {@code run} is that it may
-     * take any action whatsoever.
-     * @see Thread#run()
-     */
     @Override
     public void run() {
         /* ok?
         if(isFirstPlayer){
             try {
+               // output.writeObject();
                 int playersNum = (Integer) input.readObject();
             }catch (Exception e){
-                //
+                logger.warning("errore nel leggere il numero giocatori");
             }
         }
         */
         connectionSetUp();
         while (isConnected) {
             try {
-
                 //receive messages by input.readObject
                 ClientEvent clientEvent = (ClientEvent) input.readObject();
                 //viene chiamata la virtualview che gestirà l'evento chiamando il controller
                 clientEvent.notifyHandler(virtualView);
-
                 }
             catch (IOException | ClassNotFoundException e) {
                 if (isConnected) {

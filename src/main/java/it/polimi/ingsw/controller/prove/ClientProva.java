@@ -1,7 +1,9 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.prove;
 
+import com.sun.tools.javac.Main;
 import it.polimi.ingsw.model.SameTypePair;
 
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;

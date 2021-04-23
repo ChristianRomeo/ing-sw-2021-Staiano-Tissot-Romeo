@@ -1,6 +1,7 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.prove;
 
 
+import it.polimi.ingsw.controller.Server;
 import it.polimi.ingsw.model.SameTypePair;
 
 import java.io.*;

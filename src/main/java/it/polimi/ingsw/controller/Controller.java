@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import com.google.gson.*;
+import it.polimi.ingsw.controller.Events.ServerEventCreator;
 import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.*;
@@ -43,12 +44,12 @@ public class Controller {
     }
 
     public void gameStarter() throws InterruptedException, DisconnectionException {
-        /*
+
         synchronized (this) {
             while (!gameIsReady() && isRunning()) {
                 this.wait();
             }
-        }*/
+        }
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
 
@@ -66,7 +67,7 @@ public class Controller {
         game();
     }
 
-    private void game() throws InterruptedException, DisconnectionException {
+    private void game() {
         while (!game.hasWinner()) {
 
             //if currentplayer turn hasEnded

@@ -1,16 +1,17 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.IllegalAction;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.SameTypeTriple;
-import it.polimi.ingsw.model.modelExceptions.IllegalMarketUseException;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class VirtualView implements ClientEventHandler, ServerEventObserver {
     private final List<ClientHandler> clientHandlers;
     private final Controller controller;
+    private final static Logger logger = Logger.getLogger(Server.class.getName());
 
 
     public VirtualView(Controller controller) {
@@ -20,7 +21,11 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
 
     public void addClientHandler(ClientHandler clientHandler) {
-        synchronized (clientHandlers) { //setnewnick before add
+        synchronized (clientHandlers) {
+            int idx=0;
+            for (ClientHandler cl : clientHandlers)
+                while (cl.getNickname().equalsIgnoreCase(clientHandler.getNickname()))
+                    clientHandler.setNickname(clientHandler.getNickname() + "_" + idx++);
             clientHandlers.add(clientHandler);
         }
     }
@@ -38,10 +43,6 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public void setUpGame(){
         //setnickname and if già usato chiama setnewnickname che lo richiede o lo incrementa, setnumplayers
         //controller.wakeUpController();
-    }
-
-    public void setNewNickname(){
-        //se è già usato allora fai _1 o richiedi
     }
 
     public void setChosenLeaderCards(){
@@ -70,19 +71,17 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     }
 
     public void closeAll() {
-        for (ClientHandler clientHandler : clientHandlers) {
-            if (clientHandler.isConnected()) {
+        for (ClientHandler clientHandler : clientHandlers)
+            if (clientHandler.isConnected())
                 clientHandler.setDisconnected();
-            }
-        }
     }
 
     public void handleEvent(BoughtCardEvent event){
 
-        System.out.println("compra carta"); //per debug
-        if(!controller.getGame().hasDoneAction()){
+        logger.info("compra carta"); //per debug
+        if(!controller.getGame().hasDoneAction())
             controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
-        }
+
     }
 
     public void handleEvent(LeaderCardActionEvent event){
@@ -115,7 +114,6 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     }
 
     //      ---- SERVER TO CLIENT EVENTS ----
-
 
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {

@@ -6,11 +6,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+/**
+ * Reads configs file from json
+ */
 public class Configs {
 
     private String server_ip;
     private int server_port;
-
 
     public static  String getServerIp() throws FileNotFoundException {
         String CONFIGPATH = "src/main/resources/Configs.json";

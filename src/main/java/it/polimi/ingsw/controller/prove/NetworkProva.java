@@ -1,10 +1,10 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.prove;
 
 public interface NetworkProva {
     /**
      * Sends a message
      *
-     * @param message The message to be sent
+     * @param messageProva The message to be sent
      */
     void send(String messageProva);
 }

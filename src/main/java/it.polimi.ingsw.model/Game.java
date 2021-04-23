@@ -9,7 +9,6 @@ import java.util.List;
  * first area is the Player section, which contains information about the single player. The second area is the
  * GameBoard section which contains the faith track and
  *
- * @author chris
  */
 
 public class Game {
@@ -80,12 +79,8 @@ public class Game {
      */
     public void addNewPlayer(Player player) {
         //todo check to not exceed MAXPLAYERS with getPlayerNumber()
-         int idx=1;
-        if (players.size() < numPlayers) {
-            while (isNicknameTaken(player.getNickname()))
-                player.setNickname(player.getNickname() + "_" + idx++);
+
             players.add(player);
-        }
     }
 
     /**
@@ -157,9 +152,9 @@ public class Game {
             currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
             setCurrentPlayer(players.get(currentPlayerId));
         }
-        else{
+        else
             endGame();
-        }
+
     }
 
     /**
@@ -183,9 +178,9 @@ public class Game {
     }
 
     private void endGame(){
-        for(Player p: players){
+        for(Player p: players)
             p.calculateAndSetVictoryPoints();
-        }
+
         List<Player> bestPlayers = new ArrayList<>(players);
         for(Player p: bestPlayers){
             for(Player p1: bestPlayers){
@@ -226,12 +221,4 @@ public class Game {
     public void setHasDoneAction() {
         hasDoneAction=true;
     }
-    /*METODO VECCHIO DA TOGLIERE
-    private void setWinnerIndex(Player winner){
-        if(players.contains(winner)){
-            winnerIndex = players.indexOf(winner);
-        }
-    }
-
- */
 }
