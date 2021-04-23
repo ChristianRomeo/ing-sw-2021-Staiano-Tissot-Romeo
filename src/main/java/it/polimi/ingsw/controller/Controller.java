@@ -182,7 +182,7 @@ public class Controller extends ServerObservable {
             incrementFaithTrackPosition(game.getCurrentPlayer());
 
         game.setHasDoneAction();
-        //notifyAllObservers(eventCreator.createProductionEvent()); //DAVA ERRORE
+        notifyAllObservers(eventCreator.createProductionEvent());
     }
 
 
