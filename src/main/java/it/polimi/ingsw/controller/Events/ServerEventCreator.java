@@ -5,6 +5,8 @@ package it.polimi.ingsw.controller.Events;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.controller.Events.*;
+
+import java.util.HashMap;
 import java.util.Map;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.DevelopmentCardBoard;
@@ -50,5 +52,13 @@ public class ServerEventCreator{
         int position = player.getStatusPlayer().getFaithTrackPosition();
 
         return new IncrementPositionEventS2C(position, player.getNickname());
+    }
+
+    public VaticanReportEventS2C createVaticanReportEvent(){
+        Map<String,SameTypeTriple<PopeFavorTileStatus>> tilesStatus = new HashMap<>();
+        for(Player player : controller.getGame().getPlayers()){
+            tilesStatus.put(player.getNickname(), player.getStatusPlayer().getPopeFavorTiles());
+        }
+        return new VaticanReportEventS2C(tilesStatus);
     }
 }

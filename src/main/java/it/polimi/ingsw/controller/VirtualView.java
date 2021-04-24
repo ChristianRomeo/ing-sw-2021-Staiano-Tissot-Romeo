@@ -145,4 +145,9 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public void handleEvent(IncrementPositionEventS2C event) {
         //invia evento ai dovuti client
     }
+
+    @Override
+    public void handleEvent(VaticanReportEventS2C event) {
+        //invia evento ai dovuti client
+    }
 }

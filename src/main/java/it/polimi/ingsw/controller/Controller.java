@@ -261,11 +261,7 @@ public class Controller extends ServerObservable {
         currentPlayer.getStatusPlayer().getLeaderCard(1).setFullSlotsNumber(leaderCardSlots2);
 
         for(int i=0; i<Resource.resourcesNum(discardedRes);i++){
-            for(int k=0; k< game.getPlayersNumber(); k++){
-                if (game.getCurrentPlayerId()!=k){
-                    incrementFaithTrackPosition(game.getPlayerByIndex(k));
-                }
-            }
+            incrementFTPositionMarket();
             if(game.getPlayersNumber()==1){
                 incrementFaithTrackPosition(game.getBoard().getLorenzo());
             }
@@ -443,14 +439,44 @@ public class Controller extends ServerObservable {
     private void incrementFaithTrackPosition(Player player){
         try{
             player.getStatusPlayer().incrementFaithTrackPosition();
+            notifyAllObservers(eventCreator.createIncrementPositionEvent(player));
+            player.getStatusPlayer().checkVaticanReport();
         }catch(VaticanReportException e){
             for(int i=0; i< game.getPlayersNumber(); i++){
                 game.getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
-                if(e.getReportId()==3){
-                    //a player is arrived in the last cell of the track, so the game is
-                    //in the final phase
-                    game.setLastTurnsTrue();
+            }
+            notifyAllObservers(eventCreator.createVaticanReportEvent());
+            if(e.getReportId()==3){
+                //a player is arrived in the last cell of the track, so the game is
+                //in the final phase
+                game.setLastTurnsTrue();
+            }
+        }
+    }
+
+    //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
+    private void incrementFTPositionMarket(){
+        for(int k=0; k< game.getPlayersNumber(); k++){
+            if (game.getCurrentPlayerId()!=k){
+                game.getPlayerByIndex(k).getStatusPlayer().incrementFaithTrackPosition();
+                notifyAllObservers(eventCreator.createIncrementPositionEvent(game.getPlayerByIndex(k)));
+            }
+        }
+        try{
+            for(int k=0; k< game.getPlayersNumber(); k++){
+                if (game.getCurrentPlayerId()!=k){
+                    game.getPlayerByIndex(k).getStatusPlayer().checkVaticanReport();
                 }
+            }
+        }catch (VaticanReportException e){
+            for(int i=0; i< game.getPlayersNumber(); i++){
+                game.getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
+            }
+            notifyAllObservers(eventCreator.createVaticanReportEvent());
+            if(e.getReportId()==3){
+                //a player is arrived in the last cell of the track, so the game is
+                //in the final phase
+                game.setLastTurnsTrue();
             }
         }
     }

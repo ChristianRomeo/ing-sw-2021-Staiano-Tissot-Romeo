@@ -53,14 +53,22 @@ public class StatusPlayer {
                 return popeFavorTiles.get(index);
         }
 
+
+        public SameTypeTriple<PopeFavorTileStatus> getPopeFavorTiles(){
+                return popeFavorTiles;
+        }
+
         /**
          * Method incrementFaithTrackPosition is used to increment the faith track position,
          * it also checks if a vatican report is activated, in that case it throws an exception
          */
-        public void incrementFaithTrackPosition() throws VaticanReportException {
+        public void incrementFaithTrackPosition(){
                 if(faithTrackPosition<24)
                         faithTrackPosition++;
+        }
 
+        //ti controlla se si deve attivare un vatican report, in caso tira un'eccezione
+        public void checkVaticanReport() throws VaticanReportException{
                 if(faithTrackPosition>= 8 && popeFavorTiles.get(1)==PopeFavorTileStatus.INACTIVE)
                         throw new VaticanReportException(1);
 
@@ -69,7 +77,6 @@ public class StatusPlayer {
 
                 if(faithTrackPosition==24 && popeFavorTiles.get(3)==PopeFavorTileStatus.INACTIVE)
                         throw new VaticanReportException(3);
-
         }
 
         /**

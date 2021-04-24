@@ -11,4 +11,6 @@ public interface ServerEventObserver {
     void handleEvent(ActivatedProductionEventS2C event);
 
     void handleEvent(IncrementPositionEventS2C event);
+
+    void handleEvent(VaticanReportEventS2C event);
 }
