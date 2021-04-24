@@ -75,4 +75,15 @@ public class ServerEventCreator{
     public NewTurnEventS2C createNewTurnEvent(Player player){
         return new NewTurnEventS2C(player.getNickname());
     }
+
+    public GameStarterEventS2C createGameStarterEvent(List<LeaderCard> leaderCardList, Player player){
+        Market market = controller.getGame().getBoard().getMarket();
+        DevelopmentCardBoard developmentCardBoard = controller.getGame().getBoard().getDevelopmentCardBoard();
+        int playerIndex = controller.getGame().getPlayers().indexOf(player);
+        List<String> nicknames = new ArrayList<>();
+        for(Player player1: controller.getGame().getPlayers()){
+            nicknames.add(player1.getNickname());
+        }
+        return  new GameStarterEventS2C(leaderCardList,developmentCardBoard,market,playerIndex,nicknames);
+    }
 }

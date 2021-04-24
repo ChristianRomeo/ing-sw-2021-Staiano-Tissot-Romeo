@@ -19,4 +19,7 @@ public interface ServerEventObserver {
     void handleEvent(NewTurnEventS2C event);
 
     void handleEvent(IllegalActionEventS2C event);
+
+    void handleEvent(GameStarterEventS2C event);
+
 }

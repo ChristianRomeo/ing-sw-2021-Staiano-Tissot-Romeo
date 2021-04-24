@@ -193,4 +193,10 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         //invia evento ai dovuti client
         sendTo(event, event.getIllegalAction().getPlayerNickname());
     }
+
+    @Override
+    public void handleEvent(GameStarterEventS2C event) {
+        //invia evento ai dovuti client
+        sendTo(event, controller.getGame().getPlayerByIndex(event.getIndexPlayer()).getNickname());
+    }
 }
