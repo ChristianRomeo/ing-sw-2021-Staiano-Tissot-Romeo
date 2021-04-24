@@ -27,10 +27,14 @@ public class ControllerTest {
         Game game = new Game();
         Controller controller = new Controller(game);
         Player player = new Player();
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         player.setNickname("player1");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
-        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(0,0,0));
+       // assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(0,0,0));//non tira più eccezz
+        controller.buyDevelopmentCard(0,0,0);
+        assert(game.getIllegalActions().size()==1);
 
     }
 
@@ -42,6 +46,8 @@ public class ControllerTest {
         Controller controller = new Controller(game);
         Player player = new Player();
         player.setNickname("player1");
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
 
@@ -52,8 +58,9 @@ public class ControllerTest {
         resources.put(Resource.SHIELD,10);
         player.getStatusPlayer().addStrongboxResources(resources);
 
-        assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(1,0,0));
-
+        //assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(1,0,0));
+        controller.buyDevelopmentCard(1,0,0);
+        assert(game.getIllegalActions().size()==1);
     }
 
     @Test //test passed, you can buy a card
@@ -65,6 +72,8 @@ public class ControllerTest {
         player.setNickname("player1");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
 
         Map<Resource,Integer>  resources = new HashMap<>();
         resources.put(Resource.COIN,10);
@@ -210,8 +219,9 @@ public class ControllerTest {
 
         playerWarehouse.removeResource(1,1);
 
-        assertThrows(IllegalMarketUseException.class,()->controller.useMarket('r',0,playerWarehouse,discardedRes,0,0));
-
+       // assertThrows(IllegalMarketUseException.class,()->controller.useMarket('r',0,playerWarehouse,discardedRes,0,0));
+        controller.useMarket('r',0,playerWarehouse,discardedRes,0,0);
+        assert(game.getIllegalActions().size()==1);
 
     }
 }

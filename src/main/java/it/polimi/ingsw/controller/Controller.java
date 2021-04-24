@@ -172,9 +172,12 @@ public class Controller extends ServerObservable {
 
         Map<Resource,Integer> ownedResources = game.getCurrentPlayer().getStatusPlayer().getAllResources();
 
-        if(!Resource.enoughResources(ownedResources,requiredResources))
+        if(!Resource.enoughResources(ownedResources,requiredResources)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
+            return;
             //throw new CannotActivateProductionException();
+        }
+
 
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
         game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
@@ -202,22 +205,25 @@ public class Controller extends ServerObservable {
         StatusPlayer statusCurrentPlayer = game.getCurrentPlayer().getStatusPlayer();
 
         //check if the selected pile in the board is empty
-        if(developmentCardBoard.isCardPileEmpty(row,col))
+        if(developmentCardBoard.isCardPileEmpty(row,col)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
             //throw new IllegalArgumentException();
-
+            return;
+        }
         //check if the player has space in his personal card board, in the pile selected
-        if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile))
+        if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
             //throw new CannotBuyCardException();
-
+            return;
+        }
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
         //check if the player has the resources to buy the card
-        if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards()))
+        if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards())){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "CannotBuyCard"));
             //throw new CannotBuyCardException();
-
+            return;
+        }
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);
         statusCurrentPlayer.removeResources(card.getCost(statusCurrentPlayer.getPlayerLeaderCards()));
@@ -246,9 +252,12 @@ public class Controller extends ServerObservable {
      */
     public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2){
         Player currentPlayer = game.getCurrentPlayer();
-        if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2))
+        if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalMarketUse"));
             //throw new IllegalMarketUseException();
+            return;
+        }
+
 
         if(rowOrColumn=='c'){
             fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true);
@@ -361,10 +370,11 @@ public class Controller extends ServerObservable {
                 //creation event to send to the clients
                 notifyAllObservers(eventCreator.createLeaderActionEvent());
             }
-            else
+            else{
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
+            }
         }
-        notifyController(); //??
+        //notifyController(); //??
     }
 
     /**

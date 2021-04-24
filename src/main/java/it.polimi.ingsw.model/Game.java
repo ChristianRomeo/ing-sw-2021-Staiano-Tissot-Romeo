@@ -214,6 +214,10 @@ public class Game {
         illegalActions.add(illegalAction);
     }
 
+    public List<IllegalAction> getIllegalActions(){
+        return new ArrayList<>(illegalActions);
+    }
+
     public boolean hasDoneAction() {
         return hasDoneAction;
     }
