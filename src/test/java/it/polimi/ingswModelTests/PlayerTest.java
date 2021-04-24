@@ -13,11 +13,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Unit tests.
@@ -27,7 +25,7 @@ public class PlayerTest {
     @Test // test successful
     public void isBetweenTest() throws VaticanReportException {
         StatusPlayer statusPlayer = new StatusPlayer();
-        Player player = new Player();
+        Player player = new Player("");
         for(int i = 0; i < 3; i++)
             statusPlayer.incrementFaithTrackPosition();
         /*assert(player.isBetween(statusPlayer.getFaithTrackPosition(), 1, 7)); //should be true
@@ -37,7 +35,7 @@ public class PlayerTest {
 
     @Test //test successful
     public void calculateAndSetVictoryPointsTestBasedOnFaithTrackTest() throws VaticanReportException {
-        Player player = new Player();
+        Player player = new Player("");
         for(int i = 0; i < 3; i++)
             player.getStatusPlayer().incrementFaithTrackPosition();
         player.calculateAndSetVictoryPoints();
@@ -47,7 +45,7 @@ public class PlayerTest {
 
     @Test //test successful
     public void calculateAndSetVictoryPointsBasedOnStrongboxResourcesTest(){
-        Player player = new Player();
+        Player player = new Player("");
         Map<Resource, Integer> resource = new HashMap<>();
         resource.put(Resource.SHIELD, 3);
         resource.put(Resource.COIN, 2);
@@ -58,7 +56,7 @@ public class PlayerTest {
 
     @Test //test successful
     public void calculateAndSetVictoryPointsBasedOnWarehouseResourcesTest() throws InvalidWarehouseInsertionException {
-        Player player = new Player();
+        Player player = new Player("");
         player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SERVANT, 1, 1);
         player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD, 2, 1);
         player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD, 2, 2);
@@ -71,7 +69,7 @@ public class PlayerTest {
 
     @Test //test successfull
     public void calculateAndSetVictoryPointsBasedOnPopeFavorTilesTest() throws VaticanReportException {
-        Player player = new Player();
+        Player player = new Player("");
         for(int i = 0; i < 5; i++)
         player.getStatusPlayer().incrementFaithTrackPosition();
         player.getStatusPlayer().vaticanReportHandler(1);
@@ -84,7 +82,7 @@ public class PlayerTest {
 
     @Test //test successful
     public void calculateAndSetVictoryPointsBasedOnDevelopmentCardsTest() throws InvalidWarehouseInsertionException, IOException, InvalidCardInsertionException, VaticanReportException {
-        Player player = new Player();
+        Player player = new Player("");
         DevelopmentCardBoard developmentCardBoard = new DevelopmentCardBoard();
         //let's add a GREEN card to the player personal card board and calculate his victory points
         player.getStatusPlayer().getPersonalCardBoard().addCard(developmentCardBoard.getCard(0,0), 0);
@@ -97,7 +95,7 @@ public class PlayerTest {
 
     @Test //test successful
     public void calculateAndSetVictoryPointsBasedOnLeaderCardsTest() throws FileNotFoundException {
-        Player player = new Player();
+        Player player = new Player("");
         final String CARDPATH = "src/main/resources/Leaders.json";
         BufferedReader bufferedReader = new BufferedReader(new FileReader(CARDPATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);

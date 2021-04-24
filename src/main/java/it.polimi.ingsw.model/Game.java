@@ -27,7 +27,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     private int currentPlayerId;
     private final List<LeaderCard> leaderCards = new ArrayList<>();
     private boolean lastTurns;
-    private int wantedNumPlayers;
+    private int wantedNumPlayers=0; //lo 0 serve per un check in Server.java
     private boolean isActive;
 
     private final List<IllegalAction> illegalActions; //list of illegal action
@@ -44,6 +44,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         currentPlayerId=0;
         lastTurns = false;
         illegalActions =new ArrayList<>();
+        this.isActive=true;
     }
 
     public void setEventCreator(ServerEventCreator eventCreator){
@@ -54,8 +55,8 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setInactive() {
+        isActive = false;
     }
 
     public int getWantedNumPlayers() {
@@ -90,8 +91,6 @@ public class Game extends ServerObservable { //game is observed by the virtual v
      * @param player of type Player not null - the player to be added.
      */
     public void addNewPlayer(Player player) {
-        //todo check to not exceed MAXPLAYERS with getPlayerNumber()
-
             players.add(player);
     }
 

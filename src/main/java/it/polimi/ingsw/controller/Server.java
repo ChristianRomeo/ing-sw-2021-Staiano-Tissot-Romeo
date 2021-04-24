@@ -76,27 +76,17 @@ public class Server {
         } else
             executor.submit(new ClientHandler(false, socket, currentVirtualView));
 
-        //currentVirtualView.addClientHandler(clientHandler);   //crea effettivamente diversi thread o no??
-        //clientHandler.start();    //thread
-        //executor.submit(clientHandler);   //runnables
 
-        if(++addedPlayers == currentGame.getWantedNumPlayers()){
-            currentVirtualView.getController().gameStarter();
-            clearGameRoom();
-        }
-
-/* //commentato  per prove
-        // Sleep until the number of players of the game has been set   //vedere
+        //Sleep until the number of players of the game has been set by the first player (wakeupserver in controller)
         synchronized (currentGame) {
-            while (currentGame.getPlayersNumber() == -1 && currentGame.isActive()) {
+            while (currentGame.getWantedNumPlayers() == 0 && currentGame.isActive())
                 currentGame.wait();
-            }
         }
-        if (addedPlayers == currentGame.getPlayersNumber() || !currentGame.isActive()) {
+        //only then we can check whether the number chosen has been reached
+        if (++addedPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive()) {
+            currentVirtualView.getController().gameStarter();   //it's here but maybe shouldn't, servono più istanze per partite multiple?
             clearGameRoom();
         }
-*/
-
     }
 
     /**
@@ -121,9 +111,9 @@ public class Server {
         currentVirtualView = new VirtualView(controller);
         controller.setVirtualView(currentVirtualView);
 
+        // Starts the game controller
         //executor.submit(controller.gameStarter());
         //OR
-        // Starts the game controller
         /*(new Thread(() -> {
             try {
                 controller.gameStarter();
@@ -132,5 +122,6 @@ public class Server {
             logger.warning("Status: Controller has stopped.");
         })).start();*/
     }
+
     //executor.shutdown();  //dentro alla funzione dove si usa
 }

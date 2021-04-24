@@ -33,7 +33,7 @@ public class Board {
         this.market = new Market();
         shuffleSoloActionPile();
         this.developmentCardBoard = new DevelopmentCardBoard();
-        lorenzo= new Player();
+        lorenzo= new Player("Lorenzo");
     }
 
 

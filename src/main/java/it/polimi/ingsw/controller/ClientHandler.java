@@ -29,7 +29,7 @@ public class ClientHandler implements Runnable {
         this.output = new ObjectOutputStream(socket.getOutputStream());
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
-        socket.setSoTimeout(30000); //// Sets the connection timeout to 30 seconds
+        socket.setSoTimeout(30000); // Sets the connection timeout to 30 seconds
         //(new PingSender(this, true)).start(); //dobbiamo mandare un ping al client ogni 2 secondi per vedere se è connesso ancora dato che è tcp
         this.nickname=null;
     }
@@ -43,10 +43,12 @@ public class ClientHandler implements Runnable {
     }
 
     private void connectionSetUp() {
+
         //SEND setupgame dove c'è execute di asknickname, if(newgame) asknumplayer
         //il client dopo aver inserito il nick e avviato la connessione al server resta in attesa per l'esito e per l'eventuale inserimento di numero giocatori
         //manda il nickname (così se viene modificato lo sa) al client e se è first player chiede il numero di giocatori
         //send(new SetUpGame(isFirstPlayer, nickname)); //Sends the initial connectionSetUp message to the client
+
     }
 
     public boolean isConnected() {
@@ -89,26 +91,32 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         //connectionSetUp();
-
         try {
-            NewConnectionEvent newConnectionEvent = (NewConnectionEvent) input.readObject();
-            setNickname(newConnectionEvent.getNickname());
-            virtualView.addClientHandler(this);
+            int idx=0;
+            String nick = (String) input.readObject();  //forse va in setupconnection e non qui nel run
+            synchronized (virtualView){     //va bene sincronizzare la vv?
+                for (ClientHandler cl : virtualView.getClientHandlers())
+                    while (cl.getNickname().equalsIgnoreCase(nick))
+                        nick += "_" + idx++;
+                setNickname(nick);
+                virtualView.addClientHandler(this);
+            }
         } catch (IOException | ClassNotFoundException e) {
             logger.warning("errore nel leggere il nickname");
         }
 
-
         if(isFirstPlayer){
             try {
-               // output.writeObject();
+               // output.writeObject();     //INSERIRE NUMERO GIOCATORI
                 int playersNum = (Integer) input.readObject();
-                virtualView.getController().getGame().setWantedNumPlayers(playersNum);
+                synchronized (virtualView.getController().getGame()){   //faccio la notify quando è stato impostato il numero di giocatori così che il server possa riprendere l'esecuzione
+                    virtualView.getController().getGame().setWantedNumPlayers(playersNum);
+                    virtualView.getController().getGame().notifyAll();
+                }
             }catch (Exception e){
                 logger.warning("errore nel leggere il numero giocatori");
             }
         }
-
 
         while (isConnected) {
             try {

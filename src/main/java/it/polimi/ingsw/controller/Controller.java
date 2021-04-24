@@ -49,15 +49,31 @@ public class Controller extends ServerObservable {
 
     public void gameStarter() throws InterruptedException, DisconnectionException {
 
-        synchronized (this) {
+        /*synchronized (this) {     //in teoria non serve, c'è già il controllo prima di chiamarlo
             while (!gameIsReady() && isRunning()) {
                 this.wait();
             }
-        }
+        }*/
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
 
+
+
+
+        //List<ClientHandler> players = virtualView.getClientHandlers();
         //for all players
+        for (Player pl : players){
+            List<LeaderCard> choose = null;
+                    choose.add(leaderCardList.remove(0));
+                    choose.add(leaderCardList.remove(0));
+                    choose.add(leaderCardList.remove(0));
+                    choose.add(leaderCardList.remove(0));
+
+            notifyAllObservers(eventCreator.createGameStarterEvent(choose,pl));
+        }
+
+        //notifyAllObservers(event);
+
         //virtualview.getclienthandler.getnickname.send setLeaderCardChoice ; leaderCardList - 4 ; logger.info(waiting cards) ;
         /* synchronized (this) {
             while (!(areCardsChosen()) && isRunning()) {
@@ -113,7 +129,7 @@ public class Controller extends ServerObservable {
 
         //virtualView.sendToEveryone disconnection nickname
         virtualView.closeAll();
-        game.setActive(true);
+        game.setInactive(); //if disconnection occur and want to close the game (to change if PERSISTENCE is made)
         notifyController();
         //wakeUpServerLauncher();   //synchronized (game) game.notifyAll();   //PER PARTITE MULTIPLE DOVREBBE STARE SEMPRE SVEGLIO RIGHT?
     }

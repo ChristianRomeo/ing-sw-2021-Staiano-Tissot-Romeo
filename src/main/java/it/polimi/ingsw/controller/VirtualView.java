@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.IllegalAction;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.SameTypeTriple;
 import java.util.ArrayList;
@@ -23,13 +24,12 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         return controller;
     }
 
+    public List<ClientHandler> getClientHandlers(){ return  clientHandlers;}
+
     public void addClientHandler(ClientHandler clientHandler) {
         synchronized (clientHandlers) {
-            int idx=0;
-            for (ClientHandler cl : clientHandlers)
-                while (cl.getNickname().equalsIgnoreCase(clientHandler.getNickname()))
-                    clientHandler.setNickname(clientHandler.getNickname() + "_" + idx++);
             clientHandlers.add(clientHandler);
+            controller.getGame().addNewPlayer(new Player(clientHandler.getNickname())); //copia aggiunta utente in game e creazione giocatore
         }
     }
 
@@ -107,7 +107,6 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
             logger.info("compra carta"); //per debug
             controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
         }
-
     }
 
     public void handleEvent(LeaderCardActionEvent event){

@@ -2,10 +2,7 @@ package it.polimi.ingswControllerTests;
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
 
-import it.polimi.ingsw.model.modelExceptions.CannotBuyCardException;
-import it.polimi.ingsw.model.modelExceptions.IllegalMarketUseException;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,10 +23,9 @@ public class ControllerTest {
 
         Game game = new Game();
         Controller controller = new Controller(game);
-        Player player = new Player();
+        Player player = new Player("player1");
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
-        player.setNickname("player1");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
        // assertThrows(CannotBuyCardException.class, ()-> controller.buyDevelopmentCard(0,0,0));//non tira più eccezz
@@ -44,8 +40,7 @@ public class ControllerTest {
 
         Game game = new Game();
         Controller controller = new Controller(game);
-        Player player = new Player();
-        player.setNickname("player1");
+        Player player = new Player("player1");
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         game.addNewPlayer(player);
@@ -68,8 +63,7 @@ public class ControllerTest {
 
         Game game = new Game();
         Controller controller = new Controller(game);
-        Player player = new Player();
-        player.setNickname("player1");
+        Player player = new Player("player1");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
@@ -95,8 +89,7 @@ public class ControllerTest {
         try{
             Game game = new Game();
             Controller controller = new Controller(game);
-            Player player = new Player();
-            player.setNickname("player1");
+            Player player = new Player("player1");
             game.addNewPlayer(player);
             game.setCurrentPlayer(player);
            // controller.buyDevelopmentCard(0,0); //test if you haven't enough resources
@@ -120,8 +113,7 @@ public class ControllerTest {
         try{
             Game game = new Game();
             Controller controller = new Controller(game);
-            Player player = new Player();
-            player.setNickname("player1");
+            Player player = new Player("player1");
             game.addNewPlayer(player);
             game.setCurrentPlayer(player);
 
@@ -157,8 +149,7 @@ public class ControllerTest {
         try{
             Game game = new Game();
             Controller controller = new Controller(game);
-            Player player = new Player();
-            player.setNickname("player1");
+            Player player = new Player("player1");
             game.addNewPlayer(player);
             game.setCurrentPlayer(player);
 
@@ -176,8 +167,7 @@ public class ControllerTest {
 
         Game game = new Game();
         Controller controller = new Controller(game);
-        Player player = new Player();
-        player.setNickname("player1");
+        Player player = new Player("player1");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
 
@@ -196,7 +186,7 @@ public class ControllerTest {
     @Test //è difficile testare use market
     public void useMarketTest() throws Exception{
         Game game = new Game();
-        Player player = new Player();
+        Player player = new Player("");
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
 

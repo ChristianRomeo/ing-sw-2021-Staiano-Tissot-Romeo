@@ -3,12 +3,7 @@ import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SonOfLeaderCard;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientServerTests {
 
@@ -20,7 +15,7 @@ public class ClientServerTests {
     @Test
     public void messageSC() throws Exception {
         Game game = new Game();
-        Player player = new Player();
+        Player player = new Player("");
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
         game.addNewPlayer(player);

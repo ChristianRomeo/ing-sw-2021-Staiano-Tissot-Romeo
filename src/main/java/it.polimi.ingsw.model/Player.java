@@ -11,7 +11,7 @@ public class Player {
     /**
      * The name chosen by the physical player
      */
-    private String nickname;
+    private final String nickname;
     private int victoryPoints;
     private final StatusPlayer statusPlayer;
     private boolean isWinner;
@@ -30,15 +30,6 @@ public class Player {
     }
 
     /**
-     * Setter of nickname
-     *
-     * @param nickname a new nickname for the player
-     */
-    public void setNickname(String nickname) {
-        this.nickname=nickname;
-    }
-
-    /**
      *
      * @return victory points of the player
      */
@@ -48,11 +39,13 @@ public class Player {
 
     /**
      * Constructor
+     * @param nickname
      */
-    public Player(){
+    public Player(String nickname){
         //costruttore creato a caso solo per fare testing
         statusPlayer = new StatusPlayer();
         isWinner=false;
+        this.nickname=nickname;
     }
 
     /**

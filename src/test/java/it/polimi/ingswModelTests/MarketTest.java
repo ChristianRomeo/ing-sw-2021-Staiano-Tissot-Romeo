@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,9 +102,8 @@ public class MarketTest {
         Game game = new Game();
         Controller controller= new Controller(game);
 
-        Player player = new Player();
+        Player player = new Player("pl1");
 
-        player.setNickname("pl1");
 
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
