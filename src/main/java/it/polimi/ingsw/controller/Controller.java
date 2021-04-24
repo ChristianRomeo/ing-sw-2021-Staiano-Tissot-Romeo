@@ -30,6 +30,7 @@ public class Controller extends ServerObservable {
     public Controller(Game game){
         this.game=game;
         eventCreator = new ServerEventCreator(this);
+        game.setEventCreator(eventCreator);
     }
 
     public Game getGame(){
@@ -39,6 +40,7 @@ public class Controller extends ServerObservable {
     public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
         addObserver(virtualView); //così la virtual view riceverà i server events inviati dal controller
+        game.addObserver(virtualView); //cosi la virtual view riceve anche i server events inviati dal game
     }
 
     public boolean gameIsReady() {
@@ -207,27 +209,23 @@ public class Controller extends ServerObservable {
         //check if the selected pile in the board is empty
         if(developmentCardBoard.isCardPileEmpty(row,col)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-            //throw new IllegalArgumentException();
-            return;
+            return; //throw new IllegalArgumentException();
         }
         //check if the player has space in his personal card board, in the pile selected
         if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-            //throw new CannotBuyCardException();
-            return;
+            return;//throw new CannotBuyCardException();
         }
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
         //check if the player has the resources to buy the card
         if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards())){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "CannotBuyCard"));
-            //throw new CannotBuyCardException();
-            return;
+            return;//throw new CannotBuyCardException();
         }
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);
         statusCurrentPlayer.removeResources(card.getCost(statusCurrentPlayer.getPlayerLeaderCards()));
-
         try {
             statusCurrentPlayer.getPersonalCardBoard().addCard(card,pile);
         } catch (InvalidCardInsertionException e) {
@@ -257,8 +255,6 @@ public class Controller extends ServerObservable {
             //throw new IllegalMarketUseException();
             return;
         }
-
-
         if(rowOrColumn=='c'){
             fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true);
         }else{
@@ -275,6 +271,7 @@ public class Controller extends ServerObservable {
                 incrementFaithTrackPosition(game.getBoard().getLorenzo());
             }
         }
+        notifyAllObservers(eventCreator.createUseMarketEvent());
         game.setHasDoneAction();
     }
 

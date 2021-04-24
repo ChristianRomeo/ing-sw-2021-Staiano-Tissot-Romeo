@@ -61,4 +61,16 @@ public class ServerEventCreator{
         }
         return new VaticanReportEventS2C(tilesStatus);
     }
+
+    public UseMarketEventS2C createUseMarketEvent(){
+        PlayerWarehouse warehouse = controller.getGame().getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
+        Integer fullSlotsLeader1 = controller.getGame().getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getFullSlotsNumber();
+        Integer fullSlotsLeader2 = controller.getGame().getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getFullSlotsNumber();
+        Market market = controller.getGame().getBoard().getMarket();
+        return new UseMarketEventS2C(market,warehouse,fullSlotsLeader1,fullSlotsLeader2);
+    }
+
+    public NewTurnEventS2C createNewTurnEvent(Player player){
+        return new NewTurnEventS2C(player.getNickname());
+    }
 }

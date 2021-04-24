@@ -1,5 +1,11 @@
 package it.polimi.ingsw.model;
 
+
+import it.polimi.ingsw.controller.Events.IllegalActionEventS2C;
+import it.polimi.ingsw.controller.Events.ServerEvent;
+import it.polimi.ingsw.controller.Events.ServerEventCreator;
+import it.polimi.ingsw.controller.Events.ServerObservable;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +17,7 @@ import java.util.List;
  *
  */
 
-public class Game {
+public class Game extends ServerObservable { //game is observed by the virtual view
     private static final int MAXPLAYERS = 4;
 
     //private boolean gameStarted_Ended;
@@ -27,6 +33,8 @@ public class Game {
     private final List<IllegalAction> illegalActions; //list of illegal action
     private boolean hasDoneAction; // true if the current player already did a main action (leader actions not included)
 
+    private ServerEventCreator eventCreator;
+
     /**
      * Constructor Game creates a new Game instance.
      */
@@ -36,6 +44,10 @@ public class Game {
         currentPlayerId=0;
         lastTurns = false;
         illegalActions =new ArrayList<>();
+    }
+
+    public void setEventCreator(ServerEventCreator eventCreator){
+        this.eventCreator = eventCreator;
     }
 
     public boolean isActive() {
@@ -151,6 +163,7 @@ public class Game {
         if(!lastTurns || currentPlayerId!=(players.size()-1)){  //controlli tipo player == null || !players.contains(player) ci vanno?
             currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
             setCurrentPlayer(players.get(currentPlayerId));
+            notifyAllObservers(eventCreator.createNewTurnEvent(currentPlayer));
         }
         else
             endGame();
@@ -212,6 +225,7 @@ public class Game {
      */
     public void addIllegalAction(IllegalAction illegalAction){
         illegalActions.add(illegalAction);
+        notifyAllObservers(new IllegalActionEventS2C(illegalAction));
     }
 
     public List<IllegalAction> getIllegalActions(){
