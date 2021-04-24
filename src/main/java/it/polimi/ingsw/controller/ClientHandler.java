@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.controller.Events.ClientEvent;
-import it.polimi.ingsw.controller.Events.NewConnectionEvent;
+import it.polimi.ingsw.controller.Events.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -64,11 +63,11 @@ public class ClientHandler implements Runnable {
         } catch (IOException ignored) {}
     }
 
-     /* public void send(ServerEvent message) {
+     public void send(ServerEvent message) {
         if (isConnected) {
             try {
                 synchronized (lock) {
-                    //output.writeUnshared(message);
+                    output.writeUnshared(message);
                     output.flush();
                     output.reset();
                 }
@@ -85,7 +84,7 @@ public class ClientHandler implements Runnable {
                closeSocket();
             }
         }
-    }*/
+    }
 
     @Override
     public void run() {

@@ -1,16 +1,23 @@
 package it.polimi.ingsw.model;
 
-public class IllegalAction {
-    Player player;
-    String description;
+import java.io.Serializable;
 
-    public IllegalAction(Player player, String description) {
-        this.player = player;
+public class IllegalAction implements Serializable {
+    private final String playerNickname;
+    private final String description;
+
+    public IllegalAction(String playerNickname, String description) {
+        this.playerNickname = playerNickname;
         this.description = description;
     }
 
-    public Player getPlayer() {
-        return player;
+    public IllegalAction(Player player, String description){
+        this.playerNickname=player.getNickname();
+        this.description=description;
+    }
+
+    public String getPlayerNickname() {
+        return playerNickname;
     }
 
     public String getDescription() {

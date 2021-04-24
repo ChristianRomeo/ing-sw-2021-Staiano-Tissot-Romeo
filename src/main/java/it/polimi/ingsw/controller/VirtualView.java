@@ -33,14 +33,33 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         }
     }
 
-    public void sendToEveryone(){
+    public void sendToEveryone(ServerEvent serverEvent){
         for (ClientHandler clientHandler : clientHandlers) {
         //if client connected send message
+            if(clientHandler.isConnected()){
+                clientHandler.send(serverEvent);
+            }
         }
     }
 
-    public void sendToEveryoneExcept(){
+    //gli dai il nickname di chi non deve ricevere il messaggio
+    public void sendToEveryoneExcept(ServerEvent serverEvent, String nickname){
         //quando dobbiamo mandare informazioni a tutti gli altri tranne il giocatore corrente che in teoria l'ha già, per risparmiare
+        for (ClientHandler clientHandler : clientHandlers) {
+            if(clientHandler.isConnected() && !clientHandler.getNickname().equals(nickname)){
+                clientHandler.send(serverEvent);
+            }
+        }
+    }
+
+    //invia evento a solo un client
+    public void sendTo(ServerEvent serverEvent, String nickname){
+        for (ClientHandler clientHandler : clientHandlers) {
+            if(clientHandler.isConnected() && clientHandler.getNickname().equals(nickname)){
+                clientHandler.send(serverEvent);
+                return;
+            }
+        }
     }
 
     public void setUpGame(){
@@ -84,8 +103,10 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public void handleEvent(BoughtCardEvent event){
 
         logger.info("compra carta"); //per debug
-        if(!controller.getGame().hasDoneAction())
+        if(!controller.getGame().hasDoneAction()){
+            logger.info("compra carta"); //per debug
             controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
+        }
 
     }
 
@@ -129,40 +150,48 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
         //invia evento ai dovuti client
+        sendToEveryone(event);
     }
 
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
         //invia evento ai dovuti client
+        sendToEveryone(event);
     }
 
     @Override
     public void handleEvent(ActivatedProductionEventS2C event) {
         //invia evento ai dovuti client
+        sendToEveryone(event);
     }
 
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
         //invia evento ai dovuti client
+        sendToEveryone(event);
     }
 
     @Override
     public void handleEvent(VaticanReportEventS2C event) {
         //invia evento ai dovuti client
+        sendToEveryone(event);
     }
 
     @Override
     public void handleEvent(UseMarketEventS2C event) {
         //invia evento ai dovuti client
+        sendToEveryone(event);
     }
 
     @Override
     public void handleEvent(NewTurnEventS2C event) {
         //invia evento ai dovuti client
+        sendToEveryone(event);
     }
 
     @Override
     public void handleEvent(IllegalActionEventS2C event) {
         //invia evento ai dovuti client
+        sendTo(event, event.getIllegalAction().getPlayerNickname());
     }
 }

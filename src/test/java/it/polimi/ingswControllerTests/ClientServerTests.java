@@ -30,5 +30,7 @@ public class ClientServerTests {
         controller.setVirtualView(virtualView);
 
         controller.discardLeaderCard(0);
+
+        controller.buyDevelopmentCard(0,0,0);
     }
 }

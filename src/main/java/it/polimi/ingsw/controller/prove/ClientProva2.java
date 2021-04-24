@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.prove;
 
 import it.polimi.ingsw.controller.Events.BoughtCardEvent;
+import it.polimi.ingsw.controller.Events.IllegalActionEventS2C;
+import it.polimi.ingsw.controller.Events.NewConnectionEvent;
 
 import java.io.*;
 import java.net.*;
@@ -17,7 +19,7 @@ public class ClientProva2 {
         // number
         try {
 
-            Socket socket = new Socket("localhost", 9838);
+            Socket socket = new Socket("localhost", 9876); // o 9838
             // get the outputstream of client
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 
@@ -29,17 +31,21 @@ public class ClientProva2 {
             Scanner sc = new Scanner(System.in);
             String line = "";
 
+            out.writeObject(new NewConnectionEvent("Nicolino"));
+            out.writeObject(1);
+
             while(!line.equals("quit")){
                 line = sc.nextLine();
                 out.writeObject(event);
                 out.flush();
+                IllegalActionEventS2C illegalActionEvent = (IllegalActionEventS2C) in.readObject();
+
+                System.out.println(illegalActionEvent.getIllegalAction().getDescription()+illegalActionEvent.getIllegalAction().getPlayerNickname());
+
             }
-
-
             out.close();
             in.close();
             socket.close();
-
         }
         catch (Exception e) {
             e.printStackTrace();

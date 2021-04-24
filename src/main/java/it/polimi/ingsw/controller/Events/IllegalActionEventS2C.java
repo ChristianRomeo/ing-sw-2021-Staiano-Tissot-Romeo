@@ -2,7 +2,9 @@ package it.polimi.ingsw.controller.Events;
 
 import it.polimi.ingsw.model.IllegalAction;
 
-public class IllegalActionEventS2C extends ServerEvent{
+import java.io.Serializable;
+
+public class IllegalActionEventS2C extends ServerEvent implements Serializable {
 
     private final IllegalAction illegalAction;
 

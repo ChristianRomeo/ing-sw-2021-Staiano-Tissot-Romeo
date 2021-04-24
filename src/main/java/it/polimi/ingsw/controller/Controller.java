@@ -179,8 +179,6 @@ public class Controller extends ServerObservable {
             return;
             //throw new CannotActivateProductionException();
         }
-
-
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
         game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
         for(int i=0; i<producedFaithPoints; i++)
