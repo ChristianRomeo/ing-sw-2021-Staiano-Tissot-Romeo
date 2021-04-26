@@ -22,4 +22,10 @@ public interface ServerEventObserver {
 
     void handleEvent(GameStarterEventS2C event);
 
+    void handleEvent(EndGameEventS2C event);
+
+    void handleEvent(LorenzoTurnEventS2C event);
+
+
+
 }

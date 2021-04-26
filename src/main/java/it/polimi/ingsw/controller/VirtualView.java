@@ -201,4 +201,18 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         //invia evento ai dovuti client
         sendTo(event, controller.getGame().getPlayerByIndex(event.getIndexPlayer()).getNickname());
     }
+
+    @Override
+    public void handleEvent(EndGameEventS2C event) {
+        //invia evento ai dovuti client
+        logger.info("Game ended");
+        sendToEveryone(event);
+        //todo: qua forse dobbiamo chiudere i client handler di sta partita.
+    }
+
+    @Override
+    public void handleEvent(LorenzoTurnEventS2C event) {
+        //invia evento ai dovuti client
+        sendToEveryone(event);
+    }
 }

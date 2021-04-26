@@ -1,10 +1,8 @@
 package it.polimi.ingsw.model;
 
 
-import it.polimi.ingsw.controller.Events.IllegalActionEventS2C;
-import it.polimi.ingsw.controller.Events.ServerEvent;
-import it.polimi.ingsw.controller.Events.ServerEventCreator;
-import it.polimi.ingsw.controller.Events.ServerObservable;
+import it.polimi.ingsw.controller.Events.*;
+import it.polimi.ingsw.model.modelExceptions.VaticanReportException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -150,14 +148,28 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     /** Method nextTurn updates currentPlayer to the next player in "players" order. */
     public void nextTurn() {
         hasDoneAction=false;
-        if(!lastTurns || currentPlayerId!=(players.size()-1)){  //controlli tipo player == null || !players.contains(player) ci vanno?
-            currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
-            setCurrentPlayer(players.get(currentPlayerId));
-            notifyAllObservers(eventCreator.createNewTurnEvent(currentPlayer));
+        if(players.size()==1){
+            if(lastTurns){
+                endGame();
+            }else{
+                SoloAction activatedSoloAction = lorenzoTurn();
+                notifyAllObservers(new LorenzoTurnEventS2C(activatedSoloAction,getBoard().getDevelopmentCardBoard())); //qui notifico con evento cose che ha fatto lorenzo
+                if(lastTurns){
+                    endGame();
+                }else{
+                    notifyAllObservers(eventCreator.createNewTurnEvent(players.get(0)));//manda messaggio è il tuo turno di nuovo
+                }
+            }
         }
-        else
-            endGame();
-
+        else{ //per partita non in solitario
+            if(!lastTurns || currentPlayerId!=(players.size()-1)){  //controlli tipo player == null || !players.contains(player) ci vanno?
+                currentPlayerId = (currentPlayerId == players.size() - 1) ? 0 : currentPlayerId + 1;
+                setCurrentPlayer(players.get(currentPlayerId));
+                notifyAllObservers(eventCreator.createNewTurnEvent(currentPlayer));
+            }
+            else
+                endGame();
+        }
     }
 
     /**
@@ -184,22 +196,31 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         for(Player p: players)
             p.calculateAndSetVictoryPoints();
 
-        List<Player> bestPlayers = new ArrayList<>(players);
-        for(Player p: bestPlayers){
-            for(Player p1: bestPlayers){
-                if(p1.getVictoryPoints()>p.getVictoryPoints()){
-                    bestPlayers.remove(p);
-                    break;
-                }
-                if(p1.getVictoryPoints()==p.getVictoryPoints() && p1.getStatusPlayer().getResourcesNumber()>p.getStatusPlayer().getResourcesNumber()){
-                    bestPlayers.remove(p);
-                    break;
-                }
+        if(players.size()==1){
+            if(!board.getDevelopmentCardBoard().isAColumnEmpty() && board.getLorenzo().getStatusPlayer().getFaithTrackPosition()<24){
+                players.get(0).setIsWinner();
             }
         }
+        else{// questa parte può essere refactorizzata
+            List<Player> bestPlayers = new ArrayList<>(players);
+            for(Player p: bestPlayers){
+                for(Player p1: bestPlayers){
+                    if(p1.getVictoryPoints()>p.getVictoryPoints()){
+                        bestPlayers.remove(p);
+                        break;
+                    }
+                    if(p1.getVictoryPoints()==p.getVictoryPoints() && p1.getStatusPlayer().getResourcesNumber()>p.getStatusPlayer().getResourcesNumber()){
+                        bestPlayers.remove(p);
+                        break;
+                    }
+                }
+            }
 
-        for(Player p: bestPlayers)
-            p.setIsWinner();
+            for(Player p: bestPlayers)
+                p.setIsWinner();
+        }
+
+        notifyAllObservers(eventCreator.createEndGameEvent());
     }
 
     public boolean hasWinner() {
@@ -228,5 +249,91 @@ public class Game extends ServerObservable { //game is observed by the virtual v
 
     public void setHasDoneAction() {
         hasDoneAction=true;
+    }
+
+
+    //METTO INCREMENT FAITH TRACK POSITION QUI IN GAME, NON PIU NEL CONTROLLER
+
+    //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
+    public void incrementOthersFpByDiscarding(){
+        for(int k=0; k<getPlayersNumber(); k++){
+            if (getCurrentPlayerId()!=k){
+                getPlayerByIndex(k).getStatusPlayer().incrementFaithTrackPosition();
+                notifyAllObservers(eventCreator.createIncrementPositionEvent(getPlayerByIndex(k)));
+            }
+        }
+        try{
+            for(int k=0; k< getPlayersNumber(); k++){
+                if (getCurrentPlayerId()!=k){
+                    getPlayerByIndex(k).getStatusPlayer().checkVaticanReport();
+                }
+            }
+        }catch (VaticanReportException e){
+            for(int i=0; i<getPlayersNumber(); i++){
+                getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
+            }
+            notifyAllObservers(eventCreator.createVaticanReportEvent());
+            if(e.getReportId()==3){
+                //a player is arrived in the last cell of the track, so the game is
+                //in the final phase
+                setLastTurnsTrue();
+            }
+        }
+    }
+
+    /**
+     * Method incrementFaithTrackPosition is used to increment the faith track position of a
+     * player you choose. If a vatican report is activated, it calls the handlers of the players.
+     * It also checks if the match is ending (a player arrives in the last cell)
+     *
+     * @param player is the chosen player
+     */
+    public void incrementFaithTrackPosition(Player player){
+        try{
+            player.getStatusPlayer().incrementFaithTrackPosition();
+            notifyAllObservers(eventCreator.createIncrementPositionEvent(player));
+            player.getStatusPlayer().checkVaticanReport();
+        }catch(VaticanReportException e){
+            for(int i=0; i< getPlayersNumber(); i++){
+                getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
+            }
+            notifyAllObservers(eventCreator.createVaticanReportEvent());
+            if(e.getReportId()==3){
+                //a player is arrived in the last cell of the track, so the game is
+                //in the final phase
+                setLastTurnsTrue();
+            }
+        }
+    }
+
+    /**
+     * Method to manage Lorenzo's turn in the Solo mode
+     * Lorenzo will act based on the SoloAction picked from the SoloAction pile
+     * checks if a Pile of DevelopmentCards is empty, then Lorenzo wins.
+     *
+     * It returns the activated solo action in this turn.
+     */
+    public SoloAction lorenzoTurn(){
+        SoloAction activatedSoloAction = getBoard().pickSoloAction();
+
+        if(getBoard().getDevelopmentCardBoard().isAColumnEmpty()){
+            setLastTurnsTrue();    //lorenzo wins
+            return activatedSoloAction;
+        }
+
+        if(activatedSoloAction.getType()==SoloActionType.MOVEONEANDSHUFFLE){
+            incrementFaithTrackPosition(getBoard().getLorenzo());
+            //if lorenzo posizione 24 allora win (ciò è già settato in incrementFTP)
+        }
+
+        if(activatedSoloAction.getType()==SoloActionType.MOVETWO){
+            incrementFaithTrackPosition(getBoard().getLorenzo());
+            incrementFaithTrackPosition(getBoard().getLorenzo());
+        }
+
+        if(getBoard().getDevelopmentCardBoard().isAColumnEmpty())
+            setLastTurnsTrue();    //lorenzo wins
+
+        return activatedSoloAction;
     }
 }

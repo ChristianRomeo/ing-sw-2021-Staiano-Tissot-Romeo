@@ -86,4 +86,16 @@ public class ServerEventCreator{
         }
         return  new GameStarterEventS2C(leaderCardList,developmentCardBoard,market,playerIndex,nicknames);
     }
+
+    public EndGameEventS2C createEndGameEvent(){
+        List<String> winners = new ArrayList<>();
+        Map<String,Integer> victoryPoints = new HashMap<>();
+        for(Player p: controller.getGame().getPlayers()){
+            if(p.isWinner()){
+                winners.add(p.getNickname());
+            }
+            victoryPoints.put(p.getNickname(),p.getVictoryPoints());
+        }
+        return new EndGameEventS2C(winners,victoryPoints);
+    }
 }

@@ -196,7 +196,7 @@ public class Controller extends ServerObservable {
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
         game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
         for(int i=0; i<producedFaithPoints; i++)
-            incrementFaithTrackPosition(game.getCurrentPlayer());
+            game.incrementFaithTrackPosition(game.getCurrentPlayer());
 
         game.setHasDoneAction();
         notifyAllObservers(eventCreator.createProductionEvent());
@@ -278,9 +278,9 @@ public class Controller extends ServerObservable {
         currentPlayer.getStatusPlayer().getLeaderCard(1).setFullSlotsNumber(leaderCardSlots2);
 
         for(int i=0; i<Resource.resourcesNum(discardedRes);i++){
-            incrementOthersFpByDiscarding();
+            game.incrementOthersFpByDiscarding();
             if(game.getPlayersNumber()==1){
-                incrementFaithTrackPosition(game.getBoard().getLorenzo());
+                game.incrementFaithTrackPosition(game.getBoard().getLorenzo());
             }
         }
         notifyAllObservers(eventCreator.createUseMarketEvent());
@@ -398,7 +398,7 @@ public class Controller extends ServerObservable {
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
         }else{
             leaderCard.discard();
-            incrementFaithTrackPosition(game.getCurrentPlayer());
+            game.incrementFaithTrackPosition(game.getCurrentPlayer());
             //creation event to send to the clients
             notifyAllObservers(eventCreator.createLeaderActionEvent());
 
@@ -436,7 +436,7 @@ public class Controller extends ServerObservable {
                 }
                 case RED -> {
                     if(incrementPosition){
-                        incrementFaithTrackPosition(game.getCurrentPlayer());
+                        game.incrementFaithTrackPosition(game.getCurrentPlayer());
                     }
                 }
                 case BLUE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SHIELD);
@@ -455,6 +455,7 @@ public class Controller extends ServerObservable {
      *
      * @param player is the chosen player
      */
+    /*
     private void incrementFaithTrackPosition(Player player){
         try{
             player.getStatusPlayer().incrementFaithTrackPosition();
@@ -472,7 +473,9 @@ public class Controller extends ServerObservable {
             }
         }
     }
+    */
 
+/*
     //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
     private void incrementOthersFpByDiscarding(){
         for(int k=0; k< game.getPlayersNumber(); k++){
@@ -499,12 +502,15 @@ public class Controller extends ServerObservable {
             }
         }
     }
+*/
 
+    //metto lorenzo turn in game
     /**
      * Method to manage Lorenzo's turn in the Solo mode
      * Lorenzo will act based on the SoloAction picked from the SoloAction pile
      * checks if a Pile of DevelopmentCards is empty, then Lorenzo wins
      */
+    /*
     public void lorenzoTurn(){
         SoloActionType activatedSoloAction = game.getBoard().pickSoloAction().getType();
 
@@ -527,7 +533,7 @@ public class Controller extends ServerObservable {
             game.setLastTurnsTrue();    //lorenzo wins
 
     }
-
+*/
 }
 
  /*

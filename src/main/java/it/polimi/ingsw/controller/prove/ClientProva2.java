@@ -31,7 +31,7 @@ public class ClientProva2 {
             Scanner sc = new Scanner(System.in);
             String line = "";
 
-            out.writeObject(new NewConnectionEvent("Nicolino"));
+            out.writeObject("Nicolino");
             out.writeObject(1);
 
             while(!line.equals("quit")){
