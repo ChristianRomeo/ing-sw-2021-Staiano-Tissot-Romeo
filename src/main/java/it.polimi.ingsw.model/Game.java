@@ -40,6 +40,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         lastTurns = false;
         illegalActions =new ArrayList<>();
         this.isActive=true;
+        hasDoneAction=false;
     }
 
     public void setEventCreator(ServerEventCreator eventCreator){
