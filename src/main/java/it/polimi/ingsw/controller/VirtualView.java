@@ -83,13 +83,12 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     }
 
     public boolean checkGameStatus() {
-        boolean status =true; //togliere inizializzazione
-       /* try {
+        /* try {
             status = controller.isRunning();
         } catch (DisconnectionException e) {
             status = false;
         }*/
-        return status;
+        return true;
     }
 
     public void closeAll() {
@@ -107,6 +106,11 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
             logger.info("compra carta"); //per debug
             controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
         }
+    }
+
+    public void handleEvent(NumPlayerEvent event) {
+        logger.info("ricevuto numero di giocatori: "+ event.getNumPlayers());
+        controller.getGame().setWantedNumPlayers(event.getNumPlayers());
     }
 
     public void handleEvent(LeaderCardActionEvent event){

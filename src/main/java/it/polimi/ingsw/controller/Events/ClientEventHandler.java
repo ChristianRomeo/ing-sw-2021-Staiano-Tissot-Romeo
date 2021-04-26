@@ -16,5 +16,6 @@ public interface ClientEventHandler {
 
     void handleEvent(NewConnectionEvent event);
 
+    void handleEvent(NumPlayerEvent event);
 
 }

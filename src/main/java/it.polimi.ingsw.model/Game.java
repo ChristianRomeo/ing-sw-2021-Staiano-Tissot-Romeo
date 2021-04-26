@@ -16,8 +16,7 @@ import java.util.List;
  */
 
 public class Game extends ServerObservable { //game is observed by the virtual view
-    private static final int MAXPLAYERS = 4;
-
+    private static final int MAXPLAYERS = 4; //todo:controllare che non viene superato
     //private boolean gameStarted_Ended;
     private final Board board;
     private final List<Player> players;
@@ -27,10 +26,8 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     private boolean lastTurns;
     private int wantedNumPlayers=0; //lo 0 serve per un check in Server.java
     private boolean isActive;
-
     private final List<IllegalAction> illegalActions; //list of illegal action
     private boolean hasDoneAction; // true if the current player already did a main action (leader actions not included)
-
     private ServerEventCreator eventCreator;
 
     /**
@@ -69,9 +66,9 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         return new ArrayList<>(players);
     }
 
-    public boolean gameReady() {
+    /*public boolean gameReady() {  //viene già fatto nel server il check
         return players.size() == wantedNumPlayers;
-    }
+    }*/
 
     /**
      * Method getBoard returns the board of this Game object.
@@ -103,7 +100,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
             if (player.getNickname().equalsIgnoreCase(nickname))
                 return player;
 
-        return null;
+        return null;    //todo: throws error
     }
 
     /**
@@ -203,7 +200,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         }
         else{// questa parte può essere refactorizzata
             List<Player> bestPlayers = new ArrayList<>(players);
-            for(Player p: bestPlayers){
+            for(Player p: bestPlayers)
                 for(Player p1: bestPlayers){
                     if(p1.getVictoryPoints()>p.getVictoryPoints()){
                         bestPlayers.remove(p);
@@ -214,7 +211,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
                         break;
                     }
                 }
-            }
+
 
             for(Player p: bestPlayers)
                 p.setIsWinner();
@@ -294,7 +291,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
             notifyAllObservers(eventCreator.createIncrementPositionEvent(player));
             player.getStatusPlayer().checkVaticanReport();
         }catch(VaticanReportException e){
-            for(int i=0; i< getPlayersNumber(); i++){
+            for(int i=0; i< getPlayersNumber(); ++i){
                 getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
             }
             notifyAllObservers(eventCreator.createVaticanReportEvent());

@@ -43,11 +43,12 @@ public class Controller extends ServerObservable {
     /**
      * By now the connection should be already set with all the players, the game should already initialized
      * initializing now clients LC and eventually resources and fp before starting the match
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException for the leaderCards
      */
     public void gameStarter() throws FileNotFoundException {
 
-        /*synchronized (this) {     //in teoria non serve, c'è già il controllo prima di chiamarlo
+        //in teoria non serve, c'è già il controllo prima di chiamarlo
+        /*synchronized (this) {
             while (!gameIsReady() && isRunning()) {
                 this.wait();
             }
@@ -57,8 +58,6 @@ public class Controller extends ServerObservable {
         List<Player> players = game.getPlayers();
         List<LeaderCard> leaderCardList = Configs.getLeaderCards();
 
-        //List<ClientHandler> players = virtualView.getClientHandlers();
-        //for all players
         for (Player pl : players){
 
             List<LeaderCard> choices = new ArrayList<>();
@@ -75,7 +74,7 @@ public class Controller extends ServerObservable {
             logger.info("player"+ pl +"is getting fp");
 
         }
-        //e mo che si fa? come si fa ad iniziare?
+        //todo: e mo che si fa? come si fa ad iniziare?
         //game();
     }
 
@@ -163,24 +162,27 @@ public class Controller extends ServerObservable {
      *
      */
     public void activateProduction(List<Integer> activatedProductions, boolean baseProd, SameTypeTriple<Resource> baseRes, Resource leaderRes1, Resource leaderRes2) throws IllegalArgumentException{
-        PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
         //activatedProductions contiene numeri da 0 a 2 che ti dicono quali produzioni di carte attivare
 
+        PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
         Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
         Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
         int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
 
-        if(baseProd /*the player wants to activate the base production too*/){//DA METTERE IN PERSONAL CARD BOARD??
+        //the player wants to activate the base production too
+        if(baseProd ){  //todo:DA METTERE IN PERSONAL CARD BOARD??
             requiredResources = Resource.addOneResource(requiredResources,baseRes.getVal1());
             requiredResources = Resource.addOneResource(requiredResources,baseRes.getVal2());
             producedResources = Resource.addOneResource(producedResources,baseRes.getVal3());
         }
-        if(leaderRes1!=null /*the player wants to activate the production of the first leader card too*/){
+        //the player wants to activate the production of the first leader card too
+        if(leaderRes1!=null ){
             requiredResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalRequiredResources(requiredResources);
             producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalProducedResources(producedResources, leaderRes1);
             producedFaithPoints = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getTotalProducedFP(producedFaithPoints);
         }
-        if(leaderRes2!=null /*the player wants to activate the production of the second leader card too*/){
+        //the player wants to activate the production of the second leader card too
+        if(leaderRes2!=null ){
             requiredResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalRequiredResources(requiredResources);
             producedResources = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalProducedResources(producedResources, leaderRes2);
             producedFaithPoints = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getTotalProducedFP(producedFaithPoints);
@@ -190,12 +192,12 @@ public class Controller extends ServerObservable {
 
         if(!Resource.enoughResources(ownedResources,requiredResources)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
-            return;
-            //throw new CannotActivateProductionException();
+            return;     //todo: throw new CannotActivateProductionException();
         }
+
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
         game.getCurrentPlayer().getStatusPlayer().addStrongboxResources(producedResources);
-        for(int i=0; i<producedFaithPoints; i++)
+        for(int i=0; i<producedFaithPoints; ++i)
             game.incrementFaithTrackPosition(game.getCurrentPlayer());
 
         game.setHasDoneAction();
@@ -208,11 +210,9 @@ public class Controller extends ServerObservable {
      * You have to give the position of the card you want to buy on the board and the pile of your
      * personal card board where you want to insert the bought card.
      *
-     * @param row is the row of the selected card, 0<=row<=2,
-     *            row 0 is for card of level 1,..., row 2 is for card of level 3
-     *
-     * @param col is the column of the selected card, 0<=col<=3
-     * @param pile is the number of the pile where you want to insert the bought card, 0<=pile<=2
+     * @param row is the row of the selected card, 0<=row<=2: level 1, level 2,or level 3
+     * @param col is the column of the selected card, 0<=col<=3, choosing the color
+     * @param pile is the number of the pile where you want to insert the bought card on the board, 0<=pile<=2
      */
     public void buyDevelopmentCard(int row, int col, int pile) throws IllegalArgumentException{
         DevelopmentCardBoard developmentCardBoard = game.getBoard().getDevelopmentCardBoard();
@@ -221,29 +221,33 @@ public class Controller extends ServerObservable {
         //check if the selected pile in the board is empty
         if(developmentCardBoard.isCardPileEmpty(row,col)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-            return; //throw new IllegalArgumentException();
+            return;     //todo: throw new IllegalArgumentException();
         }
+
         //check if the player has space in his personal card board, in the pile selected
         if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-            return;//throw new CannotBuyCardException();
+            return;     //todo: throw new CannotBuyCardException();
         }
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
         //check if the player has the resources to buy the card
         if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards())){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "CannotBuyCard"));
-            return;//throw new CannotBuyCardException();
+            return;     //todo: throw new CannotBuyCardException();
         }
+
         //the player can buy the card
         developmentCardBoard.removeCard(row, col);
         statusCurrentPlayer.removeResources(card.getCost(statusCurrentPlayer.getPlayerLeaderCards()));
         try {
             statusCurrentPlayer.getPersonalCardBoard().addCard(card,pile);
         } catch (InvalidCardInsertionException e) {
-            System.out.println("error"); //this shouldn't happen, because earlier the method does a check.
+            logger.warning("error adding a card"); //todo: remove, this shouldn't happen, because earlier the method does a check.
         }
-        if(statusCurrentPlayer.getPersonalCardBoard().getNumberOfCards()>=7) //a player has bought 7 cards, so we enter the last phase of the game
+
+        //a player has bought 7 cards, so we enter the last phase of the game
+        if(statusCurrentPlayer.getPersonalCardBoard().getNumberOfCards()>=7)
             game.setLastTurnsTrue();
 
         game.setHasDoneAction();
@@ -263,78 +267,80 @@ public class Controller extends ServerObservable {
     public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2){
         Player currentPlayer = game.getCurrentPlayer();
         if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2)){
-            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalMarketUse"));
-            //throw new IllegalMarketUseException();
+            game.addIllegalAction(new IllegalAction(currentPlayer,"IllegalMarketUse"));
+            //todo: throw new IllegalMarketUseException();
             return;
         }
-        if(rowOrColumn=='c'){
+
+        if(rowOrColumn=='c')
             fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true);
-        }else{
+        else
             fromMarblesToResources(game.getBoard().getMarket().selectRow(index),true);
-        }
+
+
         currentPlayer.getStatusPlayer().getPlayerWarehouse().setWarehouse(newWarehouse);
         //i parametri leadercardslots1 e 2 ti dicono quanti slot della carta leader 1 e 2 sono pieni (nella versione dell'utente)
         currentPlayer.getStatusPlayer().getLeaderCard(0).setFullSlotsNumber(leaderCardSlots1);
         currentPlayer.getStatusPlayer().getLeaderCard(1).setFullSlotsNumber(leaderCardSlots2);
 
-        for(int i=0; i<Resource.resourcesNum(discardedRes);i++){
+        for(int i=0; i<Resource.resourcesNum(discardedRes);++i){
             game.incrementOthersFpByDiscarding();
-            if(game.getPlayersNumber()==1){
+            if(game.getPlayersNumber()==1)
                 game.incrementFaithTrackPosition(game.getBoard().getLorenzo());
-            }
         }
+
         notifyAllObservers(eventCreator.createUseMarketEvent());
         game.setHasDoneAction();
     }
 
     /**
-     * Helper private method that checks if the operations made by the player in the process of using
-     * the market are legitimate or not.
+     * Helper that validate whether the player could or couldn't do the operation made during the usage of the market
      * @return false if the operation is illegal, otherwise it returns true.
      */
     private boolean useMarketCheck(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2){
         Map<Resource,Integer> takenResources;
         Player currentPlayer = game.getCurrentPlayer();
-        if((rowOrColumn!='c'&&rowOrColumn!='r')|| leaderCardSlots1>2 || leaderCardSlots2>2|| leaderCardSlots1<0||leaderCardSlots2<0){
+
+        if((rowOrColumn!='c'&& rowOrColumn!='r')|| leaderCardSlots1>2 || leaderCardSlots2>2|| leaderCardSlots1<0||leaderCardSlots2<0)
             return false; //invalid message
-        }
-        if(rowOrColumn=='c'){
+
+        if(rowOrColumn=='c')
             takenResources = fromMarblesToResources(game.getBoard().getMarket().getColumnColors(index),false);
-        }else{
+        else
             takenResources = fromMarblesToResources(game.getBoard().getMarket().getRowColors(index),false);
-        }
-        if(!Resource.enoughResources(takenResources,discardedRes)){
-            return false; //the player has discarded resources he couldn't discard, so the action fails.
-        }
-        if(!newWarehouse.checkWarehouse()){
-            return false; //the player has sent an invalid warehouse
-        }
-        Map<Resource,Integer> newAllResources = Resource.sumResourcesMap(newWarehouse.getAllResources(),currentPlayer.getStatusPlayer().getStrongboxResources());
-        if(currentPlayer.getStatusPlayer().getLeaderCard(0).getFullSlotsNumber()!=null){
-            for(int i=0; i<leaderCardSlots1;i++){
-                newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(0).getAbilityResource());
-            }
-        }
-        if(currentPlayer.getStatusPlayer().getLeaderCard(1).getFullSlotsNumber()!=null){
-            for(int i=0; i<leaderCardSlots2;i++){
-                newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(1).getAbilityResource());
-            }
-        }
-        //newALLresources sarebbero tutte le risorse che avrebbe mo l'utente
-        //controlResources sono le risorse che l'utente dovrebbe avere dopo l'acquisto al mercato
-        takenResources = Resource.removeResourcesMap(takenResources,discardedRes);
-        Map<Resource,Integer> controlResources= Resource.sumResourcesMap(takenResources,currentPlayer.getStatusPlayer().getAllResources());
-        if(!controlResources.equals(newAllResources)){
+
+        //the player has discarded resources he couldn't discard, so the action fails.
+        if(!Resource.enoughResources(takenResources,discardedRes))
             return false;
+
+        if(!newWarehouse.checkWarehouse())
+            return false; //the player has sent an invalid warehouse
+
+        Map<Resource,Integer> newAllResources = Resource.sumResourcesMap(newWarehouse.getAllResources(),currentPlayer.getStatusPlayer().getStrongboxResources());
+
+        if(currentPlayer.getStatusPlayer().getLeaderCard(0).getFullSlotsNumber()!=null){
+            for(int i=0; i<leaderCardSlots1;++i)
+                newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(0).getAbilityResource());
         }
-        //se sono arrivato qui allora l'acquisto è lecito, allora posso effettivamente fare le modifiche
-        return true;
+
+        //newAllResources sarebbero tutte le risorse che avrebbe mo l'utente
+        if(currentPlayer.getStatusPlayer().getLeaderCard(1).getFullSlotsNumber()!=null){
+            for(int i=0; i<leaderCardSlots2;i++)
+                newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(1).getAbilityResource());
+        }
+
+        takenResources = Resource.removeResourcesMap(takenResources,discardedRes);
+        //controlResources sono le risorse che l'utente dovrebbe avere dopo l'acquisto al mercato
+        Map<Resource,Integer> controlResources= Resource.sumResourcesMap(takenResources,currentPlayer.getStatusPlayer().getAllResources());
+
+        //l'acquisto è lecito se le 2 mappe corrispondono, allora posso effettivamente fare le modifiche
+        return controlResources.equals(newAllResources);
     }
 
     /**
      * Method activateLeaderCard allows the player to activate one of his leader cards.
      * @param index is the position of that leader card (owned by the player)
-     *
+     * @throws IllegalArgumentException when bad argument is passed
      */
     public void activateLeaderCard(int index) throws IllegalArgumentException{
         //sendToEveryone che il current player ha attivato la carta x
@@ -343,16 +349,13 @@ public class Controller extends ServerObservable {
         PersonalCardBoard playerCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
         boolean canActivate = false;
 
-        if(leaderCard.isActivated() || leaderCard.isDiscarded()) {
+        if(leaderCard.isActivated() || leaderCard.isDiscarded()) //the card is already active, or is discarded, so you can't activate it
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
-            //the card is already active, or is discarded, so you can't activate it
-        }
-        else {
-            //check if the player has the required resources to be able to activate the Leader Card
+
+        else {  //check if the player has the required resources to be able to activate the Leader Card
             if (leaderCard.getRequiredResources()!=null && leaderCard.getRequiredResources().size() > 0) {
-                if(Resource.enoughResources(playerResources,leaderCard.getRequiredResources())){
+                if(Resource.enoughResources(playerResources,leaderCard.getRequiredResources()))
                     canActivate=true;
-                }
             }
             //check if the player has the required cards to be able to activate the Leader Card
             else if(leaderCard.getRequiredCards().size() > 0) {
@@ -376,8 +379,7 @@ public class Controller extends ServerObservable {
             }
             if(canActivate){
                 leaderCard.activate();
-                //creation event to send to the clients
-                notifyAllObservers(eventCreator.createLeaderActionEvent());
+                notifyAllObservers(eventCreator.createLeaderActionEvent()); //creation event to send to the clients
             }
             else{
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
@@ -389,6 +391,7 @@ public class Controller extends ServerObservable {
     /**
      * Method discardLeaderCard allows the player to discard one of his leader cards.
      * @param index is the position of that leader card (owned by the player)
+     * @throws IllegalArgumentException when a bad argument is passed
      */
     public void discardLeaderCard(int index) throws IllegalArgumentException{
 
@@ -405,28 +408,26 @@ public class Controller extends ServerObservable {
         }
     }
 
-    // STO METODO ANDREBBE MEGLIO COME STATICO IN MARBLE COLOR O RESOURCE ENUM (aggiungi parametro current player)
-    //O PROPRIO IN MARKET
+    // STO METODO ANDREBBE MEGLIO COME STATICO IN MARBLE COLOR O RESOURCE ENUM (aggiungi parametro current player) O PROPRIO IN MARKET
     /**
      * Method fromMarblesToResources transforms a list of marbles in the corresponding list of resources,
      * (the red marbles are transformed in increments of the faith track position)
      *
      * @param marbles is a list of marbles
-     * @param incrementPosition must be true if you want that the player will increment his faith track position
-     *                          if there is a red marble in the list, must be false if you don't want this
-     *                          and you just want the resources.
+     * @param incrementPosition true when you want also the player faith track position incremented if it should
+     *                          false when you just want the resources and not the position changed.
      * @return a list of resources
      */
     public Map<Resource,Integer> fromMarblesToResources(List<MarbleColor> marbles, boolean incrementPosition){
-        if(marbles==null){
+
+        if(marbles==null)
             return null;
-        }
+
         Map<Resource,Integer> boughtResources = new HashMap<>();
         for(MarbleColor m: marbles)
             switch (m) {
                 case WHITE -> {
-                    //QUA NON STO CONSIDERANDO IL CASO IN CUI CI SONO 2 CARTE LEADER WHITE MARBLE
-                    //(QUANDO L'UTENTE DOVREBBE SCEGLIERE). QUEL CASO POI VEDIAMO CON LA VIEW.
+                    //todo: QUA NON STO CONSIDERANDO IL CASO IN CUI CI SONO 2 CARTE LEADER WHITE MARBLE, L'UTENTE DOVREBBE SCEGLIERE, QUEL CASO POI VEDIAMO CON LA VIEW.
                     if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource() != null) {
                         boughtResources =Resource.addOneResource(boughtResources,game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource());
                     }
@@ -435,9 +436,8 @@ public class Controller extends ServerObservable {
                     }
                 }
                 case RED -> {
-                    if(incrementPosition){
+                    if(incrementPosition)
                         game.incrementFaithTrackPosition(game.getCurrentPlayer());
-                    }
                 }
                 case BLUE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SHIELD);
                 case GREY -> boughtResources = Resource.addOneResource(boughtResources, Resource.STONE);
@@ -450,57 +450,56 @@ public class Controller extends ServerObservable {
 
     /**
      * Method incrementFaithTrackPosition is used to increment the faith track position of a
-     * player you choose. If a vatican report is activated, it calls the handlers of the players.
-     * It also checks if the match is ending (a player arrives in the last cell)
+     * chosen player. If a vatican report is activated, it calls the handlers of the players.
+     * It also checks if the match is ending (a player arrived in the last cell).
      *
      * @param player is the chosen player
      */
     /*
     private void incrementFaithTrackPosition(Player player){
+
         try{
             player.getStatusPlayer().incrementFaithTrackPosition();
             notifyAllObservers(eventCreator.createIncrementPositionEvent(player));
             player.getStatusPlayer().checkVaticanReport();
         }catch(VaticanReportException e){
-            for(int i=0; i< game.getPlayersNumber(); i++){
+            for(int i=0; i< game.getPlayersNumber(); ++i){
                 game.getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
             }
             notifyAllObservers(eventCreator.createVaticanReportEvent());
-            if(e.getReportId()==3){
-                //a player is arrived in the last cell of the track, so the game is
-                //in the final phase
+
+            if(e.getReportId()==3)     //a player is arrived in the last cell of the track, so the game is in the final phase
                 game.setLastTurnsTrue();
-            }
         }
+
     }
     */
 
-/*
-    //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
-    private void incrementOthersFpByDiscarding(){
-        for(int k=0; k< game.getPlayersNumber(); k++){
-            if (game.getCurrentPlayerId()!=k){
+    /**
+     *  Method that increments faith points of other players by one when the current player discards a resource
+     */
+    /*private void incrementOthersFpByDiscarding(){
+        for(int k=0; k< game.getPlayersNumber(); ++k) {
+            if (game.getCurrentPlayerId() != k) {
                 game.getPlayerByIndex(k).getStatusPlayer().incrementFaithTrackPosition();
                 notifyAllObservers(eventCreator.createIncrementPositionEvent(game.getPlayerByIndex(k)));
             }
         }
         try{
-            for(int k=0; k< game.getPlayersNumber(); k++){
-                if (game.getCurrentPlayerId()!=k){
+            for(int k=0; k< game.getPlayersNumber(); ++k){
+                if (game.getCurrentPlayerId()!=k)
                     game.getPlayerByIndex(k).getStatusPlayer().checkVaticanReport();
-                }
             }
         }catch (VaticanReportException e){
-            for(int i=0; i< game.getPlayersNumber(); i++){
+            for(int i=0; i< game.getPlayersNumber(); ++i){
                 game.getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
             }
             notifyAllObservers(eventCreator.createVaticanReportEvent());
-            if(e.getReportId()==3){
-                //a player is arrived in the last cell of the track, so the game is
-                //in the final phase
+
+            if(e.getReportId()==3) //a player is arrived in the last cell of the track, so the game is in the final phase
                 game.setLastTurnsTrue();
-            }
         }
+
     }
 */
 

@@ -23,7 +23,7 @@ public class Board {
     private final List<SoloAction> soloActions = new ArrayList<>();
     private final DevelopmentCardBoard developmentCardBoard;
 
-    private Player lorenzo;
+    private final Player lorenzo;
 
     /**
      * Constructor that initializes the board.
@@ -33,7 +33,7 @@ public class Board {
         this.market = new Market();
         shuffleSoloActionPile();
         this.developmentCardBoard = new DevelopmentCardBoard();
-        lorenzo= new Player("Lorenzo");
+        lorenzo= new Player("Lorenzo il Magnifico");
     }
 
 
