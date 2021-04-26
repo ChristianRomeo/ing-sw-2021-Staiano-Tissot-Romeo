@@ -94,10 +94,12 @@ public class ClientHandler implements Runnable {
         try {
             int idx=0;
             String nick = (String) input.readObject();  //forse va in setupconnection e non qui nel run
+            String tempNick = nick;
             synchronized (virtualView){     //va bene sincronizzare la vv?
                 for (ClientHandler cl : virtualView.getClientHandlers())
                     while (cl.getNickname().equalsIgnoreCase(nick))
-                        nick += "_" + idx++;
+                        nick = tempNick + "_" + idx++;
+
                 setNickname(nick);
                 virtualView.addClientHandler(this);
             }

@@ -1,15 +1,12 @@
 package it.polimi.ingsw.controller;
 
-import com.google.gson.*;
 import it.polimi.ingsw.controller.Events.ServerEventCreator;
 import it.polimi.ingsw.controller.Events.ServerObservable;
 import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.*;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -21,12 +18,12 @@ import java.util.logging.Logger;
 public class Controller extends ServerObservable {
     private final Game game;
     private VirtualView virtualView;
-    //private Player currentPlayer; //credo meglio non tenerlo anche qui, o se vogliamo tenerlo dobbiamo aggiornarlo tutti i turni
     private final static Logger logger = Logger.getLogger(Server.class.getName());
-    private List<LeaderCard> leaderCardList = new ArrayList<>();
     private final ServerEventCreator eventCreator;
 
-    //constructor
+    /**
+     * constructor
+     */
     public Controller(Game game){
         this.game=game;
         eventCreator = new ServerEventCreator(this);
@@ -39,65 +36,67 @@ public class Controller extends ServerObservable {
 
     public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
-        addObserver(virtualView); //così la virtual view riceverà i server events inviati dal controller
+        addObserver(virtualView);       //così la virtual view riceverà i server events inviati dal controller
         game.addObserver(virtualView); //cosi la virtual view riceve anche i server events inviati dal game
     }
 
-    public boolean gameIsReady() {
-        return (game != null) && game.gameReady();
-    }
-
-    public void gameStarter() throws InterruptedException, DisconnectionException {
+    /**
+     * By now the connection should be already set with all the players, the game should already initialized
+     * initializing now clients LC and eventually resources and fp before starting the match
+     * @throws FileNotFoundException
+     */
+    public void gameStarter() throws FileNotFoundException {
 
         /*synchronized (this) {     //in teoria non serve, c'è già il controllo prima di chiamarlo
             while (!gameIsReady() && isRunning()) {
                 this.wait();
             }
         }*/
+
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
-
-
-
+        List<LeaderCard> leaderCardList = Configs.getLeaderCards();
 
         //List<ClientHandler> players = virtualView.getClientHandlers();
         //for all players
         for (Player pl : players){
-            List<LeaderCard> choose = null;
-                    choose.add(leaderCardList.remove(0));
-                    choose.add(leaderCardList.remove(0));
-                    choose.add(leaderCardList.remove(0));
-                    choose.add(leaderCardList.remove(0));
 
-            notifyAllObservers(eventCreator.createGameStarterEvent(choose,pl));
+            List<LeaderCard> choices = new ArrayList<>();
+            choices.add(leaderCardList.remove(0));
+            choices.add(leaderCardList.remove(0));
+            choices.add(leaderCardList.remove(0));
+            choices.add(leaderCardList.remove(0));
+            logger.info("Welcoming the Client...");
+            notifyAllObservers(eventCreator.createGameStarterEvent(choices,pl));
+            logger.info("cards from player"+ pl +" are chosen");
+            if (game.getCurrentPlayerId()>0)
+            logger.info("player"+ pl +"is choosing resources");
+            if (game.getCurrentPlayerId()>1)
+            logger.info("player"+ pl +"is getting fp");
+
         }
-
-        //notifyAllObservers(event);
-
-        //virtualview.getclienthandler.getnickname.send setLeaderCardChoice ; leaderCardList - 4 ; logger.info(waiting cards) ;
-        /* synchronized (this) {
-            while (!(areCardsChosen()) && isRunning()) {
-                this.wait();
-            }
-        } */
-        //logger.info(card chosen) ;
-
-        //set player 2, 3 , 4 theirs resources
-
-        game();
+        //e mo che si fa? come si fa ad iniziare?
+        //game();
     }
 
-    private void game() {
+    /*private void game() {
         while (!game.hasWinner()) {
+                if (!game.hasDoneAction()){
+                    actionDispatch();   //bisogna passargli l'azione scelta
+                    //sendToEveryone mossa
+                }
+                else{
+                    //cambia turno
+                }
 
             //if currentplayer turn hasEnded
             //currentplayer = nextTurnPlayer
             //else
             //scelta mossa giocatore; synch this ; wait;
-            //sendToEveryone mossa
-        }
-             manageWin();
 
+        }
+
+             manageWin();
     }
 
     private void manageWin() {
@@ -111,15 +110,14 @@ public class Controller extends ServerObservable {
     private void manageLose(){
         //che succede ai giocatori che perdono?
         //removePlayer(currentPlayer);
-    }
-    public void setNewNickname(){
-        //bisogna capire come fare
+        //facciamo una classifica?
     }
 
     public void actionDispatch(){
         //riceve l'azione dall'utente e chiama il metodo adeguato
         notifyController();
     }
+    */
 
     public void setDisconnected(String nickname) {
         if (game.getPlayerByNickname(nickname) != null && game.hasWinner()) {
@@ -128,16 +126,16 @@ public class Controller extends ServerObservable {
         }
 
         //virtualView.sendToEveryone disconnection nickname
-        virtualView.closeAll();
+        //virtualView.closeAll();
         game.setInactive(); //if disconnection occur and want to close the game (to change if PERSISTENCE is made)
         notifyController();
         //wakeUpServerLauncher();   //synchronized (game) game.notifyAll();   //PER PARTITE MULTIPLE DOVREBBE STARE SEMPRE SVEGLIO RIGHT?
     }
 
     public boolean isRunning() throws DisconnectionException {
-        if (!game.isActive()){
+        if (!game.isActive())
             throw new DisconnectionException();
-        }
+
         return true;
     }
 
@@ -245,13 +243,13 @@ public class Controller extends ServerObservable {
         } catch (InvalidCardInsertionException e) {
             System.out.println("error"); //this shouldn't happen, because earlier the method does a check.
         }
-        if(statusCurrentPlayer.getPersonalCardBoard().getNumberOfCards()>=7){
-            //a player has bought 7 cards, so we enter the last phase of the game
+        if(statusCurrentPlayer.getPersonalCardBoard().getNumberOfCards()>=7) //a player has bought 7 cards, so we enter the last phase of the game
             game.setLastTurnsTrue();
-        }
+
         game.setHasDoneAction();
         notifyAllObservers(eventCreator.createBoughtCardEvent());
     }
+
     /**
      * Method useMarket allows the player to buy new resources at the Market
      *
@@ -280,7 +278,7 @@ public class Controller extends ServerObservable {
         currentPlayer.getStatusPlayer().getLeaderCard(1).setFullSlotsNumber(leaderCardSlots2);
 
         for(int i=0; i<Resource.resourcesNum(discardedRes);i++){
-            incrementFTPositionMarket();
+            incrementOthersFpByDiscarding();
             if(game.getPlayersNumber()==1){
                 incrementFaithTrackPosition(game.getBoard().getLorenzo());
             }
@@ -476,7 +474,7 @@ public class Controller extends ServerObservable {
     }
 
     //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
-    private void incrementFTPositionMarket(){
+    private void incrementOthersFpByDiscarding(){
         for(int k=0; k< game.getPlayersNumber(); k++){
             if (game.getCurrentPlayerId()!=k){
                 game.getPlayerByIndex(k).getStatusPlayer().incrementFaithTrackPosition();
@@ -503,54 +501,31 @@ public class Controller extends ServerObservable {
     }
 
     /**
-     * Reader LeaderCards
+     * Method to manage Lorenzo's turn in the Solo mode
+     * Lorenzo will act based on the SoloAction picked from the SoloAction pile
+     * checks if a Pile of DevelopmentCards is empty, then Lorenzo wins
      */
-    private static final String LEADERPATH = "src/main/resources/Leaders.json";
-    public void leaderCardReader() throws FileNotFoundException {
-
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(LEADERPATH));
-        Gson gson = new Gson();
-        JsonArray json = gson.fromJson(bufferedReader, JsonArray.class);
-
-        for (int i = 0; i < json.size(); ++i)
-            switch (gson.fromJson(json.get(i), SonOfLeaderCard.class).getAbility()) {
-                case DISCOUNT ->
-                    leaderCardList.add(gson.fromJson(json.get(i), LeaderCardDiscount.class));
-
-                case SLOTS ->
-                    leaderCardList.add(gson.fromJson(json.get(i), LeaderCardSlots.class));
-
-                case PRODUCTION ->
-                    leaderCardList.add(gson.fromJson(json.get(i), LeaderCardProduction.class));
-
-                case WHITEMARBLE ->
-                    leaderCardList.add(gson.fromJson(json.get(i), LeaderCardWhiteMarble.class));
-        }
-
-        //leaderCardList.forEach(System.out::println);
-
-        Collections.shuffle(leaderCardList);
-
-        //leaderCardList.forEach(System.out::println);
-
-    }
-
     public void lorenzoTurn(){
         SoloActionType activatedSoloAction = game.getBoard().pickSoloAction().getType();
+
         if(game.getBoard().getDevelopmentCardBoard().isAColumnEmpty()){
-            game.setLastTurnsTrue();
+            game.setLastTurnsTrue();    //lorenzo wins
             return;
         }
+
         if(activatedSoloAction==SoloActionType.MOVEONEANDSHUFFLE){
             incrementFaithTrackPosition(game.getBoard().getLorenzo());
+            //if lorenzo posizione 24 allora win
         }
+
         if(activatedSoloAction==SoloActionType.MOVETWO){
             incrementFaithTrackPosition(game.getBoard().getLorenzo());
             incrementFaithTrackPosition(game.getBoard().getLorenzo());
         }
-        if(game.getBoard().getDevelopmentCardBoard().isAColumnEmpty()){
-            game.setLastTurnsTrue();
-        }
+
+        if(game.getBoard().getDevelopmentCardBoard().isAColumnEmpty())
+            game.setLastTurnsTrue();    //lorenzo wins
+
     }
 
 }

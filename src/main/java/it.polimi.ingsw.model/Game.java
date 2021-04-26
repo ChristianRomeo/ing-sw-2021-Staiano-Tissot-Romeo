@@ -147,15 +147,6 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         return players.get(playerIndex);
     }
 
-    /**
-     * Method isNickNameTaken checks if a given nickname is already used by another player
-     *
-     * @return boolean
-     */
-    public boolean isNicknameTaken(String nickname){
-        return getPlayerByNickname(nickname) != null;
-    }
-
     /** Method nextTurn updates currentPlayer to the next player in "players" order. */
     public void nextTurn() {
         hasDoneAction=false;
@@ -206,19 +197,19 @@ public class Game extends ServerObservable { //game is observed by the virtual v
                 }
             }
         }
-        for(Player p: bestPlayers){
+
+        for(Player p: bestPlayers)
             p.setIsWinner();
-        }
     }
 
     public boolean hasWinner() {
-        for (Player player : players) {
-            if (player.isWinner()) {
+        for (Player player : players)
+            if (player.isWinner())
                 return true;
-            }
-        }
+
         return false;
     }
+
     /**
      * Adds an illegal action to the list.
      */

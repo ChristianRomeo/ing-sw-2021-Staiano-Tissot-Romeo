@@ -111,19 +111,21 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
     public void handleEvent(LeaderCardActionEvent event){
 
-        if(event.getDiscardOrActivate()=='d'){
+        if(event.getDiscardOrActivate()=='d')
             controller.discardLeaderCard(event.getIndex());
-        }
-        if(event.getDiscardOrActivate()=='a'){
+
+        if(event.getDiscardOrActivate()=='a')
             controller.activateLeaderCard(event.getIndex());
-        }
+
     }
+
     public void handleEvent(ActivatedProductionEvent event){
         SameTypeTriple<Resource> BPResources = new SameTypeTriple<>(event.getRequestedResBP1(),event.getRequestedResBP2(),event.getProducedResBP());
         if(!controller.getGame().hasDoneAction()){
             controller.activateProduction(event.getActivatedProduction(),event.isBPActivated(),BPResources,event.getProducedResLC1(),event.getProducedResLC2());
         }
     }
+
     public void handleEvent(UseMarketEvent event){
         if(!controller.getGame().hasDoneAction()){
             controller.useMarket(event.getRowOrColumn(), event.getIndex(),event.getNewWarehouse(),event.getDiscardedRes(),event.getLeaderCardSlots1(),event.getLeaderCardSlots2());

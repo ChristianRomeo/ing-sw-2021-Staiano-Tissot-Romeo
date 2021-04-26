@@ -7,6 +7,7 @@ import java.util.List;
 import java.io.*;
 import java.util.stream.Collectors;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.controller.Configs;
 
 /**
  * DevelopmentCardBoard contains the Board's cards from where the player can pick his choice
@@ -25,10 +26,6 @@ public class DevelopmentCardBoard {
      */
     private static final int MAXCOLUMNS = 4;
     /**
-     *  PATH contains the relative path to card's json file
-     */
-    private static final String CARDPATH = "src/main/resources/Cards.json";
-    /**
      *  cardBoard is the card's matrix, where every cell is a list up to 4 cards
      */
     private final List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER
@@ -43,9 +40,8 @@ public class DevelopmentCardBoard {
      */
     public DevelopmentCardBoard() throws IOException {
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(CARDPATH));
-        JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
-        List<DevelopmentCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
+        List<DevelopmentCard> list = Configs.getDevelopmentCards();
+
         int col = 0,row;
         for(CardType color : CardType.values()){
             row=0;

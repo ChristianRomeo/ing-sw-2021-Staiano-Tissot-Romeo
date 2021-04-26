@@ -171,7 +171,7 @@ public class ControllerTest {
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
 
-        controller.leaderCardReader();
+        Configs.getLeaderCards();
         System.out.println("passed");
 
     }
@@ -179,7 +179,8 @@ public class ControllerTest {
     @Test
     public void readerLeaderCardTest () throws IOException {
 
-        new Controller(new Game()).leaderCardReader();
+        List<LeaderCard> leaderCardsList = Configs.getLeaderCards();
+        leaderCardsList.forEach(System.out::println);
 
     }
 
