@@ -2,6 +2,7 @@ package it.polimi.ingswControllerTests;
 
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
@@ -216,27 +217,62 @@ public class ControllerTest {
 
     }
 
-    @Test
-    public void activateLeaderCardTest() throws IOException, InvalidWarehouseInsertionException {
+    @Test //test superayo
+    public void activateLeaderCardTest() throws IOException, InvalidWarehouseInsertionException, InvalidCardInsertionException {
         Game game = new Game();
         Controller controller = new Controller(game);
         Player player = new Player("nickname");
         game.addNewPlayer(player);
         game.setCurrentPlayer(player);
         List<LeaderCard> list = Configs.getLeaderCards();
-        player.getStatusPlayer().addLeaderCard(list.get(0));
+        DevelopmentCard addedCard = null;
+        //per semplicità assegno al player un Leader che abbia una sola development card come requisito
+        for(LeaderCard leader : Configs.getLeaderCards())
+        {
+            if(leader.getRequiredCards().size() == 1)
+                player.getStatusPlayer().addLeaderCard(leader);
+
+        }
+        //player.getStatusPlayer().addLeaderCard(list.get(0));
         controller.activateLeaderCard(0);
         //il player non ha risorse a sufficienza per attivare la carta
         assert(!player.getStatusPlayer().getLeaderCard(0).isActivated());
-        player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD, 2, 1);
-        player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD, 2, 2);
-        //adesso il giocatore ha le risorse necessarie in quanto le risorse richieste per attivare la prima
-        //carta sono due SHIELD (vedi file JSON)
+
+
+        Map<CardType, Integer> requiredDevCards = new HashMap<>();
+        requiredDevCards = player.getStatusPlayer().getLeaderCard(0).getRequiredCards();
+        /*per semplicità assegno al player una carta development che abbia come tipo quella del requisito Leader,
+        e inoltre che sia di livello 1, per semplicità di inserimento nella pila del Player.
+        In questo caso inoltre la carta Leader, avendo la caratteristica di avere una sola carta come requisito, è
+        ha per forza l'abilità PRODUCTION, che a sua volta necessità di una carta di livello 2 per essere attivata.
+        Da qui segue quanto svolto; bisogna quindi assegnare al player un'altra carta, dello stesso colore
+        ma che sia di livello 1, altrimenti assegnando solo quella di livello 2 avremmo il lancio dell'eccezione.
+        */
+
+        for(DevelopmentCard card : Configs.getDevelopmentCards())
+        {
+            if(card.getType().equals(requiredDevCards.keySet().iterator().next()) && card.getLevel() == 1) {
+                player.getStatusPlayer().getPersonalCardBoard().addCard(card, 0);
+                addedCard = card;
+                break;
+            }
+        }
+
+        for(DevelopmentCard card : Configs.getDevelopmentCards())
+        {
+            if(card.getLevel() == 2 && card.getType().equals(addedCard.getType())) {
+                player.getStatusPlayer().getPersonalCardBoard().addCard(card, 0);
+                break;
+            }
+        }
+        //adesso posso controllare che la carta venga attivata correttamente
+        controller.activateLeaderCard(0);
         assert(player.getStatusPlayer().getLeaderCard(0).isActivated());
+
 
     }
 
-    @Test
+    @Test //test superato
     public void discardLeaderCardTest() throws IOException {
         Game game = new Game();
         Controller controller = new Controller(game);
