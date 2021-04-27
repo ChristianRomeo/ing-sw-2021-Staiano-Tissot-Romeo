@@ -1,9 +1,9 @@
 package it.polimi.ingswControllerTests;
+
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.*;
-
+import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -215,4 +215,46 @@ public class ControllerTest {
         assert(game.getIllegalActions().size()==1);
 
     }
+
+    @Test
+    public void activateLeaderCardTest() throws IOException, InvalidWarehouseInsertionException {
+        Game game = new Game();
+        Controller controller = new Controller(game);
+        Player player = new Player("nickname");
+        game.addNewPlayer(player);
+        game.setCurrentPlayer(player);
+        List<LeaderCard> list = Configs.getLeaderCards();
+        player.getStatusPlayer().addLeaderCard(list.get(0));
+        controller.activateLeaderCard(0);
+        //il player non ha risorse a sufficienza per attivare la carta
+        assert(!player.getStatusPlayer().getLeaderCard(0).isActivated());
+        player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD, 2, 1);
+        player.getStatusPlayer().getPlayerWarehouse().insertResource(Resource.SHIELD, 2, 2);
+        //adesso il giocatore ha le risorse necessarie in quanto le risorse richieste per attivare la prima
+        //carta sono due SHIELD (vedi file JSON)
+        assert(player.getStatusPlayer().getLeaderCard(0).isActivated());
+
+    }
+
+    @Test
+    public void discardLeaderCardTest() throws IOException {
+        Game game = new Game();
+        Controller controller = new Controller(game);
+        Player player = new Player("nickname");
+        game.addNewPlayer(player);
+        game.setCurrentPlayer(player);
+        List<LeaderCard> list = Configs.getLeaderCards();
+        player.getStatusPlayer().addLeaderCard(list.get(0));
+        player.getStatusPlayer().addLeaderCard(list.get(1));
+        player.getStatusPlayer().getLeaderCard(1).activate();
+        controller.discardLeaderCard(1);
+        //il player non può scartare la carta in quanto già attivata
+        assert(!player.getStatusPlayer().getLeaderCard(1).isDiscarded());
+        controller.discardLeaderCard(0);
+        //il player può scartare la carta
+        assert(player.getStatusPlayer().getLeaderCard(0).isDiscarded());
+
+    }
+
 }
+

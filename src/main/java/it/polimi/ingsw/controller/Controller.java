@@ -367,7 +367,9 @@ public class Controller extends ServerObservable {
         if(leaderCard.isActivated() || leaderCard.isDiscarded()) //the card is already active, or is discarded, so you can't activate it
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
 
-        else {  //check if the player has the required resources to be able to activate the Leader Card
+        else
+        {
+            //check if the player has the required resources to be able to activate the Leader Card
             if (leaderCard.getRequiredResources()!=null && leaderCard.getRequiredResources().size() > 0) {
                 if(Resource.enoughResources(playerResources,leaderCard.getRequiredResources()))
                     canActivate=true;
