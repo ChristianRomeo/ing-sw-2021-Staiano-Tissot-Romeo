@@ -148,6 +148,10 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
     }
 
+    public void handleEvent(InitialChoiceEvent event){
+
+    }
+
 
 
     //      ---- SERVER TO CLIENT EVENTS ----

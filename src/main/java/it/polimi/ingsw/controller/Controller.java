@@ -20,6 +20,7 @@ public class Controller extends ServerObservable {
     private VirtualView virtualView;
     private final static Logger logger = Logger.getLogger(Server.class.getName());
     private final ServerEventCreator eventCreator;
+    private boolean preGameStarted;
 
     /**
      * constructor
@@ -28,7 +29,17 @@ public class Controller extends ServerObservable {
         this.game=game;
         eventCreator = new ServerEventCreator(this);
         game.setEventCreator(eventCreator);
+        preGameStarted=false;
     }
+
+    public boolean isPreGameStarted() {
+        return preGameStarted;
+    }
+
+    public void setPreGameStarted(){
+        preGameStarted=true;
+    }
+
 
     public Game getGame(){
         return game;
@@ -46,6 +57,7 @@ public class Controller extends ServerObservable {
      * @throws FileNotFoundException for the leaderCards
      */
     public void gameStarter() throws FileNotFoundException {
+        setPreGameStarted();
 
         //in teoria non serve, c'è già il controllo prima di chiamarlo
         /*synchronized (this) {
@@ -54,6 +66,7 @@ public class Controller extends ServerObservable {
             }
         }*/
 
+        game.shufflePlayers();
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
         List<LeaderCard> leaderCardList = Configs.getLeaderCards();
@@ -67,15 +80,18 @@ public class Controller extends ServerObservable {
             choices.add(leaderCardList.remove(0));
             logger.info("Welcoming the Client...");
             notifyAllObservers(eventCreator.createGameStarterEvent(choices,pl));
+            /*
             logger.info("cards from player"+ pl +" are chosen");
             if (game.getCurrentPlayerId()>0)
             logger.info("player"+ pl +"is choosing resources");
             if (game.getCurrentPlayerId()>1)
             logger.info("player"+ pl +"is getting fp");
-
+            */
         }
         //todo: e mo che si fa? come si fa ad iniziare?
         //game();
+        game.setCurrentPlayer(game.getPlayerByIndex(0));
+        notifyAllObservers(eventCreator.createNewTurnEvent(getGame().getCurrentPlayer()));
     }
 
     /*private void game() {
@@ -192,7 +208,7 @@ public class Controller extends ServerObservable {
 
         if(!Resource.enoughResources(ownedResources,requiredResources)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
-            return;     //todo: throw new CannotActivateProductionException();
+            return;
         }
 
         game.getCurrentPlayer().getStatusPlayer().removeResources(requiredResources);
@@ -221,20 +237,20 @@ public class Controller extends ServerObservable {
         //check if the selected pile in the board is empty
         if(developmentCardBoard.isCardPileEmpty(row,col)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-            return;     //todo: throw new IllegalArgumentException();
+            return;
         }
 
         //check if the player has space in his personal card board, in the pile selected
         if(!statusCurrentPlayer.getPersonalCardBoard().canInsertCardOfLevel(row+1,pile)){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotBuyCard"));
-            return;     //todo: throw new CannotBuyCardException();
+            return;
         }
         DevelopmentCard card = developmentCardBoard.getCard(row, col);
 
         //check if the player has the resources to buy the card
         if(!card.isBuyable(statusCurrentPlayer.getAllResources(),statusCurrentPlayer.getPlayerLeaderCards())){
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "CannotBuyCard"));
-            return;     //todo: throw new CannotBuyCardException();
+            return;
         }
 
         //the player can buy the card
@@ -268,7 +284,6 @@ public class Controller extends ServerObservable {
         Player currentPlayer = game.getCurrentPlayer();
         if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2)){
             game.addIllegalAction(new IllegalAction(currentPlayer,"IllegalMarketUse"));
-            //todo: throw new IllegalMarketUseException();
             return;
         }
 

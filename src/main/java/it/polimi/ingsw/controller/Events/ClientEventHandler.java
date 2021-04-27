@@ -18,4 +18,7 @@ public interface ClientEventHandler {
 
     void handleEvent(NumPlayerEvent event);
 
+    void handleEvent(InitialChoiceEvent event);
+
+
 }

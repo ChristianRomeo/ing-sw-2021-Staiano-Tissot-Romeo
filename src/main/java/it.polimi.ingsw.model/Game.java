@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.modelExceptions.VaticanReportException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,6 +42,11 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         illegalActions =new ArrayList<>();
         this.isActive=true;
         hasDoneAction=false;
+    }
+
+    //mette lista giocatori in ordine casuale
+    public void shufflePlayers(){
+        Collections.shuffle(players);
     }
 
     public void setEventCreator(ServerEventCreator eventCreator){

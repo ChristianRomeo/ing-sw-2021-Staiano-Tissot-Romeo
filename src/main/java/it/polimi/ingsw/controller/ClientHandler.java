@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.Events.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -118,13 +119,13 @@ public class ClientHandler implements Runnable {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            logger.warning("errore nel leggere il nickname");
+            logger.warning("errore nel leggere il nickname o nell'aggiungere il giocatore");
         }
 
         if(isFirstPlayer)
             try {
 
-               // output.writeObject();     //INSERIRE NUMERO GIOCATORI evento:NumPlayerEvent
+               // todo: output.writeObject();     //INSERIRE NUMERO GIOCATORI evento:NumPlayerEvent
                 int playersNum = (Integer) input.readObject();
                 synchronized (virtualView.getController().getGame()){   //faccio la notify quando è stato impostato il numero di giocatori così che il server possa riprendere l'esecuzione
                     ClientEvent clientEvent = (ClientEvent) input.readObject();
@@ -134,6 +135,18 @@ public class ClientHandler implements Runnable {
             }catch (Exception e){
                 logger.warning("errore nel leggere il numero giocatori");
             }
+
+
+        synchronized (virtualView.getController().getGame()){
+            if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber()){
+                try {
+                    virtualView.getController().gameStarter();
+                } catch (FileNotFoundException e) {
+                    logger.warning("errore nel game starter");
+                }
+            }
+        }
+
 
 
         while (isConnected)
