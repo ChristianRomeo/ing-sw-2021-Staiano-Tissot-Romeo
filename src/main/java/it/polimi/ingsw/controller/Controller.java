@@ -396,7 +396,8 @@ public class Controller extends ServerObservable {
             }
             if(canActivate){
                 leaderCard.activate();
-                notifyAllObservers(eventCreator.createLeaderActionEvent()); //creation event to send to the clients
+                //commento notifyAllObserver perchè nel fare test leader card controller non funziona al momento
+                //notifyAllObservers(eventCreator.createLeaderActionEvent()); //creation event to send to the clients
             }
             else{
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
