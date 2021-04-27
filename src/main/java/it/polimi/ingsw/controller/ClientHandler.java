@@ -14,14 +14,14 @@ import java.util.logging.Logger;
  *  setta numero giocatori IF FIRST, manda il ping ogni 2 secondi, manda il giocatore alla virtualview che lo aggiunge
  */
 public class ClientHandler implements Runnable {
-    private final Socket socket;
-    private final VirtualView virtualView;
-    private String nickname;
+    private final Socket socket;                //univoca per ogni player,se si disconnette la perde
+    private final VirtualView virtualView;      //una per game
+    private String nickname;                    //identifica il giocatore univocamente, per poi essere riconnesso
     private final ObjectOutputStream output;
     private final ObjectInputStream input;
-    private final boolean isFirstPlayer;
+    private final boolean isFirstPlayer;        //clue per fargli scegliere le carte
     private final Object lock = new Object();
-    private boolean isConnected;
+    private boolean isConnected;                //modificato nel ping
     private final static Logger logger = Logger.getLogger(Server.class.getName());
 
     public ClientHandler(boolean isFirstPlayer, Socket socket, VirtualView virtualView) throws IOException {
@@ -32,7 +32,20 @@ public class ClientHandler implements Runnable {
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
         socket.setSoTimeout(30000); // Sets the connection timeout to 30 seconds
-        //(new PingSender(this, true)).start(); //dobbiamo mandare un ping al client ogni 2 secondi per vedere se è connesso ancora dato che è tcp
+        //starts pinging
+        (new Thread(() -> {
+            while(true)
+                try {
+                    logger.warning("Pinging...");
+                    if (!socket.getInetAddress().isReachable(3000)){
+                        logger.warning("waju s'è disconness");
+                        setDisconnected();
+                    }
+                    logger.warning("tt'appost");
+                } catch (IOException ignored) {}
+        })).start();
+
+        //(new PingSender(this, true)).start();     //dobbiamo mandare un ping al client ogni 3 secondi per vedere se è connesso ancora dato che è tcp
     }
 
     public String getNickname() {
@@ -50,17 +63,50 @@ public class ClientHandler implements Runnable {
         //manda il nickname (così se viene modificato lo sa) al client e se è first player chiede il numero di giocatori
         //send(new SetUpGame(isFirstPlayer, nickname)); //Sends the initial connectionSetUp message to the client
 
+        try {
+
+            int idx=0;
+            String nick = (String) input.readObject();      //invio stringa normale come prima cosa
+            String tempNick = nick;
+            synchronized (virtualView){     //ha senso sincronizzare la vv?
+                for (ClientHandler cl : virtualView.getClientHandlers())
+                    while (cl.getNickname().equalsIgnoreCase(nick) || cl.getNickname().equalsIgnoreCase("Lorenzo il Magnifico"))
+                        nick = tempNick + "_" + idx++;
+                setNickname(nick);
+                    if (virtualView.getDisconnectedClients().stream().anyMatch(x-> x.equalsIgnoreCase(nickname))){
+                        //reconnect
+                    }else
+                    virtualView.addClientHandler(this);
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            logger.warning("errore nel leggere il nickname");
+        }
+
+        if(isFirstPlayer)
+            try {
+                 output.writeObject("you're first");     //INSERIRE NUMERO GIOCATORI evento:NumPlayerEvent
+                //int playersNum = (Integer) input.readObject();
+                synchronized (virtualView.getController().getGame()){   //faccio la notify quando è stato impostato il numero di giocatori così che il server possa riprendere l'esecuzione
+                    ClientEvent clientEvent = (ClientEvent) input.readObject();
+                    clientEvent.notifyHandler(virtualView);
+                    virtualView.getController().getGame().notifyAll();
+                }
+            }catch (Exception e){
+                logger.warning("errore nel leggere il numero giocatori");
+            }
+
+
     }
 
     public boolean isConnected() {
         return isConnected;
     }
 
-    /**
-     * if a player loose connection to the server
-     */
     public void setDisconnected() {
         this.isConnected = false;
+        virtualView.setDisconnected(this);
+        closeSocket();
     }
 
     /**
@@ -78,7 +124,7 @@ public class ClientHandler implements Runnable {
      */
      public void send(ServerEvent message) {
 
-         if (isConnected)
+         if (isConnected) //se quando non è più connesso si chiude tutto questo if manco serve in teoria
             try {
                 synchronized (lock) {
                     output.writeUnshared(message);
@@ -90,52 +136,16 @@ public class ClientHandler implements Runnable {
                     // This player has disconnected
                     logger.warning(nickname + " has disconnected during message sending");
                     isConnected = false;
-                    virtualView.setDisconnected(nickname);
+                    //virtualView.setDisconnected(nickname);
                 } else
                     // Another player has disconnected
                     logger.warning(nickname + " was forced to quit during message sending");
-
                closeSocket();
             }
-
     }
 
     @Override
     public void run() {
-        //connectionSetUp();
-
-        try {
-
-            //non sono sicuro ciò vada qui //forse va in setupconnection e non qui nel run
-            int idx=0;
-            String nick = (String) input.readObject();
-            String tempNick = nick;
-            synchronized (virtualView){     //va bene sincronizzare la vv?
-                for (ClientHandler cl : virtualView.getClientHandlers())
-                    while (cl.getNickname().equalsIgnoreCase(nick) || cl.getNickname().equalsIgnoreCase("Lorenzo il Magnifico"))
-                        nick = tempNick + "_" + idx++;
-                setNickname(nick);
-                virtualView.addClientHandler(this);
-            }
-
-        } catch (IOException | ClassNotFoundException e) {
-            logger.warning("errore nel leggere il nickname o nell'aggiungere il giocatore");
-        }
-
-        if(isFirstPlayer)
-            try {
-
-               // todo: output.writeObject();     //INSERIRE NUMERO GIOCATORI evento:NumPlayerEvent
-                int playersNum = (Integer) input.readObject();
-                synchronized (virtualView.getController().getGame()){   //faccio la notify quando è stato impostato il numero di giocatori così che il server possa riprendere l'esecuzione
-                    ClientEvent clientEvent = (ClientEvent) input.readObject();
-                    //virtualView.getController().getGame().setWantedNumPlayers(playersNum);
-                    virtualView.getController().getGame().notifyAll();
-                }
-            }catch (Exception e){
-                logger.warning("errore nel leggere il numero giocatori");
-            }
-
 
         synchronized (virtualView.getController().getGame()){
             if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber()){
@@ -146,8 +156,6 @@ public class ClientHandler implements Runnable {
                 }
             }
         }
-
-
 
         while (isConnected)
             try {
@@ -161,7 +169,7 @@ public class ClientHandler implements Runnable {
                     // This player has disconnected
                     logger.warning(nickname + " has been disconnected during message receiving");
                     isConnected = false;
-                    virtualView.setDisconnected(nickname);
+                    //virtualView.setDisconnected(nickname);
                 } else {
                     // Another player has disconnected
                     logger.warning(nickname + " was forced to quit during message receiving");

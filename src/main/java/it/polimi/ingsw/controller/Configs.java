@@ -72,4 +72,7 @@ public class Configs {
         return new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
     }
 
+    public static boolean isServerAlive(){
+        return true;
+    }
 }

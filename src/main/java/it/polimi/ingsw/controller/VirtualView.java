@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public class VirtualView implements ClientEventHandler, ServerEventObserver {
     private final List<ClientHandler> clientHandlers;
+    private List<String> disconnectedClients;
     private final Controller controller;
     private final static Logger logger = Logger.getLogger(Server.class.getName());
 
@@ -36,9 +37,8 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public void sendToEveryone(ServerEvent serverEvent){
         for (ClientHandler clientHandler : clientHandlers) {
         //if client connected send message
-            if(clientHandler.isConnected()){
+            if(clientHandler.isConnected())
                 clientHandler.send(serverEvent);
-            }
         }
     }
 
@@ -62,24 +62,30 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         }
     }
 
-    public void setUpGame(){
+    /*public void setUpGame(){
         //setnickname and if già usato chiama setnewnickname che lo richiede o lo incrementa, setnumplayers
         //controller.wakeUpController();
-    }
+    }*/
 
     public void setChosenLeaderCards(){
         //controller.setLeaderCards(choice, nickname)
     }
 
     public void setFirstPlayer(){
-        //controller.setFirtPlayer(nickname)
+        //controller.setFirstPlayer(nickname)
     }
 
     public void setAction(){
         //notify controller that player has chosen an action
     }
-    public void setDisconnected(String nickname){
+    public void setDisconnected(ClientHandler client){
         //notify controller that player has been disconnected
+        disconnectedClients.add(client.getNickname());
+        clientHandlers.remove(client);
+    }
+
+    public List<String> getDisconnectedClients() {
+        return new ArrayList<>(disconnectedClients);
     }
 
     public boolean checkGameStatus() {

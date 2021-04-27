@@ -72,7 +72,7 @@ public class Server {
         // Creates a game if it doesn't exist and add the client to it
         if (currentGame == null) {
             initGame();
-            executor.submit(new ClientHandler(true, socket, currentVirtualView));
+            executor.submit(new ClientHandler(true, socket, currentVirtualView));       //se era già connesso che succ?
         } else
             executor.submit(new ClientHandler(false, socket, currentVirtualView));
 
