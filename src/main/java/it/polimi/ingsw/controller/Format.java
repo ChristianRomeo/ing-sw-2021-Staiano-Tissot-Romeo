@@ -16,7 +16,8 @@ public enum Format {
     TALK("\uD83D\uDCAC"),
     SLEEP("💤"),
     HELLO("\uD83D\uDC4B"),
-    CANT("✋");
+    CANT("✋"),
+    VICTORY("\uD83C\uDFC6");
 
     private final String s;
     Format(String s) {
@@ -69,8 +70,7 @@ public enum Format {
     public static String headingText(String s) {
         int max = 167;
         StringBuilder padding = new StringBuilder();
-        for (int i = 0; i < (max - s.length()) / 2; ++i)
-            padding.append(" ");
+        padding.append(" ".repeat(Math.max(0, (max - s.length()) / 2)));        //check if works
 
         return BOLD + "" + REVERSED + padding + s + padding + RESET;
     }

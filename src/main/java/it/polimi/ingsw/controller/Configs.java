@@ -17,8 +17,13 @@ import java.util.List;
  */
 public class Configs {
 
-    private String server_ip;
-    private int server_port;
+    private final String server_ip;
+    private final int server_port;
+
+    public Configs(String server_ip, int server_port) {     //va bene?
+        this.server_ip = server_ip;
+        this.server_port = server_port;
+    }
 
     public static  String getServerIp() throws FileNotFoundException {
         String CONFIGPATH = "src/main/resources/Configs.json";

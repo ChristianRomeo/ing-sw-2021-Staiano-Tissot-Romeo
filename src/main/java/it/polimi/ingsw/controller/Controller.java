@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class Controller extends ServerObservable {
     private final Game game;
-    private VirtualView virtualView;
+    private VirtualView virtualView;    //serve?
     private final static Logger logger = Logger.getLogger(Server.class.getName());
     private final ServerEventCreator eventCreator;
     private boolean preGameStarted;
@@ -333,16 +333,16 @@ public class Controller extends ServerObservable {
 
         Map<Resource,Integer> newAllResources = Resource.sumResourcesMap(newWarehouse.getAllResources(),currentPlayer.getStatusPlayer().getStrongboxResources());
 
-        if(currentPlayer.getStatusPlayer().getLeaderCard(0).getFullSlotsNumber()!=null){
+        if(currentPlayer.getStatusPlayer().getLeaderCard(0).getFullSlotsNumber()!=null)
             for(int i=0; i<leaderCardSlots1;++i)
                 newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(0).getAbilityResource());
-        }
+
 
         //newAllResources sarebbero tutte le risorse che avrebbe mo l'utente
-        if(currentPlayer.getStatusPlayer().getLeaderCard(1).getFullSlotsNumber()!=null){
+        if(currentPlayer.getStatusPlayer().getLeaderCard(1).getFullSlotsNumber()!=null)
             for(int i=0; i<leaderCardSlots2;i++)
                 newAllResources=Resource.addOneResource(newAllResources,currentPlayer.getStatusPlayer().getLeaderCard(1).getAbilityResource());
-        }
+
 
         takenResources = Resource.removeResourcesMap(takenResources,discardedRes);
         //controlResources sono le risorse che l'utente dovrebbe avere dopo l'acquisto al mercato
@@ -375,7 +375,8 @@ public class Controller extends ServerObservable {
                     canActivate=true;
             }
             //check if the player has the required cards to be able to activate the Leader Card
-            else if(leaderCard.getRequiredCards().size() > 0) {
+            else
+                if(leaderCard.getRequiredCards().size() > 0) {
                 if (leaderCard.getAbility().equals(LeaderCardType.PRODUCTION)) {
                     /*gets the first (and only) element of the cards requirements since the Card Type is PRODUCTION,
                     there will be only one card required with its associated level*/ //level 2 richiesto sempre
@@ -399,9 +400,9 @@ public class Controller extends ServerObservable {
                 //commento notifyAllObserver perchè nel fare test leader card controller non funziona al momento
                 //notifyAllObservers(eventCreator.createLeaderActionEvent()); //creation event to send to the clients
             }
-            else{
+            else
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
-            }
+
         }
         //notifyController(); //??
     }
@@ -414,15 +415,13 @@ public class Controller extends ServerObservable {
     public void discardLeaderCard(int index) throws IllegalArgumentException{
 
         LeaderCard leaderCard = game.getCurrentPlayer().getStatusPlayer().getLeaderCard(index);
-        if(leaderCard.isActivated() || leaderCard.isDiscarded()){
-            //the card is already discarded, or is active, so you can't discard it
+        if(leaderCard.isActivated() || leaderCard.isDiscarded())//the card is already discarded, or is active, so you can't discard it
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
-        }else{
+        else{
             leaderCard.discard();
             game.incrementFaithTrackPosition(game.getCurrentPlayer());
             //creation event to send to the clients
             notifyAllObservers(eventCreator.createLeaderActionEvent());
-
         }
     }
 
@@ -446,12 +445,11 @@ public class Controller extends ServerObservable {
             switch (m) {
                 case WHITE -> {
                     //todo: QUA NON STO CONSIDERANDO IL CASO IN CUI CI SONO 2 CARTE LEADER WHITE MARBLE, L'UTENTE DOVREBBE SCEGLIERE, QUEL CASO POI VEDIAMO CON LA VIEW.
-                    if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource() != null) {
+                    if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource() != null)
                         boughtResources =Resource.addOneResource(boughtResources,game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource());
-                    }
-                    if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource() != null) {
+
+                    if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource() != null)
                         boughtResources =Resource.addOneResource(boughtResources,game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource());
-                    }
                 }
                 case RED -> {
                     if(incrementPosition)

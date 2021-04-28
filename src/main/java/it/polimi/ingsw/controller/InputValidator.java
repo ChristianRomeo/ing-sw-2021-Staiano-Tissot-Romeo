@@ -2,10 +2,7 @@ package it.polimi.ingsw.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class InputValidator {
 
@@ -36,8 +33,7 @@ public class InputValidator {
         } catch (NumberFormatException ignored) {}
         TreeSet<Integer> s1 = new TreeSet<>();
         s1.add(first);
-        s1.add(last);
-        return (first < 5 || last < 5 && first!=last)? s1 : null;
+        return (first < 5 && last < 5 && s1.add(last))? s1 : null;
     }
 
     /**

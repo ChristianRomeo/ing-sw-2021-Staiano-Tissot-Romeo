@@ -148,13 +148,12 @@ public class ClientHandler implements Runnable {
     public void run() {
 
         synchronized (virtualView.getController().getGame()){
-            if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber()){
+            if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber())
                 try {
                     virtualView.getController().gameStarter();
                 } catch (FileNotFoundException e) {
                     logger.warning("errore nel game starter");
                 }
-            }
         }
 
         while (isConnected)
@@ -170,12 +169,11 @@ public class ClientHandler implements Runnable {
                     logger.warning(nickname + " has been disconnected during message receiving");
                     isConnected = false;
                     //virtualView.setDisconnected(nickname);
-                } else {
+                } else
                     // Another player has disconnected
                     logger.warning(nickname + " was forced to quit during message receiving");
-                }
+
                 closeSocket();
             }
-
     }
 }

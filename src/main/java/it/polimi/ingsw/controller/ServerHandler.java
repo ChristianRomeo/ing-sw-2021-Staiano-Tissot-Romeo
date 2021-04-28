@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.Events.ClientEvent;
 import it.polimi.ingsw.controller.Events.ServerEvent;
 import it.polimi.ingsw.model.LeaderCard;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,7 +17,7 @@ public class ServerHandler {
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private Socket socket;
-    //private View view;
+    private View view;
     private String nickname;
     private boolean isConnected = false;
     private final static Logger logger = Logger.getLogger(Server.class.getName());
@@ -42,16 +43,16 @@ public class ServerHandler {
                     }
             } catch (ClassNotFoundException | IOException e) {
                 if (isConnected) {
-                    //view.showErrorMessage("Server unreachable" + (Configs.isServerAlive() ? " during message reading" : "") + ".", true);
+                    view.showErrorMessage("Server unreachable" + (Configs.isServerAlive() ? " during message reading" : "") + ".");
                 }
                 isConnected = false;
             }
     }
 
-    /*
+
     public void setView(View view) {
-        //this.view = view;
-    }*/
+        this.view = view;
+    }
 
     public String getNickname() {
         return nickname;
@@ -95,7 +96,7 @@ public class ServerHandler {
             socket.close();
             isConnected = false;
         } catch (IOException e) {
-            //view.showErrorMessage("An error occurred " + (Configs.isServerAlive() ? "  when closing the connection" : "") + ".", true);
+            view.showErrorMessage("An error occurred " + (Configs.isServerAlive() ? "  when closing the connection" : "") + ".");
             logger.info(""+e);
         }
     }
@@ -163,7 +164,7 @@ public class ServerHandler {
      *
      * @param choice The choice of the user
      */
-    public void sendNewGame(boolean choice) {
+    public void sendNewGame(boolean choice) throws FileNotFoundException {
         isConnected = false;
         closeConnection();
         if (choice)
@@ -171,7 +172,7 @@ public class ServerHandler {
     }
 
 
-// ### SERVER TO CLIENT ####
+// ### SERVER TO CLIENT ####    forse non va qui
     /**
      * Update the nickname of the client
      *
