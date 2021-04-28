@@ -104,30 +104,51 @@ public class Controller extends ServerObservable {
 
     public void initialChoiceHandler(InitialChoiceEvent event){
         int indexLeader1= event.getIndexLeader1(), indexLeader2 = event.getIndexLeader2();
+        Resource resource1=event.getResource1(),resource2=event.getResource2();
+
         if(indexLeader1<0 || indexLeader1>3 || indexLeader2<0 || indexLeader2>3 ||indexLeader1==indexLeader2){
-            //scelta invalida
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
-            return;
+            return; //scelta invalida
         }
 
-        //qua devo fa controlli su resources scelte
-
+        if(game.getCurrentPlayerId()>0){
+            if(resource1==null||event.getResPosition1().getVal1()<1||event.getResPosition1().getVal2()<1|| event.getResPosition1().getVal1()>3||event.getResPosition1().getVal2()>3){
+                game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
+                return; //scelta invalida
+            }
+            try {
+                game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().insertResource(resource1,event.getResPosition1().getVal1(),event.getResPosition1().getVal2());
+            } catch (InvalidWarehouseInsertionException e) {
+                game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().clear();
+                game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
+                return; //scelta invalida
+            }
+            if(game.getCurrentPlayerId()>1){
+                game.incrementFaithTrackPosition(game.getCurrentPlayer());
+                if(game.getCurrentPlayerId()>2){
+                    if(resource2==null||event.getResPosition2().getVal1()<1||event.getResPosition2().getVal2()<1|| event.getResPosition2().getVal1()>3||event.getResPosition2().getVal2()>3){
+                        game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
+                        return; //scelta invalida
+                    }
+                    try {
+                        game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().insertResource(resource2,event.getResPosition2().getVal1(),event.getResPosition2().getVal2());
+                    } catch (InvalidWarehouseInsertionException e) {
+                        game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().clear();
+                        game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
+                        return; //scelta invalida
+                    }
+                }
+            }
+        }
         game.getCurrentPlayer().getStatusPlayer().removeTwoLeaderCards(indexLeader1,indexLeader2);
 
-
-
-        //faccio controlli su scelte fatte se sono accettabili o no
-        //se tutto bene applico le scelte fatte e proseguo cosi:
-
         if(game.getCurrentPlayerId()== game.getPlayersNumber()-1){
-            //ho finito di prendere le scelte, devo iniziare i veri turni
-            //devo pure fare il fatto di incrementare la posizione ai tizi
-            //todo: devo fare evento per dirlo
+            game.setCurrentPlayer(game.getPlayerByIndex(0));
+            notifyAllObservers(eventCreator.createEndPreparationEvent()); //ho finito di prendere le scelte, devo iniziare i veri turni
         }else{
             game.setCurrentPlayer(game.getPlayerByIndex(game.getCurrentPlayerId()+1));
             notifyAllObservers(eventCreator.createNewTurnEvent(getGame().getCurrentPlayer()));
         }
-
     }
 
     /*private void game() {
@@ -433,8 +454,7 @@ public class Controller extends ServerObservable {
             }
             if(canActivate){
                 leaderCard.activate();
-                //commento notifyAllObserver perchè nel fare test leader card controller non funziona al momento
-                //notifyAllObservers(eventCreator.createLeaderActionEvent()); //creation event to send to the clients
+                notifyAllObservers(eventCreator.createLeaderActionEvent()); //creation event to send to the clients
             }
             else
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));

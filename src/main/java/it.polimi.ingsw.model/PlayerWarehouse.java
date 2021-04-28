@@ -85,8 +85,8 @@ public class PlayerWarehouse {
      * and it controls that the insertion respects the rules
      * of the warehouse (and that the position wasn't already full)
      *
-     * @param row is the row of the warehouse where you want to insert the resource
-     * @param col is the column of the warehouse where you want to insert the resource
+     * @param row is the row of the warehouse where you want to insert the resource (1,2,3)
+     * @param col is the column of the warehouse where you want to insert the resource (1,2,3)
      * @param resource is the resource you want to insert in the warehouse
      */
     public void insertResource(Resource resource, int row, int col) throws InvalidWarehouseInsertionException {

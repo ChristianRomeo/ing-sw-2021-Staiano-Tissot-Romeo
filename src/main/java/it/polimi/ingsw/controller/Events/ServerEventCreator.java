@@ -98,4 +98,12 @@ public class ServerEventCreator{
         }
         return new EndGameEventS2C(winners,victoryPoints);
     }
+
+    public EndPreparationEventS2C createEndPreparationEvent(){
+        Map<String,PlayerWarehouse> warehouses = new HashMap<>();
+        for(Player p: controller.getGame().getPlayers()){
+            warehouses.put(p.getNickname(),p.getStatusPlayer().getPlayerWarehouse());
+        }
+        return new EndPreparationEventS2C(warehouses);
+    }
 }

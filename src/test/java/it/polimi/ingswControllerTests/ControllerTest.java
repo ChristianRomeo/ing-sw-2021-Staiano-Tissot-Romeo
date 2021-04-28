@@ -266,9 +266,7 @@ public class ControllerTest {
         assert(player.getStatusPlayer().getLeaderCard(0).isActivated());
     }
 
-    /*TODO: IL TEST FUNZIONA CORRETTAMENTE, MA ATTUALMENTE NEL CONTROLLER C'è IL METODO NOTIFYALLOBSERVERS (DOPO IF(CANACTIVATE))
-        CHE NON FUNZIONA E QUINDI PER FAR FUNZIONARE QUESTO TEST E' NECESSARIO COMMENTARE QUEL METODO AL MOMENTO.
-        DUNQUE HO COMMENTATO QUEL METODO NEL CONTROLLER*/
+
     @Test //test superato
     public void activateLeaderCardByResourcesTest() throws IOException, InvalidWarehouseInsertionException {
         Game game = new Game();
@@ -288,6 +286,7 @@ public class ControllerTest {
                 break;
             }
         }
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
             Resource requiredResourceType = player.getStatusPlayer().getLeaderCard(0).getRequiredResources().keySet().iterator().next();
             player.getStatusPlayer().getPlayerWarehouse().insertResource(requiredResourceType, 3, 1);
             player.getStatusPlayer().getPlayerWarehouse().insertResource(requiredResourceType, 3, 2);
