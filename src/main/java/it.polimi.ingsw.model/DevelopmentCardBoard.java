@@ -1,12 +1,10 @@
 package it.polimi.ingsw.model;
 
-import com.google.gson.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.io.*;
 import java.util.stream.Collectors;
-import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.controller.Configs;
 
 /**
@@ -93,8 +91,8 @@ public class DevelopmentCardBoard {
 
     /**
      * Method isCardPileEmpty to check whether a given pile is empty
-     * @param row
-     * @param column
+     * @param row   row of the pile
+     * @param column column of the pile
      * @return true / false
      */
     public boolean isCardPileEmpty(int row, int column) {

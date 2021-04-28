@@ -56,12 +56,10 @@ public class ClientProva {
 */
 
     //client che invia oggetti
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // establish a connection by providing host and port
         // number
         try {
-
             Socket socket = new Socket("localhost", 9876);
             // get the outputstream of client
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -85,6 +83,7 @@ public class ClientProva {
         }
         catch (Exception e) {
             e.printStackTrace();
+
         }
 
     }

@@ -1,17 +1,19 @@
 package it.polimi.ingsw.controller;
-//https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html
+//See: https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html
+
+import java.text.Normalizer;
 
 public enum Format {
-    RED("\u001B[31m"),
-    GREEN("\u001B[32m"),
+    RED("\u001B[31m"),  //for warnings
+    GREEN("\u001B[32m"),//for victory
     YELLOW("\u001B[33m"),
     BLUE("\u001B[34m"),
     PURPLE("\u001B[35m"),
+    RESET("\u001B[0m"),     //ESC[0m
     BOLD("\u001b[1m"),      //BOLD("\ESC[1m);
     ITALIC("\u001B[3m"),    //ESC[3m
     UNDERLINE("\u001b[4m"), //ESC[4m
     REVERSED("\u001b[7m"),  //ESC[7m
-    RESET("\u001B[0m"),     //ESC[0m
     DEATH("☠️"),
     TALK("\uD83D\uDCAC"),
     SLEEP("💤"),
@@ -27,30 +29,31 @@ public enum Format {
     /**
      * Returns a string formatted as wanted
      *
-     * @param style The style
+     * @param style The chosen style
      * @param text  The text to be formatted
-     * @return The formatted string
+     * @return string The formatted text
      */
     public static String style(char style, String text) {
-        Format myStyle = switch (Character.toLowerCase(style)) {
+        Format theStyle = switch (Character.toLowerCase(style)) {
             case 'i' -> ITALIC;
             case 'b' -> BOLD;
             case 'r' -> REVERSED;
             case 'u' -> UNDERLINE;
             default -> RESET;
         };
-        return myStyle + text + RESET;
+        //the strings needs reset escape code at the end
+        return theStyle + text + RESET;
     }
 
     /**
-     * Colored text
+     * Returns a string colored as wanted
      *
-     * @param color The color
+     * @param color The chosen color
      * @param text  The text to be colored
-     * @return The colored string
+     * @return string The colored text
      */
     public static String color(char color, String text) {
-        Format myColor = switch (Character.toLowerCase(color)) {
+        Format theColor = switch (Character.toLowerCase(color)) {
             case 'r' -> RED;
             case 'b' -> BLUE;
             case 'g' -> GREEN;
@@ -58,44 +61,44 @@ public enum Format {
             case 'p' -> PURPLE;
             default -> RESET;
         };
-        return myColor + text + RESET;
+        //the strings needs reset escape code at the end
+        return theColor + text + RESET;
     }
 
     /**
-     * Heading text
+     * Header
      *
      * @param s The string to be formatted
-     * @return The formatted string
+     * @return string The formatted string
      */
     public static String headingText(String s) {
-        int max = 167;
-        StringBuilder padding = new StringBuilder();
-        padding.append(" ".repeat(Math.max(0, (max - s.length()) / 2)));        //check if works
-
-        return BOLD + "" + REVERSED + padding + s + padding + RESET;
+        int maxLength = 170;
+        
+        String repeat = " ".repeat(Math.max(0, (maxLength - s.length()) / 2));
+        return BOLD + "" + REVERSED + repeat + s + repeat + RESET;
     }
 
+    //per fare prove
+    /*public static void main(String[] args){
+        System.out.println(Format.headingText("PROVA"));
+
+        resetScreen();
+
+    }*/
+
     /**
-     * Clears the screen and print the default heading
+     * Clears the screen and print the default header
      */
     public static void resetScreen() {
-        int height = 50;
-        StringBuilder clean = new StringBuilder();
-        for (int i = 0; i < height; i = i + 5)
-            clean.append("\n\n\n\n\n");
 
-        System.out.print(clean);
-        System.out.println(Format.headingText(""));
-        System.out.println(Format.headingText("M A S T E R S  O F  R E N A I S S A N C E "));
-        System.out.println(Format.headingText("") + "\n\n\n\n");
-    }
-
-    /**
-     * Clear the server log
-     */
-    public static void cls() {
-        System.out.print("\033[H\033[2J");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[H\033[2J");
         System.out.flush();
+
+        System.out.println(Format.headingText(""));
+        System.out.println(Format.headingText("M A S T E R S   O F   R E N A I S S A N C E "));
+        System.out.println(Format.headingText("") + "\n\n\n");
     }
 
     public String toString() {

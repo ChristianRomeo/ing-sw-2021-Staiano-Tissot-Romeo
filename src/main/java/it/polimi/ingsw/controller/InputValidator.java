@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
+/**
+ * Validate the input received form the user throught the View
+ */
 public class InputValidator {
 
     /**
@@ -21,9 +24,9 @@ public class InputValidator {
     }
 
     /**
-     * Tests if the input is a valid card position
+     * Tests if the input is a valid LeaderCard choice (1...4)
      * @param num  The entered text
-     * @return  The null value if the string is not a correct value, otherwise a map with row and column
+     * @return  The null value if the string is not a correct value, otherwise a TreeSet with row and column
      */
     public TreeSet<Integer> isLeaderCard(String num) {
         int first=5, last=5;
@@ -37,7 +40,7 @@ public class InputValidator {
     }
 
     /**
-     * Tests if the input is a valid card position
+     * Tests if the input is a valid card position in the matrix
      * @param num  The entered text
      * @return  The null value if the string is not a correct value, otherwise a map with row and column
      */
@@ -51,7 +54,7 @@ public class InputValidator {
     }
 
     /**
-     * Tests if the input is a nickname
+     * Tests if the input is a valid nickname with alphanumeric, one space, point, dash, underscore in regex
      * @param nickname  The entered string
      * @return  True if the nickname is valid, false otherwise
      */

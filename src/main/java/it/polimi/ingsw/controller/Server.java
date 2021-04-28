@@ -2,9 +2,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.Game;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -86,14 +83,14 @@ public class Server {
         if (++addedPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive())
             //currentVirtualView.getController().gameStarter();   //it's here but maybe shouldn't, servono più istanze per partite multiple?
             //ho spostato il game starter nel client handler per possibili problemi threads
-            clearGameRoom();
+            clearLobby();
 
     }
 
     /**
      * Clears the game room preparing it to welcome new users   PARTITE MULTIPLE
      */
-    private void clearGameRoom() {
+    private void clearLobby() {
         logger.info("Status: Game room is full.");
         currentGame = null;
         currentVirtualView = null;

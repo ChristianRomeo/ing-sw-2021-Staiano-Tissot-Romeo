@@ -7,22 +7,22 @@ public class Client {
 
     public static void main(String[] args) throws FileNotFoundException {
         Client client = new Client();
-        client.launch();
+        client.init();
     }
 
     /**
-     * ClientLauncher launcher. Asks the preferred UI and launches it.
+     * Client launcher let the player choose the UI
      */
-    private void launch() throws FileNotFoundException {
+    private void init() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
-        ServerHandler serverHandler = new ServerHandler();    //come clientHandler però dall'altro lato
+        ServerHandler serverHandler = new ServerHandler();    //come clientHandler però client side
         View view;
-
-        Format.resetScreen();
         boolean correct;
+
         do {
+            Format.resetScreen();
             System.out.print(Format.style('b', " Choose the interface you want to use [CLI/GUI]: "));
-            switch (scanner.nextLine()){
+            switch (scanner.nextLine().toUpperCase()){
                 case "CLI"->{
                     view = new CliView();
                     serverHandler.setView(view);
@@ -38,8 +38,7 @@ public class Client {
                     view.launch();
                 }
                 default -> {
-                    Format.resetScreen();
-                    System.out.println(Format.color('r', "  > Invalid choice. Try again."));
+                    System.out.println(Format.color('r', Format.CANT +"Invalid choice, try again: "));
                     correct = false;
                 }
             }

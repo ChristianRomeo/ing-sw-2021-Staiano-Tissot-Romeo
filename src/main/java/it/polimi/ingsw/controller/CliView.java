@@ -1,17 +1,19 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.DevelopmentCard;
-import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Player;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.logging.Logger;
 
+/**
+ * View side CLI Mode
+ */
 public class CliView implements View{
     private final Scanner scanner;
     private final InputValidator inputValidator;
     private ServerHandler serverHandler;
-    private final static Logger logger = Logger.getLogger(Server.class.getName());
+    private final static Logger logger = Logger.getLogger(Client.class.getName());
 
     /**
      * Constructor
@@ -30,12 +32,13 @@ public class CliView implements View{
         this.serverHandler = serverHandler;
     }
 
-    //todo: is this really necessary? possiamo aggregare?
-    public void launch() {
+    /**
+     * CLIui start, connects the client
+     */
+    public void launch() {  //todo: what does this do?
 
-        showMessage(Format.style('i', Format.TALK + "  > You will be added to the first available game..."),true);
-
-        serverHandler.setConnection();
+        showMessage(Format.style('i', Format.TALK + " Welcome\nPlease wait, You will join the first available game..."),true);
+        serverHandler.setUpConnection();
     }
 
     /**
@@ -54,7 +57,7 @@ public class CliView implements View{
      * Shows a waiting message to the user
      */
     public void showWaiting() {
-        showMessage(Format.style('i', Format.SLEEP + "  > The game will start shortly, brace yourself!"),true);
+        showMessage(Format.style('i', Format.SLEEP + " The game will start shortly, brace yourself!"),true);
     }
 
     /**
@@ -75,13 +78,13 @@ public class CliView implements View{
                 num=inputValidator.isNumPlayers(numPlayersString);
                 correct = num!=null;        //op. ternario
 
-                if (!correct) {
-                    showErrorMessage(Format.color('r', Format.CANT + "  > Invalid choice. Try again."));
-                }
+                if (!correct)
+                    showErrorMessage(Format.color('r', Format.CANT + " Invalid choice, Please try again: "));
+
             } while (!correct);
         }
-        showMessage(Format.style('i', Format.SLEEP + "\n  > Waiting for the other players to connect..."),true);
-        serverHandler.sendSetUpGame(nickname, num);
+        showMessage(Format.style('i', Format.SLEEP + "\n  Waiting for others players to connect..."),true);
+        serverHandler.sendSetUpPlayer(nickname, num);
     }
 
     /**
@@ -93,15 +96,15 @@ public class CliView implements View{
         boolean correct;
         String nickname;
         do {
-            showMessage(Format.style('b', Format.TALK + "\n Enter your nickname: "),true);
+
+            showMessage(Format.style('b', Format.TALK + "\n Please enter your nickname: "),true);
             nickname = scanner.nextLine();
             correct = inputValidator.isNickname(nickname);
-            if (!correct) {
-                Format.resetScreen();
-                showErrorMessage(Format.color('r', Format.CANT + "  > Invalid nickname. Try again."));
-            }
-        } while (!correct);
 
+            if (!correct)
+                showErrorMessage(Format.color('r', Format.CANT + " Invalid nickname, Please try again: "));
+
+        } while (!correct);
         return nickname;
     }
 
@@ -124,9 +127,10 @@ public class CliView implements View{
 
             enteredCard = inputValidator.isLeaderCard(chosenCards);
             correct = enteredCard!=null;
-            if(!correct){
-                showErrorMessage(Format.color('r', Format.CANT + "   > Invalid choice. Try again."));
-            }
+
+            if(!correct)
+                showErrorMessage(Format.color('r', Format.CANT + " Invalid choice, Please try again: "));
+
         } while (!correct);
 
         showWaiting();
@@ -217,7 +221,7 @@ public class CliView implements View{
             try {
                 action= scanner.nextInt();
             }catch (InputMismatchException e){
-                showErrorMessage(Format.style('b', Format.CANT + "Try again, Insert your action: "));
+                showErrorMessage(Format.style('b', Format.CANT + " Invalid choice, Please try again: "));
                 correct=false;
             }
 
@@ -235,7 +239,7 @@ public class CliView implements View{
         if(youWon)
             showMessage(Format.color('g', "\n\n\t" + Format.style('b', "Congratulations YOU WON " + Format.VICTORY)),true);
         else
-            showMessage(Format.color('r', "\n\n\t" + Format.style('b', "That's sad YOU LOSE " + Format.DEATH )),true);
+            showMessage(Format.color('r', "\n\n\t" + Format.style('b', "That's sad, YOU LOSE " + Format.DEATH )),true);
     }
 
     /**
@@ -243,7 +247,7 @@ public class CliView implements View{
      * @param scores a map with players scores
      */
     public void showLadderBoard(Map<Player,Integer> scores) throws FileNotFoundException {
-        showMessage(Format.style('g',Format.TALK + "This is the LadderBoard of the game:"+Format.VICTORY ),true);
+        showMessage(Format.style('g',Format.TALK + "This is the LadderBoard of the game:"+ Format.VICTORY ),true);
 
         scores.forEach((k, v) -> System.out.format("Player %s obtained %d points",k,v));
 
@@ -291,7 +295,7 @@ public class CliView implements View{
             choice = scanner.next();
 
             if (!choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("no")) {
-                showErrorMessage(Format.color('r', Format.CANT + "> Invalid choice. Try again."));
+                showErrorMessage(Format.color('r', Format.CANT + " Invalid choice, Please try again: "));
                 correct = false;
             }
         } while (!correct);
