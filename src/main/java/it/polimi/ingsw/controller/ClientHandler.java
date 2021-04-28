@@ -10,20 +10,27 @@ import java.net.Socket;
 import java.util.logging.Logger;
 
 /**
- *  Uno per giocatore , legge i messaggi, setta il nickname,
- *  setta numero giocatori IF FIRST, manda il ping ogni 2 secondi, manda il giocatore alla virtualview che lo aggiunge
+ *  Uno per giocatore , rappresenta il client lato server, legge i messaggi ricevuti dal client, setta il nickname,
+ *  setta numero giocatori IF FIRST, manda il ping ogni 2 secondi, manda il giocatore alla virtualView che lo aggiunge alla lista giocatori ed al game
  */
 public class ClientHandler implements Runnable {
-    private final Socket socket;                //univoca per ogni player,se si disconnette la perde
+    private final Socket socket;                //univoca per ogni player, se si disconnette la perde?
     private final VirtualView virtualView;      //una per game
-    private String nickname;                    //identifica il giocatore univocamente, per poi essere riconnesso
-    private final ObjectOutputStream output;
-    private final ObjectInputStream input;
+    private String nickname;                    //identifica il giocatore univocamente, per poi essere riconnesso?
+    private final ObjectOutputStream output;    //invia messaggi al client
+    private final ObjectInputStream input;      //riceve messaggi dal client
     private final boolean isFirstPlayer;        //clue per fargli scegliere le carte
     private final Object lock = new Object();
-    private boolean isConnected;                //modificato nel ping
+    private boolean isConnected;                //modificato nel ping e basta?
     private final static Logger logger = Logger.getLogger(Server.class.getName());
 
+    /**
+     * Constructor initializes stuff and starts pinging
+     * @param isFirstPlayer tells if the player has to choose cards
+     * @param socket    the client socket connected to the server
+     * @param virtualView   orchestrator of the game
+     * @throws IOException  socket exception
+     */
     public ClientHandler(boolean isFirstPlayer, Socket socket, VirtualView virtualView) throws IOException {
         this.isFirstPlayer = isFirstPlayer;
         this.socket = socket;
@@ -32,30 +39,39 @@ public class ClientHandler implements Runnable {
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
         socket.setSoTimeout(30000); // Sets the connection timeout to 30 seconds
-        //starts pinging
+        //starts pinging tcp client
         (new Thread(() -> {
             while(true)
                 try {
                     logger.warning("Pinging...");
                     if (!socket.getInetAddress().isReachable(3000)){
-                        logger.warning("waju s'è disconness");
+                        logger.warning("s'è disconnesso il client");
                         setDisconnected();
                     }
                     logger.warning("tt'appost");
                 } catch (IOException ignored) {}
         })).start();
 
-        //(new PingSender(this, true)).start();     //dobbiamo mandare un ping al client ogni 3 secondi per vedere se è connesso ancora dato che è tcp
+        //(new PingSender(this, true)).start();
     }
 
+    /**
+     * Getter of the user's nickname
+     * @return the nickname
+     */
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     * private Setter of the nickname
+     * @param nickname  nick of the user
+     */
     private void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
+    //todo:capire che fa e che fare
     private void connectionSetUp() {
 
         //SEND setupgame dove c'è execute di asknickname, if(newgame) asknumplayer
@@ -64,7 +80,6 @@ public class ClientHandler implements Runnable {
         //send(new SetUpGame(isFirstPlayer, nickname)); //Sends the initial connectionSetUp message to the client
 
         try {
-
             int idx=0;
             String nick = (String) input.readObject();      //invio stringa normale come prima cosa
             String tempNick = nick;
@@ -74,7 +89,7 @@ public class ClientHandler implements Runnable {
                         nick = tempNick + "_" + idx++;
                 setNickname(nick);
                     if (virtualView.getDisconnectedClients().stream().anyMatch(x-> x.equalsIgnoreCase(nickname))){
-                        //reconnect
+                        //reconnect if disconnected?
                     }else
                     virtualView.addClientHandler(this);
             }
@@ -99,6 +114,10 @@ public class ClientHandler implements Runnable {
 
     }
 
+    /**
+     * getter status of the client
+     * @return check status
+     */
     public boolean isConnected() {
         return isConnected;
     }
@@ -124,7 +143,7 @@ public class ClientHandler implements Runnable {
      */
      public void send(ServerEvent message) {
 
-         if (isConnected) //se quando non è più connesso si chiude tutto questo if manco serve in teoria
+         if (isConnected) //todo: se quando non è più connesso si chiude tutto forse, quindi questo if che serve?
             try {
                 synchronized (lock) {
                     output.writeUnshared(message);
@@ -132,46 +151,46 @@ public class ClientHandler implements Runnable {
                     output.reset();
                 }
             } catch (IOException e) {
-                if (isConnected) {
-                    // This player has disconnected
-                    logger.warning(nickname + " has disconnected during message sending");
+                if (isConnected) {  // This player has disconnected
+                    logger.warning(nickname + " has disconnected in send");
                     isConnected = false;
-                    //virtualView.setDisconnected(nickname);
-                } else
-                    // Another player has disconnected
-                    logger.warning(nickname + " was forced to quit during message sending");
+                    virtualView.setDisconnected(this);
+                } else  // Another player has disconnected
+                    logger.warning(nickname + " was disconnected due to shutdown in send");
                closeSocket();
             }
     }
 
+    /**
+     * Checks if game can start and then listen to input messages
+     */
     @Override
     public void run() {
 
+        //Controlla rispetto al game se è stato inizializzato il numero di giocatori e allora il game può iniziare perchè al completo
         synchronized (virtualView.getController().getGame()){
             if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber())
                 try {
                     virtualView.getController().gameStarter();
                 } catch (FileNotFoundException e) {
-                    logger.warning("errore nel game starter");
+                    logger.warning("file di carte config non trovato");
                 }
         }
 
+        //finchè è connesso allora ascolta lo stream input
         while (isConnected)
             try {
-                //receive messages by input.readObject
                 ClientEvent clientEvent = (ClientEvent) input.readObject();
-                //viene chiamata la virtualview che gestirà l'evento chiamando il controller
+                //viene chiamata la virtualView che gestirà l'evento chiamando il controller
                 clientEvent.notifyHandler(virtualView);
                 }
             catch (IOException | ClassNotFoundException e) {
-                if (isConnected) {
-                    // This player has disconnected
-                    logger.warning(nickname + " has been disconnected during message receiving");
+                if (isConnected) {  // This player has disconnected
+                    logger.warning(nickname + " has disconnected in receive");
                     isConnected = false;
-                    //virtualView.setDisconnected(nickname);
-                } else
-                    // Another player has disconnected
-                    logger.warning(nickname + " was forced to quit during message receiving");
+                    virtualView.setDisconnected(this);
+                } else  // Another player has disconnected
+                    logger.warning(nickname + " was disconnected due to shutdown in receive");
 
                 closeSocket();
             }

@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.*;
-
+import it.polimi.ingsw.model.LeaderCardDiscount;
+import it.polimi.ingsw.model.LeaderCardSlots;
+import it.polimi.ingsw.model.LeaderCardWhiteMarble;
+import it.polimi.ingsw.model.LeaderCard;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,19 +16,24 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Reads configs file from json
+ * Reads configs files from json, LeaderCards, DevelopmentCards and NetworkConfig
  */
 public class Configs {
 
     private final String server_ip;
     private final int server_port;
 
-    public Configs(String server_ip, int server_port) {     //va bene?
+    public Configs(String server_ip, int server_port) {     //va bene il costruttore?
         this.server_ip = server_ip;
         this.server_port = server_port;
     }
 
-    public static  String getServerIp() throws FileNotFoundException {
+    /**
+     * Getter of Default ip address
+     * @return  string the ip address from file
+     * @throws FileNotFoundException file not found
+     */
+    public static String getServerIp() throws FileNotFoundException {
         String CONFIGPATH = "src/main/resources/Configs.json";
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader(CONFIGPATH));
@@ -33,7 +41,12 @@ public class Configs {
         return configs.server_ip;
     }
 
-    public static  int getServerPort() throws FileNotFoundException {
+    /**
+     * Getter of Default port number
+     * @return int the port number from file
+     * @throws FileNotFoundException file not found
+     */
+    public static int getServerPort() throws FileNotFoundException {
         String CONFIGPATH = "src/main/resources/Configs.json";
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader(CONFIGPATH));
@@ -41,6 +54,11 @@ public class Configs {
         return configs.server_port;
     }
 
+    /**
+     * Getter of LeaderCards form file
+     * @return list with all the leader cards
+     * @throws FileNotFoundException file not found
+     */
     public static List<LeaderCard> getLeaderCards() throws FileNotFoundException {
         String LEADERPATH = "src/main/resources/Leaders.json";
 
@@ -66,9 +84,13 @@ public class Configs {
 
         Collections.shuffle(leaderCardList);
         return  leaderCardList;
-        //leaderCardList.forEach(System.out::println);
     }
 
+    /**
+     * Getter of development cards
+     * @return list with all of the development cards
+     * @throws FileNotFoundException file not found
+     */
     public static List<DevelopmentCard> getDevelopmentCards() throws FileNotFoundException {
         String CARDPATH = "src/main/resources/Cards.json";
 
@@ -77,6 +99,10 @@ public class Configs {
         return new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
     }
 
+    /**
+     * Util that client can use to check if it's still connected to the server
+     * @return true if the method can be called
+     */
     public static boolean isServerAlive(){
         return true;
     }
