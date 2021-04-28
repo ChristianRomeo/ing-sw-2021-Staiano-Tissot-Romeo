@@ -155,7 +155,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     }
 
     public void handleEvent(InitialChoiceEvent event){
-
+        controller.initialChoiceHandler(event); //poi magari faccio in un altro modo
     }
 
 

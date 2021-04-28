@@ -164,6 +164,19 @@ public class StatusPlayer {
                         leaderCards.add(leaderCard);
                 }
         }
+
+        /**
+         * It removes two leader cards from the leader card list, you have to pass the indexes of the
+         * card you want to remove.
+         *
+         */
+        public void removeTwoLeaderCards(int index1,int index2){
+                List<LeaderCard> newList = new ArrayList<>();
+                newList.add(leaderCards.get(index1));
+                newList.add(leaderCards.get(index2));
+                leaderCards.clear();
+                leaderCards.addAll(newList);
+        }
         /**
          * this method returns all the resources of the player.
          * @return a Map with all of the player's resources.

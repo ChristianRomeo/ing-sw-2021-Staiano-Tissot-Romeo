@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.Events.InitialChoiceEvent;
 import it.polimi.ingsw.controller.Events.ServerEventCreator;
 import it.polimi.ingsw.controller.Events.ServerObservable;
 import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
@@ -70,10 +71,16 @@ public class Controller extends ServerObservable {
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
         List<LeaderCard> leaderCardList = Configs.getLeaderCards();
+        Collections.shuffle(leaderCardList);
 
         for (Player pl : players){
 
             List<LeaderCard> choices = new ArrayList<>();
+            pl.getStatusPlayer().addLeaderCard(leaderCardList.get(0));
+            pl.getStatusPlayer().addLeaderCard(leaderCardList.get(1));
+            pl.getStatusPlayer().addLeaderCard(leaderCardList.get(2));
+            pl.getStatusPlayer().addLeaderCard(leaderCardList.get(3));
+
             choices.add(leaderCardList.remove(0));
             choices.add(leaderCardList.remove(0));
             choices.add(leaderCardList.remove(0));
@@ -89,9 +96,38 @@ public class Controller extends ServerObservable {
             */
         }
         //todo: e mo che si fa? come si fa ad iniziare?
-        //game();
         game.setCurrentPlayer(game.getPlayerByIndex(0));
         notifyAllObservers(eventCreator.createNewTurnEvent(getGame().getCurrentPlayer()));
+
+        //game() ??
+    }
+
+    public void initialChoiceHandler(InitialChoiceEvent event){
+        int indexLeader1= event.getIndexLeader1(), indexLeader2 = event.getIndexLeader2();
+        if(indexLeader1<0 || indexLeader1>3 || indexLeader2<0 || indexLeader2>3 ||indexLeader1==indexLeader2){
+            //scelta invalida
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
+            return;
+        }
+
+        //qua devo fa controlli su resources scelte
+
+        game.getCurrentPlayer().getStatusPlayer().removeTwoLeaderCards(indexLeader1,indexLeader2);
+
+
+
+        //faccio controlli su scelte fatte se sono accettabili o no
+        //se tutto bene applico le scelte fatte e proseguo cosi:
+
+        if(game.getCurrentPlayerId()== game.getPlayersNumber()-1){
+            //ho finito di prendere le scelte, devo iniziare i veri turni
+            //devo pure fare il fatto di incrementare la posizione ai tizi
+            //todo: devo fare evento per dirlo
+        }else{
+            game.setCurrentPlayer(game.getPlayerByIndex(game.getCurrentPlayerId()+1));
+            notifyAllObservers(eventCreator.createNewTurnEvent(getGame().getCurrentPlayer()));
+        }
+
     }
 
     /*private void game() {
