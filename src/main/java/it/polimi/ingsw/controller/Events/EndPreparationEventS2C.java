@@ -19,4 +19,9 @@ public class EndPreparationEventS2C extends ServerEvent{
         return warehouses;
     }
 
+    @Override
+    public void notifyHandler(ServerEventObserver eventHandler){
+        eventHandler.handleEvent(this);
+    }
+
 }

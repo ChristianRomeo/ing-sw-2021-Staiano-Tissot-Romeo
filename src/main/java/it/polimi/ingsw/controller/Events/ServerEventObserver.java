@@ -26,6 +26,9 @@ public interface ServerEventObserver {
 
     void handleEvent(LorenzoTurnEventS2C event);
 
+    void handleEvent(EndPreparationEventS2C event);
+
+
 
 
 }

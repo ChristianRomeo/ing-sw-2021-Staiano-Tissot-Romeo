@@ -145,7 +145,7 @@ public class ClientHandler implements Runnable {
 
          if (isConnected) //todo: se quando non è più connesso si chiude tutto forse, quindi questo if che serve?
             try {
-                synchronized (lock) {
+                synchronized (lock) { //lock??
                     output.writeUnshared(message);
                     output.flush();
                     output.reset();
@@ -167,6 +167,8 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
+        //qua credo vada connectionsetup
+
         //Controlla rispetto al game se è stato inizializzato il numero di giocatori e allora il game può iniziare perchè al completo
         synchronized (virtualView.getController().getGame()){
             if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber())
@@ -182,8 +184,10 @@ public class ClientHandler implements Runnable {
             try {
                 ClientEvent clientEvent = (ClientEvent) input.readObject();
                 //viene chiamata la virtualView che gestirà l'evento chiamando il controller
-                clientEvent.notifyHandler(virtualView);
+                if(nickname.equals(virtualView.getController().getGame().getCurrentPlayer().getNickname())){
+                    clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare
                 }
+            }
             catch (IOException | ClassNotFoundException e) {
                 if (isConnected) {  // This player has disconnected
                     logger.warning(nickname + " has disconnected in receive");

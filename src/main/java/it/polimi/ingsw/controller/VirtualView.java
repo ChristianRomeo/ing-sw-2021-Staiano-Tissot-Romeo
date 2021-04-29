@@ -229,4 +229,10 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
+
+    @Override
+    public void handleEvent(EndPreparationEventS2C event) {
+        //invia evento ai dovuti client
+        sendToEveryone(event);
+    }
 }

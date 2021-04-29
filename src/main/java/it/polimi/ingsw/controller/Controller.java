@@ -87,18 +87,10 @@ public class Controller extends ServerObservable {
             choices.add(leaderCardList.remove(0));
             logger.info("Welcoming the Client...");
             notifyAllObservers(eventCreator.createGameStarterEvent(choices,pl));
-            /*
-            logger.info("cards from player"+ pl +" are chosen");
-            if (game.getCurrentPlayerId()>0)
-            logger.info("player"+ pl +"is choosing resources");
-            if (game.getCurrentPlayerId()>1)
-            logger.info("player"+ pl +"is getting fp");
-            */
         }
-        //todo: e mo che si fa? come si fa ad iniziare?
+
         game.setCurrentPlayer(game.getPlayerByIndex(0));
         notifyAllObservers(eventCreator.createNewTurnEvent(getGame().getCurrentPlayer()));
-
         //game() ??
     }
 
@@ -123,22 +115,22 @@ public class Controller extends ServerObservable {
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
                 return; //scelta invalida
             }
-            if(game.getCurrentPlayerId()>1){
-                game.incrementFaithTrackPosition(game.getCurrentPlayer());
-                if(game.getCurrentPlayerId()>2){
-                    if(resource2==null||event.getResPosition2().getVal1()<1||event.getResPosition2().getVal2()<1|| event.getResPosition2().getVal1()>3||event.getResPosition2().getVal2()>3){
-                        game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
-                        return; //scelta invalida
-                    }
-                    try {
-                        game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().insertResource(resource2,event.getResPosition2().getVal1(),event.getResPosition2().getVal2());
-                    } catch (InvalidWarehouseInsertionException e) {
-                        game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().clear();
-                        game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
-                        return; //scelta invalida
-                    }
+            if(game.getCurrentPlayerId()>2){
+                if(resource2==null||event.getResPosition2().getVal1()<1||event.getResPosition2().getVal2()<1|| event.getResPosition2().getVal1()>3||event.getResPosition2().getVal2()>3){
+                    game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
+                    return; //scelta invalida
+                }
+                try {
+                    game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().insertResource(resource2,event.getResPosition2().getVal1(),event.getResPosition2().getVal2());
+                } catch (InvalidWarehouseInsertionException e) {
+                    game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse().clear();
+                    game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(), "IllegalInitialChoice"));
+                    return; //scelta invalida
                 }
             }
+        }
+        if(game.getCurrentPlayerId()>1){
+            game.incrementFaithTrackPosition(game.getCurrentPlayer());
         }
         game.getCurrentPlayer().getStatusPlayer().removeTwoLeaderCards(indexLeader1,indexLeader2);
 
@@ -211,7 +203,7 @@ public class Controller extends ServerObservable {
         return true;
     }
 
-    public void notifyController() {
+    public void notifyController() { //????
         synchronized (this) {
             this.notifyAll();
         }
