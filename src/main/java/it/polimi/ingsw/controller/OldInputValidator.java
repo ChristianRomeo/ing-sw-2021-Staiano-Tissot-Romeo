@@ -7,7 +7,7 @@ import java.util.TreeSet;
 /**
  * Validate the input received form the user throught the View
  */
-public class InputValidator {
+public class OldInputValidator {
 
     /**
      * Tests if the input is a correct number of players

@@ -55,7 +55,7 @@ public class Configs {
     }
 
     /**
-     * Getter of LeaderCards form file
+     * Getter of LeaderCards from file
      * @return list with all the leader cards
      * @throws FileNotFoundException file not found
      */

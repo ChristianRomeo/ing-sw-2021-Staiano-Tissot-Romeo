@@ -12,27 +12,14 @@ public interface View {
     /**
      * Sets the serverHandler
      *
-     * @param serverHandler The serverHandler
+     * @param oldServerHandler The serverHandler
      */
-    void setServerHandler(ServerHandler serverHandler);
+    void setServerHandler(OldServerHandler oldServerHandler);
 
     /**
      * Interface launcher. set connection CAN AGGREGATE
      */
     void launch() throws FileNotFoundException;
-
-    /**
-     * Shows a message to the user
-     *
-     * @param message   The message to be shown
-     * @param newScreen True want to clean the console
-     */
-    void showMessage(String message, boolean newScreen);
-
-    /**
-     * Shows a waiting message to the user
-     */
-    void showWaiting();
 
     /**
      * Asks nickname and if it's a new game the number of players for the game and notify the information to the serverHandler
@@ -82,39 +69,10 @@ public interface View {
     void askAction(List<Integer> roundActions);
 
     /**
-     * Notify that the game has ended and the winning status
-     *
-     * @param winner The nickname of the winner
-     * @param youWon True if the player has win
-     */
-    void showEndGameMessage(String winner, boolean youWon);
-
-    /**
      * Shows the LadderBoard of the match
      *
      * @param scores a map with players scores
      */
     void showLadderBoard(Map<Player, Integer> scores) throws FileNotFoundException;
-
-    /**
-     * Notify all that a player has been disconnected (and the game has ended ?FA)
-     *
-     * @param disconnected The nickname of the disconnected player
-     */
-    void showDisconnectionMessage(String disconnected) throws FileNotFoundException;
-
-    /**
-     * Notify whose turn is
-     *
-     * @param currentNickname The nickname of whom taking the turn
-     */
-    void showTurn(String currentNickname);
-
-    /**
-     * Shows an error message
-     *
-     * @param errorMessage The message to be shown
-     */
-    void showErrorMessage(String errorMessage);
 
 }

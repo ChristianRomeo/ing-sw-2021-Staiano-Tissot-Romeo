@@ -13,32 +13,33 @@ public class Client {
     /**
      * Client launcher let the player choose the UI
      */
+    //todo: da modificare
     private void init() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
-        ServerHandler serverHandler = new ServerHandler();    //come clientHandler però client side
+        OldServerHandler oldServerHandler = new OldServerHandler();    //come clientHandler però client side
         View view;
         boolean correct;
 
         do {
-            Format.resetScreen();
-            System.out.print(Format.style('b', " Choose the interface you want to use [CLI/GUI]: "));
+            //reset screen
+            System.out.print(" Choose the interface you want to use [CLI/GUI]: ");
             switch (scanner.nextLine().toUpperCase()){
                 case "CLI"->{
                     view = new CliView();
-                    serverHandler.setView(view);
-                    view.setServerHandler(serverHandler);
+                    oldServerHandler.setView(view);
+                    view.setServerHandler(oldServerHandler);
                     correct = true;
                     view.launch();
                 }
                 case "GUI" -> {
-                    view = new GuiView();
-                    serverHandler.setView(view);
-                    view.setServerHandler(serverHandler);
+                    //view = new GuiView();
+                    //oldServerHandler.setView(view);
+                    //view.setServerHandler(oldServerHandler);
                     correct = true;
-                    view.launch();
+                    //view.launch();
                 }
                 default -> {
-                    System.out.println(Format.color('r', Format.CANT +"Invalid choice, try again: "));
+                    System.out.println("Invalid choice, try again: ");
                     correct = false;
                 }
             }

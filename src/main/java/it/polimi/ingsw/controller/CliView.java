@@ -11,34 +11,37 @@ import java.util.logging.Logger;
  */
 public class CliView implements View{
     private final Scanner scanner;
-    private final InputValidator inputValidator;
-    private ServerHandler serverHandler;
+    private final OldInputValidator oldInputValidator;
+    private OldServerHandler oldServerHandler;
     private final static Logger logger = Logger.getLogger(Client.class.getName());
 
     /**
      * Constructor
      */
     public CliView() {
-        this.inputValidator = new InputValidator();
+        this.oldInputValidator = new OldInputValidator();
         this.scanner = new Scanner(System.in);
     }
 
     /**
      * Sets the serverHandler
      *
-     * @param serverHandler The serverHandler
+     * @param oldServerHandler The serverHandler
      */
-    public void setServerHandler(ServerHandler serverHandler) {
-        this.serverHandler = serverHandler;
+    public void setServerHandler(OldServerHandler oldServerHandler) {
+        this.oldServerHandler = oldServerHandler;
     }
 
     /**
      * CLIui start, connects the client
      */
     public void launch() {  //todo: what does this do?
+        /*
 
         showMessage(Format.style('i', Format.TALK + " Welcome\nPlease wait, You will join the first available game..."),true);
         serverHandler.setUpConnection();
+
+         */
     }
 
     /**
@@ -66,6 +69,7 @@ public class CliView implements View{
      * @param newGame True if the it is a new game, otherwise false
      */
     public void setUpGame(boolean newGame) {
+        /*
         String nickname = askNickname();
 
         boolean correct;
@@ -85,6 +89,8 @@ public class CliView implements View{
         }
         showMessage(Format.style('i', Format.SLEEP + "\n  Waiting for others players to connect..."),true);
         serverHandler.sendSetUpPlayer(nickname, num);
+        */
+
     }
 
     /**
@@ -93,16 +99,17 @@ public class CliView implements View{
      * @return The chosen nickname
      */
     private String askNickname() {
+
         boolean correct;
         String nickname;
         do {
 
-            showMessage(Format.style('b', Format.TALK + "\n Please enter your nickname: "),true);
+            //showMessage("\n Please enter your nickname: ",true);
             nickname = scanner.nextLine();
-            correct = inputValidator.isNickname(nickname);
+            correct = oldInputValidator.isNickname(nickname);
 
-            if (!correct)
-                showErrorMessage(Format.color('r', Format.CANT + " Invalid nickname, Please try again: "));
+            //if (!correct)
+                //showErrorMessage(" Invalid nickname, Please try again: ");
 
         } while (!correct);
         return nickname;
@@ -112,6 +119,7 @@ public class CliView implements View{
      * Asking the game cards
      */
     public void askLeaderCards() {
+        /*
         //List<LeaderCard> chosenLeaderCards = new ArrayList<>();
         TreeSet<Integer> enteredCard;
         boolean correct;
@@ -135,6 +143,8 @@ public class CliView implements View{
 
         showWaiting();
        //serverHandler.sendLeaderCards(enteredCard);    //in base alle informazioni che avremo nel client scegliamo se mandare un numero o tipo LeaderCard
+       */
+
     }
 
     /**
@@ -143,13 +153,14 @@ public class CliView implements View{
      * @param cards All the remaining DevelopmentCards
      */
     public void showDevelopmentCards(List<DevelopmentCard> cards) {
+        /*
         //List<DevelopmentCard> allCard = Configs.getDevelopmentCards();
 
         showMessage(" " + Format.style('b', Format.TALK + "The cards used in this match will be:"),true);
         for (DevelopmentCard card : cards) {
                 //System.out.println(Format.style('b', "\n   ❖ " + card.getName().toUpperCase()));      //again, cosa stampiamo
 
-        }
+        }*/
     }
 
     /**
@@ -158,12 +169,13 @@ public class CliView implements View{
      * @param playerList The list of players of the game
      */
     public void showPlayersBoard(List<Player> playerList) {
+        /*
 
         showMessage(" " + Format.style('b', "CardBoards:"),true);
         for (Player player : playerList) {
             showMessage(Format.style('b', "\n   ▷ " + player.getNickname()),false);
             //System.out.println(Format.style('i', " Has " + player.getStatusPlayer().getPersonalCardBoard().getCard(i,j)));     //loop the boardcards
-        }
+        }*/
     }
 
     /**
@@ -172,6 +184,7 @@ public class CliView implements View{
      * @param playerList The list of players of the game
      */
     public void showPlayersLeaderCards(List<Player> playerList) {
+        /*
         showMessage(" " + Format.style('b', "LeaderCards:"),true);
         for (Player player : playerList) {
             showMessage(Format.style('b', "\n   ▷ " + player.getNickname()),false);
@@ -180,7 +193,7 @@ public class CliView implements View{
             if (player.getStatusPlayer().getLeaderCard(1).isActivated())
             showMessage(Format.style('i', " Has Activated " + player.getStatusPlayer().getLeaderCard(1).getId()),false);   //again, cosa stampiamo
 
-        }
+        } */
     }
 
     /**
@@ -189,7 +202,7 @@ public class CliView implements View{
      * @param trackInfo   The track's player position ([0] first, [1] second...)
      */
     public void showFaithTrack(List<Integer> trackInfo) {
-        Format.resetScreen();
+       // Format.resetScreen();
 
 
     }
@@ -200,10 +213,10 @@ public class CliView implements View{
      * @param roundActions  The possible actions    ([0]market, [1] prod, [2]warehouse)
      */
     public void askAction(List<Integer> roundActions) {
-
+    /*
         boolean correct;
 
-        Format.resetScreen();
+        //eventually reset screen
         do {
             correct=true;
             showMessage("\n" + Format.style('b', "Possible actions are: "),false);
@@ -227,6 +240,8 @@ public class CliView implements View{
 
             //serverHandler.sendAction(action);     //send the choice
         } while (!correct);
+        */
+
     }
 
     /**
@@ -247,11 +262,12 @@ public class CliView implements View{
      * @param scores a map with players scores
      */
     public void showLadderBoard(Map<Player,Integer> scores) throws FileNotFoundException {
+        /*
         showMessage(Format.style('g',Format.TALK + "This is the LadderBoard of the game:"+ Format.VICTORY ),true);
 
         scores.forEach((k, v) -> System.out.format("Player %s obtained %d points",k,v));
 
-        askNewGame();
+        askNewGame(); */
     }
 
     /**
