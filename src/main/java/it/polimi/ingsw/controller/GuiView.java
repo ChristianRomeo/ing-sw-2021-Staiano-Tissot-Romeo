@@ -14,7 +14,7 @@ public class GuiView implements View{
      *
      * @param serverHandler The serverHandler
      */
-    public void setServerHandler(ServerHandler serverHandler) {
+    public void setServerHandler(OldServerHandler serverHandler) {
 
     }
 

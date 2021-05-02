@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.client.CliView;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  * View side CLI Mode
  */
-public class CliView implements View{
+public class OldCliView implements View{
     private final Scanner scanner;
     private final OldInputValidator oldInputValidator;
     private OldServerHandler oldServerHandler;
@@ -18,7 +18,7 @@ public class CliView implements View{
     /**
      * Constructor
      */
-    public CliView() {
+    public OldCliView() {
         this.oldInputValidator = new OldInputValidator();
         this.scanner = new Scanner(System.in);
     }
@@ -42,6 +42,8 @@ public class CliView implements View{
         serverHandler.setUpConnection();
 
          */
+
+
     }
 
     /**
@@ -52,7 +54,7 @@ public class CliView implements View{
      */
     public void showMessage(String message, boolean newScreen) {
         if (newScreen)
-            Format.resetScreen();
+            //Format.resetScreen();
         System.out.println(message);
     }
 
@@ -60,7 +62,7 @@ public class CliView implements View{
      * Shows a waiting message to the user
      */
     public void showWaiting() {
-        showMessage(Format.style('i', Format.SLEEP + " The game will start shortly, brace yourself!"),true);
+      //  showMessage(Format.style('i', Format.SLEEP + " The game will start shortly, brace yourself!"),true);
     }
 
     /**
@@ -252,9 +254,9 @@ public class CliView implements View{
      */
     public void showEndGameMessage(String winner, boolean youWon) {
         if(youWon)
-            showMessage(Format.color('g', "\n\n\t" + Format.style('b', "Congratulations YOU WON " + Format.VICTORY)),true);
+            showMessage("Congratulations YOU WON " ,true);
         else
-            showMessage(Format.color('r', "\n\n\t" + Format.style('b', "That's sad, YOU LOSE " + Format.DEATH )),true);
+            showMessage("That's sad, YOU LOSE " ,true);
     }
 
     /**
@@ -276,8 +278,7 @@ public class CliView implements View{
      * @param disconnected The nickname of the disconnected player
      */
     public void showDisconnectionMessage(String disconnected) throws FileNotFoundException {
-        showMessage(Format.color('r', "\n\n\t" + Format.style('u', Format.DEATH + "GAME OVER: " + disconnected + " has disconnected.")),true);   //oppure diverso in base alla FA
-        askNewGame();   //da vedere
+        showMessage("GAME OVER: " + disconnected + " has disconnected.",true);   //oppure diverso in base alla FA
     }
 
     /**
@@ -286,7 +287,7 @@ public class CliView implements View{
      * @param errorMessage The message to be shown
      */
     public void showErrorMessage(String errorMessage) {     //invalid action
-        showMessage(Format.color('r', "> Error: " + errorMessage),true);
+        showMessage("> Error: ",true);
     }
 
     /**
@@ -295,27 +296,7 @@ public class CliView implements View{
      * @param currentNickname The nickname of whom taking the turn
      */
     public void showTurn(String currentNickname) {
-        showMessage(Format.style('b', Format.TALK + "It's " + currentNickname + "'s turn."), false);
+        showMessage("It's " + currentNickname + "'s turn.", false);
     }
 
-    /**
-     * Asks to the player if wants to start a new game
-     */
-    private void askNewGame() throws FileNotFoundException {
-        showMessage(Format.TALK + "\n\tDo you want to play again? [Yes/No]: ",false);
-
-        boolean correct;
-        String choice;
-        do {
-            correct = true;
-            choice = scanner.next();
-
-            if (!choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("no")) {
-                showErrorMessage(Format.color('r', Format.CANT + " Invalid choice, Please try again: "));
-                correct = false;
-            }
-        } while (!correct);
-
-        serverHandler.sendNewGame(choice.equalsIgnoreCase("yes"));
-    }
 }
