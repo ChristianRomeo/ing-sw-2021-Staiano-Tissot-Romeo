@@ -6,8 +6,9 @@ import it.polimi.ingsw.model.Market;
  * Class ClientModel is a simplified model which the client sees
  */
 public class ClientModel {
-   DevelopmentCardBoard developmentCardBoard;
-   Market market;
+   private DevelopmentCardBoard developmentCardBoard;
+   private Market market;
+
 
 
 }
