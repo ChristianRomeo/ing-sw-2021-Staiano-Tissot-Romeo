@@ -40,6 +40,7 @@ public class ClientHandler implements Runnable {
         this.isConnected = true;
         socket.setSoTimeout(30000); // Sets the connection timeout to 30 seconds
         //starts pinging tcp client
+        /*
         (new Thread(() -> {
             while(true)
                 try {
@@ -51,7 +52,7 @@ public class ClientHandler implements Runnable {
                     logger.warning("tt'appost");
                 } catch (IOException ignored) {}
         })).start();
-
+        */
         //(new PingSender(this, true)).start();
     }
 
@@ -81,37 +82,49 @@ public class ClientHandler implements Runnable {
 
         try {
             int idx=0;
-            String nick = (String) input.readObject();      //invio stringa normale come prima cosa
+            NewConnectionEvent newConnectionEvent = (NewConnectionEvent) input.readObject();
+            String nick = newConnectionEvent.getNickname(); //forse sta parte si può mettere nella virtual view per coerenza
+            System.out.println("nick ricevuto"); // debug
+
             String tempNick = nick;
             synchronized (virtualView){     //ha senso sincronizzare la vv?
                 for (ClientHandler cl : virtualView.getClientHandlers())
                     while (cl.getNickname().equalsIgnoreCase(nick) || cl.getNickname().equalsIgnoreCase("Lorenzo il Magnifico"))
                         nick = tempNick + "_" + idx++;
                 setNickname(nick);
-                    if (virtualView.getDisconnectedClients().stream().anyMatch(x-> x.equalsIgnoreCase(nickname))){
-                        //reconnect if disconnected?
-                    }else
-                    virtualView.addClientHandler(this);
+                System.out.println("nick impostato"); // debug
+
+                //if (virtualView.getDisconnectedClients().stream().anyMatch(x-> x.equalsIgnoreCase(nickname))){
+                    //reconnect if disconnected? //ho commentato sta parte perchè dava problemi
+              //  }else {
+                virtualView.addClientHandler(this);
+
+             //   }
             }
 
         } catch (IOException | ClassNotFoundException e) {
             logger.warning("errore nel leggere il nickname");
         }
 
-        if(isFirstPlayer)
+        if(isFirstPlayer) {
             try {
-                 output.writeObject("you're first");     //INSERIRE NUMERO GIOCATORI evento:NumPlayerEvent
-                //int playersNum = (Integer) input.readObject();
-                synchronized (virtualView.getController().getGame()){   //faccio la notify quando è stato impostato il numero di giocatori così che il server possa riprendere l'esecuzione
-                    ClientEvent clientEvent = (ClientEvent) input.readObject();
-                    clientEvent.notifyHandler(virtualView);
+
+                NewConnectionEventS2C newConnectionEventS2C = new NewConnectionEventS2C(nickname,true);
+                send(newConnectionEventS2C);
+
+                synchronized (virtualView.getController().getGame()) {   //faccio la notify quando è stato impostato il numero di giocatori così che il server possa riprendere l'esecuzione
+                    NumPlayerEvent numPlayerEvent = (NumPlayerEvent) input.readObject();
+                    numPlayerEvent.notifyHandler(virtualView);
                     virtualView.getController().getGame().notifyAll();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 logger.warning("errore nel leggere il numero giocatori");
             }
 
-
+        }else{
+            NewConnectionEventS2C newConnectionEventS2C = new NewConnectionEventS2C(nickname,false);
+            send(newConnectionEventS2C);
+        }
     }
 
     /**
@@ -167,7 +180,7 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
-        //qua credo vada connectionsetup
+        connectionSetUp();
 
         //Controlla rispetto al game se è stato inizializzato il numero di giocatori e allora il game può iniziare perchè al completo
         synchronized (virtualView.getController().getGame()){

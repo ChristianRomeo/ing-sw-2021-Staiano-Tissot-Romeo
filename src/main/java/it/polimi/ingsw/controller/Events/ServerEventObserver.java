@@ -28,6 +28,9 @@ public interface ServerEventObserver {
 
     void handleEvent(EndPreparationEventS2C event);
 
+    void handleEvent(NewConnectionEventS2C event);
+
+
 
 
 

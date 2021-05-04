@@ -1,8 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.Configs;
-import it.polimi.ingsw.controller.Events.ServerEvent;
-import it.polimi.ingsw.controller.Events.ServerEventObserver;
+import it.polimi.ingsw.controller.Events.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,22 +47,61 @@ public class ConnectionHandler implements Runnable{
 
         //qui si chiede nickname a giocatore e lo imposta (o posso chiederlo anche da un'altra parte,
         //magari prima di cominciare la connessione e attivare la socket, è meglio)
-        String nickname = "";
+        String nickname = "provaNickname1";
 
-        //bisogna finire di definire la procedura di connessione iniziale anche lato server
-        //per vedere se tipo si manda un evento se sei il primo ecc
+        send(new NewConnectionEvent(nickname)); // invio evento con nickname
+        System.out.println("nick inviato"); // debug
 
-        //comunque qui dovrebbe starci la ricezione di un evento da server che ci dice sei il primo o no
-        // se non lo sei allora invii tipo un evento newConnection con solo il tuo nickname
-        // se sei il primo allora qua parte un metodo che chiede  a utente il numero di giocatori
-        // e poi si invia al server evento newConnection con nickname e num giocatori al server
+        try {
+            //ricevo risposta dal server
+            NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();
+
+            System.out.println("risposta ricevuta"); // debug
+//BISOGNA METTERE EVENTI SERIALIZABLE
+            //serverAnswer.getNickname() e si imposta il nickname ricevuto da qualche parte (nel clientModel)
+
+            if(serverAnswer.isFirstPlayer()){
+
+                //qui si chiede il numero di giocatori voluto all'utente
+                int wantedNumPlayers=2; //per esempio
+
+                send(new NumPlayerEvent(wantedNumPlayers));
+
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace(); //errore
+        }
+
+
 
         //quindi arrivato qua il client si è connesso con il server,ha inviato il suo nickname e
         //eventualmente il numero di giocatori
+
+
 
         //ora attivo la ricezione di messaggi da server
         (new Thread(this)).start();
 
 
+    }
+
+    /**
+     * Sends a message to the server
+     *
+     * @param message The message to be sent
+     */
+    public void send(ClientEvent message) {
+        if (isConnected) {
+            try {
+                //synchronized (lock) {
+                    output.writeUnshared(message);
+                    output.flush();
+                    output.reset();
+              //  }
+            } catch (IOException e) {
+                isConnected = false;
+                //view.showErrorMessage("Server unreachable" + (Configs.isServerAlive() ? " during sending" : "") + ".");
+            }
+        }
     }
 }

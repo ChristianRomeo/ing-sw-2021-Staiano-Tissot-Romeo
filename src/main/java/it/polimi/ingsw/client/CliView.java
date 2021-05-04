@@ -26,14 +26,14 @@ public class CliView implements View {
     }
 
     @Override
-    public void setServerHandler(OldServerHandler oldServerHandler) {
-
+    public void setConnectionHandler(ConnectionHandler connectionHandler) {
+        this.connectionHandler=connectionHandler;
     }
 
     @Override
     public void launch() throws FileNotFoundException {
         connectionHandler.setUpConnection();
-        //poi credo qua devo far partire metodo che chiede cose a utente in continuazione
+        //poi credo qua devo far partire metodo che chiede cose a utente in continuazione:
         askActions();
 
     }

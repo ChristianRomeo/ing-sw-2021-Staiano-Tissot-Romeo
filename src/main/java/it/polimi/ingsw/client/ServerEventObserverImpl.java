@@ -65,4 +65,9 @@ public class ServerEventObserverImpl implements ServerEventObserver {
     public void handleEvent(EndPreparationEventS2C event) {
 
     }
+
+    @Override
+    public void handleEvent(NewConnectionEventS2C event) {
+
+    }
 }

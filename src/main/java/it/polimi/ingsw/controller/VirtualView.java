@@ -32,6 +32,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
             clientHandlers.add(clientHandler);
             controller.getGame().addNewPlayer(new Player(clientHandler.getNickname())); //copia aggiunta utente in game e creazione giocatore
         }
+        logger.info("nuovo player aggiunto con nickname:"+ clientHandler.getNickname());
     }
 
     public void sendToEveryone(ServerEvent serverEvent){
@@ -234,5 +235,10 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public void handleEvent(EndPreparationEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
+    }
+
+    @Override
+    public void handleEvent(NewConnectionEventS2C event) {
+
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.client.ConnectionHandler;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Player;
 
@@ -12,9 +13,9 @@ public class GuiView implements View{
     /**
      * Sets the serverHandler
      *
-     * @param serverHandler The serverHandler
+     * @param connectionHandler The serverHandler
      */
-    public void setServerHandler(OldServerHandler serverHandler) {
+    public void setConnectionHandler(ConnectionHandler connectionHandler) {
 
     }
 

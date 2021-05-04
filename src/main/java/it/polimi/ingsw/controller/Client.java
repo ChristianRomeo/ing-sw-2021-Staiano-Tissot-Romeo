@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.client.CliView;
+import it.polimi.ingsw.client.ConnectionHandler;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class Client {
     //todo: da modificare
     private void init() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
-        OldServerHandler oldServerHandler = new OldServerHandler();    //come clientHandler però client side
+        ConnectionHandler connectionHandler = new ConnectionHandler();  //come clientHandler però client side
         View view;
         boolean correct;
 
@@ -28,8 +29,8 @@ public class Client {
             switch (scanner.nextLine().toUpperCase()){
                 case "CLI"->{
                     view = new CliView();
-                    oldServerHandler.setView(view);
-                    view.setServerHandler(oldServerHandler);
+                    //connectionHandler.setView(view);
+                    view.setConnectionHandler(connectionHandler);
                     correct = true;
                     view.launch();
                 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.client.ConnectionHandler;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Player;
 
@@ -12,9 +13,9 @@ public interface View {
     /**
      * Sets the serverHandler
      *
-     * @param oldServerHandler The serverHandler
+     * @param connectionHandler The handler of the server connection
      */
-    void setServerHandler(OldServerHandler oldServerHandler);
+    void setConnectionHandler(ConnectionHandler connectionHandler);
 
     /**
      * Interface launcher. set connection CAN AGGREGATE
