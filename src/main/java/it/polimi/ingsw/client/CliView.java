@@ -17,12 +17,14 @@ public class CliView implements View {
     private final Scanner scanner;
     private ConnectionHandler connectionHandler;
     private final static Logger logger = Logger.getLogger(Client.class.getName());
+    private ActionHandler actionHandler;
 
     /**
      * Constructor
      */
     public CliView() {
         this.scanner = new Scanner(System.in);
+        actionHandler = new ActionHandler();
     }
 
     @Override
@@ -44,7 +46,8 @@ public class CliView implements View {
             String newAction = scanner.nextLine();
             //qui ora si deve passare questa stringa newAction a chi vede se è una azione valida o no
             //e nel caso si chiama il metodo corrispondente (che potrà ulteriormente parlare all'utente
-            //e chiedergli cose)
+            //e chiedergli cose):
+            actionHandler.handleAction(newAction);
         }
     }
 
