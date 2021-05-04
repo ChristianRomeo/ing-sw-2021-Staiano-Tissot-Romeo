@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.Client;
-import it.polimi.ingsw.controller.OldInputValidator;
 import it.polimi.ingsw.controller.OldServerHandler;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.DevelopmentCard;
@@ -35,7 +34,18 @@ public class CliView implements View {
     public void launch() throws FileNotFoundException {
         connectionHandler.setUpConnection();
         //poi credo qua devo far partire metodo che chiede cose a utente in continuazione
+        askActions();
 
+    }
+
+    public void askActions(){
+        while(true){ //poi ci sarà qualche altra condizione
+            scanner.reset();
+            String newAction = scanner.nextLine();
+            //qui ora si deve passare questa stringa newAction a chi vede se è una azione valida o no
+            //e nel caso si chiama il metodo corrispondente (che potrà ulteriormente parlare all'utente
+            //e chiedergli cose)
+        }
     }
 
     @Override

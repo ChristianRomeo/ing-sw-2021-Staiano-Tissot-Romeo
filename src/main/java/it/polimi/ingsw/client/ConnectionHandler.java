@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Events.ServerEvent;
+import it.polimi.ingsw.controller.Events.ServerEventObserver;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,15 +16,15 @@ public class ConnectionHandler implements Runnable{
     private ObjectOutputStream output;  //quello che va verso il server
     private Socket socket;              //la socket del client
     private boolean isConnected=false;
+    private ServerEventObserver serverEventHandler = new ServerEventObserverImpl();//l'inizializzazione può essere spostata da un'altra parte
 
     @Override
     public void run() { // qua vengono ricevuti i messaggi da server e mandati a chi li gestisce
-        while (isConnected)
+        while (isConnected) {
             try {
                 ServerEvent serverMessage = (ServerEvent) input.readObject();
-                //qua deve essere passato l'evento a chi lo gestisce
-                //potrei fare sempre il visitor usando sempre l'interfaccia servereventobserver
-                //faccio una classe tipo eventhandler che la implementa
+                //qua viene passato l'evento all'handler di eventi che farà le dovute cose
+                serverMessage.notifyHandler(serverEventHandler);
 
 
             } catch (ClassNotFoundException | IOException e) {
@@ -32,6 +33,7 @@ public class ConnectionHandler implements Runnable{
                     //do things
                     isConnected = false;
             }
+        }
     }
 
     public void setUpConnection(){
