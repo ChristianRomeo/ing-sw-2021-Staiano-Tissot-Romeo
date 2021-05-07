@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 /**
- * Class ConnectionHandler handles messages from server to client and viceversa
+ * Class ConnectionHandler handles messages from server to client and viceversa (serverHandler)
  */
 public class ConnectionHandler implements Runnable{
     private ObjectInputStream input;    //quello che arriva dal server
@@ -57,7 +57,7 @@ public class ConnectionHandler implements Runnable{
             NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();
 
             System.out.println("risposta ricevuta"); // debug
-//BISOGNA METTERE EVENTI SERIALIZABLE
+    //BISOGNA METTERE EVENTI SERIALIZABLE
             //serverAnswer.getNickname() e si imposta il nickname ricevuto da qualche parte (nel clientModel)
 
             if(serverAnswer.isFirstPlayer()){

@@ -13,7 +13,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     private final List<ClientHandler> clientHandlers;
     private List<String> disconnectedClients;
     private final Controller controller;
-    private final static Logger logger = Logger.getLogger(Server.class.getName());
+    private final static Logger logger = Logger.getLogger(VirtualView.class.getName());
 
 
     public VirtualView(Controller controller) {

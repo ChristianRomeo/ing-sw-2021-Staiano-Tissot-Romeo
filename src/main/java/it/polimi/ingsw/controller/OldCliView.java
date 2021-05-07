@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.client.ActionHandler;
 import it.polimi.ingsw.client.ConnectionHandler;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Player;
@@ -12,15 +13,15 @@ import java.util.logging.Logger;
  */
 public class OldCliView implements View{
     private final Scanner scanner;
-    private final OldInputValidator oldInputValidator;
+    //private final oldInputValidator oldInputValidator;
     private OldServerHandler oldServerHandler;
-    private final static Logger logger = Logger.getLogger(Client.class.getName());
+    private final static Logger logger = Logger.getLogger(OldCliView.class.getName());
 
     /**
      * Constructor
      */
     public OldCliView() {
-        this.oldInputValidator = new OldInputValidator();
+        //this.oldInputValidator = new oldInputValidator();
         this.scanner = new Scanner(System.in);
     }
 
@@ -108,13 +109,13 @@ public class OldCliView implements View{
      */
     private String askNickname() {
 
-        boolean correct;
+        boolean correct=true;
         String nickname;
         do {
 
             //showMessage("\n Please enter your nickname: ",true);
             nickname = scanner.nextLine();
-            correct = oldInputValidator.isNickname(nickname);
+            //correct = oldInputValidator.checkNickname(nickname);
 
             //if (!correct)
                 //showErrorMessage(" Invalid nickname, Please try again: ");

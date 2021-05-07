@@ -49,7 +49,7 @@ public interface View {
     void showPlayersBoard(List<Player> playerList);
 
     /**
-     * Show the activated leadercards of others players
+     * Show the activated leaderCards of others players
      *
      * @param playerList LeaderCards activated
      */

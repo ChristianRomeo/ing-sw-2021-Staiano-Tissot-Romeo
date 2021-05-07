@@ -22,7 +22,7 @@ public class OldServerHandler {
     private View view;                  //reference to the corresponding view
     private String nickname;            //player nick
     private boolean isConnected = false;
-    private final static Logger logger = Logger.getLogger(Server.class.getName());
+    private final static Logger logger = Logger.getLogger(OldServerHandler.class.getName());
 
     /**
      * Starts listening for server messages and execute them client-side
