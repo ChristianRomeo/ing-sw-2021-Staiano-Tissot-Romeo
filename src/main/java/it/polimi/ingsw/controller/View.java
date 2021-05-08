@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ConnectionHandler;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Player;
@@ -21,6 +22,12 @@ public interface View {
      * Interface launcher. set connection CAN AGGREGATE
      */
     void launch() throws FileNotFoundException;
+
+    //getter del client model
+    ClientModel getClientModel();
+
+    //chide il numero di giocatori voluto
+    int askNumPlayer();
 
     /**
      * Asks nickname and if it's a new game the number of players for the game and notify the information to the serverHandler

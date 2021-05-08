@@ -16,6 +16,7 @@ public class CliView implements View {
     private ConnectionHandler connectionHandler;
     private final static Logger logger = Logger.getLogger(CliView.class.getName());
     private final ActionHandler actionHandler;
+    private final ClientModel clientModel;
 
     /**
      * Constructor
@@ -23,6 +24,7 @@ public class CliView implements View {
     public CliView() {
         this.scanner = new Scanner(System.in);
         actionHandler = new ActionHandler();
+        clientModel = new ClientModel();
     }
 
     @Override
@@ -32,10 +34,10 @@ public class CliView implements View {
 
     @Override
     public void launch() throws FileNotFoundException {
+        clientModel.setMyNickname(askNickname()); //chiedo e imposto il nickname
         connectionHandler.setUpConnection();
         //poi credo qua devo far partire metodo che chiede cose a utente in continuazione:
         askActions();
-
     }
 
     public void askActions(){
@@ -47,6 +49,22 @@ public class CliView implements View {
             //e chiedergli cose):
             actionHandler.handleAction(newAction);
         }
+    }
+
+    public String askNickname(){
+        //sto metodo chiede il nick al giocatore e lo ritorna
+        String nickname = scanner.nextLine();
+
+        return nickname; //è giusto per fare un metodo, poi bisogna modificarlo, fare controlli ecc
+    }
+
+    //chiede il num di giocatori voluto
+    public int askNumPlayer(){
+        return scanner.nextInt(); //si devono fare controlli ecc
+    }
+
+    public ClientModel getClientModel() {
+        return clientModel;
     }
 
     @Override

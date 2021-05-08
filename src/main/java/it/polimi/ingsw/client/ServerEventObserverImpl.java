@@ -6,6 +6,12 @@ import it.polimi.ingsw.controller.Events.*;
 
 public class ServerEventObserverImpl implements ServerEventObserver {
 
+    private ClientModel clientModel;
+
+    public ServerEventObserverImpl(ClientModel clientModel){
+        this.clientModel =clientModel;
+    }
+
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
 
@@ -46,6 +52,7 @@ public class ServerEventObserverImpl implements ServerEventObserver {
 
     }
 
+    //mi invia le cose per il pregame
     @Override
     public void handleEvent(GameStarterEventS2C event) {
 

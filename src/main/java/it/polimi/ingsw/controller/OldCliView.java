@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /**
  * View side CLI Mode
  */
-public class OldCliView implements View{
+public class OldCliView{// implements View{
     private final Scanner scanner;
     //private final oldInputValidator oldInputValidator;
     private OldServerHandler oldServerHandler;
@@ -34,7 +34,7 @@ public class OldCliView implements View{
         this.oldServerHandler = oldServerHandler;
     }
 
-    @Override
+
     public void setConnectionHandler(ConnectionHandler connectionHandler) {
 
     }

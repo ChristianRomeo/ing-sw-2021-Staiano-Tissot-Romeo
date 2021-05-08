@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
-public class GuiView implements View{
+public class GuiView {// implements View{ //ho tolto l'implements view momentaneamente per comodità
 
     /**
      * Sets the serverHandler

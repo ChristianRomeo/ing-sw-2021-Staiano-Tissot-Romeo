@@ -72,7 +72,7 @@ public class ClientHandler implements Runnable {
         this.nickname = nickname;
     }
 
-    //todo:capire che fa e che fare
+
     private void connectionSetUp() {
 
         //SEND setupgame dove c'è execute di asknickname, if(newgame) asknumplayer

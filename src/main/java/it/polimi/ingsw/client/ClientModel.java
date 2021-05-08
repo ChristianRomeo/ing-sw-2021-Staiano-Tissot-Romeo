@@ -18,10 +18,22 @@ public class ClientModel {
    private PersonalCardBoard personalCardBoard;
    private int currentVictoryPoints;
    private List<Integer> othersCurrentVP;
-   private final int serverCookie;
+   private int serverCookie;
+   private String myNickname; //il nick del giocatore
+
+   public void setMyNickname(String nickname){
+      this.myNickname=nickname;
+   }
+
+   public String getMyNickname(){
+      return myNickname;
+   }
 
 
    public ClientModel(int serverCookie) {
       this.serverCookie = serverCookie;
+   }
+   public ClientModel(){
+
    }
 }

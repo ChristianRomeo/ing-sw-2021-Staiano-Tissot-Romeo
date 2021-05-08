@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Events.*;
+import it.polimi.ingsw.controller.View;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,7 +16,13 @@ public class ConnectionHandler implements Runnable{
     private ObjectOutputStream output;  //quello che va verso il server
     private Socket socket;              //la socket del client
     private boolean isConnected=false;
-    private ServerEventObserver serverEventHandler = new ServerEventObserverImpl();//l'inizializzazione può essere spostata da un'altra parte
+    private final ServerEventObserver serverEventHandler;
+    private final View view;
+
+    public ConnectionHandler(View view){
+        this.view=view;
+        serverEventHandler = new ServerEventObserverImpl(view.getClientModel());
+    }
 
     @Override
     public void run() { // qua vengono ricevuti i messaggi da server e mandati a chi li gestisce
@@ -45,11 +52,7 @@ public class ConnectionHandler implements Runnable{
             System.out.println("errore"); // da fare meglio
         }
 
-        //qui si chiede nickname a giocatore e lo imposta (o posso chiederlo anche da un'altra parte,
-        //magari prima di cominciare la connessione e attivare la socket, è meglio)
-        String nickname = "provaNickname1";
-
-        send(new NewConnectionEvent(nickname)); // invio evento con nickname
+        send(new NewConnectionEvent(view.getClientModel().getMyNickname())); // invio evento con nickname
         System.out.println("nick inviato"); // debug
 
         try {
@@ -57,31 +60,26 @@ public class ConnectionHandler implements Runnable{
             NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();
 
             System.out.println("risposta ricevuta"); // debug
-    //BISOGNA METTERE EVENTI SERIALIZABLE
-            //serverAnswer.getNickname() e si imposta il nickname ricevuto da qualche parte (nel clientModel)
+            //BISOGNA METTERE EVENTI SERIALIZABLE
+
+            view.getClientModel().setMyNickname(serverAnswer.getNickname()); //si imposta il nick ricevuto
 
             if(serverAnswer.isFirstPlayer()){
 
                 //qui si chiede il numero di giocatori voluto all'utente
-                int wantedNumPlayers=2; //per esempio
+                int wantedNumPlayers = view.askNumPlayer();
 
                 send(new NumPlayerEvent(wantedNumPlayers));
-
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace(); //errore
         }
 
-
-
         //quindi arrivato qua il client si è connesso con il server,ha inviato il suo nickname e
         //eventualmente il numero di giocatori
 
-
-
         //ora attivo la ricezione di messaggi da server
         (new Thread(this)).start();
-
 
     }
 

@@ -19,7 +19,7 @@ public class Client {
     //todo: da modificare
     private void init() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
-        ConnectionHandler connectionHandler = new ConnectionHandler();  //come clientHandler però client side
+        ConnectionHandler connectionHandler; //come clientHandler però client side
         View view;
         boolean correct;
 
@@ -29,7 +29,7 @@ public class Client {
             switch (scanner.nextLine().toUpperCase()){
                 case "CLI"->{
                     view = new CliView();
-                    //connectionHandler.setView(view);
+                    connectionHandler = new ConnectionHandler(view);
                     view.setConnectionHandler(connectionHandler);
                     correct = true;
                     view.launch();

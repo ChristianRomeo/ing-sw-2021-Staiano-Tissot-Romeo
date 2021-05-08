@@ -2,7 +2,9 @@ package it.polimi.ingsw.controller.Events;
 
 //evento che dice il num di giocatori della partita scelto dal primo client che si connette
 
-public class NumPlayerEvent extends ClientEvent{
+import java.io.Serializable;
+
+public class NumPlayerEvent extends ClientEvent implements Serializable {
     private final int numPlayers;
 
     public int getNumPlayers() {
