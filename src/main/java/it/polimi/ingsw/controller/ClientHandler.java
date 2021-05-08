@@ -38,7 +38,7 @@ public class ClientHandler implements Runnable {
         this.output = new ObjectOutputStream(socket.getOutputStream());
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
-        socket.setSoTimeout(30000); // Sets the connection timeout to 30 seconds
+        // socket.setSoTimeout(30000); // Sets the connection timeout to 30 seconds ??
         //starts pinging tcp client
         /*
         (new Thread(() -> {
@@ -84,7 +84,7 @@ public class ClientHandler implements Runnable {
             int idx=0;
             NewConnectionEvent newConnectionEvent = (NewConnectionEvent) input.readObject();
             String nick = newConnectionEvent.getNickname(); //forse sta parte si può mettere nella virtual view per coerenza
-            System.out.println("nick ricevuto"); // debug
+            //System.out.println("nick ricevuto"); // debug
 
             String tempNick = nick;
             synchronized (virtualView){     //ha senso sincronizzare la vv?
@@ -92,7 +92,7 @@ public class ClientHandler implements Runnable {
                     while (cl.getNickname().equalsIgnoreCase(nick) || cl.getNickname().equalsIgnoreCase("Lorenzo il Magnifico"))
                         nick = tempNick + "_" + idx++;
                 setNickname(nick);
-                System.out.println("nick impostato"); // debug
+                //System.out.println("nick impostato"); // debug
 
                 //if (virtualView.getDisconnectedClients().stream().anyMatch(x-> x.equalsIgnoreCase(nickname))){
                     //reconnect if disconnected? //ho commentato sta parte perchè dava problemi
@@ -125,6 +125,7 @@ public class ClientHandler implements Runnable {
             NewConnectionEventS2C newConnectionEventS2C = new NewConnectionEventS2C(nickname,false);
             send(newConnectionEventS2C);
         }
+        System.out.println("fine connection setup"); // debug
     }
 
     /**

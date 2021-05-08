@@ -23,8 +23,9 @@ public class CliView implements View {
      */
     public CliView() {
         this.scanner = new Scanner(System.in);
-        actionHandler = new ActionHandler();
         clientModel = new ClientModel();
+        actionHandler = new ActionHandler(clientModel);
+
     }
 
     @Override
