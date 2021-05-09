@@ -83,4 +83,10 @@ public interface View {
      */
     void showLadderBoard(Map<Player, Integer> scores) throws FileNotFoundException;
 
+    /**
+     * shows a message to the user.
+     * @param message showed
+     */
+    void showMessage(String message);
+
 }

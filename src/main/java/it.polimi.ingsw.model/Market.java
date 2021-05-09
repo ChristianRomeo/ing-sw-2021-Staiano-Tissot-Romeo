@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Here lies the marble matrix logic, with initialization and player selection
  * @author enrico
  */
-public class Market {
+public class Market implements Serializable {
     private static final int MAXROWS=3;
     private static final int MAXCOLUMNS=4;
 

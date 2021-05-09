@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
  * @author chris, enrico
  */
 
-public class DevelopmentCard {
+public class DevelopmentCard implements Serializable {
     private final int id;
     private final CardType type;                //colore carta - type
     private final int level;

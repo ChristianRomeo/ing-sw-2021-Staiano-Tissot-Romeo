@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.Events;
 
 import it.polimi.ingsw.model.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class GameStarterEventS2C extends ServerEvent{

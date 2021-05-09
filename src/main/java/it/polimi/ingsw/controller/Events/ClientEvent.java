@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.Events;
 
-public abstract class ClientEvent {
+import java.io.Serializable;
+
+public abstract class ClientEvent implements Serializable {
     //message from the client
 
     public void notifyHandler(ClientEventHandler eventHandler){}

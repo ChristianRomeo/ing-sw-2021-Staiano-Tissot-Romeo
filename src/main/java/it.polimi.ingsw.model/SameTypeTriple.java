@@ -1,10 +1,12 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * type of three same type resources
  * @param <T>
  */
-public class SameTypeTriple<T>{
+public class SameTypeTriple<T> implements Serializable {
     private T val1;
     private T val2;
     private T val3;

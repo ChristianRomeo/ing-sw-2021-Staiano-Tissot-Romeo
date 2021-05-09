@@ -1,8 +1,8 @@
 package it.polimi.ingsw.controller.Events;
 
-import java.io.Serializable;
 
-public class NewConnectionEvent extends  ClientEvent implements Serializable {
+
+public class NewConnectionEvent extends  ClientEvent {
     private final String nickname;
 
     public NewConnectionEvent(String nickname){

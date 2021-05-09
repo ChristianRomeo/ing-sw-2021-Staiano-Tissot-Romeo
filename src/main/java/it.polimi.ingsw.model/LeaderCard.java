@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public abstract class LeaderCard {
+public abstract class LeaderCard implements Serializable {
 
     protected int id;
     protected LeaderCardType ability;

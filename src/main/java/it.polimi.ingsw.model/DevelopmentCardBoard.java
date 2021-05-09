@@ -14,7 +14,7 @@ import it.polimi.ingsw.controller.Configs;
  *
  * @author chris tommà enrico
  */
-public class DevelopmentCardBoard {
+public class DevelopmentCardBoard implements Serializable{
     /**
      *  MAXROWS contains the rows of the card's matrix
      */

@@ -21,7 +21,7 @@ public class ConnectionHandler implements Runnable{
 
     public ConnectionHandler(View view){
         this.view=view;
-        serverEventHandler = new ServerEventObserverImpl(view.getClientModel());
+        serverEventHandler = new ServerEventObserverImpl(view.getClientModel(),view);
     }
 
     @Override
@@ -81,6 +81,7 @@ public class ConnectionHandler implements Runnable{
         //ora attivo la ricezione di messaggi da server
         (new Thread(this)).start();
 
+        view.showMessage("Attendi che tutti si connettono...");
     }
 
     /**

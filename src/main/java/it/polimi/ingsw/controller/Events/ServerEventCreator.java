@@ -101,9 +101,11 @@ public class ServerEventCreator{
 
     public EndPreparationEventS2C createEndPreparationEvent(){
         Map<String,PlayerWarehouse> warehouses = new HashMap<>();
+        Map<String,List<LeaderCard>> leaderCards = new HashMap<>();
         for(Player p: controller.getGame().getPlayers()){
             warehouses.put(p.getNickname(),p.getStatusPlayer().getPlayerWarehouse());
+            leaderCards.put(p.getNickname(),p.getStatusPlayer().getPlayerLeaderCards());
         }
-        return new EndPreparationEventS2C(warehouses);
+        return new EndPreparationEventS2C(warehouses,leaderCards);
     }
 }

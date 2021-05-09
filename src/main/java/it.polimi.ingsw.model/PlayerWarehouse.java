@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * This class represent the warehouse of the player with 3 rows of storage.
  * @author enrico
  */
-public class PlayerWarehouse {
+public class PlayerWarehouse implements Serializable {
     private Resource upperRow;
     private final SameTypePair<Resource> middleRow;
     private final SameTypeTriple<Resource> lowerRow;

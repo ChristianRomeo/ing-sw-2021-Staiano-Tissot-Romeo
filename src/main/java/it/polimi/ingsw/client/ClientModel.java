@@ -2,13 +2,16 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Class ClientModel is a simplified model which the client sees
  */
-//bisogna inizializzarlo nel serverHandler
+//todo: bisogna inizializzarlo nel serverHandler
+
 public class ClientModel {
    private DevelopmentCardBoard developmentCardBoard;
    private Market market;
@@ -27,6 +30,7 @@ public class ClientModel {
 
    private int serverCookie;
 
+   private int numPlayers;
    private int myIndex; //index del giocatore (se tipo è primo o secondo ecc)
    private String myNickname; //il nick del giocatore
    private String currentPlayerNick; // il nick del current player
@@ -65,9 +69,39 @@ public class ClientModel {
       return myNickname;
    }
 
+   public String getCurrentPlayerNick(){
+      return currentPlayerNick;
+   }
+
    //metodo che dice se il client è il current player o no
    public boolean isCurrentPlayer(){
       return myNickname.equals(currentPlayerNick);
+   }
+
+
+   public void initClientModel(List<String> nicknames, Market market, DevelopmentCardBoard developmentCardBoard){
+      setMarket(market);
+      setDevelopmentCardBoard(developmentCardBoard);
+      this.playersNicknames = nicknames;
+      numPlayers = playersNicknames.size();
+      playersCardBoards = new ArrayList<>();
+      playersWarehouses = new ArrayList<>();
+      playersLeaderCards = new ArrayList<>();
+      playersStrongboxes = new ArrayList<>();
+      playersFTPositions = new ArrayList<>();
+      playersPopeTiles = new ArrayList<>();
+
+      for(int i=0; i<numPlayers; i++){
+         playersCardBoards.add(new PersonalCardBoard());
+         playersWarehouses.add(new PlayerWarehouse());
+         playersLeaderCards.add(new ArrayList<>());
+         playersStrongboxes.add(new HashMap<>());
+         playersFTPositions.add(0);
+         playersPopeTiles.add(new SameTypeTriple<>());
+         playersPopeTiles.get(i).setVal1(PopeFavorTileStatus.INACTIVE);
+         playersPopeTiles.get(i).setVal2(PopeFavorTileStatus.INACTIVE);
+         playersPopeTiles.get(i).setVal3(PopeFavorTileStatus.INACTIVE);
+      }
    }
 
    public void setCurrentPlayer(String nickname){
@@ -82,10 +116,11 @@ public class ClientModel {
       this.market = market;
    }
 
+/* //metodo credo inutile
    public void setPlayersNicknames(List<String> playersNicknames) {
       this.playersNicknames = playersNicknames;
    }
-
+*/
    public void setMyIndex(int myIndex) {
       this.myIndex = myIndex;
    }
@@ -95,4 +130,40 @@ public class ClientModel {
       playersLeaderCards.get(playersNicknames.indexOf(player)).clear();
       playersLeaderCards.get(playersNicknames.indexOf(player)).addAll(leaderCards);
    }
+
+   //this method sets the warehouse of a player
+   public void setWarehouse(String player, PlayerWarehouse warehouse){
+
+      playersWarehouses.set(playersNicknames.indexOf(player),warehouse);
+   }
+
+   public int getMyIndex() {
+      return myIndex;
+   }
+
+   //ritorna tutti i nicknames
+   public List<String> getNicknames(){
+      return  new ArrayList<>(playersNicknames);
+   }
+
+   public List<LeaderCard> getPlayerLeaderCards(String player){
+      return playersLeaderCards.get(playersNicknames.indexOf(player));
+   }
+
+
+   //this method sets the strongbox of a player
+   public void setStrongbox(String player, Map<Resource,Integer> strongbox){
+      playersStrongboxes.set(playersNicknames.indexOf(player),strongbox);
+   }
+
+   //this method sets the personal card board of a player
+   public void setPersonalCardBoard(String player, PersonalCardBoard personalCardBoard){
+      playersCardBoards.set(playersNicknames.indexOf(player),personalCardBoard);
+   }
+
+   //this method sets the position of a player
+   public void setFTPosition(String player, int position){
+      playersFTPositions.set(playersNicknames.indexOf(player),position);
+   }
+
 }

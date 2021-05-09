@@ -15,7 +15,7 @@ public class CliView implements View {
     private final Scanner scanner;
     private ConnectionHandler connectionHandler;
     private final static Logger logger = Logger.getLogger(CliView.class.getName());
-    private final ActionHandler actionHandler;
+    private ActionHandler actionHandler;
     private final ClientModel clientModel;
 
     /**
@@ -24,8 +24,6 @@ public class CliView implements View {
     public CliView() {
         this.scanner = new Scanner(System.in);
         clientModel = new ClientModel();
-        actionHandler = new ActionHandler(clientModel);
-
     }
 
     @Override
@@ -35,6 +33,7 @@ public class CliView implements View {
 
     @Override
     public void launch() throws FileNotFoundException {
+        actionHandler = new ActionHandler(clientModel,this,connectionHandler);
         clientModel.setMyNickname(askNickname()); //chiedo e imposto il nickname
         connectionHandler.setUpConnection();
         //poi credo qua devo far partire metodo che chiede cose a utente in continuazione:
@@ -52,16 +51,29 @@ public class CliView implements View {
         }
     }
 
+    //sto metodo chiede il nick al giocatore e lo ritorna
     public String askNickname(){
-        //sto metodo chiede il nick al giocatore e lo ritorna
-        String nickname = scanner.nextLine();
+        String nickname;
+        showMessage("Inserisci nickname: ");
+        nickname = scanner.nextLine();
+        while (!checkNickname(nickname)){
+            showMessage("Scelta non valida, riprova: ");
+            nickname = scanner.nextLine();
+        }
 
-        return nickname; //è giusto per fare un metodo, poi bisogna modificarlo, fare controlli ecc
+        return nickname;
     }
 
     //chiede il num di giocatori voluto
     public int askNumPlayer(){
-        return scanner.nextInt(); //si devono fare controlli ecc
+        String numPlayer;
+        showMessage("Inserisci numero giocatori: ");
+        numPlayer = scanner.nextLine();
+        while (checkNumPlayer(numPlayer)==null){
+            showMessage("Scelta non valida, riprova: ");
+            numPlayer = scanner.nextLine();
+        }
+        return checkNumPlayer(numPlayer);
     }
 
     public ClientModel getClientModel() {
@@ -169,5 +181,9 @@ public class CliView implements View {
     public boolean checkNickname(String nickname) {
         String expression = "^[\\p{Alnum}\\s._-]+$";
         return nickname.matches(expression);
+    }
+
+    public synchronized void showMessage(String message){
+        System.out.println(message);
     }
 }
