@@ -58,12 +58,18 @@ public class ServerEventObserverImpl implements ServerEventObserver {
 
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
-
+        clientModel.setFTPosition(event.getPlayerNickname(), event.getNewPosition());
+        view.showMessage(event.getPlayerNickname()+ " è andato avanti di 1 nel percorso fede!");
+        //qui volendo gli mostro qualcosa
     }
 
     @Override
     public void handleEvent(VaticanReportEventS2C event) {
-
+        for(String player: clientModel.getNicknames()){
+            clientModel.setPopeTiles(player,event.getNewPopeTilesStatus().get(player));
+        }
+        view.showMessage("E' stato attivato un rapporto in vaticano!");
+        //qui volendo gli mostro qualcosa
     }
 
     @Override

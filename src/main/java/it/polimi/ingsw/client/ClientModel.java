@@ -166,4 +166,9 @@ public class ClientModel {
       playersFTPositions.set(playersNicknames.indexOf(player),position);
    }
 
+   //this method sets the position of a player
+   public void setPopeTiles(String player, SameTypeTriple<PopeFavorTileStatus> popeTileStatus){
+      playersPopeTiles.set(playersNicknames.indexOf(player), popeTileStatus);
+   }
+
 }
