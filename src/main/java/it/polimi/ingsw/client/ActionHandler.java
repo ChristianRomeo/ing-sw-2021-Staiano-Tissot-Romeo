@@ -45,7 +45,7 @@ public class ActionHandler {
                 endTurn();
                 break;
             default:
-                cliView.showMessage("comando non valido");
+                cliView.showMessage(Styler.color('r',"comando non valido"),false);
         }
 
         //commento vecchio:
@@ -58,7 +58,7 @@ public class ActionHandler {
     public void initialChoice(){
         //metodo che interagisce con l'utente per la scelta iniziale di leader cards e risorse
         if(!clientModel.isCurrentPlayer() || !clientModel.isPregame() ){
-            cliView.showMessage("Non puoi fare questa azione adesso");
+            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
             return;
         }
         //todo: metodo da finire
@@ -86,22 +86,22 @@ public class ActionHandler {
         }
 
         connectionHandler.send(new InitialChoiceEvent(removedLeader1,removedLeader2,resource1,resource2,position1,position2));
-        cliView.showMessage("Scelta inviata"); //per debug
+        cliView.showMessage("Scelta inviata",false); //per debug
     }
 
     //metodo per scartare/attivare carte leader
     public void leaderAction(){
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
-            cliView.showMessage("Non puoi fare questa azione adesso");
+            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
             return;
         }
 
         // todo: qui mostro le leader cards che ha il giocatore
 
-        cliView.showMessage("Vuoi attivare o scartare una carta? A/S");
+        cliView.showMessage("Vuoi attivare o scartare una carta? A/S",false);
         String string = scanner.nextLine();
         while (string.length()!=1 || (string.charAt(0)!='A'&& string.charAt(0)!='S')){
-            cliView.showMessage("Scelta non valida! Riprova: ");
+            cliView.showMessage("Scelta non valida! Riprova: ",false);
             string = scanner.nextLine();
         }
         char activeOrDiscard = string.charAt(0)=='A' ? 'a' : 'd';
@@ -113,7 +113,7 @@ public class ActionHandler {
     //metodo per attivare produzione
     public void activateProduction(){
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
-            cliView.showMessage("Non puoi fare questa azione adesso");
+            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
             return;
         }
 
@@ -124,7 +124,7 @@ public class ActionHandler {
     //metodo per terminare il proprio turno
     public void endTurn(){
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
-            cliView.showMessage("Non puoi fare questa azione adesso");
+            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
             return;
         }
         connectionHandler.send(new EndTurnEvent());

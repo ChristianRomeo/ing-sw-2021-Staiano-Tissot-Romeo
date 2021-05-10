@@ -32,7 +32,7 @@ public class CliView implements View {
     }
 
     @Override
-    public void launch() throws FileNotFoundException {
+    public void launch() {
         actionHandler = new ActionHandler(clientModel,this,connectionHandler);
         clientModel.setMyNickname(askNickname()); //chiedo e imposto il nickname
         connectionHandler.setUpConnection();
@@ -54,23 +54,23 @@ public class CliView implements View {
     //sto metodo chiede il nick al giocatore e lo ritorna
     public String askNickname(){
         String nickname;
-        showMessage("Inserisci nickname: ");
+        showMessage("Inserisci nickname: ", true);
         nickname = scanner.nextLine();
         while (!checkNickname(nickname)){
-            showMessage("Scelta non valida, riprova: ");
+            showMessage("Scelta non valida, riprova: ",false);
             nickname = scanner.nextLine();
         }
-
+        showMessage(Styler.format('i', Styler.ANSI_WAIT + " The game will start shortly, brace yourself!"),true);
         return nickname;
     }
 
     //chiede il num di giocatori voluto
     public int askNumPlayer(){
         String numPlayer;
-        showMessage("Inserisci numero giocatori: ");
+        showMessage("Inserisci numero giocatori: ",true);
         numPlayer = scanner.nextLine();
         while (checkNumPlayer(numPlayer)==null){
-            showMessage("Scelta non valida, riprova: ");
+            showMessage("Scelta non valida, riprova: ",false);
             numPlayer = scanner.nextLine();
         }
         return checkNumPlayer(numPlayer);
@@ -105,7 +105,7 @@ public class CliView implements View {
         String string;
         int index=5;
         while (index!=0 && index!=1) {
-            showMessage("Quale carta leader vuoi selezionare? 0/1");
+            showMessage("Quale carta leader vuoi selezionare? 0/1",false);
             string =scanner.nextLine();
             try {
                 index = Integer.parseInt(String.valueOf(string.charAt(0)));
@@ -115,19 +115,96 @@ public class CliView implements View {
     }
 
     @Override
-    public void showDevelopmentCards(List<DevelopmentCard> cards) throws FileNotFoundException {
+    public void showDevelopmentCards(List<DevelopmentCard> cards) {
 
     }
+    private void showLeaderCard(Player player, int id) { //da testare
 
+        showMessage(Styler.color('b', switch (player.getStatusPlayer().getPlayerLeaderCards().get(id).getAbilityResource().toString()){
+            case "COIN"-> Styler.ANSI_COIN;
+            case "STONE"-> Styler.ANSI_STONE;
+            case "SERVANT"-> Styler.ANSI_SERVANT;
+            case "SHIELD"-> Styler.ANSI_SHIELD;
+            default -> "";
+        }+ player.getStatusPlayer().getPlayerLeaderCards().get(id).getAbility().toString()),false);
+        showMessage(Styler.color('b', "Victory Points: " + player.getStatusPlayer().getPlayerLeaderCards().get(id).getVictoryPoints()),false);
+
+        //controllare quando è null
+       player.getStatusPlayer().getPlayerLeaderCards().get(id).getRequiredResources().forEach((k, v) ->
+               showMessage(Styler.color('b', Styler.ANSI_TOGIVE + "" + switch(k.toString()){
+           case "COIN"-> Styler.ANSI_COIN;
+           case "STONE"-> Styler.ANSI_STONE;
+           case "SERVANT"-> Styler.ANSI_SERVANT;
+           case "SHIELD"-> Styler.ANSI_SHIELD;
+           default -> "";
+       }+" "+ v + "/n"),false));
+
+        //controllare quando è null
+        player.getStatusPlayer().getPlayerLeaderCards().get(id).getRequiredCards().forEach((k, v) ->
+               showMessage(Styler.color('b', Styler.ANSI_TOGIVE + "" + switch(k.toString()){
+           case "YELLOW"-> Styler.ANSI_YELLOW;
+           case "BLUE"-> Styler.ANSI_BLUE;
+           case "GREEN"-> Styler.ANSI_GREEN;
+           case "PURPLE"-> Styler.ANSI_PURPLE;
+           default -> "";
+       }+" "+ v + "/n"),false));
+    }
+
+    /**
+     * Shows other player cards
+     *
+     * @param playerList The list of players of the game
+     */
     @Override
     public void showPlayersBoard(List<Player> playerList) {
 
+        showMessage(" " + Styler.format('b', "CardBoards:"),true);
+        for (Player player : playerList) {
+            showMessage(Styler.format('b', " ▷ " + player.getNickname() + "has:"),false);
+            showCard(player, player.getStatusPlayer().getPersonalCardBoard().getUpperCard(0));
+            showCard(player, player.getStatusPlayer().getPersonalCardBoard().getUpperCard(1));
+            showCard(player, player.getStatusPlayer().getPersonalCardBoard().getUpperCard(2));
+        }
     }
 
+    private void showCard(Player player, DevelopmentCard upperCard) {
+
+    }
+
+    /**
+     * Shows other player LeaderCards, if activated
+     * @param playerList The list of players of the game
+     */
     @Override
     public void showPlayersLeaderCards(List<Player> playerList) {
+        showMessage(" " + Styler.format('b', "Players' LeaderCards:"),true);
 
+        for (Player player : playerList) {
+            showMessage(Styler.format('b', " ▷ " + player.getNickname()),false);
+            if (player.getStatusPlayer().getLeaderCard(0).isActivated()){
+                showMessage(Styler.format('i', " Has Activated "),false);
+                showLeaderCard(player, player.getStatusPlayer().getLeaderCard(0).getId());
+            }
+            if (player.getStatusPlayer().getLeaderCard(1).isActivated()){
+                showMessage(Styler.format('i', " Has Activated "),false);
+                showLeaderCard(player, player.getStatusPlayer().getLeaderCard(1).getId());
+            }
+
+        }
     }
+
+    /**
+     * Shows a message to the user
+     *
+     * @param message   The message to be shown
+     * @param cls       True if wants to clean the console
+     */
+    public synchronized void showMessage(String message,boolean cls){
+        if (cls)
+            Styler.cls();
+        System.out.println(message);
+    }
+
 
     @Override
     public void showFaithTrack(List<Integer> trackInfo) {
@@ -135,17 +212,105 @@ public class CliView implements View {
     }
 
     @Override
-    public void askAction(List<Integer> roundActions) {
-        //print list of actions
-        //choice validated
-        //connectionHandler.sendAction()
+    public void askAction(List<Integer> availableActions) {
+        showMessage("\n" + Styler.format('b', "Possible actions are: "),false);
+        int index=1;
+        if (availableActions.get(0).equals(1))
+            showMessage(Styler.format('b', index++ +") Buy At Market"),false);
+        if (availableActions.get(1).equals(1))
+            showMessage(Styler.format('b', index++ +") Activate Production"),false);
+        if (availableActions.get(2).equals(1))
+            showMessage(Styler.format('b', index++ +") Edit Warehouse"),false);
+        if (availableActions.get(3).equals(1))
+            showMessage(Styler.format('b', index++ +") Show other players active LeaderCards"),false);
+        if (availableActions.get(4).equals(1))
+            showMessage(Styler.format('b', index++ +") Show faith track"),false);
+        if (availableActions.get(5).equals(1))
+            showMessage(Styler.format('b', index++ +") Show other players productions"),false);
+
+        //PRINT OTHER USEFUL THINGS TO THE PLAYER
+
+        showMessage(Styler.format('b', Styler.ANSI_TALK + "Insert your action: "),false);
+        String choice = scanner.nextLine();
+
+        while (true)//invalid choice
+        {
+            showMessage(Styler.color('r',"Scelta non valida, riprova: "),false);
+            choice = scanner.nextLine();
+        }
+
+        //connectionHandler.sendAction();
     }
 
+    /**
+     * Print the map received in input with the ladder
+     * @param scores a map with list of player and his relative score
+     */
     @Override
     public void showLadderBoard(Map<Player, Integer> scores) throws FileNotFoundException {
+        showMessage(Styler.format('b',Styler.ANSI_TALK + "This is the LadderBoard of the game:"+ Styler.ANSI_VICTORY ),true);
 
+        scores.forEach((k, v) -> System.out.format("Player %s obtained %d points",k,v));
+
+        askNewGame();
     }
 
+    private void askNewGame() throws FileNotFoundException {
+
+        showMessage(Styler.ANSI_TALK + "\n\tDo you wish to play again? [Yes/No]: ",false);
+        String choice = scanner.nextLine();
+
+        while (!choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("no")){
+            showMessage(Styler.color('r',"Scelta non valida, riprova: "),false);
+            choice = scanner.nextLine();
+        }
+        connectionHandler.sendNewGame(choice.equalsIgnoreCase("yes"));
+    }
+
+    /**
+     * Notify all that a player has been disconnected (and the game has ended ?FA)
+     * @param disconnected The nickname of the disconnected player
+     */
+    public void showDisconnectionMessage(String disconnected) {
+        showMessage("GAME OVER: " + disconnected + " has disconnected.",true);   //oppure diverso in base alla FA
+    }
+
+    /**
+     * Shows an error message
+     * @param errorMessage The message to be shown
+     */
+    public void showErrorMessage(String errorMessage) {     //invalid action
+        showMessage(Styler.color('r',"That's unfortunate: "+errorMessage),true);
+    }
+
+    /**
+     * Notify whose turn is
+     *
+     * @param currentNickname The nickname of whom taking the turn
+     */
+    public void showTurn(String currentNickname) {
+        showMessage("It's " + currentNickname + "'s turn.", false);
+    }
+
+    /**
+     * Notify that the game has ended and the winning status
+     * @param winner The nickname of the winner
+     * @param youWon True if the player has win
+     */
+    public void showEndGameMessage(String winner, boolean youWon) {
+        if(youWon)
+            showMessage(Styler.color('g',"Congratulations YOU WON " ),true);
+        else
+            showMessage(Styler.color('y',"That's sad, YOU LOSE " ),true);
+    }
+
+
+
+
+
+
+
+                                                                //########################## CHECKS #########################
     /**
      * Tests if the input is a correct number of players
      * @param num  The entered text
@@ -199,9 +364,5 @@ public class CliView implements View {
     public boolean checkNickname(String nickname) {
         String expression = "^[\\p{Alnum}\\s._-]+$";
         return nickname.matches(expression);
-    }
-
-    public synchronized void showMessage(String message){
-        System.out.println(message);
     }
 }

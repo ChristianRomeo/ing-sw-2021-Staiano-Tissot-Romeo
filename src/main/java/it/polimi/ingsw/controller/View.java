@@ -92,6 +92,6 @@ public interface View {
      * shows a message to the user.
      * @param message showed
      */
-    void showMessage(String message);
+    void showMessage(String message,boolean cls);
 
 }

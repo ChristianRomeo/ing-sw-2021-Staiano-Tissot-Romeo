@@ -1,13 +1,17 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.controller.Client;
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.controller.View;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Logger;
+
 /**
  * Class ConnectionHandler handles messages from server to client and viceversa (serverHandler)
  */
@@ -18,6 +22,8 @@ public class ConnectionHandler implements Runnable{
     private boolean isConnected=false;
     private final ServerEventObserver serverEventHandler;
     private final View view;
+    private final static Logger logger = Logger.getLogger(ConnectionHandler.class.getName());
+
 
     public ConnectionHandler(View view){
         this.view=view;
@@ -35,7 +41,7 @@ public class ConnectionHandler implements Runnable{
 
             } catch (ClassNotFoundException | IOException e) {
                 if (isConnected)
-                    //view.showErrorMessage("Server unreachable" + (Configs.isServerAlive() ? " during reading" : "") + ".");
+                    //CliView.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during reading" : "") + ".",true);
                     //do things
                     isConnected = false;
             }
@@ -80,7 +86,30 @@ public class ConnectionHandler implements Runnable{
         //ora attivo la ricezione di messaggi da server
         (new Thread(this)).start();
 
-        view.showMessage("Attendi che tutti si connettono...");
+        view.showMessage("Attendi che tutti si connettono...",false);
+    }
+
+    /**
+     * New game or shutdown
+     *
+     * @param choice The choice of the user
+     */
+    public void sendNewGame(boolean choice) throws FileNotFoundException {
+        isConnected = false;
+        closeConnection();
+        if (choice)
+            Client.main(null);
+    }
+
+    /**
+     * Graceful closes the connection to the server
+     */
+    public void closeConnection() {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            logger.warning(""+e);
+        }
     }
 
     /**
