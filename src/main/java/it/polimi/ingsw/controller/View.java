@@ -42,6 +42,11 @@ public interface View {
     void askLeaderCards() throws FileNotFoundException;
 
     /**
+     * Asks the index of a leader card
+     */
+    int askLeaderCard();
+
+    /**
      * Shows the developmentCardBoard matrix
      *
      * @param cards All the remaining cards

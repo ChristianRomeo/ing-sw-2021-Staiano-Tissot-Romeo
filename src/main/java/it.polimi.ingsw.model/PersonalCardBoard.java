@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Map;
  *
  * @author enrico
  */
-public class PersonalCardBoard {
+public class PersonalCardBoard implements Serializable {
     private int numberOfCards;
     private List<List<DevelopmentCard>> ownedCards;     //final?
 

@@ -60,7 +60,6 @@ public class ConnectionHandler implements Runnable{
             NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();
 
             System.out.println("risposta ricevuta"); // debug
-            //BISOGNA METTERE EVENTI SERIALIZABLE
 
             view.getClientModel().setMyNickname(serverAnswer.getNickname()); //si imposta il nick ricevuto
 

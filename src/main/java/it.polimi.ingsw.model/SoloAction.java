@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-public class SoloAction {
+import java.io.Serializable;
+
+public class SoloAction implements Serializable {
     private final SoloActionType type;
     private final CardType discardedCardsType;
 

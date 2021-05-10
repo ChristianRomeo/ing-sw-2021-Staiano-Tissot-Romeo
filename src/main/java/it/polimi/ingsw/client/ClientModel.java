@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Class ClientModel is a simplified model which the client sees
  */
-//todo: bisogna inizializzarlo nel serverHandler
+
 
 public class ClientModel {
    private DevelopmentCardBoard developmentCardBoard;

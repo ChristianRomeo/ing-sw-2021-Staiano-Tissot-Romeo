@@ -14,8 +14,8 @@ public abstract class LeaderCard implements Serializable {
     protected Map<CardType, Integer> requiredCards;
     protected Map<Resource, Integer> requiredResources;
 
-    protected boolean isDiscarded;
-    protected boolean isActivated;
+    protected boolean isDiscarded=false;
+    protected boolean isActivated=false;
 
     public Map<CardType, Integer> getRequiredCards(){
         return requiredCards;

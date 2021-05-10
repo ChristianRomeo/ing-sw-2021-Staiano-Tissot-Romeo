@@ -2,6 +2,9 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.controller.View;
+import it.polimi.ingsw.model.LeaderCard;
+
+import java.util.List;
 
 //questa classe gestisce gli eventi che arrivano da server (usa il pattern visitor)
 
@@ -22,6 +25,21 @@ public class ServerEventObserverImpl implements ServerEventObserver {
 
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
+        List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
+        if(event.isActive1()){
+            leaderCards.get(0).activate();
+        }
+        if(event.isActive2()){
+            leaderCards.get(1).activate();
+        }
+        if(event.isDiscarded1()){
+            leaderCards.get(0).discard();
+        }
+        if(event.isDiscarded2()){
+            leaderCards.get(1).discard();
+        }
+        view.showMessage(clientModel.getCurrentPlayerNick() + " ha fatto un'azione leader!");
+        //qua magari mostro la sua nuova situazione delle sue carte leader
 
     }
 
@@ -74,7 +92,16 @@ public class ServerEventObserverImpl implements ServerEventObserver {
 
     @Override
     public void handleEvent(UseMarketEventS2C event) {
-
+        clientModel.setMarket(event.getNewMarket());
+        clientModel.setWarehouse(clientModel.getCurrentPlayerNick(), event.getNewWarehouse());
+        if(event.getFullSlotsLeaderCard1()!=null){
+            clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(0).setFullSlotsNumber(event.getFullSlotsLeaderCard1());
+        }
+        if(event.getFullSlotsLeaderCard2()!=null){
+            clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(1).setFullSlotsNumber(event.getFullSlotsLeaderCard2());
+        }
+        view.showMessage(clientModel.getCurrentPlayerNick() + " ha attivato il Mercato!");
+        //qui magari mostro le cose che sono cambiate
     }
 
     @Override
@@ -99,7 +126,7 @@ public class ServerEventObserverImpl implements ServerEventObserver {
 
     @Override
     public void handleEvent(IllegalActionEventS2C event) { //si potrà fare meglio
-        view.showMessage("Attenzione hai fatto un'azione illegale "+event.getIllegalAction().getDescription());
+        view.showMessage("Attenzione hai fatto un'azione illegale: "+event.getIllegalAction().getDescription());
     }
 
     //mi invia le cose per il pregame
@@ -118,7 +145,6 @@ public class ServerEventObserverImpl implements ServerEventObserver {
         //le sue leadercards
         view.showMessage("è iniziato il pregame, aspetta il tuo turno e poi scrivi SCEGLI"); //da fare meglio
         //gli devo mostrare le cose
-        //ora devo mostrargli le cose e gli dico di aspettare il suo turno, e poi di scrivere il comando SCEGLI
     }
 
     @Override

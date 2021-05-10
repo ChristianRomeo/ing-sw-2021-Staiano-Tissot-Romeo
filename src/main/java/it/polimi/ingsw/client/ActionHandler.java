@@ -3,7 +3,10 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.Events.EndTurnEvent;
 import it.polimi.ingsw.controller.Events.InitialChoiceEvent;
+import it.polimi.ingsw.controller.Events.LeaderCardActionEvent;
 import it.polimi.ingsw.model.*;
+
+import java.util.Scanner;
 
 //sta classe riceve il comando inserito dall'utente e vede se è una azione valida e se lo è chiama metodi
 //(che volendo possono interagire con l'utente)
@@ -12,11 +15,13 @@ public class ActionHandler {
     private final ClientModel clientModel;
     private final CliView cliView;
     private final ConnectionHandler connectionHandler;
+    private final Scanner scanner;
 
     public ActionHandler(ClientModel clientModel, CliView cliView,ConnectionHandler connectionHandler){
         this.clientModel=clientModel;
         this.cliView=cliView;
         this.connectionHandler=connectionHandler;
+        this.scanner = new Scanner(System.in);
     }
 
     public void handleAction(String action){
@@ -91,7 +96,18 @@ public class ActionHandler {
             return;
         }
 
-        //quale carta leader vuoi scartare/attivare ecc
+        // todo: qui mostro le leader cards che ha il giocatore
+
+        cliView.showMessage("Vuoi attivare o scartare una carta? A/S");
+        String string = scanner.nextLine();
+        while (string.length()!=1 || (string.charAt(0)!='A'&& string.charAt(0)!='S')){
+            cliView.showMessage("Scelta non valida! Riprova: ");
+            string = scanner.nextLine();
+        }
+        char activeOrDiscard = string.charAt(0)=='A' ? 'a' : 'd';
+        int cardIndex = cliView.askLeaderCard();
+
+        connectionHandler.send(new LeaderCardActionEvent(activeOrDiscard,cardIndex));
     }
 
     //metodo per attivare produzione

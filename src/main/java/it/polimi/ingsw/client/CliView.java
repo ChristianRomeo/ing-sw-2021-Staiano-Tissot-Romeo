@@ -96,6 +96,24 @@ public class CliView implements View {
         //connectionHandler.sendLeaderCards(enteredCard);
     }
 
+    /**
+     * This method asks to the user an index (0/1) of a leader card.
+     * It keeps asking until the user select a valid index.
+     * @return the index selected.
+     */
+    public int askLeaderCard(){
+        String string;
+        int index=5;
+        while (index!=0 && index!=1) {
+            showMessage("Quale carta leader vuoi selezionare? 0/1");
+            string =scanner.nextLine();
+            try {
+                index = Integer.parseInt(String.valueOf(string.charAt(0)));
+            } catch (NumberFormatException ignored) {}
+        }
+        return index;
+    }
+
     @Override
     public void showDevelopmentCards(List<DevelopmentCard> cards) throws FileNotFoundException {
 
