@@ -60,7 +60,7 @@ public enum Styler {
 
     public static String header(String s) {
 
-        String repeat = " ".repeat(Math.max(0, (170 - s.length()) / 2));
+        String repeat = " ".repeat(Math.max(0, (190 - s.length()) / 2));
         return format('b','r',repeat + s + repeat);
 
     }
@@ -73,7 +73,7 @@ public enum Styler {
 
         System.out.println(header(""));
         System.out.println(header("M A S T E R S   O F   R E N A I S S A N C E "));
-        System.out.println(header("") + "\n\n\n");
+        System.out.println(header("") + "\n\n\n\n\n\n\n\n\n\n");
     }
 
     @Override

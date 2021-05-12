@@ -19,30 +19,42 @@ public class ClientModel {
    //liste delle cose dei giocatori, volendo possiamo fare una classe ClientPlayer che racchiude queste info
    //e poi facciamo una sola lista di ClientPlayer (ma non per forza)
 
-   private List<String> playersNicknames;
+   private List<String> playersNicknames; //in ordine di gioco
+
    private List<PersonalCardBoard> playersCardBoards;
+
    private List<Map<Resource,Integer>> playersStrongboxes;
+
    private List<PlayerWarehouse> playersWarehouses;
+
    private List<Integer> playersFTPositions;
+
    private List<SameTypeTriple<PopeFavorTileStatus>> playersPopeTiles;
+
    private List<List<LeaderCard>> playersLeaderCards;
+
    private List<Integer> playersVP;
 
    private int serverCookie;
 
    private int numPlayers;
+
    private int myIndex; //index del giocatore (se tipo è primo o secondo ecc)
+
    private String myNickname; //il nick del giocatore
+
    private String currentPlayerNick; // il nick del current player
 
    private boolean isPregame=false; //stiamo nel pregame
+
    private boolean isGameStarted=false; //è cominciato il gioco normale
 
    public ClientModel(int serverCookie) {
       this.serverCookie = serverCookie;
    }
-   public ClientModel(){
 
+   public List<Integer> getPlayersVP() {
+      return playersVP;
    }
 
    public boolean isPregame() {
@@ -78,6 +90,13 @@ public class ClientModel {
       return myNickname.equals(currentPlayerNick);
    }
 
+   public List<Map<Resource, Integer>> getPlayersStrongboxes() {
+      return new ArrayList<>(playersStrongboxes);
+   }
+
+   public List<PlayerWarehouse> getPlayersWarehouses() {
+      return new ArrayList<>(playersWarehouses);
+   }
 
    public void initClientModel(List<String> nicknames, Market market, DevelopmentCardBoard developmentCardBoard){
       setMarket(market);
@@ -91,7 +110,7 @@ public class ClientModel {
       playersFTPositions = new ArrayList<>();
       playersPopeTiles = new ArrayList<>();
 
-      for(int i=0; i<numPlayers; i++){
+      for(int i=0; i<numPlayers; ++i){
          playersCardBoards.add(new PersonalCardBoard());
          playersWarehouses.add(new PlayerWarehouse());
          playersLeaderCards.add(new ArrayList<>());
@@ -133,7 +152,6 @@ public class ClientModel {
 
    //this method sets the warehouse of a player
    public void setWarehouse(String player, PlayerWarehouse warehouse){
-
       playersWarehouses.set(playersNicknames.indexOf(player),warehouse);
    }
 
@@ -149,7 +167,6 @@ public class ClientModel {
    public List<LeaderCard> getPlayerLeaderCards(String player){
       return playersLeaderCards.get(playersNicknames.indexOf(player));
    }
-
 
    //this method sets the strongbox of a player
    public void setStrongbox(String player, Map<Resource,Integer> strongbox){

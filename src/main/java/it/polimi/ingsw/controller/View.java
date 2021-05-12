@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Player;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 public interface View {
 
@@ -21,7 +22,7 @@ public interface View {
     /**
      * Interface launcher. set connection CAN AGGREGATE
      */
-    void launch() throws FileNotFoundException;
+    void launcher() throws FileNotFoundException;
 
     //getter del client model
     ClientModel getClientModel();
@@ -38,8 +39,9 @@ public interface View {
 
     /**
      * Asks the game cards
+     * @return the set of chosen cards
      */
-    void askLeaderCards() throws FileNotFoundException;
+    TreeSet<Integer> askLeaderCards() throws FileNotFoundException;
 
     /**
      * Asks the index of a leader card
@@ -84,9 +86,8 @@ public interface View {
     /**
      * Shows the LadderBoard of the match
      *
-     * @param scores a map with players scores
      */
-    void showLadderBoard(Map<Player, Integer> scores) throws FileNotFoundException;
+    void showLadderBoard() throws FileNotFoundException;
 
     /**
      * shows a message to the user.

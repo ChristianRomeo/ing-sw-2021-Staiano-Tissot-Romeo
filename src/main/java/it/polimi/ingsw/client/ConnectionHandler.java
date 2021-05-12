@@ -50,7 +50,7 @@ public class ConnectionHandler implements Runnable{
 
     public void setUpConnection(){
         try{
-            socket = new Socket(Configs.getServerIp(), Configs.getServerPort());
+            socket = new Socket(Configs.getServerIp(), Configs.getServerPort());    //metodo del server nel client !FA!
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             isConnected=true;
@@ -124,10 +124,10 @@ public class ConnectionHandler implements Runnable{
                     output.writeUnshared(message);
                     output.flush();
                     output.reset();
-              //  }
+                //}
             } catch (IOException e) {
                 isConnected = false;
-                //view.showErrorMessage("Server unreachable" + (Configs.isServerAlive() ? " during sending" : "") + ".");
+                view.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during sending" : "") + ".",false);
             }
         }
     }

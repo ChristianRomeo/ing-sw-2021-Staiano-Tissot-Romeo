@@ -31,21 +31,13 @@ public class ActionHandler {
         action = action.toUpperCase();
 
 
-        switch (action){//bisogna aggiungere le altre azioni
-            case "SCEGLI": //o anche un altro nome al comando (se non vi piace questo)
-                initialChoice();
-                break;
-            case "AZIONELEADER":
-                leaderAction();
-                break;
-            case "PRODUZIONE":
-                activateProduction();
-                break;
-            case "FINETURNO":
-                endTurn();
-                break;
-            default:
-                cliView.showMessage(Styler.color('r',"comando non valido"),false);
+        switch (action) {//bisogna aggiungere le altre azioni
+            case "SCEGLI" -> //o anche un altro nome al comando (se non vi piace questo)
+                    initialChoice();
+            case "AZIONELEADER" -> leaderAction();
+            case "PRODUZIONE" -> activateProduction();
+            case "FINETURNO" -> endTurn();
+            default -> cliView.showMessage(Styler.color('r', "Scelta non valida! Riprova: "), false);
         }
 
         //commento vecchio:
@@ -101,7 +93,7 @@ public class ActionHandler {
         cliView.showMessage("Vuoi attivare o scartare una carta? A/S",false);
         String string = scanner.nextLine();
         while (string.length()!=1 || (string.charAt(0)!='A'&& string.charAt(0)!='S')){
-            cliView.showMessage("Scelta non valida! Riprova: ",false);
+            cliView.showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
             string = scanner.nextLine();
         }
         char activeOrDiscard = string.charAt(0)=='A' ? 'a' : 'd';
@@ -114,7 +106,7 @@ public class ActionHandler {
     public void activateProduction(){
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
             cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
-            return;
+            return;     //??
         }
 
 

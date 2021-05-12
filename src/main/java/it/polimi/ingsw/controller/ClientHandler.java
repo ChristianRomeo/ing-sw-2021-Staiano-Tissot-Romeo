@@ -81,7 +81,7 @@ public class ClientHandler implements Runnable {
         //send(new SetUpGame(isFirstPlayer, nickname)); //Sends the initial connectionSetUp message to the client
 
         try {
-            int idx=0;
+            int idx=1;
             NewConnectionEvent newConnectionEvent = (NewConnectionEvent) input.readObject();
             String nick = newConnectionEvent.getNickname(); //forse sta parte si può mettere nella virtual view per coerenza
             //System.out.println("nick ricevuto"); // debug

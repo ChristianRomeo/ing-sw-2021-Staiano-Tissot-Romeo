@@ -1,16 +1,16 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.controller.Client;
-import it.polimi.ingsw.controller.OldServerHandler;
 import it.polimi.ingsw.controller.View;
-import it.polimi.ingsw.model.CardType;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerWarehouse;
 
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class CliView implements View {
 
@@ -25,8 +25,9 @@ public class CliView implements View {
      * Constructor
      */
     public CliView() {
+        int cookie=1; //DOBBIAMO FARLO ARRIVARE DAL SERVER PER POTER RICONNETTERE IL PLAYER
         this.scanner = new Scanner(System.in);
-        clientModel = new ClientModel();
+        clientModel = new ClientModel(cookie);
     }
 
     @Override
@@ -35,8 +36,10 @@ public class CliView implements View {
     }
 
     @Override
-    public void launch() {
+    public void launcher() {
         actionHandler = new ActionHandler(clientModel,this,connectionHandler);
+        showMessage(Styler.format('i', Styler.ANSI_TALK + " Welcome!\nPlease wait, You will join the first available game..."),false);
+
         clientModel.setMyNickname(askNickname()); //chiedo e imposto il nickname
         connectionHandler.setUpConnection();
         //poi credo qua devo far partire metodo che chiede cose a utente in continuazione:
@@ -56,22 +59,22 @@ public class CliView implements View {
 
     //sto metodo chiede il nick al giocatore e lo ritorna
     public String askNickname(){
-        String nickname;
+
         showMessage("Inserisci nickname: ", true);
-        nickname = scanner.nextLine();
+        String nickname = scanner.nextLine();
         while (!checkNickname(nickname)){
             showMessage("Scelta non valida, riprova: ",false);
             nickname = scanner.nextLine();
         }
-        showMessage(Styler.format('i', Styler.ANSI_WAIT + " The game will start shortly, brace yourself!"),true);
+        showMessage(Styler.format('i', Styler.ANSI_WAIT + " The game will start shortly, brace yourself!"),false);
         return nickname;
     }
 
     //chiede il num di giocatori voluto
     public int askNumPlayer(){
-        String numPlayer;
+
         showMessage("Inserisci numero giocatori: ",true);
-        numPlayer = scanner.nextLine();
+        String numPlayer = scanner.nextLine();
         while (checkNumPlayer(numPlayer)==null){
             showMessage("Scelta non valida, riprova: ",false);
             numPlayer = scanner.nextLine();
@@ -84,7 +87,7 @@ public class CliView implements View {
     }
 
     @Override
-    public void setUpGame(boolean newGame) {
+    public void setUpGame(boolean newGame) {        //remove?
         //ask nickname
         //validate
         //if newGame chiedi giocatori
@@ -94,10 +97,33 @@ public class CliView implements View {
 
     /**
      * Asks the game cards
+     * @return the set of chosen cards
      */
     @Override
-    public void askLeaderCards() throws FileNotFoundException {
+    public TreeSet<Integer> askLeaderCards() {
 
+        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose 2 cards :"),false);
+        List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
+        showMessage(" ↳: ",false);
+        leaderCard.forEach(this::showLeaderCard);
+
+        String chosenCards = scanner.nextLine();
+        while (checkLeaderCardNum(chosenCards)==null){
+            showMessage("Scelta non valida, riprova: ",false);
+            chosenCards = scanner.nextLine();
+        }
+
+        return checkLeaderCardNum(chosenCards);
+
+        /*
+        TreeSet<Integer> enteredCard = checkLeaderCardNum(chosenCards);
+        List<LeaderCard> temp = new ArrayList<>();
+        temp.add(leaderCard.get(enteredCard.first()));
+        temp.add(leaderCard.get(enteredCard.last()));
+
+        clientModel.setLeaderCards(clientModel.getCurrentPlayerNick(),temp);*/
+
+        //connectionHandler.sendLeaderCards(enteredCard);   ?
     }
 
     /**
@@ -107,25 +133,25 @@ public class CliView implements View {
      */
     @Override
     public int askLeaderCard(){
-        String string;
+
+        List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
+        showMessage(" ↳: ",false);
+        leaderCard.forEach(this::showLeaderCard);
+
         int index=5;
         while (index!=0 && index!=1) {
-            showMessage("Quale carta leader vuoi selezionare? 0/1",false);
-            string =scanner.nextLine();
+            showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose activation/discard card [0/1]:"),false);
+            String string =scanner.nextLine();
             try {
                 index = Integer.parseInt(String.valueOf(string.charAt(0)));
             } catch (NumberFormatException ignored) {}
         }
         return index;
-        //show leadercards
-        //choice
-        //connectionHandler.sendLeaderCards(enteredCard);
     }
 
     @Override
     public void showDevelopmentCards(List<DevelopmentCard> cards) {
-
-
+        cards.forEach(this::showCard);
     }
 
     private void showLeaderCard(LeaderCard card) { //da testare
@@ -148,7 +174,7 @@ public class CliView implements View {
            case "SERVANT"-> Styler.ANSI_SERVANT;
            case "SHIELD"-> Styler.ANSI_SHIELD;
            default -> "";
-       }+" "+ v + "/n"),false));
+       }+" "+ v),false));
 
         //controllare quando è null
         card.getRequiredCards().forEach((k, v) ->
@@ -158,7 +184,7 @@ public class CliView implements View {
            case "GREEN"-> Styler.ANSI_GREEN;
            case "PURPLE"-> Styler.ANSI_PURPLE;
            default -> "";
-       }+" "+ v + "/n"),false));
+       }+" "+ v),false));
     }
 
     private void showCard(DevelopmentCard card) {
@@ -170,6 +196,17 @@ public class CliView implements View {
             case "PURPLE"-> 'p';
             default -> ' ';
         },card.getId()+"")),false);
+
+        showMessage(Styler.format('b', "Card Cost: "),false);
+        card.getCost().forEach((k, v) ->
+                showMessage(Styler.color('b', switch(k.toString()){
+                    case "COIN"-> Styler.ANSI_COIN;
+                    case "STONE"-> Styler.ANSI_STONE;
+                    case "SERVANT"-> Styler.ANSI_SERVANT;
+                    case "SHIELD"-> Styler.ANSI_SHIELD;
+                    default -> "";
+                }+" "+ v),false));
+
         showMessage(Styler.color('b', "Card Level: " + card.getLevel()),false);
 
         card.getRequiredResources().forEach((k, v) ->
@@ -180,6 +217,8 @@ public class CliView implements View {
                     case "SHIELD"-> Styler.ANSI_SHIELD;
                     default -> "";
                 }+" "+ v + "/n"),false));
+
+        if(card.getProducedResources()!=null)
         card.getProducedResources().forEach((k, v) ->
                 showMessage(Styler.color('b', Styler.ANSI_TOHAVE + "" + switch(k.toString()){
                     case "COIN"-> Styler.ANSI_COIN;
@@ -188,9 +227,11 @@ public class CliView implements View {
                     case "SHIELD"-> Styler.ANSI_SHIELD;
                     default -> "";
                 }+" "+ v + "/n"),false));
+
         if (card.getProducedFaithPoints()!=0)
-        showMessage(Styler.color('b', "Faith Points: " + card.getProducedFaithPoints()),false);
+        showMessage(Styler.color('b', Styler.ANSI_TOHAVE + "Faith Points: " + card.getProducedFaithPoints()),false);
         showMessage(Styler.color('b', "Victory Points: " + card.getVictoryPoints()),false);
+
 
     }
 
@@ -224,18 +265,18 @@ public class CliView implements View {
     public void showPlayersLeaderCards(List<Player> playerList) {
         showMessage(" " + Styler.format('b', "Players' LeaderCards:"),true);
 
-        for (Player player : playerList) {
-            showMessage(Styler.format('b', " ▷ " + player.getNickname()),false);
-            if (player.getStatusPlayer().getLeaderCard(0).isActivated()){
+        clientModel.getNicknames().forEach(x-> {
+            showMessage(Styler.format('b', " ▷ " + x),false);
+            if (clientModel.getPlayerLeaderCards(x).get(0).isActivated()){
                 showMessage(Styler.format('i', " Has Activated "),false);
-                showLeaderCard(player.getStatusPlayer().getLeaderCard(0));
+                showLeaderCard(clientModel.getPlayerLeaderCards(x).get(0));
             }
-            if (player.getStatusPlayer().getLeaderCard(1).isActivated()){
+            if (clientModel.getPlayerLeaderCards(x).get(1).isActivated()){
                 showMessage(Styler.format('i', " Has Activated "),false);
-                showLeaderCard(player.getStatusPlayer().getLeaderCard(1));
+                showLeaderCard(clientModel.getPlayerLeaderCards(x).get(1));
             }
+        });
 
-        }
     }
 
     /**
@@ -272,6 +313,7 @@ public class CliView implements View {
         showMessage(Styler.format('b', Styler.ANSI_TALK + "Insert your action: "),false);
         String choice = scanner.nextLine();
 
+        //todo:fix it
         while (true)//invalid choice
         {
             showMessage(Styler.color('r',"Scelta non valida, riprova: "),false);
@@ -283,13 +325,17 @@ public class CliView implements View {
 
     /**
      * Print the map received in input with the ladder
-     * @param scores a map with list of player and his relative score
      */
     @Override
-    public void showLadderBoard(Map<Player, Integer> scores) throws FileNotFoundException {
+    public void showLadderBoard() throws FileNotFoundException {
         showMessage(Styler.format('b',Styler.ANSI_TALK + "This is the LadderBoard of the game:"+ Styler.ANSI_VICTORY ),true);
 
-        scores.forEach((k, v) -> System.out.format("Player %s obtained %d points",k,v));
+        Map<String, Integer> temp = new HashMap<>();
+        AtomicInteger i = new AtomicInteger();
+
+        clientModel.getNicknames().forEach(x-> temp.put(x,clientModel.getPlayersVP().get(i.getAndIncrement())));
+
+        temp.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(k-> showMessage(Styler.format('b', "Player ▷ " + k + "points"),false));
 
         askNewGame();
     }
@@ -304,6 +350,33 @@ public class CliView implements View {
             choice = scanner.nextLine();
         }
         connectionHandler.sendNewGame(choice.equalsIgnoreCase("yes"));
+    }
+
+    public void showWarehouse(Player player){
+
+        showMessage(Styler.format('b', " Player warehouse " + player.getNickname() + "has:"),false);
+
+        showMessage(Styler.format('i', " ▷ " +
+        clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getUpperRowResource()),false);                 //if null cosa succede?
+
+        showMessage(Styler.format('i', " ▷ " +
+                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getMiddleRowResource(0)),false);   //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " +
+                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getMiddleRowResource(1)),false);   //if null cosa succede?
+
+        showMessage(Styler.format('i', " ▷ " +
+                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getLowerRowResource(0)),false);   //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " +
+                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getLowerRowResource(1)),false);   //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " +
+                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getLowerRowResource(2)),false);   //if null cosa succede?
+    }
+
+    public void showStrongbox(Player player){
+
+        showMessage(Styler.format('b', " Player strongbox" + player.getNickname() + "has:"),false);
+        clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname()))
+                .getAllResources().entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x),false));
     }
 
     /**
