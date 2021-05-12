@@ -3,7 +3,9 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.controller.Client;
 import it.polimi.ingsw.controller.OldServerHandler;
 import it.polimi.ingsw.controller.View;
+import it.polimi.ingsw.model.CardType;
 import it.polimi.ingsw.model.DevelopmentCard;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Player;
 
 import java.io.FileNotFoundException;
@@ -17,6 +19,7 @@ public class CliView implements View {
     private final static Logger logger = Logger.getLogger(CliView.class.getName());
     private ActionHandler actionHandler;
     private final ClientModel clientModel;
+
 
     /**
      * Constructor
@@ -89,11 +92,12 @@ public class CliView implements View {
         //connectionhandler.sendPlayer(nickname,num)
     }
 
+    /**
+     * Asks the game cards
+     */
     @Override
     public void askLeaderCards() throws FileNotFoundException {
-        //show leadercards
-        //choice
-        //connectionHandler.sendLeaderCards(enteredCard);
+
     }
 
     /**
@@ -101,6 +105,7 @@ public class CliView implements View {
      * It keeps asking until the user select a valid index.
      * @return the index selected.
      */
+    @Override
     public int askLeaderCard(){
         String string;
         int index=5;
@@ -112,25 +117,31 @@ public class CliView implements View {
             } catch (NumberFormatException ignored) {}
         }
         return index;
+        //show leadercards
+        //choice
+        //connectionHandler.sendLeaderCards(enteredCard);
     }
 
     @Override
     public void showDevelopmentCards(List<DevelopmentCard> cards) {
 
-    }
-    private void showLeaderCard(Player player, int id) { //da testare
 
-        showMessage(Styler.color('b', switch (player.getStatusPlayer().getPlayerLeaderCards().get(id).getAbilityResource().toString()){
+    }
+
+    private void showLeaderCard(LeaderCard card) { //da testare
+
+        showMessage(Styler.format('r',card.getId()+""),false);
+        showMessage(Styler.color('b', switch (card.getAbilityResource().toString()){
             case "COIN"-> Styler.ANSI_COIN;
             case "STONE"-> Styler.ANSI_STONE;
             case "SERVANT"-> Styler.ANSI_SERVANT;
             case "SHIELD"-> Styler.ANSI_SHIELD;
             default -> "";
-        }+ player.getStatusPlayer().getPlayerLeaderCards().get(id).getAbility().toString()),false);
-        showMessage(Styler.color('b', "Victory Points: " + player.getStatusPlayer().getPlayerLeaderCards().get(id).getVictoryPoints()),false);
+        }+" "+ card.getAbility().toString()),false);
+        showMessage(Styler.color('b', "Victory Points: " + card.getVictoryPoints()),false);
 
         //controllare quando è null
-       player.getStatusPlayer().getPlayerLeaderCards().get(id).getRequiredResources().forEach((k, v) ->
+       card.getRequiredResources().forEach((k, v) ->
                showMessage(Styler.color('b', Styler.ANSI_TOGIVE + "" + switch(k.toString()){
            case "COIN"-> Styler.ANSI_COIN;
            case "STONE"-> Styler.ANSI_STONE;
@@ -140,7 +151,7 @@ public class CliView implements View {
        }+" "+ v + "/n"),false));
 
         //controllare quando è null
-        player.getStatusPlayer().getPlayerLeaderCards().get(id).getRequiredCards().forEach((k, v) ->
+        card.getRequiredCards().forEach((k, v) ->
                showMessage(Styler.color('b', Styler.ANSI_TOGIVE + "" + switch(k.toString()){
            case "YELLOW"-> Styler.ANSI_YELLOW;
            case "BLUE"-> Styler.ANSI_BLUE;
@@ -148,6 +159,44 @@ public class CliView implements View {
            case "PURPLE"-> Styler.ANSI_PURPLE;
            default -> "";
        }+" "+ v + "/n"),false));
+    }
+
+    private void showCard(DevelopmentCard card) {
+
+        showMessage(Styler.format('r',Styler.color(switch (card.getType().toString()){
+            case "YELLOW" -> 'y';
+            case "BLUE"-> 'b';
+            case "GREEN"-> 'g';
+            case "PURPLE"-> 'p';
+            default -> ' ';
+        },card.getId()+"")),false);
+        showMessage(Styler.color('b', "Card Level: " + card.getLevel()),false);
+
+        card.getRequiredResources().forEach((k, v) ->
+                showMessage(Styler.color('b', Styler.ANSI_TOGIVE + "" + switch(k.toString()){
+                    case "COIN"-> Styler.ANSI_COIN;
+                    case "STONE"-> Styler.ANSI_STONE;
+                    case "SERVANT"-> Styler.ANSI_SERVANT;
+                    case "SHIELD"-> Styler.ANSI_SHIELD;
+                    default -> "";
+                }+" "+ v + "/n"),false));
+        card.getProducedResources().forEach((k, v) ->
+                showMessage(Styler.color('b', Styler.ANSI_TOHAVE + "" + switch(k.toString()){
+                    case "COIN"-> Styler.ANSI_COIN;
+                    case "STONE"-> Styler.ANSI_STONE;
+                    case "SERVANT"-> Styler.ANSI_SERVANT;
+                    case "SHIELD"-> Styler.ANSI_SHIELD;
+                    default -> "";
+                }+" "+ v + "/n"),false));
+        if (card.getProducedFaithPoints()!=0)
+        showMessage(Styler.color('b', "Faith Points: " + card.getProducedFaithPoints()),false);
+        showMessage(Styler.color('b', "Victory Points: " + card.getVictoryPoints()),false);
+
+    }
+
+    @Override
+    public void showFaithTrack(List<Integer> trackInfo) {
+
     }
 
     /**
@@ -161,14 +210,10 @@ public class CliView implements View {
         showMessage(" " + Styler.format('b', "CardBoards:"),true);
         for (Player player : playerList) {
             showMessage(Styler.format('b', " ▷ " + player.getNickname() + "has:"),false);
-            showCard(player, player.getStatusPlayer().getPersonalCardBoard().getUpperCard(0));
-            showCard(player, player.getStatusPlayer().getPersonalCardBoard().getUpperCard(1));
-            showCard(player, player.getStatusPlayer().getPersonalCardBoard().getUpperCard(2));
+            showCard(player.getStatusPlayer().getPersonalCardBoard().getUpperCard(0));
+            showCard(player.getStatusPlayer().getPersonalCardBoard().getUpperCard(1));
+            showCard(player.getStatusPlayer().getPersonalCardBoard().getUpperCard(2));
         }
-    }
-
-    private void showCard(Player player, DevelopmentCard upperCard) {
-
     }
 
     /**
@@ -183,11 +228,11 @@ public class CliView implements View {
             showMessage(Styler.format('b', " ▷ " + player.getNickname()),false);
             if (player.getStatusPlayer().getLeaderCard(0).isActivated()){
                 showMessage(Styler.format('i', " Has Activated "),false);
-                showLeaderCard(player, player.getStatusPlayer().getLeaderCard(0).getId());
+                showLeaderCard(player.getStatusPlayer().getLeaderCard(0));
             }
             if (player.getStatusPlayer().getLeaderCard(1).isActivated()){
                 showMessage(Styler.format('i', " Has Activated "),false);
-                showLeaderCard(player, player.getStatusPlayer().getLeaderCard(1).getId());
+                showLeaderCard(player.getStatusPlayer().getLeaderCard(1));
             }
 
         }
@@ -203,12 +248,6 @@ public class CliView implements View {
         if (cls)
             Styler.cls();
         System.out.println(message);
-    }
-
-
-    @Override
-    public void showFaithTrack(List<Integer> trackInfo) {
-
     }
 
     @Override
