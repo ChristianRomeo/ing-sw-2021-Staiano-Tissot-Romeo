@@ -6,7 +6,6 @@ import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Player;
 import javafx.application.Application;
-import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,9 +13,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
 //to change game font
-
-import javax.swing.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
@@ -40,7 +36,6 @@ public class GuiView extends Application implements View {
     private MediaPlayer mediaPlayer;
 
     private final static Logger logger = Logger.getLogger(GuiView.class.getName());
-    private SwingNode swingNode;
 
     public static void main(String[] args) {
         launch();
@@ -57,11 +52,6 @@ public class GuiView extends Application implements View {
         currentScene = new Scene(loadFXML("primary"));
         currentStage.setScene(currentScene);
         currentStage.show();
-    }
-
-    //prova
-    private void createAndSetSwingContent() {
-        SwingUtilities.invokeLater(() -> swingNode.setContent(new JButton("Click me!")));
     }
 
     static void setRoot(String fxml) throws IOException {
