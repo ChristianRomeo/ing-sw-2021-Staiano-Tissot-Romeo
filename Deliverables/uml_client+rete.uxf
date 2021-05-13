@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>8</x>
+      <y>128</y>
+      <w>264</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>VirtualView
+--
+-clientHandlers: List&lt;ClientHandler&gt;
+-disconnectedClients: List&lt;String&gt;
+-controller: Controller
+-logger: Logger
+--
+getController(): Controller
+getClientHandlers(): List&lt;ClientHandler&gt;
++addCLientHandler(ClientHandler)
++sendToEveryone(ServerEvent)
++sendtoEveryoneExcept(ServerEvent, String)
++sendTo(ServerEvent, String)
++closeAll()
++getClientHandlers(): List&lt;ClientHandler&gt;
++getController(): Controller
++handleEvent(BoughtCardEvent)
++handleEvent(NumPlayerEvent)
++handleEvent(LeaderCardActionEvent)
++handleEvent(ActivateProductionEvent)
++handleEvent(UseMarketEvent)
++handleEvent(EndTurnEvent)
++handleEvent(NewConnectionEvent)
++handleEvent(InitialChoiceEvent)
++handleEvent(LeaderCardActionEventS2C)
++handleEvent(LeaderCardActionEventS2C)
++handleEvent(BoughtCardEventEventS2C)
++handleEvent(ActivatedProductionEventS2C)
++handleEvent(IncrementPositionEventS2C)
++handleEvent(VaticanReportEventS2C)
++handleEvent(UseMarketEventS2C)
++handleEvent(NewTurnEventS2C)
++handleEvent(IllegalActionEventS2C)
++handleEvent(GameStarterEventS2C)
++handleEvent(EndGameEventS2C)
++handleEvent(LorenzoTurnEventS2C)
++handleEvent(EndPreparationEventS2C)
++handleEvent(NewConnectionEventS2C)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>8</y>
+      <w>208</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Server
+--
+-serverSocket: ServerSocket
+-currentGame: Game
+-currentVirtualView: VirtualView
+-addedPlayers: int
+-logger: Logger
+-executorService: Executor
+--
++launch()
+-initClient()
+-clearlobby()
++initGame()
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>344</y>
+      <w>176</w>
+      <h>248</h>
+    </coordinates>
+    <panel_attributes>ClientHandler
+--
+-socket: Socket
+-virtualView: VirtualView
+-nickname: String
+-input: ObjectInputStream
+-output: ObjectOutputStream
+-isFirstPlayer: boolean
+-lock: Object
+-isConnected: boolean
+-logger: Logger
+--
++getNickname(): String
++setNickname(String)
++connectionSetup()
++isConnected(): boolean
++setDisconnected(): void
++closeSocket()
++send(ServerEvent)
++run()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>400</y>
+      <w>208</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+communicates with</panel_attributes>
+    <additional_attributes>240.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>168</y>
+      <w>64</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+creates</panel_attributes>
+    <additional_attributes>10.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>784</x>
+      <y>48</y>
+      <w>256</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>ConnectionHandler
+--
+-input: ObjectInputStream
+-output: ObjectOutputStream
+-socket: Socket
+-isConnected: boolean
+-serverEventHandler: ServerEventObserver
+-view: View
+-logger: Logger
+--
++run()
++setUpConnection()
++sendNewGame(boolean)
++closeConnection()
++send(ClientEvent)
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1128</x>
+      <y>8</y>
+      <w>296</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>«abstract»
+View
+--
++setConnectionHandler(ConnectionHandler)
++launcher()
++askActions()
++askNickname(): String
++askNumPlayer(): int
++getClientModel(): ClientModel
++setUpGame(Game)
++askChoiceLeaderCards(): TreeSet&lt;Integer&gt;
++askLeaderCard(): int
++askDevelopmentCard(): SameTypePair&lt;Integer&gt;
++showDevelopmentCards(List&lt;DevelopmentCard&gt;) 
++showLeaderCard(LeaderCard)
++showCard(DevelopmentCard)
++showFaithTrack(List&lt;Integer&gt;)
++showPlayersBoard(List&lt;Player&gt;)
++showPlayersLeaderCards(List&lt;Player&gt;)
++showMessage(String, boolean)
++askAction(List&lt;Integer&gt;)
++showLadderBoard()
+
+
+ 
+ 
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1224</x>
+      <y>736</y>
+      <w>368</w>
+      <h>512</h>
+    </coordinates>
+    <panel_attributes>ClientModel
+--
+-developmentCardBoard: DevelopmentCardBoard 
+-market: Market
+-playersNicknames: List&lt;String&gt; 
+-playersStrongboxes: List&lt;Map&lt;Resource,Integer&gt;&gt;
+-playersWarehouses:  List&lt;PlayerWarehouse&gt;
+-playersFTPositions: List&lt;Integer&gt;
+-playersPopeTiles: List&lt;SameTypeTriple&lt;PopeFavorTileStatus&gt;&gt; 
+-playersLeaderCards: List&lt;List&lt;LeaderCard&gt;&gt; 
+-myIndex: int
+-myNickname: String
+-currentPlayerNick: String
+-isPregame: boolean
+-hasGameStarted: boolean
+--
++getPlayersVP(): List&lt;Integer&gt;
++isPregame(): boolean
++hasGameStarted(): boolean
++setIsPregame(boolean)
++setHasGameStarted(boolean)
++setMyNickname(String)
++getMyNickname(): String
++getCurrentPlayerNick(): String
++isCurrentPlayer(): boolean
++getPlayersStrongboxes(): List&lt;Map&lt;Resource, Integer&gt;&gt;
++getPlayersWarehouses(): List&lt;PlayerWarehouse&gt; 
++initClientModel(List&lt;String&gt;, Market, DevelopmentCardBoard)
++setCurrentPlayer(String)
++setDevelopmentCardBoard(DevelopmentCardBoard)
++setMarket(Market)
++setMyIndex(int)
++setLeaderCards(String, List&lt;LeaderCard&gt;)
++setWarehouse(String, PlayerWarehouse)
++getMyIndex(): int
++getNicknames(): List&lt;String&gt;
++getPlayerLeaderCards(String): List&lt;LeaderCard&gt; 
++setStrongbox(String, Map&lt;Resource,Integer&gt;)
++setPersonalCardBoard(String, PersonalCardBoard)
++setFTPosition(String, int)
++setPopeTiles(String, SameTypeTriple&lt;PopeFavorTileStatus&gt;)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1232</x>
+      <y>496</y>
+      <w>360</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>ActionHandler
+--
+-clientModel: ClientModel 
+-cliView: CliView 
+-connectionHandler: ConnectionHandler
+-scanner: Scanner
+--
++handleAction(String)
++initialChoice()
++leaderAction()
++activateProduction()
++endTurn()
++buyDevelopmentCard()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>400</y>
+      <w>296</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>CliView
+--
+-scanner: Scanner
+-connectionHandler: ConnectionHandler
+-logger: Logger
+-actionHandler: ActionHandler
+-clientModel: ClientModel
+--
++askNewGame()
++showWarehouse(Player)
++showStrongbox(Player)
++checkNumber(String, int, int): Integer
++checkNickname(String): boolean
++checkLeaderCardNum(String): TreeSet&lt;Integer&gt;
+
+ 
+ 
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1248</x>
+      <y>400</y>
+      <w>240</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>GuiView
+--
+
+--
+
+
+ 
+ 
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1376</x>
+      <y>720</y>
+      <w>160</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>680</y>
+      <w>256</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Client
+--
+
+--
++init()
+ 
+ 
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1576</x>
+      <y>376</y>
+      <w>256</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>ServerEventObserverImpl
+--
+-clientModel: ClientModel
+-view: View
+
+
+
+
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>48</x>
+      <y>24</y>
+      <w>416</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..
+TO CONTROLLER
+
+creates</panel_attributes>
+    <additional_attributes>10.0;20.0;500.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>136</x>
+      <y>32</y>
+      <w>64</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..
+controls</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>352</y>
+      <w>224</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1360</x>
+      <y>360</y>
+      <w>24</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>936</x>
+      <y>352</y>
+      <w>248</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>936</x>
+      <y>360</y>
+      <w>24</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>112</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1416</x>
+      <y>240</y>
+      <w>176</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1584</x>
+      <y>768</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>832</x>
+      <y>224</y>
+      <w>24</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1664</x>
+      <y>432</y>
+      <w>24</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1088</x>
+      <y>528</y>
+      <w>160</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1504</x>
+      <y>656</y>
+      <w>24</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1072</x>
+      <y>576</y>
+      <w>168</w>
+      <h>272</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>190.0;320.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>728</x>
+      <y>600</y>
+      <w>520</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;630.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>728</x>
+      <y>176</y>
+      <w>24</w>
+      <h>456</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;550.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>728</x>
+      <y>176</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1584</x>
+      <y>8</y>
+      <w>248</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>«Interface»
+ServerEventObserver
+
+--
++handleEvent(LeaderCardActionEventS2C)
++handleEvent(BoughtCardEventEventS2C)
++handleEvent(ActivatedProductionEventS2C)
++handleEvent(IncrementPositionEventS2C)
++handleEvent(VaticanReportEventS2C)
++handleEvent(UseMarketEventS2C)
++handleEvent(NewTurnEventS2C)
++handleEvent(IllegalActionEventS2C)
++handleEvent(GameStarterEventS2C)
++handleEvent(EndGameEventS2C)
++handleEvent(LorenzoTurnEventS2C)
++handleEvent(EndPreparationEventS2C)
++handleEvent(NewConnectionEventS2C)
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1696</x>
+      <y>224</y>
+      <w>24</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1224</x>
+      <y>280</y>
+      <w>24</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+</diagram>
