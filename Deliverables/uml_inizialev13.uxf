@@ -159,8 +159,8 @@ PURPLE</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1212</x>
-      <y>522</y>
+      <x>1266</x>
+      <y>246</y>
       <w>300</w>
       <h>90</h>
     </coordinates>
@@ -436,8 +436,8 @@ LeaderCard
 +getVictoryPoints(): int
 +discard()
 +activate()
-+getIsDiscarded(): boolean
-+getIsActivated(): boolean
++isDiscarded(): boolean
++isActivated(): boolean
 +getDiscountedCost(Map&lt;Resource,Integer): Map&lt;Resource,Integer&gt;
 +getWhiteMarbleResource(): Resource
 +getTotalRequiredResources(Map&lt;Resource,Integer&gt;):Map&lt;Resource,Integer&gt;
@@ -841,163 +841,6 @@ DISCARDED</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1488</x>
-      <y>276</y>
-      <w>114</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>ClientHandler
---
--socket: Socket
--virtualView: VirtualView
--nickname: String
--output: ObjectOutputStream
--input: ObjectInputStream
--isFirstPlayer: boolean
--isConnected: boolean
--lock: Object
--logger: Logger
---
-+getNickname(): String
-+setNickname(String)
-+connectionSetup()
-+isConnected(): boolean
-+setDisconnected(): void
-+closeSocket()
-+run()
-+getVirtualView(): VirtualView
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1236</x>
-      <y>270</y>
-      <w>138</w>
-      <h>216</h>
-    </coordinates>
-    <panel_attributes>VirtualView
---
--clientHandlers: List&lt;ClientHandler&gt;
--controller: Controller
-logger: Logger
---
-+addCLientHandler(ClientHandler)
-+sendToEveryone(ServerEvent)
-+sendtoEveryoneExcept(ServerEvent, String)
-+sendTo(ServerEvent, String)
-+closeAll()
-+getClientHandlers(): List&lt;ClientHandler&gt;
-+getController(): Controller
-+handleEvent(BoughtCardEvent)
-+handleEvent(NumPlayerEvent)
-+handleEvent(LeaderCardActionEvent)
-+handleEvent(ActivatedProductionEvent)
-+handleEvent(endTurnEvent)
-+handleEvent(BoughtCardEventS2C)
-handleEvent(LeaderCardActionEventS2C)
-+handleEvent(ActivatedProductionEventS2C)
-+handleEvent(IncrementPositionEventS2C)
-+handleEvent(VaticanReportEventS2C)
-+handleEvent(UseMarketEventS2C)
-+handleEvent(IllegalActionEventS2C)
-+handleEvent(NewTurnEventS2C)
-+handleEvent(GameStarterEventS2C)
-+handleEvent(EndGameEventS2C)
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1500</x>
-      <y>78</y>
-      <w>102</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>Server
---
--serverSocket: ServerSocket
--currentGame: Game
--currentVirtualView: VirtualView
--addedPlayers: int
--logger: Logger
--executorService: Executor
---
-+launch()
--initClient()
--clearGameRoom()
-+initGame()
-+getVirtualView(): VirtualView
-
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1368</x>
-      <y>360</y>
-      <w>132</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-communicates with</panel_attributes>
-    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1290</x>
-      <y>204</y>
-      <w>42</w>
-      <h>78</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-controls</panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1542</x>
-      <y>180</y>
-      <w>36</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-creates</panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1428</x>
-      <y>114</y>
-      <w>84</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-creates</panel_attributes>
-    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1368</x>
-      <y>180</y>
-      <w>156</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;180.0;240.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
       <x>0</x>
       <y>300</y>
       <w>114</w>
@@ -1039,8 +882,8 @@ creates</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1212</x>
-      <y>660</y>
+      <x>1380</x>
+      <y>366</y>
       <w>72</w>
       <h>90</h>
     </coordinates>
@@ -1064,8 +907,8 @@ val2: T
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1068</x>
-      <y>660</y>
+      <x>1266</x>
+      <y>372</y>
       <w>72</w>
       <h>66</h>
     </coordinates>
@@ -1084,8 +927,8 @@ val2: V
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1374</x>
-      <y>654</y>
+      <x>1494</x>
+      <y>366</y>
       <w>72</w>
       <h>108</h>
     </coordinates>
