@@ -7,39 +7,54 @@ import it.polimi.ingsw.controller.Events.InitialChoiceEvent;
 import it.polimi.ingsw.controller.Events.LeaderCardActionEvent;
 import it.polimi.ingsw.model.*;
 
+import java.util.List;
 import java.util.Scanner;
 
-//sta classe riceve il comando inserito dall'utente e vede se è una azione valida e se lo è chiama metodi
-//(che volendo possono interagire con l'utente)
-//ovviamente è solo per la cli
+/**
+ * Controller client-side of player's actions, dispatch actions to methods (CLI-only)
+ */
 public class ActionHandler {
     private final ClientModel clientModel;
     private final CliView cliView;
-    private final ConnectionHandler connectionHandler;
+    private final ServerHandler serverHandler;
     private final Scanner scanner;
 
-    public ActionHandler(ClientModel clientModel, CliView cliView,ConnectionHandler connectionHandler){
+    /**
+     * Instantiated by the cliView
+     * @param clientModel   the client storage of model parts
+     * @param cliView       the cli
+     * @param serverHandler the serverHandler
+     */
+    public ActionHandler(ClientModel clientModel, CliView cliView, ServerHandler serverHandler){
         this.clientModel=clientModel;
         this.cliView=cliView;
-        this.connectionHandler=connectionHandler;
+        this.serverHandler = serverHandler;
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Main method to handle Player actions
+     * @param action the action string
+     */
     public void handleAction(String action){
-        if(action.contains(" ")){
-            action = action.substring(0,action.indexOf(" ")); //ciò prende solo la prima parola inserita
-        }
-        action = action.toUpperCase();
 
+        //ciò prende solo la prima parola inserita
+        if(action.contains(" "))
+            action = action.substring(0,action.indexOf(" "));
 
-        switch (action) {//bisogna aggiungere le altre azioni
-            case "SCEGLI" -> //o anche un altro nome al comando (se non vi piace questo)
-                    initialChoice();
+        //todo: bisogna aggiungere le altre azioni
+        switch (action.toUpperCase()) {
+            case "SCEGLI" -> initialChoice();   //o anche un altro nome al comando (se non vi piace questo)
             case "AZIONELEADER" -> leaderAction();
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
-            case "COMPRACARTA" -> buyDevelopmentCard();
-            default -> cliView.showMessage(Styler.color('r', "Scelta non valida! Riprova: "), false);
+            case "COMPRACARTA" -> buyDevelopmentCard(); //todo: ask da dove prendere le risorse per comprare
+            case "MERCATO" -> collectMarket();          //todo: ask dove mettere le risorse se non le voglio scartare
+            case "MODIFICA" -> swapResources();
+            case "MOSTRAFT" -> cliView.showFaithTrack();
+            case "MOSTRALEADERS" -> cliView.showPlayersLeaderCards();
+            case "MOSTRABOARDS" -> cliView.showPlayersBoard();
+            default -> cliView.showErrorMessage("Invalid choice! Try again: ");
         }
 
         //commento vecchio:
@@ -48,14 +63,22 @@ public class ActionHandler {
         //(si dovrà ovviamente anche controllare che quell'azione si può fare)
     }
 
+    public void swapResources() {
+    }
 
+    public void collectMarket() {
+    }
+
+    /**
+     * Guides the player throught the initial choice of leaderCards and resources
+     *///todo: metodo da finire
     public void initialChoice(){
-        //metodo che interagisce con l'utente per la scelta iniziale di leader cards e risorse
+
         if(!clientModel.isCurrentPlayer() || !clientModel.isPregame() ){
-            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
+            cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
-        //todo: metodo da finire
+
 
         //ovviamente ste cose dovremo chiederle a utente
         //qua si prendono gli indici delle leader card  che si vogliono scartare
@@ -76,77 +99,60 @@ public class ActionHandler {
             position2= new SameTypePair<>();
             position2.setVal1(3);
             position2.setVal2(2);
-
         }
 
-        connectionHandler.send(new InitialChoiceEvent(removedLeader1,removedLeader2,resource1,resource2,position1,position2));
-        cliView.showMessage("Scelta inviata",false); //per debug
+        serverHandler.send(new InitialChoiceEvent(removedLeader1,removedLeader2,resource1,resource2,position1,position2));
+        cliView.showMessage("Choice saved",false); //per debug
     }
 
-    //metodo per scartare/attivare carte leader
+    /**
+     * Activate/discard leaderCards
+     */
     public void leaderAction(){
+
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
-            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
+            cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
 
-        // todo: qui mostro le leader cards che ha il giocatore
-        // in realtà gia le mostra in ask leader card
+        List<Integer> answer = cliView.askLeaderCard();
 
-        cliView.showMessage("Vuoi attivare o scartare una carta? A/S",false);
-        String string = scanner.nextLine();
-        while (string.length()!=1 || (string.charAt(0)!='A'&& string.charAt(0)!='S')){
-            cliView.showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
-            string = scanner.nextLine();
-        }
-        char activeOrDiscard = string.charAt(0)=='A' ? 'a' : 'd';
-        int cardIndex = cliView.askLeaderCard();
+        char activeOrDiscard = answer.get(0)==0 ? 'a': 'd';
 
-        connectionHandler.send(new LeaderCardActionEvent(activeOrDiscard,cardIndex));
+        serverHandler.send(new LeaderCardActionEvent(activeOrDiscard,answer.get(1)));
     }
 
-    //metodo per attivare produzione
-    public void activateProduction(){
-        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
-            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
-            return;     //??
-        }
-
-
-
-    }
-
-    //metodo per terminare il proprio turno
+    /**
+     * this enables the user to end his turn.
+     */
     public void endTurn(){
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
-            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
+            cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
-        connectionHandler.send(new EndTurnEvent());
+        serverHandler.send(new EndTurnEvent());
     }
 
-    //metodo per comprare una carta dalla board
+    /**
+     * enables the player to buy a card from the board
+     */
     public void buyDevelopmentCard(){
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
-            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
+            cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
 
-        //todo: qui mostro la development card board, cosi lui sceglie la carta che vuole
         SameTypePair<Integer> position = cliView.askDevelopmentCard();
-        int row = position.getVal1();
-        int col = position.getVal2();
-
-        cliView.showMessage("Inserisci la pila dove vuoi inserire la carta (da 0 a 2): ", false);
-        String string = scanner.nextLine();
-        while(cliView.checkNumber(string,0,2)==null){
-            cliView.showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
-            string = scanner.nextLine();
-        }
-        int pile = cliView.checkNumber(string,0,2);
-
-        connectionHandler.send(new BoughtCardEvent(row,col,pile));
+        //controllo se può farlo, rimuovo carta da board, aggiorno clientModel , right?
+        serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.cardRedeem()));
     }
 
+    //todo: metodo per attivare produzione
+    public void activateProduction(){
+        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+            cliView.showErrorMessage("You can't do this action now, Please Wait...");
+            return;
+        }
 
+    }
 }

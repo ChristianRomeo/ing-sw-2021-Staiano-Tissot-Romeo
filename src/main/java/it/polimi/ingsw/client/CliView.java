@@ -7,12 +7,11 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 public class CliView implements View {
 
     private final Scanner scanner;
-    private ConnectionHandler connectionHandler;
+    private ServerHandler serverHandler;
     private final static Logger logger = Logger.getLogger(CliView.class.getName());
     private ActionHandler actionHandler;
     private final ClientModel clientModel;
@@ -22,27 +21,32 @@ public class CliView implements View {
      * Constructor
      */
     public CliView() {
-        int cookie=1; //DOBBIAMO FARLO ARRIVARE DAL SERVER PER POTER RICONNETTERE IL PLAYER
+        int cookie=1; //todo DOBBIAMO FARLO ARRIVARE DAL SERVER PER POTER RICONNETTERE IL PLAYER
         this.scanner = new Scanner(System.in);
         clientModel = new ClientModel(cookie);
     }
 
+    public ClientModel getClientModel() {
+        return clientModel;
+    }
+
     @Override
-    public void setConnectionHandler(ConnectionHandler connectionHandler) {
-        this.connectionHandler=connectionHandler;
+    public void setConnectionHandler(ServerHandler serverHandler) {
+        this.serverHandler = serverHandler;
     }
 
     @Override
     public void launcher() {
-        actionHandler = new ActionHandler(clientModel,this,connectionHandler);
+        actionHandler = new ActionHandler(clientModel,this, serverHandler);
         showMessage(Styler.format('i', Styler.ANSI_TALK + " Welcome!\nPlease wait, You will join the first available game..."),false);
 
         clientModel.setMyNickname(askNickname()); //chiedo e imposto il nickname
-        connectionHandler.setUpConnection();
+        serverHandler.setUpConnection();
         //poi credo qua devo far partire metodo che chiede cose a utente in continuazione:
         askActions();
     }
 
+    @Override
     public void askActions(){
         while(true){ //poi ci sarà qualche altra condizione
             scanner.reset();
@@ -54,42 +58,41 @@ public class CliView implements View {
         }
     }
 
-    //sto metodo chiede il nick al giocatore e lo ritorna
+    /**
+     * Shows a message to the user
+     *
+     * @param message   The message to be shown
+     * @param cls       True if wants to clean the console
+     */
+    public synchronized void showMessage(String message,boolean cls){
+        if (cls)
+            Styler.cls();
+        System.out.println(message);
+    }
+
+    @Override
     public String askNickname(){
 
         showMessage("Inserisci nickname: ", true);
         String nickname = scanner.nextLine();
         while (!checkNickname(nickname)){
-            showMessage("Scelta non valida, riprova: ",false);
+            showErrorMessage("Invalid choice! Try again: ");
             nickname = scanner.nextLine();
         }
         showMessage(Styler.format('i', Styler.ANSI_WAIT + " The game will start shortly, brace yourself!"),false);
         return nickname;
     }
 
-    //chiede il num di giocatori voluto
+    @Override
     public int askNumPlayer(){
 
         showMessage("Inserisci numero giocatori: ",true);
         String numPlayer = scanner.nextLine();
         while (checkNumber(numPlayer,1,4)==null){
-            showMessage("Scelta non valida, riprova: ",false);
+            showErrorMessage("Invalid choice! Try again: ");
             numPlayer = scanner.nextLine();
         }
         return checkNumber(numPlayer,1,4);
-    }
-
-    public ClientModel getClientModel() {
-        return clientModel;
-    }
-
-    @Override
-    public void setUpGame(boolean newGame) {        //remove?
-        //ask nickname
-        //validate
-        //if newGame chiedi giocatori
-        //validate
-        //connectionhandler.sendPlayer(nickname,num)
     }
 
     /**
@@ -106,30 +109,20 @@ public class CliView implements View {
 
         String chosenCards = scanner.nextLine();
         while (checkLeaderCardNum(chosenCards)==null){
-            showMessage("Scelta non valida, riprova: ",false);
+            showErrorMessage("Invalid choice! Try again: ");
             chosenCards = scanner.nextLine();
         }
 
         return checkLeaderCardNum(chosenCards);
-
-        /*
-        TreeSet<Integer> enteredCard = checkLeaderCardNum(chosenCards);
-        List<LeaderCard> temp = new ArrayList<>();
-        temp.add(leaderCard.get(enteredCard.first()));
-        temp.add(leaderCard.get(enteredCard.last()));
-
-        clientModel.setLeaderCards(clientModel.getCurrentPlayerNick(),temp);*/
-
-        //connectionHandler.sendLeaderCards(enteredCard);   ?
     }
 
     /**
      * This method asks to the user an index (0/1) of a leader card.
-     * It keeps asking until the user select a valid index.
-     * @return the index selected.
+     * And then what card
+     * @return [0]=the action [1]=the card index.
      */
     @Override
-    public int askLeaderCard(){
+    public List<Integer> askLeaderCard(){
 
         List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
         showMessage(" ↳: ",false);
@@ -138,41 +131,76 @@ public class CliView implements View {
         showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose activation/discard card [0/1]:"),false);
         String string =scanner.nextLine();
         while (checkNumber(string,0,1)==null) {
-            showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
+            showErrorMessage("Invalid choice! Try again: ");
             string =scanner.nextLine();
         }
-        return checkNumber(string,0,1);
+
+        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose what card:"),false);
+        String chosenCard = scanner.nextLine();
+        while (checkLeaderCardNum(chosenCard)==null){
+            showErrorMessage("Invalid choice! Try again: ");
+            chosenCard = scanner.nextLine();
+        }
+        List<Integer> ret = new ArrayList<>();
+        ret.add(checkNumber(string,0,1));
+        ret.add(checkNumber(chosenCard,0,1));
+
+        return ret;
     }
 
     /**
      * This method asks the user a position of a development card in the development card board
      * @return the position (row,col)
      */
+    @Override
     public SameTypePair<Integer> askDevelopmentCard(){
+        showDevelopmentCards();
         SameTypePair<Integer> position = new SameTypePair<>();
         showMessage("Inserisci la riga della carta che vuoi selezionare: ", false);
         String string = scanner.nextLine();
         while(checkNumber(string,0,2)==null){
-            showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
+            showErrorMessage("Invalid choice! Try again: ");
             string = scanner.nextLine();
         }
         position.setVal1(checkNumber(string,0,2));
         showMessage("Inserisci la colonna della carta che vuoi selezionare: ", false);
         string = scanner.nextLine();
         while(checkNumber(string,0,3)==null){
-            showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
+            showErrorMessage("Invalid choice! Try again: ");
             string = scanner.nextLine();
         }
         position.setVal2(checkNumber(string,0,3));
         return position;
     }
 
+    /**
+     * asks in what pile of production should the bought card be inserted
+     * @return the pile number
+     */
     @Override
-    public void showDevelopmentCards(List<DevelopmentCard> cards) {
-        cards.forEach(this::showCard);
+    public int cardRedeem(){
+        showMessage("Chose the pile where you want to insert your card ( 0 - 2): ", false);
+        showCard(clientModel.getPlayersCardBoards().get(clientModel.getNicknames().indexOf(clientModel.getCurrentPlayerNick())).getUpperCard(0));
+        showCard(clientModel.getPlayersCardBoards().get(clientModel.getNicknames().indexOf(clientModel.getCurrentPlayerNick())).getUpperCard(1));
+        showCard(clientModel.getPlayersCardBoards().get(clientModel.getNicknames().indexOf(clientModel.getCurrentPlayerNick())).getUpperCard(2));
+
+        String string = scanner.nextLine();
+        while(checkNumber(string,0,2)==null){
+            showErrorMessage("Invalid choice! Try again: ");
+            string = scanner.nextLine();
+        }
+        return checkNumber(string,0,2);
     }
 
-    private void showLeaderCard(LeaderCard card) { //da testare
+    @Override
+    public void showDevelopmentCards(){    //da testare
+
+        for (int i=0;i<3;++i)
+            for (int j=0;j<4;++j)
+                showCard(clientModel.getDevelopmentCardBoard().getCard(i,j));
+    }
+
+    private void showLeaderCard(LeaderCard card){ //da testare
 
         showMessage(Styler.format('r',card.getId()+""),false);
         showMessage(Styler.color('b', switch (card.getAbilityResource().toString()){
@@ -254,33 +282,32 @@ public class CliView implements View {
     }
 
     @Override
-    public void showFaithTrack(List<Integer> trackInfo) {
+    public void showFaithTrack() {
 
     }
 
     /**
      * Shows other player cards
-     *
-     * @param playerList The list of players of the game
      */
     @Override
-    public void showPlayersBoard(List<Player> playerList) {
+    public void showPlayersBoard(){
 
         showMessage(" " + Styler.format('b', "CardBoards:"),true);
-        for (Player player : playerList) {
-            showMessage(Styler.format('b', " ▷ " + player.getNickname() + "has:"),false);
-            showCard(player.getStatusPlayer().getPersonalCardBoard().getUpperCard(0));
-            showCard(player.getStatusPlayer().getPersonalCardBoard().getUpperCard(1));
-            showCard(player.getStatusPlayer().getPersonalCardBoard().getUpperCard(2));
-        }
+        AtomicInteger i= new AtomicInteger();
+        clientModel.getNicknames().forEach(x-> {
+            showMessage(Styler.format('b', " ▷ " + x + "has:"),false);
+            showCard(clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(0));
+            showCard(clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(1));
+            showCard(clientModel.getPlayersCardBoards().get(i.getAndIncrement()).getUpperCard(2));
+        });
     }
 
     /**
      * Shows other player LeaderCards, if activated
-     * @param playerList The list of players of the game
      */
     @Override
-    public void showPlayersLeaderCards(List<Player> playerList) {
+    public void showPlayersLeaderCards(){
+
         showMessage(" " + Styler.format('b', "Players' LeaderCards:"),true);
 
         clientModel.getNicknames().forEach(x-> {
@@ -295,50 +322,6 @@ public class CliView implements View {
             }
         });
 
-    }
-
-    /**
-     * Shows a message to the user
-     *
-     * @param message   The message to be shown
-     * @param cls       True if wants to clean the console
-     */
-    public synchronized void showMessage(String message,boolean cls){
-        if (cls)
-            Styler.cls();
-        System.out.println(message);
-    }
-
-    @Override
-    public void askAction(List<Integer> availableActions) {
-        showMessage("\n" + Styler.format('b', "Possible actions are: "),false);
-        int index=1;
-        if (availableActions.get(0).equals(1))
-            showMessage(Styler.format('b', index++ +") Buy At Market"),false);
-        if (availableActions.get(1).equals(1))
-            showMessage(Styler.format('b', index++ +") Activate Production"),false);
-        if (availableActions.get(2).equals(1))
-            showMessage(Styler.format('b', index++ +") Edit Warehouse"),false);
-        if (availableActions.get(3).equals(1))
-            showMessage(Styler.format('b', index++ +") Show other players active LeaderCards"),false);
-        if (availableActions.get(4).equals(1))
-            showMessage(Styler.format('b', index++ +") Show faith track"),false);
-        if (availableActions.get(5).equals(1))
-            showMessage(Styler.format('b', index++ +") Show other players productions"),false);
-
-        //PRINT OTHER USEFUL THINGS TO THE PLAYER
-
-        showMessage(Styler.format('b', Styler.ANSI_TALK + "Insert your action: "),false);
-        String choice = scanner.nextLine();
-
-        //todo:fix it
-        while (true)//invalid choice
-        {
-            showMessage(Styler.color('r',"Scelta non valida, riprova: "),false);
-            choice = scanner.nextLine();
-        }
-
-        //connectionHandler.sendAction();
     }
 
     /**
@@ -364,12 +347,13 @@ public class CliView implements View {
         String choice = scanner.nextLine();
 
         while (!choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("no")){
-            showMessage(Styler.color('r',"Scelta non valida, riprova: "),false);
+            showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
         }
-        connectionHandler.sendNewGame(choice.equalsIgnoreCase("yes"));
+        serverHandler.sendNewGame(choice.equalsIgnoreCase("yes"));
     }
 
+    @Override
     public void showWarehouse(Player player){
 
         showMessage(Styler.format('b', " Player warehouse " + player.getNickname() + "has:"),false);
@@ -390,6 +374,7 @@ public class CliView implements View {
                 clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getLowerRowResource(2)),false);   //if null cosa succede?
     }
 
+    @Override
     public void showStrongbox(Player player){
 
         showMessage(Styler.format('b', " Player strongbox" + player.getNickname() + "has:"),false);
@@ -401,7 +386,8 @@ public class CliView implements View {
      * Notify all that a player has been disconnected (and the game has ended ?FA)
      * @param disconnected The nickname of the disconnected player
      */
-    public void showDisconnectionMessage(String disconnected) {
+    @Override
+    public void showDisconnectionMessage(String disconnected){
         showMessage("GAME OVER: " + disconnected + " has disconnected.",true);   //oppure diverso in base alla FA
     }
 
@@ -418,6 +404,7 @@ public class CliView implements View {
      *
      * @param currentNickname The nickname of whom taking the turn
      */
+    @Override
     public void showTurn(String currentNickname) {
         showMessage("It's " + currentNickname + "'s turn.", false);
     }
@@ -427,25 +414,55 @@ public class CliView implements View {
      * @param winner The nickname of the winner
      * @param youWon True if the player has win
      */
-    public void showEndGameMessage(String winner, boolean youWon) {
+    @Override
+    public void showEndGameMessage(String winner, boolean youWon){
         if(youWon)
             showMessage(Styler.color('g',"Congratulations YOU WON " ),true);
         else
             showMessage(Styler.color('y',"That's sad, YOU LOSE " ),true);
     }
 
+    //todo to be changed
+    public void printActions() {
+        List<Integer> availableActions= new ArrayList<>();
+        showMessage("\n" + Styler.format('b', "Possible actions are: "),false);
+        int index=1;
+        if (availableActions.get(0).equals(1))
+            showMessage(Styler.format('b', index++ +") Buy At Market"),false);
+        if (availableActions.get(1).equals(1))
+            showMessage(Styler.format('b', index++ +") Activate Production"),false);
+        if (availableActions.get(2).equals(1))
+            showMessage(Styler.format('b', index++ +") Edit Warehouse"),false);
+        if (availableActions.get(3).equals(1))
+            showMessage(Styler.format('b', index++ +") Show other players active LeaderCards"),false);
+        if (availableActions.get(4).equals(1))
+            showMessage(Styler.format('b', index++ +") Show faith track"),false);
+        if (availableActions.get(5).equals(1))
+            showMessage(Styler.format('b', index++ +") Show other players productions"),false);
 
+        //PRINT OTHER USEFUL THINGS TO THE PLAYER
 
+        showMessage(Styler.format('b', Styler.ANSI_TALK + "Insert your action: "),false);
+        String choice = scanner.nextLine();
 
+        //todo:fix it
+        while (true)//invalid choice
+        {
+            showErrorMessage("Invalid choice! Try again: ");
+            choice = scanner.nextLine();
+        }
+
+        //serverHandler.sendAction();
+    }
 
 
 
                                                                 //########################## CHECKS #########################
-    /**
+    /*
      * Tests if the input is a correct number of players
      * @param num  The entered text
      * @return  The null value if the string is not a correct value, otherwise its integer value
-     */
+
     //metodo vecchio da togliere
     public Integer checkNumPlayer(String num) {
         return switch (Integer.parseInt(num)){
@@ -455,7 +472,7 @@ public class CliView implements View {
             case 4-> 4;
             default -> null;
         };
-    }
+    }*/
 
     /**
      * Tests if the input is a valid LeaderCard choice (1...4)
@@ -473,11 +490,11 @@ public class CliView implements View {
         return (first < 5 && last < 5 && s1.add(last)) ? s1 : null;
     }
 
-    /**
+    /*
      * Tests if the input is a valid card position in the matrix
      * @param devNum  The entered text, it has to be "row,col"
      * @return  The null value if the string is not a correct value, otherwise a map with row and column
-     */
+
     //metodo vecchio da togliere
     public SameTypePair<Integer> checkDevCardNum(String devNum) {
         int row=9, col=9;
@@ -486,7 +503,7 @@ public class CliView implements View {
             col = Integer.parseInt(String.valueOf(devNum.charAt(2)));
         } catch (NumberFormatException ignored) {}
         return (row < 3 && col < 4 && row>=0 &&col>=0)? new SameTypePair<>(row,col) : null;
-    }
+    }*/
 
     /**
      * Tests if the input is a valid nickname with alphanumeric, one space, point, dash, underscore in regex
@@ -506,7 +523,7 @@ public class CliView implements View {
      * @return null if the check is false, otherwise the number
      */
     public Integer checkNumber(String number, int lowLimit, int highLimit){ //todo: se sto metodo funziona leviamo gli altri check dei numeri
-        Integer num= null;
+        int num;
         try{
             num = Integer.parseInt(number);
         }catch(NumberFormatException e){

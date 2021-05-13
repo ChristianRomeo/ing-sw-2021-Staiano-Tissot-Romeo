@@ -1,10 +1,11 @@
 package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.ClientModel;
-import it.polimi.ingsw.client.ConnectionHandler;
+import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SameTypePair;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -73,10 +74,10 @@ public class GuiView extends Application implements View {
     /**
      * Sets the serverHandler
      *
-     * @param connectionHandler The handler of the server connection
+     * @param serverHandler The handler of the server connection
      */
     @Override
-    public void setConnectionHandler(ConnectionHandler connectionHandler) {
+    public void setConnectionHandler(ServerHandler serverHandler) {
 
     }
 
@@ -99,16 +100,6 @@ public class GuiView extends Application implements View {
     }
 
     /**
-     * Asks nickname and if it's a new game the number of players for the game and notify the information to the serverHandler
-     *
-     * @param newGame True if the it is a new game, otherwise false
-     */
-    @Override
-    public void setUpGame(boolean newGame) {
-
-    }
-
-    /**
      * Asks the game cards
      * @return the set of chosen cards
      */
@@ -122,59 +113,46 @@ public class GuiView extends Application implements View {
      * Asks the index of a leader card
      */
     @Override
-    public int askLeaderCard() {
-        return 0;
+    public List<Integer> askLeaderCard() {
+        return new ArrayList<>();
     }
 
     /**
      * Shows the developmentCardBoard matrix
      *
-     * @param cards All the remaining cards
      */
     @Override
-    public void showDevelopmentCards(List<DevelopmentCard> cards) {
+    public void showDevelopmentCards() {
 
     }
 
     /**
      * Shows the Players in the game
      *
-     * @param playerList All the players
      */
     @Override
-    public void showPlayersBoard(List<Player> playerList) {
+    public void showPlayersBoard() {
 
     }
 
     /**
      * Show the activated leaderCards of others players
      *
-     * @param playerList LeaderCards activated
      */
     @Override
-    public void showPlayersLeaderCards(List<Player> playerList) {
+    public void showPlayersLeaderCards() {
 
     }
 
     /**
      * Shows the faith track
      *
-     * @param trackInfo The track's player position ([0] first, [1] second...)
      */
     @Override
-    public void showFaithTrack(List<Integer> trackInfo) {
+    public void showFaithTrack() {
 
     }
 
-    /**
-     * Asks what the player want to do
-     *
-     * @param roundActions The possible actions    ([0]market, [1] prod, [2]warehouse)
-     */
-    @Override
-    public void askAction(List<Integer> roundActions) {
-
-    }
 
     /**
      * Shows the LadderBoard of the match
@@ -193,6 +171,105 @@ public class GuiView extends Application implements View {
      */
     @Override
     public void showMessage(String message, boolean cls) {
+
+    }
+
+    /**
+     * Shows an error message
+     *
+     * @param errorMessage The message to be shown
+     */
+    @Override
+    public void showErrorMessage(String errorMessage) {
+
+    }
+
+    /**
+     * Asks the player what action should engage
+     */
+    @Override
+    public void askActions() {
+
+    }
+
+    /**
+     * asks the nickname
+     *
+     * @return the nickname
+     */
+    @Override
+    public String askNickname() {
+        return null;
+    }
+
+    /**
+     * This method asks the user a position of a development card in the development card board
+     *
+     * @return the position (row,col)
+     */
+    @Override
+    public SameTypePair<Integer> askDevelopmentCard() {
+        return null;
+    }
+
+    /**
+     * asks in what pile of production should the bought card be inserted
+     *
+     * @return the pile number
+     */
+    @Override
+    public int cardRedeem() {
+        return 0;
+    }
+
+    /**
+     * shows a player warehouse
+     *
+     * @param player the player which the warehouse should be shown
+     */
+    @Override
+    public void showWarehouse(Player player) {
+
+    }
+
+    /**
+     * shows a player Strongbox
+     *
+     * @param player the player which the Strongbox should be shown
+     */
+    @Override
+    public void showStrongbox(Player player) {
+
+    }
+
+    /**
+     * Notify all that a player has been disconnected (and the game has ended ?FA)
+     *
+     * @param disconnected The nickname of the disconnected player
+     */
+    @Override
+    public void showDisconnectionMessage(String disconnected) {
+
+    }
+
+    /**
+     * Notify whose turn is
+     *
+     * @param currentNickname The nickname of whom taking the turn
+     */
+    @Override
+    public void showTurn(String currentNickname) {
+
+    }
+
+    /**
+     * Notify that the game has ended and the winning status
+     *
+     * @param winner The nickname of the winner
+     * @param youWon True if the player has win
+     */
+    @Override
+    public void showEndGameMessage(String winner, boolean youWon) {
 
     }
 }

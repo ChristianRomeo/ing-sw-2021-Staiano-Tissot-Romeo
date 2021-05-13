@@ -13,11 +13,12 @@ import java.util.Map;
 
 
 public class ClientModel {
-   private DevelopmentCardBoard developmentCardBoard;
-   private Market market;
-
    //liste delle cose dei giocatori, volendo possiamo fare una classe ClientPlayer che racchiude queste info
    //e poi facciamo una sola lista di ClientPlayer (ma non per forza)
+
+   private DevelopmentCardBoard developmentCardBoard;
+
+   private Market market;
 
    private List<String> playersNicknames; //in ordine di gioco
 
@@ -51,6 +52,38 @@ public class ClientModel {
 
    public ClientModel(int serverCookie) {
       this.serverCookie = serverCookie;
+   }
+
+   public Market getMarket() {
+      return market;
+   }
+
+   public List<String> getPlayersNicknames() {
+      return playersNicknames;
+   }
+
+   public List<PersonalCardBoard> getPlayersCardBoards() {
+      return playersCardBoards;
+   }
+
+   public List<Integer> getPlayersFTPositions() {
+      return playersFTPositions;
+   }
+
+   public List<SameTypeTriple<PopeFavorTileStatus>> getPlayersPopeTiles() {
+      return playersPopeTiles;
+   }
+
+   public List<List<LeaderCard>> getPlayersLeaderCards() {
+      return playersLeaderCards;
+   }
+
+   public int getServerCookie() {
+      return serverCookie;
+   }
+
+   public DevelopmentCardBoard getDevelopmentCardBoard() {
+      return developmentCardBoard;
    }
 
    public List<Integer> getPlayersVP() {

@@ -66,7 +66,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     /*public void setUpGame(){
         //setnickname and if già usato chiama setnewnickname che lo richiede o lo incrementa, setnumplayers
         //controller.wakeUpController();
-    }*/
+    }
 
     public void setChosenLeaderCards(){
         //controller.setLeaderCards(choice, nickname)
@@ -78,7 +78,8 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
     public void setAction(){
         //notify controller that player has chosen an action
-    }
+    }*/
+
     public void setDisconnected(ClientHandler client){
         //notify controller that player has been disconnected
         disconnectedClients.add(client.getNickname());

@@ -13,21 +13,21 @@ import java.net.Socket;
 import java.util.logging.Logger;
 
 /**
- * Class ConnectionHandler handles messages from server to client and viceversa (serverHandler)
+ * Class ServerHandler handles messages from server to client and viceversa (serverHandler)
  */
-public class ConnectionHandler implements Runnable{
+public class ServerHandler implements Runnable{
     private ObjectInputStream input;    //quello che arriva dal server
     private ObjectOutputStream output;  //quello che va verso il server
     private Socket socket;              //la socket del client
     private boolean isConnected=false;
     private final ServerEventObserver serverEventHandler;
     private final View view;
-    private final static Logger logger = Logger.getLogger(ConnectionHandler.class.getName());
+    private final static Logger logger = Logger.getLogger(ServerHandler.class.getName());
 
 
-    public ConnectionHandler(View view){
+    public ServerHandler(View view){
         this.view=view;
-        serverEventHandler = new ServerEventObserverImpl(view.getClientModel(),view);
+        serverEventHandler = new EventsHandler(view.getClientModel(),view);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ConnectionHandler implements Runnable{
 
             } catch (ClassNotFoundException | IOException e) {
                 if (isConnected)
-                    //CliView.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during reading" : "") + ".",true);
+                    //CliView.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during reading" : "") + ".",true);    //during sending if server is alive
                     //do things
                     isConnected = false;
             }
@@ -50,42 +50,37 @@ public class ConnectionHandler implements Runnable{
 
     public void setUpConnection(){
         try{
-            socket = new Socket(Configs.getServerIp(), Configs.getServerPort());    //metodo del server nel client !FA!
+            socket = new Socket(Configs.getServerIp(), Configs.getServerPort());    //metodo del server nel client
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             isConnected=true;
         }catch (Exception e){
-            System.out.println("errore"); // da fare meglio
+            view.showErrorMessage("errore"+e); // da fare meglio
         }
 
+        //faccio set nel model nel launcher della cli, ora lo mando al server e poi lo riprendo e lo risetto
         send(new NewConnectionEvent(view.getClientModel().getMyNickname())); // invio evento con nickname
-        System.out.println("nick inviato"); // debug
+        view.showMessage("nick inviato",false); // debug
 
         try {
             //ricevo risposta dal server
             NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();
-
-            System.out.println("risposta ricevuta"); // debug
-
+            view.showMessage("risposta ricevuta",false); // debug
             view.getClientModel().setMyNickname(serverAnswer.getNickname()); //si imposta il nick ricevuto
 
             if(serverAnswer.isFirstPlayer()){
-
                 //qui si chiede il numero di giocatori voluto all'utente
                 int wantedNumPlayers = view.askNumPlayer();
-
                 send(new NumPlayerEvent(wantedNumPlayers));
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace(); //errore
+            view.showErrorMessage("errore"+e); // da fare meglio
         }
 
         //quindi arrivato qua il client si è connesso con il server,ha inviato il suo nickname e
         //eventualmente il numero di giocatori
-
         //ora attivo la ricezione di messaggi da server
         (new Thread(this)).start();
-
         view.showMessage("Attendi che tutti si connettono...",false);
     }
 
@@ -120,14 +115,14 @@ public class ConnectionHandler implements Runnable{
     public void send(ClientEvent message) {
         if (isConnected) {
             try {
-                //synchronized (lock) {
+                //synchronized (lock) { /               /??
                     output.writeUnshared(message);
                     output.flush();
                     output.reset();
                 //}
             } catch (IOException e) {
                 isConnected = false;
-                view.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during sending" : "") + ".",false);
+                //view.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during sending" : "") + ".",false);  //during sending if server is alive
             }
         }
     }

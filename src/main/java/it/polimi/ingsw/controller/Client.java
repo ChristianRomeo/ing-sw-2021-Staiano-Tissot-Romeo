@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.client.CliView;
-import it.polimi.ingsw.client.ConnectionHandler;
+import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.client.GUI.GuiView;
 import it.polimi.ingsw.client.Styler;
 
@@ -29,7 +29,7 @@ public class Client {
             switch (scanner.nextLine().toUpperCase()){
                 case "CLI"->{
                     view = new CliView();
-                    view.setConnectionHandler(new ConnectionHandler(view));
+                    view.setConnectionHandler(new ServerHandler(view));
                     correct = true;
                     view.launcher();
                 }
