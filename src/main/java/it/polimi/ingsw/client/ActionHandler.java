@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 
+import it.polimi.ingsw.controller.Events.BoughtCardEvent;
 import it.polimi.ingsw.controller.Events.EndTurnEvent;
 import it.polimi.ingsw.controller.Events.InitialChoiceEvent;
 import it.polimi.ingsw.controller.Events.LeaderCardActionEvent;
@@ -37,6 +38,7 @@ public class ActionHandler {
             case "AZIONELEADER" -> leaderAction();
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
+            case "COMPRACARTA" -> buyDevelopmentCard();
             default -> cliView.showMessage(Styler.color('r', "Scelta non valida! Riprova: "), false);
         }
 
@@ -89,6 +91,7 @@ public class ActionHandler {
         }
 
         // todo: qui mostro le leader cards che ha il giocatore
+        // in realtà gia le mostra in ask leader card
 
         cliView.showMessage("Vuoi attivare o scartare una carta? A/S",false);
         String string = scanner.nextLine();
@@ -120,6 +123,29 @@ public class ActionHandler {
             return;
         }
         connectionHandler.send(new EndTurnEvent());
+    }
+
+    //metodo per comprare una carta dalla board
+    public void buyDevelopmentCard(){
+        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+            cliView.showMessage(Styler.color('r',"Non puoi fare questa azione adesso"),false);
+            return;
+        }
+
+        //todo: qui mostro la development card board, cosi lui sceglie la carta che vuole
+        SameTypePair<Integer> position = cliView.askDevelopmentCard();
+        int row = position.getVal1();
+        int col = position.getVal2();
+
+        cliView.showMessage("Inserisci la pila dove vuoi inserire la carta (da 0 a 2): ", false);
+        String string = scanner.nextLine();
+        while(cliView.checkNumber(string,0,2)==null){
+            cliView.showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
+            string = scanner.nextLine();
+        }
+        int pile = cliView.checkNumber(string,0,2);
+
+        connectionHandler.send(new BoughtCardEvent(row,col,pile));
     }
 
 

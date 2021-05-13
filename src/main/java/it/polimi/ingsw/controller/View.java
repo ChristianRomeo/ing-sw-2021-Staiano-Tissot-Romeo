@@ -41,7 +41,7 @@ public interface View {
      * Asks the game cards
      * @return the set of chosen cards
      */
-    TreeSet<Integer> askLeaderCards() throws FileNotFoundException;
+    TreeSet<Integer> askChoiceLeaderCards() throws FileNotFoundException;
 
     /**
      * Asks the index of a leader card

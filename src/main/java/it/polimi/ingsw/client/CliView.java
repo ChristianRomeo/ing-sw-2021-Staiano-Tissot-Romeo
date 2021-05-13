@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.View;
-import it.polimi.ingsw.model.DevelopmentCard;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerWarehouse;
+import it.polimi.ingsw.model.*;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -75,11 +72,11 @@ public class CliView implements View {
 
         showMessage("Inserisci numero giocatori: ",true);
         String numPlayer = scanner.nextLine();
-        while (checkNumPlayer(numPlayer)==null){
+        while (checkNumber(numPlayer,1,4)==null){
             showMessage("Scelta non valida, riprova: ",false);
             numPlayer = scanner.nextLine();
         }
-        return checkNumPlayer(numPlayer);
+        return checkNumber(numPlayer,1,4);
     }
 
     public ClientModel getClientModel() {
@@ -96,11 +93,11 @@ public class CliView implements View {
     }
 
     /**
-     * Asks the game cards
+     * Asks the game cards in the initial choice
      * @return the set of chosen cards
      */
     @Override
-    public TreeSet<Integer> askLeaderCards() {
+    public TreeSet<Integer> askChoiceLeaderCards() {
 
         showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose 2 cards :"),false);
         List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
@@ -138,15 +135,36 @@ public class CliView implements View {
         showMessage(" ↳: ",false);
         leaderCard.forEach(this::showLeaderCard);
 
-        int index=5;
-        while (index!=0 && index!=1) {
-            showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose activation/discard card [0/1]:"),false);
-            String string =scanner.nextLine();
-            try {
-                index = Integer.parseInt(String.valueOf(string.charAt(0)));
-            } catch (NumberFormatException ignored) {}
+        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose activation/discard card [0/1]:"),false);
+        String string =scanner.nextLine();
+        while (checkNumber(string,0,1)==null) {
+            showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
+            string =scanner.nextLine();
         }
-        return index;
+        return checkNumber(string,0,1);
+    }
+
+    /**
+     * This method asks the user a position of a development card in the development card board
+     * @return the position (row,col)
+     */
+    public SameTypePair<Integer> askDevelopmentCard(){
+        SameTypePair<Integer> position = new SameTypePair<>();
+        showMessage("Inserisci la riga della carta che vuoi selezionare: ", false);
+        String string = scanner.nextLine();
+        while(checkNumber(string,0,2)==null){
+            showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
+            string = scanner.nextLine();
+        }
+        position.setVal1(checkNumber(string,0,2));
+        showMessage("Inserisci la colonna della carta che vuoi selezionare: ", false);
+        string = scanner.nextLine();
+        while(checkNumber(string,0,3)==null){
+            showMessage(Styler.color('r',"Scelta non valida! Riprova: "),false);
+            string = scanner.nextLine();
+        }
+        position.setVal2(checkNumber(string,0,3));
+        return position;
     }
 
     @Override
@@ -428,6 +446,7 @@ public class CliView implements View {
      * @param num  The entered text
      * @return  The null value if the string is not a correct value, otherwise its integer value
      */
+    //metodo vecchio da togliere
     public Integer checkNumPlayer(String num) {
         return switch (Integer.parseInt(num)){
             case 1-> 1;
@@ -456,16 +475,17 @@ public class CliView implements View {
 
     /**
      * Tests if the input is a valid card position in the matrix
-     * @param devNum  The entered text
+     * @param devNum  The entered text, it has to be "row,col"
      * @return  The null value if the string is not a correct value, otherwise a map with row and column
      */
-    public Map<Integer,Integer> checkDevCardNum(String devNum) {
+    //metodo vecchio da togliere
+    public SameTypePair<Integer> checkDevCardNum(String devNum) {
         int row=9, col=9;
         try {
             row = Integer.parseInt(String.valueOf(devNum.charAt(0)));
-            col = Integer.parseInt(String.valueOf(devNum.charAt(1)));
+            col = Integer.parseInt(String.valueOf(devNum.charAt(2)));
         } catch (NumberFormatException ignored) {}
-        return (row < 3 || col < 4)? new HashMap<>(row,col) : null;
+        return (row < 3 && col < 4 && row>=0 &&col>=0)? new SameTypePair<>(row,col) : null;
     }
 
     /**
@@ -476,5 +496,22 @@ public class CliView implements View {
     public boolean checkNickname(String nickname) {
         String expression = "^[\\p{Alnum}\\s._-]+$";
         return nickname.matches(expression);
+    }
+
+    /**
+     * This method checks if the number passed (in a string) is an integer between the two limits
+     * @param number the string from the user
+     * @param lowLimit the number has to be >= than the lowLimit
+     * @param highLimit the number has to be <= than the highLimit
+     * @return null if the check is false, otherwise the number
+     */
+    public Integer checkNumber(String number, int lowLimit, int highLimit){ //todo: se sto metodo funziona leviamo gli altri check dei numeri
+        Integer num= null;
+        try{
+            num = Integer.parseInt(number);
+        }catch(NumberFormatException e){
+            return null;
+        }
+        return (num <= highLimit && num >= lowLimit)? num : null;
     }
 }

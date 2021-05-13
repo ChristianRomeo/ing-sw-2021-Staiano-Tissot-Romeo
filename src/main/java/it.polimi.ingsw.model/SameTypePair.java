@@ -15,6 +15,11 @@ public class SameTypePair<T> implements Serializable {
         val2=null;
     }
 
+    public SameTypePair(T val1,T val2){
+        this.val1 = val1;
+        this.val2 = val2;
+    }
+
     public T getVal1() {
         return val1;
     }
