@@ -70,6 +70,9 @@ public class CliView implements View {
         System.out.println(message);
     }
 
+
+    // ------ ASK METHODS -----
+
     @Override
     public String askNickname(){
 
@@ -97,7 +100,7 @@ public class CliView implements View {
 
     /**
      * Asks the game cards in the initial choice
-     * @return the set of chosen cards
+     * @return the set of the indexes of the chosen cards
      */
     @Override
     public TreeSet<Integer> askChoiceLeaderCards() {
@@ -137,7 +140,7 @@ public class CliView implements View {
 
         showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose what card:"),false);
         String chosenCard = scanner.nextLine();
-        while (checkLeaderCardNum(chosenCard)==null){
+        while (checkNumber(chosenCard,0,1)==null){
             showErrorMessage("Invalid choice! Try again: ");
             chosenCard = scanner.nextLine();
         }
@@ -178,11 +181,10 @@ public class CliView implements View {
      * @return the pile number
      */
     @Override
-    public int cardRedeem(){
+    public int askCardPile(){
+        showMessage("This is your card board: ", false);
+        showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
         showMessage("Chose the pile where you want to insert your card ( 0 - 2): ", false);
-        showCard(clientModel.getPlayersCardBoards().get(clientModel.getNicknames().indexOf(clientModel.getCurrentPlayerNick())).getUpperCard(0));
-        showCard(clientModel.getPlayersCardBoards().get(clientModel.getNicknames().indexOf(clientModel.getCurrentPlayerNick())).getUpperCard(1));
-        showCard(clientModel.getPlayersCardBoards().get(clientModel.getNicknames().indexOf(clientModel.getCurrentPlayerNick())).getUpperCard(2));
 
         String string = scanner.nextLine();
         while(checkNumber(string,0,2)==null){
@@ -191,6 +193,73 @@ public class CliView implements View {
         }
         return checkNumber(string,0,2);
     }
+
+    /**
+     * this method asks the user what cards production he wants to activate. (not base production or leader cards productions)
+     * @return the list of the indexes of the card he wants to activate.
+     */
+    public List<Integer> askCardProductions(){
+        List<Integer> positions = new ArrayList<>();
+        String choice;
+
+        showMessage("This is your card board: ", false);
+        showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
+
+        for(int i=1; i<=3; i++){
+            showMessage("Do you want to activate the production of the card in position "+i+ " ? y/n", false);
+            choice = scanner.nextLine();
+            while(!choice.equals("y") && !choice.equals("n")){
+                showErrorMessage("Invalid choice! Try again: ");
+                choice = scanner.nextLine();
+            }
+            if(choice.equals("y")){
+                positions.add(i-1);
+            }
+        }
+
+        return  positions;
+    }
+
+    /**
+     * Asks if the user wants to activate the base production and how.
+     * @return null if the base production is not activated, otherwise the resources for the production.
+     */
+    public SameTypeTriple<Resource> askBaseProduction(){
+        SameTypeTriple<Resource> baseProductionResources = new SameTypeTriple<>();
+        showMessage("Do you want to activate the base production? y/n",false);
+        String choice = scanner.nextLine();
+        while(!choice.equals("y") && !choice.equals("n")){
+            showErrorMessage("Invalid choice! Try again: ");
+            choice = scanner.nextLine();
+        }
+        if(choice.equals("n")){
+            return null;
+        }
+        showMessage("You have to choose two resources you want to use for the production: ",false);
+        baseProductionResources.setVal1(askResource());
+        baseProductionResources.setVal2(askResource());
+        showMessage("You have to choose a resource you want to product: ",false);
+        baseProductionResources.setVal3(askResource());
+
+        return baseProductionResources;
+    }
+
+    /**
+     * asks to the user a resource type.
+     * @return the resource chosen.
+     */
+    public Resource askResource(){
+        showMessage("Choose a resource (coin, shield, stone, servant): ",false);
+        String choice = scanner.nextLine();
+        while(!choice.equals("coin")&& !choice.equals("shield")&&!choice.equals("stone") &&!choice.equals("servant")){
+            showErrorMessage("Invalid choice! Try again: ");
+            choice = scanner.nextLine();
+        }
+        return Resource.valueOf(choice.toUpperCase());
+    }
+
+
+    //                  ------ SHOW METHODS -----
 
     @Override
     public void showDevelopmentCards(){    //da testare
@@ -303,6 +372,21 @@ public class CliView implements View {
     }
 
     /**
+     * shows a personal card board.
+     * @param personalCardBoard is the board you want to show.
+     */
+    public void showPersonalCardBoard(PersonalCardBoard personalCardBoard){
+        for(int i=0; i<3; i++){
+            if(!personalCardBoard.isCardPileEmpty(i)){
+                System.out.println("SLOT "+ (i+1));
+                showCard(personalCardBoard.getUpperCard(i));
+            }else{
+                System.out.println("\nEMPTY SLOT \n");
+            }
+        }
+    }
+
+    /**
      * Shows other player LeaderCards, if activated
      */
     @Override
@@ -354,32 +438,23 @@ public class CliView implements View {
     }
 
     @Override
-    public void showWarehouse(Player player){
+    public void showWarehouse(PlayerWarehouse warehouse){
 
-        showMessage(Styler.format('b', " Player warehouse " + player.getNickname() + "has:"),false);
+        //todo: if resource= null cosa succede? da mettere un trattino
 
-        showMessage(Styler.format('i', " ▷ " +
-        clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getUpperRowResource()),false);                 //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(1,1)),false);                 //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(2,1)),false);                 //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(2,2)),false);                 //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(3,1)),false);                 //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(3,2)),false);                 //if null cosa succede?
+        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(3,3)),false);                 //if null cosa succede?
 
-        showMessage(Styler.format('i', " ▷ " +
-                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getMiddleRowResource(0)),false);   //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " +
-                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getMiddleRowResource(1)),false);   //if null cosa succede?
-
-        showMessage(Styler.format('i', " ▷ " +
-                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getLowerRowResource(0)),false);   //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " +
-                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getLowerRowResource(1)),false);   //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " +
-                clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname())).getLowerRowResource(2)),false);   //if null cosa succede?
     }
 
     @Override
-    public void showStrongbox(Player player){
-
-        showMessage(Styler.format('b', " Player strongbox" + player.getNickname() + "has:"),false);
-        clientModel.getPlayersWarehouses().get(clientModel.getNicknames().indexOf(player.getNickname()))
-                .getAllResources().entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x),false));
+    public void showStrongbox(Map<Resource,Integer> strongbox){
+        //todo: da mettere 0 se non ci sta quel tipo di risorsa
+        strongbox.entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x),false));
     }
 
     /**
@@ -479,7 +554,7 @@ public class CliView implements View {
      * @param leaderNum The entered text
      * @return  The null value if the string is not a correct value, otherwise a TreeSet with row and column
      */
-    public TreeSet<Integer> checkLeaderCardNum(String leaderNum) {
+    public TreeSet<Integer> checkLeaderCardNum(String leaderNum) { //todo: da controllare
         int first=5, last=5;
         try {
             first = Integer.parseInt(String.valueOf(leaderNum.charAt(0)));

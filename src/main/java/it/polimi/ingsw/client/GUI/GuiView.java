@@ -3,9 +3,7 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.controller.View;
-import it.polimi.ingsw.model.DevelopmentCard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.SameTypePair;
+import it.polimi.ingsw.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -218,27 +216,27 @@ public class GuiView extends Application implements View {
      * @return the pile number
      */
     @Override
-    public int cardRedeem() {
+    public int askCardPile() {
         return 0;
     }
 
     /**
      * shows a player warehouse
      *
-     * @param player the player which the warehouse should be shown
+     * @param warehouse to show
      */
     @Override
-    public void showWarehouse(Player player) {
+    public void showWarehouse(PlayerWarehouse warehouse) {
 
     }
 
     /**
      * shows a player Strongbox
      *
-     * @param player the player which the Strongbox should be shown
+     * @param strongbox to show
      */
     @Override
-    public void showStrongbox(Player player) {
+    public void showStrongbox(Map<Resource,Integer> strongbox) {
 
     }
 

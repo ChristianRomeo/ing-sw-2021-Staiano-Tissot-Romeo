@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client;
 
 
-import it.polimi.ingsw.controller.Events.BoughtCardEvent;
-import it.polimi.ingsw.controller.Events.EndTurnEvent;
-import it.polimi.ingsw.controller.Events.InitialChoiceEvent;
-import it.polimi.ingsw.controller.Events.LeaderCardActionEvent;
+import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.*;
 
 import java.util.List;
@@ -48,7 +45,7 @@ public class ActionHandler {
             case "AZIONELEADER" -> leaderAction();
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
-            case "COMPRACARTA" -> buyDevelopmentCard(); //todo: ask da dove prendere le risorse per comprare
+            case "COMPRACARTA" -> buyDevelopmentCard();
             case "MERCATO" -> collectMarket();          //todo: ask dove mettere le risorse se non le voglio scartare
             case "MODIFICA" -> swapResources();
             case "MOSTRAFT" -> cliView.showFaithTrack();
@@ -141,18 +138,36 @@ public class ActionHandler {
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
-
         SameTypePair<Integer> position = cliView.askDevelopmentCard();
-        //controllo se può farlo, rimuovo carta da board, aggiorno clientModel , right?
-        serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.cardRedeem()));
+
+        serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.askCardPile()));
     }
 
-    //todo: metodo per attivare produzione
+    /**
+     * enables the player to activate the production.
+     */
     public void activateProduction(){
         if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
 
+        List<Integer> cardProductions;
+        boolean activateBaseProduction=false;
+        Resource requestedResBP1=null;
+        Resource requestedResBP2=null;
+        Resource producedResBP=null;
+
+        cardProductions = cliView.askCardProductions();
+        SameTypeTriple<Resource> baseProductionResources = cliView.askBaseProduction();
+
+        if (baseProductionResources!=null){
+            activateBaseProduction=true;
+            requestedResBP1 = baseProductionResources.getVal1();
+            requestedResBP2 = baseProductionResources.getVal2();
+            producedResBP = baseProductionResources.getVal3();
+        }
+        //todo: qui devo chiedere produzioni carte leader
+        serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,null,null));
     }
 }

@@ -2,12 +2,11 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
-import it.polimi.ingsw.model.DevelopmentCard;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.SameTypePair;
+import it.polimi.ingsw.model.*;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 public interface View {
@@ -111,19 +110,19 @@ public interface View {
      * asks in what pile of production should the bought card be inserted
      * @return the pile number
      */
-    int cardRedeem();
+    int askCardPile();
 
     /**
      * shows a player warehouse
-     * @param player the player which the warehouse should be shown
+     * @param warehouse to show
      */
-    void showWarehouse(Player player);
+    void showWarehouse(PlayerWarehouse warehouse);
 
     /**
      * shows a player Strongbox
-     * @param player the player which the Strongbox should be shown
+     * @param strongbox to show
      */
-    void showStrongbox(Player player);
+    void showStrongbox(Map<Resource,Integer> strongbox);
 
     /**
      * Notify all that a player has been disconnected (and the game has ended ?FA)
