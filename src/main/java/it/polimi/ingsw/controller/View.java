@@ -51,7 +51,7 @@ public interface View {
      * Shows the developmentCardBoard matrix
      *
      */
-    void showDevelopmentCards() throws FileNotFoundException;
+    void showDevelopmentCardBoard() throws FileNotFoundException;
 
     /**
      * Shows the Players in the game

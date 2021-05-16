@@ -205,14 +205,14 @@ public class ControllerTest {
 
         player.getStatusPlayer().getPlayerWarehouse().setWarehouse(playerWarehouse);
 
-        Map<Resource,Integer> discardedRes =  new HashMap<>(controller.fromMarblesToResources(game.getBoard().getMarket().getRowColors(0),false));
+        Map<Resource,Integer> discardedRes =  new HashMap<>(controller.fromMarblesToResources(game.getBoard().getMarket().getRowColors(0),false, null));
 
-        controller.useMarket('r',0,playerWarehouse,discardedRes,0,0);
+        controller.useMarket('r',0,playerWarehouse,discardedRes,0,0, null);
 
         playerWarehouse.removeResource(1,1);
 
        // assertThrows(IllegalMarketUseException.class,()->controller.useMarket('r',0,playerWarehouse,discardedRes,0,0));
-        controller.useMarket('r',0,playerWarehouse,discardedRes,0,0);
+        controller.useMarket('r',0,playerWarehouse,discardedRes,0,0,null);
         assert(game.getIllegalActions().size()==1);
 
     }

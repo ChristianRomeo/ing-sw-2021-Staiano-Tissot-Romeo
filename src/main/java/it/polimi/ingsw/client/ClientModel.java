@@ -221,4 +221,39 @@ public class ClientModel {
       playersPopeTiles.set(playersNicknames.indexOf(player), popeTileStatus);
    }
 
+   //this method takes marbles and returns the corresponding resources
+   public Map<Resource,Integer> fromMarblesToResources(List<MarbleColor> marbles, List<Integer> whiteMarbleChoices){
+
+      if(marbles==null)
+         return null;
+      List<Integer> whiteMarbleChoices1= null;
+      if(whiteMarbleChoices!=null){
+         whiteMarbleChoices1 = new ArrayList<>(whiteMarbleChoices);
+      }
+      List<LeaderCard> leaderCards = getPlayerLeaderCards(getMyNickname());
+      Map<Resource,Integer> boughtResources = new HashMap<>();
+      for(MarbleColor m: marbles)
+         switch (m) {
+            case WHITE -> {
+               if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
+                  if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
+                     boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());
+                  }else{
+                     boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(0).getWhiteMarbleResource());
+                  }
+               }else{
+                  if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
+                     boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(1).getWhiteMarbleResource());
+                  }
+               }
+            }
+            case RED -> { }
+            case BLUE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SHIELD);
+            case GREY -> boughtResources = Resource.addOneResource(boughtResources, Resource.STONE);
+            case PURPLE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SERVANT);
+            case YELLOW -> boughtResources = Resource.addOneResource(boughtResources, Resource.COIN);
+         }
+
+      return boughtResources;
+   }
 }

@@ -4,8 +4,8 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.*;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.spi.ResourceBundleControlProvider;
 
 /**
  * Controller client-side of player's actions, dispatch actions to methods (CLI-only)
@@ -46,8 +46,8 @@ public class ActionHandler {
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
             case "COMPRACARTA" -> buyDevelopmentCard();
-            case "MERCATO" -> collectMarket();          //todo: ask dove mettere le risorse se non le voglio scartare
-            case "MODIFICA" -> swapResources();
+            case "MERCATO" -> useMarket();          //todo: ask dove mettere le risorse se non le voglio scartare
+            case "MODIFICA" -> swapResources(); //forse da togliere
             case "MOSTRAFT" -> cliView.showFaithTrack();
             case "MOSTRALEADERS" -> cliView.showPlayersLeaderCards();
             case "MOSTRABOARDS" -> cliView.showPlayersBoard();
@@ -63,8 +63,41 @@ public class ActionHandler {
     public void swapResources() {
     }
 
-    public void collectMarket() {
+    public void useMarket() {
+        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+            cliView.showErrorMessage("You can't do this action now, Please Wait...");
+            return;
+        }
+
+        Pair<Character, Integer> marketChoice = cliView.askMarketUse();
+        char rowOrColumn = marketChoice.getVal1();
+        int index = marketChoice.getVal2();
+        List<MarbleColor> takenMarbles;
+        Map<Resource,Integer> boughtResources;
+        List<Integer> whiteMarbleChoices = null;
+        if(rowOrColumn == 'r'){
+            takenMarbles = clientModel.getMarket().getRowColors(index);
+        }else{
+            takenMarbles = clientModel.getMarket().getColumnColors(index);
+        }
+        List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
+        if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null && leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null) {
+            //allora l'utente ha 2 carte leader white marble attive
+            whiteMarbleChoices = new ArrayList<>();
+            for(MarbleColor marble : takenMarbles){
+                if(marble == MarbleColor.WHITE){
+                    whiteMarbleChoices.add(cliView.askWhiteMarbleChoice());
+                }
+            }
+        }
+
+        boughtResources = clientModel.fromMarblesToResources(takenMarbles, whiteMarbleChoices);
+        //ora devo fare inserimento/scartare edit warehouse ecc di ste risorse
+        //direi di fare prima edit del warehouse e dopo fatto l'edit faccio inserimento/scarto nuove risorse
+        //i metodi che avevo fatto (ch stanno commentati nel controller) mi sembrano buoni
     }
+
+
 
     /**
      * Guides the player throught the initial choice of leaderCards and resources
@@ -167,7 +200,9 @@ public class ActionHandler {
             requestedResBP2 = baseProductionResources.getVal2();
             producedResBP = baseProductionResources.getVal3();
         }
-        //todo: qui devo chiedere produzioni carte leader
-        serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,null,null));
+
+        SameTypePair<Resource> leaderProductionResources = cliView.askLeaderProductions();
+
+        serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResources.getVal1(),leaderProductionResources.getVal2()));
     }
 }

@@ -228,11 +228,15 @@ public class Controller extends ServerObservable {
      */
     public void activateProduction(List<Integer> activatedProductions, boolean baseProd, SameTypeTriple<Resource> baseRes, Resource leaderRes1, Resource leaderRes2) throws IllegalArgumentException{
         //activatedProductions contiene numeri da 0 a 2 che ti dicono quali produzioni di carte attivare
+        if(activatedProductions.size()==0 && !baseProd &&leaderRes1==null &&leaderRes2==null){ //this production doesn't activate anything
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
+            return;
+        }
 
         PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
         Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
         Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
-        int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
+        int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions); //todo: metti try catch
 
         //the player wants to activate the base production too
         if(baseProd ){  //todo:DA METTERE IN PERSONAL CARD BOARD??
@@ -329,17 +333,17 @@ public class Controller extends ServerObservable {
      * @param leaderCardSlots1 is the number of full slots the player wants to set in his first leader card
      * @param leaderCardSlots2 is the number of full slots the player wants to set in his second leader card
      */
-    public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2){
+    public void useMarket(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2, List<Integer> whiteMarbleChoices){
         Player currentPlayer = game.getCurrentPlayer();
-        if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2)){
+        if(!useMarketCheck(rowOrColumn, index, newWarehouse, discardedRes, leaderCardSlots1, leaderCardSlots2, whiteMarbleChoices)){
             game.addIllegalAction(new IllegalAction(currentPlayer,"IllegalMarketUse"));
             return;
         }
 
         if(rowOrColumn=='c')
-            fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true);
+            fromMarblesToResources(game.getBoard().getMarket().selectColumn(index),true, whiteMarbleChoices);
         else
-            fromMarblesToResources(game.getBoard().getMarket().selectRow(index),true);
+            fromMarblesToResources(game.getBoard().getMarket().selectRow(index),true, whiteMarbleChoices);
 
 
         currentPlayer.getStatusPlayer().getPlayerWarehouse().setWarehouse(newWarehouse);
@@ -361,7 +365,7 @@ public class Controller extends ServerObservable {
      * Helper that validate whether the player could or couldn't do the operation made during the usage of the market
      * @return false if the operation is illegal, otherwise it returns true.
      */
-    private boolean useMarketCheck(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2){
+    private boolean useMarketCheck(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource,Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2, List<Integer> whiteMarbleChoices){
         Map<Resource,Integer> takenResources;
         Player currentPlayer = game.getCurrentPlayer();
 
@@ -369,9 +373,9 @@ public class Controller extends ServerObservable {
             return false; //invalid message
 
         if(rowOrColumn=='c')
-            takenResources = fromMarblesToResources(game.getBoard().getMarket().getColumnColors(index),false);
+            takenResources = fromMarblesToResources(game.getBoard().getMarket().getColumnColors(index),false, whiteMarbleChoices);
         else
-            takenResources = fromMarblesToResources(game.getBoard().getMarket().getRowColors(index),false);
+            takenResources = fromMarblesToResources(game.getBoard().getMarket().getRowColors(index),false, whiteMarbleChoices);
 
         //the player has discarded resources he couldn't discard, so the action fails.
         if(!Resource.enoughResources(takenResources,discardedRes))
@@ -483,21 +487,33 @@ public class Controller extends ServerObservable {
      *                          false when you just want the resources and not the position changed.
      * @return a list of resources
      */
-    public Map<Resource,Integer> fromMarblesToResources(List<MarbleColor> marbles, boolean incrementPosition){
+    public Map<Resource,Integer> fromMarblesToResources(List<MarbleColor> marbles, boolean incrementPosition, List<Integer> whiteMarbleChoices){
 
         if(marbles==null)
             return null;
+
+        List<Integer> whiteMarbleChoices1= null;
+        if(whiteMarbleChoices!=null){
+            whiteMarbleChoices1 = new ArrayList<>(whiteMarbleChoices);
+        }
+
+        List<LeaderCard> leaderCards = game.getCurrentPlayer().getStatusPlayer().getPlayerLeaderCards();
 
         Map<Resource,Integer> boughtResources = new HashMap<>();
         for(MarbleColor m: marbles)
             switch (m) {
                 case WHITE -> {
-                    //todo: QUA NON STO CONSIDERANDO IL CASO IN CUI CI SONO 2 CARTE LEADER WHITE MARBLE, L'UTENTE DOVREBBE SCEGLIERE, QUEL CASO POI VEDIAMO CON LA VIEW.
-                    if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource() != null)
-                        boughtResources =Resource.addOneResource(boughtResources,game.getCurrentPlayer().getStatusPlayer().getLeaderCard(0).getWhiteMarbleResource());
-
-                    if (game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource() != null)
-                        boughtResources =Resource.addOneResource(boughtResources,game.getCurrentPlayer().getStatusPlayer().getLeaderCard(1).getWhiteMarbleResource());
+                    if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
+                        if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
+                            boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());
+                        }else{
+                            boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(0).getWhiteMarbleResource());
+                        }
+                    }else{
+                        if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
+                            boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(1).getWhiteMarbleResource());
+                        }
+                    }
                 }
                 case RED -> {
                     if(incrementPosition)

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * For now useless, check in the future
+ * Not useless anymore
  * @param <K>
  * @param <V>
  */
@@ -11,6 +11,11 @@ public class Pair <K,V>{
     public Pair(){
         val1=null;
         val2=null;
+    }
+
+    public Pair(K val1, V val2) {
+        this.val1 = val1;
+        this.val2 = val2;
     }
 
     public K getVal1() {

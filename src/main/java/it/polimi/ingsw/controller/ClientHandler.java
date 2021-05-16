@@ -184,7 +184,7 @@ public class ClientHandler implements Runnable {
         connectionSetUp();
 
         //Controlla rispetto al game se è stato inizializzato il numero di giocatori e allora il game può iniziare perchè al completo
-        synchronized (virtualView.getController().getGame()){
+        synchronized (virtualView.getController().getGame()){ //synch su game???
             if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber())
                 try {
                     virtualView.getController().gameStarter();
@@ -198,8 +198,10 @@ public class ClientHandler implements Runnable {
             try {
                 ClientEvent clientEvent = (ClientEvent) input.readObject();
                 //viene chiamata la virtualView che gestirà l'evento chiamando il controller
-                if(nickname.equals(virtualView.getController().getGame().getCurrentPlayer().getNickname())){
-                    clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare
+                synchronized (virtualView){
+                    if(nickname.equals(virtualView.getController().getGame().getCurrentPlayer().getNickname())){
+                        clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare
+                    }
                 }
             }
             catch (IOException | ClassNotFoundException e) {

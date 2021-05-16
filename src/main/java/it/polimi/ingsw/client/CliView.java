@@ -157,7 +157,7 @@ public class CliView implements View {
      */
     @Override
     public SameTypePair<Integer> askDevelopmentCard(){
-        showDevelopmentCards();
+        showDevelopmentCardBoard();
         SameTypePair<Integer> position = new SameTypePair<>();
         showMessage("Inserisci la riga della carta che vuoi selezionare: ", false);
         String string = scanner.nextLine();
@@ -245,6 +245,33 @@ public class CliView implements View {
     }
 
     /**
+     * Asks if the user wants to activate the leader card productions and how (if he has the cards)
+     * @return the resources used in the productions.
+     */
+    public SameTypePair<Resource> askLeaderProductions(){
+        List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
+
+        SameTypePair<Resource> chosenResources = new SameTypePair<>(null,null);
+        String choice;
+        for(int i=0; i<2; i++){
+            if(leaderCards.get(i).isActivated() &&(leaderCards.get(i) instanceof LeaderCardProduction)){
+                showLeaderCard(leaderCards.get(i));
+                showMessage("Do you want to activate this card production? y/n",false);
+                choice = scanner.nextLine();
+                while(!choice.equals("y") && !choice.equals("n")){
+                    showErrorMessage("Invalid choice! Try again: ");
+                    choice = scanner.nextLine();
+                }
+                if(choice.equals("y")){
+                    showMessage("You have to choose a resource you want to product: ",false);
+                    chosenResources.set(askResource(),i);
+                }
+            }
+        }
+        return chosenResources;
+    }
+
+    /**
      * asks to the user a resource type.
      * @return the resource chosen.
      */
@@ -258,15 +285,68 @@ public class CliView implements View {
         return Resource.valueOf(choice.toUpperCase());
     }
 
+    public Pair<Character,Integer> askMarketUse(){
+        char rowOrColumn;
+        int index = 0;
+
+        showMarket();
+        showMessage("Do you want to select a row or a column? r/c",false);
+        String choice = scanner.nextLine();
+        while(!choice.equals("r") && !choice.equals("c")){
+            showErrorMessage("Invalid choice! Try again: ");
+            choice = scanner.nextLine();
+        }
+        rowOrColumn = choice.charAt(0);
+
+        if(rowOrColumn=='r'){
+            showMessage("What row do you want to select? (0,1,2)",false);
+            choice = scanner.nextLine();
+            while(checkNumber(choice,0,2)==null){
+                showErrorMessage("Invalid choice! Try again: ");
+                choice = scanner.nextLine();
+            }
+            index = checkNumber(choice,0,2);
+        }else{
+            showMessage("What column do you want to select? (0,1,2,3)",false);
+            choice = scanner.nextLine();
+            while(checkNumber(choice,0,3)==null){
+                showErrorMessage("Invalid choice! Try again: ");
+                choice = scanner.nextLine();
+            }
+            index = checkNumber(choice,0,3);
+        }
+        return new Pair<>(rowOrColumn,index);
+    }
+
+    /**
+     * Asks the user, who has 2 white marble leader cards active, which one he wants to use for a white marble.
+     * @return the index of the chosen card
+     */
+    public int askWhiteMarbleChoice(){
+        showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
+        showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
+
+        showMessage("You have two white marble leader cards active, which one do you want to use for this white marble? 0/1",false);
+        String choice = scanner.nextLine();
+        while(checkNumber(choice,0,1)==null){
+            showErrorMessage("Invalid choice! Try again: ");
+            choice = scanner.nextLine();
+        }
+        return checkNumber(choice,0,1);
+    }
 
     //                  ------ SHOW METHODS -----
 
     @Override
-    public void showDevelopmentCards(){    //da testare
+    public void showDevelopmentCardBoard(){    //da testare
 
         for (int i=0;i<3;++i)
             for (int j=0;j<4;++j)
                 showCard(clientModel.getDevelopmentCardBoard().getCard(i,j));
+    }
+
+    public void showMarket(){
+        //todo: show del mercato nel client model
     }
 
     private void showLeaderCard(LeaderCard card){ //da testare
@@ -390,7 +470,7 @@ public class CliView implements View {
      * Shows other player LeaderCards, if activated
      */
     @Override
-    public void showPlayersLeaderCards(){
+    public void showPlayersLeaderCards(){ // da capire
 
         showMessage(" " + Styler.format('b', "Players' LeaderCards:"),true);
 

@@ -80,7 +80,7 @@ public class Server {
                 currentGame.wait();
         }
         //only then we can check whether the number chosen has been reached
-        if (++addedPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive())
+        if (++addedPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive()) //todo: synch?? forse non serve
             //currentVirtualView.getController().gameStarter();   //it's here but maybe shouldn't, servono più istanze per partite multiple?
             //ho spostato il game starter nel client handler per possibili problemi threads
             clearLobby();
