@@ -232,12 +232,17 @@ public class Controller extends ServerObservable {
             game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
             return;
         }
-
         PersonalCardBoard personalCardBoard = game.getCurrentPlayer().getStatusPlayer().getPersonalCardBoard();
-        Map<Resource,Integer> requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
-        Map<Resource,Integer> producedResources = personalCardBoard.getProductionResources(activatedProductions);
-        int producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions); //todo: metti try catch
-
+        Map<Resource,Integer> requiredResources, producedResources;
+        int producedFaithPoints;
+        try{
+            requiredResources = personalCardBoard.getReqResProduction(activatedProductions);
+            producedResources = personalCardBoard.getProductionResources(activatedProductions);
+            producedFaithPoints = personalCardBoard.getProductionFP(activatedProductions);
+        }catch (IllegalArgumentException e){
+            game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"CannotActivateProduction"));
+            return;
+        }
         //the player wants to activate the base production too
         if(baseProd ){  //todo:DA METTERE IN PERSONAL CARD BOARD??
             requiredResources = Resource.addOneResource(requiredResources,baseRes.getVal1());
@@ -502,7 +507,7 @@ public class Controller extends ServerObservable {
         Map<Resource,Integer> boughtResources = new HashMap<>();
         for(MarbleColor m: marbles)
             switch (m) {
-                case WHITE -> {
+                case WHITE -> { //todo: la parte isActivated credo è inutile, sta già controllo nella carta
                     if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
                         if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
                             boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());

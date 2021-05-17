@@ -222,7 +222,7 @@ public class ClientModel {
    }
 
    //this method takes marbles and returns the corresponding resources
-   public Map<Resource,Integer> fromMarblesToResources(List<MarbleColor> marbles, List<Integer> whiteMarbleChoices){
+   public List<Resource> fromMarblesToResources(List<MarbleColor> marbles, List<Integer> whiteMarbleChoices){
 
       if(marbles==null)
          return null;
@@ -231,29 +231,28 @@ public class ClientModel {
          whiteMarbleChoices1 = new ArrayList<>(whiteMarbleChoices);
       }
       List<LeaderCard> leaderCards = getPlayerLeaderCards(getMyNickname());
-      Map<Resource,Integer> boughtResources = new HashMap<>();
+      List<Resource> boughtResources = new ArrayList<>();
       for(MarbleColor m: marbles)
          switch (m) {
             case WHITE -> {
                if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
                   if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
-                     boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());
+                     boughtResources.add(leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());
                   }else{
-                     boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(0).getWhiteMarbleResource());
+                     boughtResources.add(leaderCards.get(0).getWhiteMarbleResource());
                   }
                }else{
                   if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
-                     boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(1).getWhiteMarbleResource());
+                     boughtResources.add(leaderCards.get(1).getWhiteMarbleResource());
                   }
                }
             }
             case RED -> { }
-            case BLUE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SHIELD);
-            case GREY -> boughtResources = Resource.addOneResource(boughtResources, Resource.STONE);
-            case PURPLE -> boughtResources = Resource.addOneResource(boughtResources, Resource.SERVANT);
-            case YELLOW -> boughtResources = Resource.addOneResource(boughtResources, Resource.COIN);
+            case BLUE -> boughtResources.add(Resource.SHIELD);
+            case GREY -> boughtResources.add(Resource.STONE);
+            case PURPLE -> boughtResources.add(Resource.SERVANT);
+            case YELLOW -> boughtResources.add(Resource.COIN);
          }
-
       return boughtResources;
    }
 }

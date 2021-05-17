@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -334,6 +335,170 @@ public class CliView implements View {
         }
         return checkNumber(choice,0,1);
     }
+
+    /**
+     * Asks the user how he wants to edit his warehouse.
+     * It edit the warehouse passed and the number of full slots of the two leader cards (if the user has the right type of cards).
+     */
+    public void editWarehouse(PlayerWarehouse warehouse, SameTypePair<Integer> fullLeaderSlots) {
+        //the player says what resources in he warehouse he wants to move, so these resources
+        //are temporary removed from the warehouse and stored in a list. Than the player
+        //can reinsert these resources where he wants (or he can again temporary remove some resources).
+        //When he wants, the player can stop the edit of the warehouse, but only if he has
+        //inserted every temporary removed resource.
+
+        Resource leaderCardResource1 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).getAbilityResource();
+        Resource leaderCardResource2 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).getAbilityResource();
+        List<Resource> temporaryRemovedResources = new ArrayList<>();
+        int resourceIndex = 0;
+        int choiceNumber = -1;
+        SameTypePair<Integer> selectedCell;
+
+        while (true) {
+            showMessage("This is your warehouse: ", false);
+            showWarehouse(warehouse);
+            showMessage("You can temporary remove a resource (0), re-insert a removed resource (1), exit (2).  ",false);
+            if(fullLeaderSlots.getVal1()!=null){
+                System.out.println("This is your Slot Leader Card:  type: " + leaderCardResource1 + " number of full slots: " + fullLeaderSlots.getVal1());
+                showMessage("You can also temporary remove/re-insert a resource from/in your leader card of type "+ leaderCardResource1 +  " (3/4). ",false);
+            }
+            if(fullLeaderSlots.getVal2()!=null){
+                showMessage("This is your Slot Leader Card:  type: " + leaderCardResource2 + " number of full slots: " + fullLeaderSlots.getVal2(),false);
+                System.out.println("You can also temporary remove/re-insert a resource from/in your leader card of type "+ leaderCardResource2 +  " (5/6). ");
+            }
+            choiceNumber = askNumber(0,6);
+            if (choiceNumber==0){
+                selectedCell = askWarehouseCell();
+                if (warehouse.getResource(selectedCell.getVal1(), selectedCell.getVal2()) != null)
+                    temporaryRemovedResources.add(warehouse.removeResource(selectedCell.getVal1(), selectedCell.getVal2()));
+            }
+
+            if (choiceNumber == 1 && temporaryRemovedResources.size()>0){
+                System.out.println("Temporary removed resources: "+ temporaryRemovedResources); //todo: da stampare meglio sta lista di risorse
+                showMessage("Write the index of the resource you want to re-insert: ",false);
+                resourceIndex = askNumber(0,temporaryRemovedResources.size());
+                selectedCell = askWarehouseCell();
+                try {
+                    warehouse.insertResource(temporaryRemovedResources.get(resourceIndex), selectedCell.getVal1(), selectedCell.getVal2());
+                    temporaryRemovedResources.remove(resourceIndex);
+                } catch (InvalidWarehouseInsertionException e) {
+                    showMessage("You can't do this insertion! ",false);
+                }
+            }
+
+            if (choiceNumber==2) {
+                if (temporaryRemovedResources.size() == 0) {
+                    break;
+                } else {
+                    showMessage("You has to insert every temporary removed resource! ",false);
+                }
+            }
+            if(choiceNumber == 3 && fullLeaderSlots.getVal1()!=null && fullLeaderSlots.getVal1()>0){
+                temporaryRemovedResources.add(leaderCardResource1);
+                fullLeaderSlots.setVal1(fullLeaderSlots.getVal1()-1);
+            }
+            if(choiceNumber == 5 && fullLeaderSlots.getVal2()!=null && fullLeaderSlots.getVal2()>0){
+                temporaryRemovedResources.add(leaderCardResource2);
+                fullLeaderSlots.setVal2(fullLeaderSlots.getVal2()-1);
+            }
+            if(choiceNumber == 4 &&fullLeaderSlots.getVal1()!=null && fullLeaderSlots.getVal1()<2){
+                if(temporaryRemovedResources.contains(leaderCardResource1)){
+                    temporaryRemovedResources.remove(leaderCardResource1);
+                    fullLeaderSlots.setVal1(fullLeaderSlots.getVal1()+1);
+                }
+            }
+            if(choiceNumber == 6 &&fullLeaderSlots.getVal2()!=null && fullLeaderSlots.getVal2()<2){
+                if(temporaryRemovedResources.contains(leaderCardResource2)){
+                    temporaryRemovedResources.remove(leaderCardResource2);
+                    fullLeaderSlots.setVal2(fullLeaderSlots.getVal2()+1);
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Asks the user how he wants to insert/discard the resources he has bought at the market.
+     * It edit the warehouse passed and the number of full slots of the two leader cards (if the user has the right type of cards).
+     * It also edit di list of discarded resources.
+     */
+    public void insertBoughtResources(PlayerWarehouse warehouse, SameTypePair<Integer> fullLeaderSlots, List<Resource> boughtResources, Map<Resource,Integer> discardedResources) {
+        Resource leaderCardResource1 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).getAbilityResource();
+        Resource leaderCardResource2 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).getAbilityResource();
+        int choiceNumber;
+        SameTypePair<Integer> selectedCell;
+        while (boughtResources.size()>0) {
+            System.out.println("These are the bought resources: "+ boughtResources); //todo: da stampare meglio sta lista di risorse
+            System.out.println("Now the considered resource is: "+ boughtResources.get(0));
+            showMessage("This is your warehouse: ", false);
+            showWarehouse(warehouse);
+            showMessage("You can insert the resource (0), discard the resource (1), edit your warehouse (2).  ",false);
+            if(fullLeaderSlots.getVal1()!=null){
+                System.out.println("This is your Slot Leader Card:  type: " + leaderCardResource1 + " number of full slots: " + fullLeaderSlots.getVal1());
+                showMessage("You can also insert the resource in this leader card (if it has the considered resource type) (3). ",false);
+            }
+            if(fullLeaderSlots.getVal2()!=null){
+                showMessage("This is your Slot Leader Card:  type: " + leaderCardResource2 + " number of full slots: " + fullLeaderSlots.getVal2(),false);
+                showMessage("You can also insert the resource in this leader card (if it has the considered resource type) (4). ",false);
+            }
+            choiceNumber = askNumber(0,4);
+            if (choiceNumber==0){
+                selectedCell = askWarehouseCell();
+                try {
+                    warehouse.insertResource(boughtResources.get(0), selectedCell.getVal1(), selectedCell.getVal2());
+                    boughtResources.remove(0);
+                } catch (InvalidWarehouseInsertionException e) {
+                    showMessage("You can't do this insertion! ",false);
+                }
+            }
+
+            if (choiceNumber == 1){
+                discardedResources = Resource.addOneResource(discardedResources,boughtResources.get(0));
+                boughtResources.remove(0);
+            }
+            if (choiceNumber==2) {
+                editWarehouse(warehouse,fullLeaderSlots);
+            }
+            if(choiceNumber == 3 && fullLeaderSlots.getVal1()!=null && fullLeaderSlots.getVal1()<2){
+                if(leaderCardResource1 == boughtResources.get(0)){
+                    boughtResources.remove(0);
+                    fullLeaderSlots.setVal1(fullLeaderSlots.getVal1()+1);
+                }
+            }
+            if(choiceNumber == 4 && fullLeaderSlots.getVal2()!=null && fullLeaderSlots.getVal2()<2){
+                if(leaderCardResource2 == boughtResources.get(0)){
+                    boughtResources.remove(0);
+                    fullLeaderSlots.setVal2(fullLeaderSlots.getVal2()+1);
+                }
+            }
+        }
+    }
+        /**
+         * Asks the user a cell of the warehouse.
+         * @return the coordinate of the cell.
+         */
+    public SameTypePair<Integer> askWarehouseCell(){
+        showMessage("Insert the row of the warehouse's cell you want to select (1,2,3)", false);
+        int row = askNumber(1,3);
+        showMessage("Insert the column of the warehouse's cell you want to select (1,2,3)", false);
+        int col = askNumber(1,3);
+        return new SameTypePair<>(row,col);
+    }
+
+    /**
+     * Asks the user a number >=lowLimit , <=highLimit. It doesn't print anything (only error messages)
+     * @return the chosen number.
+     */
+    public int askNumber(int lowLimit, int highLimit){ //todo: sostituire ciò ovunque possibile
+        String choice = scanner.nextLine();
+        while(checkNumber(choice,lowLimit,highLimit)==null){
+            showErrorMessage("Invalid choice! Try again: ");
+            choice = scanner.nextLine();
+        }
+        return checkNumber(choice, 0 ,2);
+    }
+
+
 
     //                  ------ SHOW METHODS -----
 
