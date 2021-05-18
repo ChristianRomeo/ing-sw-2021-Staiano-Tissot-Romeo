@@ -3,11 +3,11 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
-
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
+
 
 public class CliView implements View {
 
@@ -185,7 +185,7 @@ public class CliView implements View {
     public int askCardPile(){
         showMessage("This is your card board: ", false);
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
-        showMessage("Chose the pile where you want to insert your card ( 0 - 2): ", false);
+        showMessage("Chose the pile where you want to insert your card (0 - 2): ", false);
 
         String string = scanner.nextLine();
         while(checkNumber(string,0,2)==null){
@@ -209,13 +209,13 @@ public class CliView implements View {
         for(int i=1; i<=3; i++){
             showMessage("Do you want to activate the production of the card in position "+i+ " ? y/n", false);
             choice = scanner.nextLine();
-            while(!choice.equals("y") && !choice.equals("n")){
+            while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
                 showErrorMessage("Invalid choice! Try again: ");
                 choice = scanner.nextLine();
             }
-            if(choice.equals("y")){
+
+            if(choice.equalsIgnoreCase("y"))
                 positions.add(i-1);
-            }
         }
 
         return  positions;
@@ -229,13 +229,13 @@ public class CliView implements View {
         SameTypeTriple<Resource> baseProductionResources = new SameTypeTriple<>();
         showMessage("Do you want to activate the base production? y/n",false);
         String choice = scanner.nextLine();
-        while(!choice.equals("y") && !choice.equals("n")){
+        while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
         }
-        if(choice.equals("n")){
+        if(choice.equalsIgnoreCase("n"))
             return null;
-        }
+
         showMessage("You have to choose two resources you want to use for the production: ",false);
         baseProductionResources.setVal1(askResource());
         baseProductionResources.setVal2(askResource());
@@ -259,11 +259,11 @@ public class CliView implements View {
                 showLeaderCard(leaderCards.get(i));
                 showMessage("Do you want to activate this card production? y/n",false);
                 choice = scanner.nextLine();
-                while(!choice.equals("y") && !choice.equals("n")){
+                while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
                     showErrorMessage("Invalid choice! Try again: ");
                     choice = scanner.nextLine();
                 }
-                if(choice.equals("y")){
+                if(choice.equalsIgnoreCase("y")){
                     showMessage("You have to choose a resource you want to product: ",false);
                     chosenResources.set(askResource(),i);
                 }
@@ -279,7 +279,7 @@ public class CliView implements View {
     public Resource askResource(){
         showMessage("Choose a resource (coin, shield, stone, servant): ",false);
         String choice = scanner.nextLine();
-        while(!choice.equals("coin")&& !choice.equals("shield")&&!choice.equals("stone") &&!choice.equals("servant")){
+        while(!choice.equalsIgnoreCase("coin")&& !choice.equalsIgnoreCase("shield")&&!choice.equalsIgnoreCase("stone") &&!choice.equalsIgnoreCase("servant")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
         }
@@ -288,12 +288,12 @@ public class CliView implements View {
 
     public Pair<Character,Integer> askMarketUse(){
         char rowOrColumn;
-        int index = 0;
+        int index;
 
         showMarket();
         showMessage("Do you want to select a row or a column? r/c",false);
         String choice = scanner.nextLine();
-        while(!choice.equals("r") && !choice.equals("c")){
+        while(!choice.equalsIgnoreCase("r") && !choice.equalsIgnoreCase("c")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
         }
@@ -350,8 +350,8 @@ public class CliView implements View {
         Resource leaderCardResource1 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).getAbilityResource();
         Resource leaderCardResource2 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).getAbilityResource();
         List<Resource> temporaryRemovedResources = new ArrayList<>();
-        int resourceIndex = 0;
-        int choiceNumber = -1;
+        int resourceIndex;
+        int choiceNumber;
         SameTypePair<Integer> selectedCell;
 
         while (true) {
@@ -387,12 +387,12 @@ public class CliView implements View {
             }
 
             if (choiceNumber==2) {
-                if (temporaryRemovedResources.size() == 0) {
+                if (temporaryRemovedResources.size() == 0)
                     break;
-                } else {
+                else
                     showMessage("You has to insert every temporary removed resource! ",false);
-                }
             }
+
             if(choiceNumber == 3 && fullLeaderSlots.getVal1()!=null && fullLeaderSlots.getVal1()>0){
                 temporaryRemovedResources.add(leaderCardResource1);
                 fullLeaderSlots.setVal1(fullLeaderSlots.getVal1()-1);
@@ -500,21 +500,29 @@ public class CliView implements View {
 
 
 
-    //                  ------ SHOW METHODS -----
+    //                  ------ SHOW METHODS -----   //da testare
 
     @Override
-    public void showDevelopmentCardBoard(){    //da testare
-
+    public void showDevelopmentCardBoard(){
         for (int i=0;i<3;++i)
             for (int j=0;j<4;++j)
                 showCard(clientModel.getDevelopmentCardBoard().getCard(i,j));
     }
 
+    @Override
     public void showMarket(){
-        //todo: show del mercato nel client model
+
+        showMessage(Styler.color('b',"#\t1\t2\t3\t4"),true);
+        for (int i=0;i<Market.MAXROWS;++i){
+            System.out.print(i+1 + "\t");
+            for (int j=0;j<Market.MAXCOLUMNS+1;++j)
+                System.out.print(clientModel.getMarket().getColor(i,j).toString() + "\t");
+            System.out.print("\n");
+        }
     }
 
-    private void showLeaderCard(LeaderCard card){ //da testare
+    @Override
+    public void showLeaderCard(LeaderCard card){ //da testare
 
         showMessage(Styler.format('r',card.getId()+""),false);
         showMessage(Styler.color('b', switch (card.getAbilityResource().toString()){
@@ -547,7 +555,8 @@ public class CliView implements View {
        }+" "+ v),false));
     }
 
-    private void showCard(DevelopmentCard card) {
+    @Override
+    public void showCard(DevelopmentCard card) {
 
         showMessage(Styler.format('r',Styler.color(switch (card.getType().toString()){
             case "YELLOW" -> 'y';
@@ -621,13 +630,13 @@ public class CliView implements View {
      * @param personalCardBoard is the board you want to show.
      */
     public void showPersonalCardBoard(PersonalCardBoard personalCardBoard){
-        for(int i=0; i<3; i++){
+        for(int i=0; i<3; ++i){
             if(!personalCardBoard.isCardPileEmpty(i)){
                 System.out.println("SLOT "+ (i+1));
                 showCard(personalCardBoard.getUpperCard(i));
-            }else{
+            }/*else{
                 System.out.println("\nEMPTY SLOT \n");
-            }
+            }*/
         }
     }
 
@@ -685,21 +694,43 @@ public class CliView implements View {
     @Override
     public void showWarehouse(PlayerWarehouse warehouse){
 
-        //todo: if resource= null cosa succede? da mettere un trattino
+        if (warehouse.getResource(1,1)!=null)
+        showMessage(Styler.format('i', " (1.1)▷ " + warehouse.getResource(1,1)),false);
+        else
+            showMessage("--",false);
 
-        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(1,1)),false);                 //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(2,1)),false);                 //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(2,2)),false);                 //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(3,1)),false);                 //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(3,2)),false);                 //if null cosa succede?
-        showMessage(Styler.format('i', " ▷ " + warehouse.getResource(3,3)),false);                 //if null cosa succede?
+        if (warehouse.getResource(2,1)== null || warehouse.getResource(2,2)==null){
+            if (warehouse.getResource(2,1)!= null)
+                showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) + "--"),false);
+            else
+                showMessage(Styler.format('i', " (2.2)▷ " + warehouse.getResource(2,2) + "--"),false);
+        }else
+            showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) +"(2.2)▷"+ warehouse.getResource(2,2)),false);
+
+        if (warehouse.getResource(3,1)== null || warehouse.getResource(3,2)==null|| warehouse.getResource(3,3)==null){
+            if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,2)!= null)
+                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ " + warehouse.getResource(3,2) + "--"),false);
+            if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,3)!= null)
+                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.3)▷ " + warehouse.getResource(3,3)+ "--"),false);
+            if (warehouse.getResource(3,2)!= null && warehouse.getResource(3,3)!= null)
+                showMessage(Styler.format('i', " (3.2)▷ " + warehouse.getResource(3,2)+" (3.3)▷ " + warehouse.getResource(3,3)+ "--"),false);
+
+            if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,2)==null && warehouse.getResource(3,3)==null)
+                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+ "-- --"),false);
+            if (warehouse.getResource(3,1)== null && warehouse.getResource(3,2)!=null && warehouse.getResource(3,3)==null)
+                showMessage(Styler.format('i', " (3.2)▷ " + warehouse.getResource(3,2)+ "-- --"),false);
+            if (warehouse.getResource(3,1)== null && warehouse.getResource(3,2)==null && warehouse.getResource(3,3)!=null)
+                showMessage(Styler.format('i', " (3.3)▷ " + warehouse.getResource(3,3)+ "-- --"),false);
+
+        }else
+            showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) +"(2.2)▷"+ warehouse.getResource(2,2)),false);
 
     }
 
     @Override
     public void showStrongbox(Map<Resource,Integer> strongbox){
-        //todo: da mettere 0 se non ci sta quel tipo di risorsa
-        strongbox.entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x),false));
+        //se null la skippa
+        strongbox.entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x),false));     //stampa tipo "-> key:value"
     }
 
     /**
@@ -778,21 +809,6 @@ public class CliView implements View {
 
 
                                                                 //########################## CHECKS #########################
-    /*
-     * Tests if the input is a correct number of players
-     * @param num  The entered text
-     * @return  The null value if the string is not a correct value, otherwise its integer value
-
-    //metodo vecchio da togliere
-    public Integer checkNumPlayer(String num) {
-        return switch (Integer.parseInt(num)){
-            case 1-> 1;
-            case 2-> 2;
-            case 3-> 3;
-            case 4-> 4;
-            default -> null;
-        };
-    }*/
 
     /**
      * Tests if the input is a valid LeaderCard choice (1...4)
@@ -809,21 +825,6 @@ public class CliView implements View {
         s1.add(first);
         return (first < 5 && last < 5 && s1.add(last)) ? s1 : null;
     }
-
-    /*
-     * Tests if the input is a valid card position in the matrix
-     * @param devNum  The entered text, it has to be "row,col"
-     * @return  The null value if the string is not a correct value, otherwise a map with row and column
-
-    //metodo vecchio da togliere
-    public SameTypePair<Integer> checkDevCardNum(String devNum) {
-        int row=9, col=9;
-        try {
-            row = Integer.parseInt(String.valueOf(devNum.charAt(0)));
-            col = Integer.parseInt(String.valueOf(devNum.charAt(2)));
-        } catch (NumberFormatException ignored) {}
-        return (row < 3 && col < 4 && row>=0 &&col>=0)? new SameTypePair<>(row,col) : null;
-    }*/
 
     /**
      * Tests if the input is a valid nickname with alphanumeric, one space, point, dash, underscore in regex

@@ -10,10 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author enrico
  */
 public class Market implements Serializable {
-    private static final int MAXROWS=3;
-    private static final int MAXCOLUMNS=4;
+    public static final int MAXROWS=3;
+    public static final int MAXCOLUMNS=4;
 
-    private final MarbleColor[][] marbles;    //è giusto sia final?
+    private final MarbleColor[][] marbles;
     private MarbleColor slideMarble;
 
     public Market(){

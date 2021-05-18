@@ -30,7 +30,7 @@ public class PlayerWarehouse implements Serializable {
      * @return the resource in that position of the warehouse
      */
     public Resource getResource(int row, int col){
-        switch (row) {
+         switch (row) {
             case 1 -> {
                 return upperRow;
             }
@@ -40,8 +40,10 @@ public class PlayerWarehouse implements Serializable {
             case 3 -> {
                 return lowerRow.get(col);
             }
-        }
-        return null;
+            default -> {
+                 return null;
+             }
+         }
     }
 
     /**
@@ -134,10 +136,7 @@ public class PlayerWarehouse implements Serializable {
                 }
             }
         }
-        if(getResource(3,1)!=null &&getResource(3,3)!=null && getResource(3,1)!=getResource(3,3)){
-            return false;
-        }
-        return true;
+        return getResource(3, 1) == null || getResource(3, 3) == null || getResource(3, 1) == getResource(3, 3);
     }
 
     /**
@@ -165,7 +164,7 @@ public class PlayerWarehouse implements Serializable {
                 try{
                     insertResource(newWarehouse.getResource(row,column),row,column);
                 }catch (InvalidWarehouseInsertionException e){
-                    System.out.println("");//this exception won't be called, because before i do a check.
+                    System.out.println();//this exception won't be called, because before i do a check.
                 }
             }
         }
