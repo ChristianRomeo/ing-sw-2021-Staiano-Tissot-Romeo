@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 public class LeaderCardSlots extends LeaderCard{
-    private int fullSlotsNumber;
+    private int fullSlotsNumber=0;
 
 
     public Integer getFullSlotsNumber() {

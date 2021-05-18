@@ -17,6 +17,5 @@ public class LeaderCardDiscount extends LeaderCard {
         return originalCost;
     }
 
-    //public LeaderCardDiscount getCopy(LeaderCard leader){ return (LeaderCardDiscount) leader;} //da togliere?
 
 }

@@ -113,6 +113,23 @@ public interface View {
     int askCardPile();
 
     /**
+     * Shows the market
+     */
+    void showMarket();
+
+    /**
+     * shows a player LeaderCard
+     * @param card to show
+     */
+    void showLeaderCard(LeaderCard card);
+
+    /**
+     * shows a player card
+     * @param card to show
+     */
+    void showCard(DevelopmentCard card);
+
+    /**
      * shows a player warehouse
      * @param warehouse to show
      */

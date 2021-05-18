@@ -55,10 +55,8 @@ public class Board {
             case MOVETWO -> {
                 //non fa niente, semplicemente ritorna il solo action selezionato e poi il controller agisce
             }
-            case MOVEONEANDSHUFFLE -> {
-                shuffleSoloActionPile();
-                //poi il controller incrementa posizione
-            }   //DRY
+            case MOVEONEANDSHUFFLE -> //poi il controller incrementa posizione
+                    shuffleSoloActionPile();   //DRY
             case DISCARDTWOCARDS -> {
                 int discardedCards=0;
                 int selectedColumn=0;

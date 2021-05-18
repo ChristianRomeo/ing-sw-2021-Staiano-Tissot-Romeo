@@ -39,15 +39,14 @@ public class ActionHandler {
         if(action.contains(" "))
             action = action.substring(0,action.indexOf(" "));
 
-        //todo: bisogna aggiungere le altre azioni
+        //todo: bisogna aggiungere le azioni di show
         switch (action.toUpperCase()) {
             case "SCEGLI" -> initialChoice();   //o anche un altro nome al comando (se non vi piace questo)
             case "AZIONELEADER" -> leaderAction();
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
             case "COMPRACARTA" -> buyDevelopmentCard();
-            case "MERCATO" -> useMarket();          //todo: ask dove mettere le risorse se non le voglio scartare
-            case "MODIFICA" -> swapResources(); //forse da togliere
+            case "MERCATO" -> useMarket();
             case "MOSTRAFT" -> cliView.showFaithTrack();
             case "MOSTRALEADERS" -> cliView.showPlayersLeaderCards();
             case "MOSTRABOARDS" -> cliView.showPlayersBoard();
@@ -60,20 +59,18 @@ public class ActionHandler {
         //(si dovrà ovviamente anche controllare che quell'azione si può fare)
     }
 
-    public void swapResources() {
-    }
+
 
     public void useMarket() {
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
-
         Pair<Character, Integer> marketChoice = cliView.askMarketUse();
         char rowOrColumn = marketChoice.getVal1();
         int index = marketChoice.getVal2();
         List<MarbleColor> takenMarbles;
-        Map<Resource,Integer> boughtResources;
+        List<Resource> boughtResources;
         List<Integer> whiteMarbleChoices = null;
         if(rowOrColumn == 'r'){
             takenMarbles = clientModel.getMarket().getRowColors(index);
@@ -90,11 +87,15 @@ public class ActionHandler {
                 }
             }
         }
-
         boughtResources = clientModel.fromMarblesToResources(takenMarbles, whiteMarbleChoices);
-        //ora devo fare inserimento/scartare edit warehouse ecc di ste risorse
-        //direi di fare prima edit del warehouse e dopo fatto l'edit faccio inserimento/scarto nuove risorse
-        //i metodi che avevo fatto (ch stanno commentati nel controller) mi sembrano buoni
+
+        PlayerWarehouse newWarehouse = new PlayerWarehouse();
+        newWarehouse.setWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
+        SameTypePair<Integer> fullLeaderSlots = new SameTypePair<>(leaderCards.get(0).getFullSlotsNumber(),leaderCards.get(1).getFullSlotsNumber());
+        Map<Resource,Integer> discardedResources = new HashMap<>();
+        cliView.insertBoughtResources(newWarehouse,fullLeaderSlots, boughtResources, discardedResources);
+
+        serverHandler.send(new UseMarketEvent(rowOrColumn,index,newWarehouse,discardedResources,fullLeaderSlots.getVal1(),fullLeaderSlots.getVal2(),whiteMarbleChoices ));
     }
 
 

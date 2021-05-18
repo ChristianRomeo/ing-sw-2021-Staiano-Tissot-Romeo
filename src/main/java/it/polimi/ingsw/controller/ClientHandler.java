@@ -81,7 +81,7 @@ public class ClientHandler implements Runnable {
         //send(new SetUpGame(isFirstPlayer, nickname)); //Sends the initial connectionSetUp message to the client
 
         try {
-            int idx=1;
+            int idx=0;
             NewConnectionEvent newConnectionEvent = (NewConnectionEvent) input.readObject();
             String nick = newConnectionEvent.getNickname(); //forse sta parte si può mettere nella virtual view per coerenza
             //System.out.println("nick ricevuto"); // debug
@@ -90,7 +90,7 @@ public class ClientHandler implements Runnable {
             synchronized (virtualView){     //ha senso sincronizzare la vv?
                 for (ClientHandler cl : virtualView.getClientHandlers())
                     while (cl.getNickname().equalsIgnoreCase(nick) || cl.getNickname().equalsIgnoreCase("Lorenzo il Magnifico"))
-                        nick = tempNick + "_" + idx++;
+                        nick = tempNick + "_" + ++idx;
                 setNickname(nick);
                 //System.out.println("nick impostato"); // debug
 

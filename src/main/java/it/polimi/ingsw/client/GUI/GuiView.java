@@ -222,6 +222,34 @@ public class GuiView extends Application implements View {
     }
 
     /**
+     * Shows the market
+     */
+    @Override
+    public void showMarket() {
+
+    }
+
+    /**
+     * shows a player LeaderCard
+     *
+     * @param card to show
+     */
+    @Override
+    public void showLeaderCard(LeaderCard card) {
+
+    }
+
+    /**
+     * shows a player card
+     *
+     * @param card to show
+     */
+    @Override
+    public void showCard(DevelopmentCard card) {
+
+    }
+
+    /**
      * shows a player warehouse
      *
      * @param warehouse to show
