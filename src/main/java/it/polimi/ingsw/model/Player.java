@@ -39,7 +39,7 @@ public class Player {
 
     /**
      * Constructor
-     * @param nickname
+     * @param nickname il nickname
      */
     public Player(String nickname){
         //costruttore creato a caso solo per fare testing
@@ -70,7 +70,7 @@ public class Player {
      */
     public void calculateAndSetVictoryPoints() {
         int sum = 0, popFavorTileMinNumOfVP = 2;//minimum number of victory points given, if any
-        double totalNumOfResources = 0;
+        double totalNumOfResources;
 
         //calculate victory points based on faith track position.
         if (isBetween(statusPlayer.getFaithTrackPosition(), 3, 5))
