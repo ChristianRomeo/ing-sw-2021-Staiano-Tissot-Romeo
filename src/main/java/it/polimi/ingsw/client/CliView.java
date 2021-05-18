@@ -509,14 +509,22 @@ public class CliView implements View {
                 showCard(clientModel.getDevelopmentCardBoard().getCard(i,j));
     }
 
+    /**
+     * It shows the market in the client model.
+     */
     @Override
     public void showMarket(){
 
-        showMessage(Styler.color('b',"#\t1\t2\t3\t4"),true);
-        for (int i=0;i<Market.MAXROWS;++i){
+        showMessage(Styler.color('b',"#\t1\t\t2\t\t3\t\t4"),false);
+        for (int i = 0; i< Market.MAXROWS; ++i){
             System.out.print(i+1 + "\t");
-            for (int j=0;j<Market.MAXCOLUMNS+1;++j)
-                System.out.print(clientModel.getMarket().getColor(i,j).toString() + "\t");
+            for (int j=0;j<Market.MAXCOLUMNS;++j){
+                if(clientModel.getMarket().getColor(i,j)== MarbleColor.RED){
+                    System.out.print("RED\t\t");
+                }else{
+                    System.out.print(clientModel.getMarket().getColor(i,j).toString() + "\t");
+                }
+            }
             System.out.print("\n");
         }
     }
@@ -704,46 +712,65 @@ public class CliView implements View {
         serverHandler.sendNewGame(choice.equalsIgnoreCase("yes"));
     }
 
+    /**
+     * Print the received warehouse.
+     */
     @Override
     public void showWarehouse(PlayerWarehouse warehouse){
 
         if (warehouse.getResource(1,1)!=null)
         showMessage(Styler.format('i', " (1.1)▷ " + warehouse.getResource(1,1)),false);
         else
-            showMessage("--",false);
+            showMessage(" (1.1)▷ --",false);
 
         if (warehouse.getResource(2,1)== null || warehouse.getResource(2,2)==null){
             if (warehouse.getResource(2,1)!= null)
-                showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) + "--"),false);
-            else
-                showMessage(Styler.format('i', " (2.2)▷ " + warehouse.getResource(2,2) + "--"),false);
+                showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) + " (2.2)▷ --"),false);
+            else{
+                if(warehouse.getResource(2,2)!= null){
+                    showMessage(Styler.format('i', " (2.1)▷ -- "+ " (2.2)▷ " + warehouse.getResource(2,2)),false);
+                }else{
+                    showMessage(Styler.format('i', " (2.1)▷ --"+ " (2.2)▷ --" ),false);
+                }
+            }
         }else
-            showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) +"(2.2)▷"+ warehouse.getResource(2,2)),false);
+            showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) +" (2.2)▷ "+ warehouse.getResource(2,2)),false);
 
         if (warehouse.getResource(3,1)== null || warehouse.getResource(3,2)==null|| warehouse.getResource(3,3)==null){
             if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,2)!= null)
-                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ " + warehouse.getResource(3,2) + "--"),false);
+                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ " + warehouse.getResource(3,2) + " (3.3)▷ --"),false);
             if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,3)!= null)
-                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.3)▷ " + warehouse.getResource(3,3)+ "--"),false);
+                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+ " (3.2)▷ --"+" (3.3)▷ " + warehouse.getResource(3,3)),false);
             if (warehouse.getResource(3,2)!= null && warehouse.getResource(3,3)!= null)
-                showMessage(Styler.format('i', " (3.2)▷ " + warehouse.getResource(3,2)+" (3.3)▷ " + warehouse.getResource(3,3)+ "--"),false);
+                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ " + warehouse.getResource(3,2)+" (3.3)▷ " + warehouse.getResource(3,3)),false);
 
             if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,2)==null && warehouse.getResource(3,3)==null)
-                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+ "-- --"),false);
+                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ --" +" (3.3)▷ --"),false);
             if (warehouse.getResource(3,1)== null && warehouse.getResource(3,2)!=null && warehouse.getResource(3,3)==null)
-                showMessage(Styler.format('i', " (3.2)▷ " + warehouse.getResource(3,2)+ "-- --"),false);
+                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ " + warehouse.getResource(3,2)+ " (3.3)▷ --"),false);
             if (warehouse.getResource(3,1)== null && warehouse.getResource(3,2)==null && warehouse.getResource(3,3)!=null)
-                showMessage(Styler.format('i', " (3.3)▷ " + warehouse.getResource(3,3)+ "-- --"),false);
+                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ --"+" (3.3)▷ " + warehouse.getResource(3,3)),false);
+            if(warehouse.getResource(3,1)== null && warehouse.getResource(3,2)==null&& warehouse.getResource(3,3)==null)
+                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ --"+" (3.3)▷ --" ),false);
+
 
         }else
-            showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) +"(2.2)▷"+ warehouse.getResource(2,2)),false);
+            showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1) +" (3.2)▷ "+ warehouse.getResource(3,2) + " (3.3)▷ "+ warehouse.getResource(3,3)),false);
 
     }
 
+    /**
+     * Print the received strongbox.
+     */
     @Override
     public void showStrongbox(Map<Resource,Integer> strongbox){
-        //se null la skippa
+
         strongbox.entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x),false));     //stampa tipo "-> key:value"
+        for(Resource r : Resource.values()){
+            if(!strongbox.containsKey(r)){
+                showMessage(Styler.format('i', " ▷ " + r.toString()+"=0"),false);
+            }
+        }
     }
 
     /**

@@ -5,7 +5,6 @@ import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.*;
 
 import java.util.*;
-import java.util.spi.ResourceBundleControlProvider;
 
 /**
  * Controller client-side of player's actions, dispatch actions to methods (CLI-only)
