@@ -51,6 +51,7 @@ public class GuiView extends Application implements View {
         currentScene = new Scene(loadFXML("primary"));
         currentStage.setScene(currentScene);
         currentStage.show();
+        //currentScene.getStylesheets().add("/style.css");
     }
 
     static void setRoot(String fxml) throws IOException {

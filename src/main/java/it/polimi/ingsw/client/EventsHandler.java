@@ -117,7 +117,7 @@ public class EventsHandler implements ServerEventObserver {
             if(clientModel.isPregame()){
                 view.showMessage("scrivi SCEGLI per iniziare la scelta",false);
             }else{
-                if(clientModel.isGameStarted()){
+                if(clientModel.hasGameStarted()){
                     //qui mostro tutte le azioni che può fare
                 }
             }
@@ -163,7 +163,7 @@ public class EventsHandler implements ServerEventObserver {
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
         clientModel.setIsPregame(false);
-        clientModel.setIsGameStarted(true);
+        clientModel.setHasGameStarted(true);
         //setto i warehouse arrivati (e anche le leader cards)
         for(String player: clientModel.getNicknames()){
             clientModel.setWarehouse(player, event.getWarehouses().get(player));

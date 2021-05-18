@@ -64,7 +64,7 @@ public class ActionHandler {
     }
 
     public void useMarket() {
-        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+        if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
@@ -140,7 +140,7 @@ public class ActionHandler {
      */
     public void leaderAction(){
 
-        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+        if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
@@ -156,7 +156,7 @@ public class ActionHandler {
      * this enables the user to end his turn.
      */
     public void endTurn(){
-        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+        if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
@@ -167,7 +167,7 @@ public class ActionHandler {
      * enables the player to buy a card from the board
      */
     public void buyDevelopmentCard(){
-        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+        if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
@@ -180,7 +180,7 @@ public class ActionHandler {
      * enables the player to activate the production.
      */
     public void activateProduction(){
-        if(!clientModel.isCurrentPlayer() || !clientModel.isGameStarted() ){
+        if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }

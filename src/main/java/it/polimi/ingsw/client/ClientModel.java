@@ -48,7 +48,7 @@ public class ClientModel {
 
    private boolean isPregame=false; //stiamo nel pregame
 
-   private boolean isGameStarted=false; //è cominciato il gioco normale
+   private boolean hasGameStarted=false; //è cominciato il gioco normale
 
    public ClientModel(int serverCookie) {
       this.serverCookie = serverCookie;
@@ -94,16 +94,16 @@ public class ClientModel {
       return isPregame;
    }
 
-   public boolean isGameStarted() {
-      return isGameStarted;
+   public boolean hasGameStarted() {
+      return hasGameStarted;
    }
 
    public void setIsPregame(boolean isPregame) {
       this.isPregame = isPregame;
    }
 
-   public void setIsGameStarted(boolean gameStarted) {
-      isGameStarted = gameStarted;
+   public void setHasGameStarted(boolean gameStarted) {
+      hasGameStarted = gameStarted;
    }
 
    public void setMyNickname(String nickname){

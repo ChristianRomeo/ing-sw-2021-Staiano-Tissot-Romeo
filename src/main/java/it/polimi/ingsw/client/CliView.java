@@ -430,8 +430,21 @@ public class CliView implements View {
 
     }
 
+    /**
+     * Shows Players faith tracks
+     */
     @Override
     public void showFaithTrack() {
+        showMessage(" " + Styler.format('b', "Faith Tracks: \n"),true);
+        for(int i = 0; i < clientModel.getNicknames().size(); i++)
+        {
+            showMessage("\nPlayer "+i+1+'"'+clientModel.getNicknames().get(i)+'"', false);
+            showMessage("\nFaith Track Position is "+clientModel.getPlayersFTPositions().get(i).toString()+"\n", false);
+            for(int j = 0; j < 3; j++) //there are 3 Pope Favor Tiles
+                showMessage("Pope Favor Tile "+j+" status is "+clientModel.getPlayersPopeTiles().get(i).get(j).toString()+"\n", false);
+        }
+
+
 
     }
 
