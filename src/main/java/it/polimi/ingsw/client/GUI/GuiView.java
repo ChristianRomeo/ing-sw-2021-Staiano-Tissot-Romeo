@@ -103,7 +103,7 @@ public class GuiView extends Application implements View {
      * @return the set of chosen cards
      */
     @Override
-    public TreeSet<Integer> askChoiceLeaderCards() {
+    public SameTypePair<Integer> askChoiceLeaderCards() {
 
         return null;
     }

@@ -52,10 +52,6 @@ public class ActionHandler {
             default -> cliView.showErrorMessage("Invalid choice! Try again: ");
         }
 
-        //commento vecchio:
-        // mo si fa tipo if(action =="PRODUCTION"), if(action == "ENDTURN") ecc
-        //e nel caso è una di queste allora si chiama quel metodo
-        //(si dovrà ovviamente anche controllare che quell'azione si può fare)
     }
 
 
@@ -93,7 +89,12 @@ public class ActionHandler {
         SameTypePair<Integer> fullLeaderSlots = new SameTypePair<>(leaderCards.get(0).getFullSlotsNumber(),leaderCards.get(1).getFullSlotsNumber());
         Map<Resource,Integer> discardedResources = new HashMap<>();
         cliView.insertBoughtResources(newWarehouse,fullLeaderSlots, boughtResources, discardedResources);
-
+        if(fullLeaderSlots.getVal1()==null){
+            fullLeaderSlots.setVal1(-1);
+        }
+        if(fullLeaderSlots.getVal2()==null){
+            fullLeaderSlots.setVal2(-1);
+        }
         serverHandler.send(new UseMarketEvent(rowOrColumn,index,newWarehouse,discardedResources,fullLeaderSlots.getVal1(),fullLeaderSlots.getVal2(),whiteMarbleChoices ));
     }
 
@@ -101,7 +102,7 @@ public class ActionHandler {
 
     /**
      * Guides the player throught the initial choice of leaderCards and resources
-     *///todo: metodo da finire
+     */
     public void initialChoice(){
 
         if(!clientModel.isCurrentPlayer() || !clientModel.isPregame() ){
@@ -109,30 +110,44 @@ public class ActionHandler {
             return;
         }
 
-
-        //ovviamente ste cose dovremo chiederle a utente
-        //qua si prendono gli indici delle leader card  che si vogliono scartare
-        int removedLeader1=0;
-        int removedLeader2=1;
+        SameTypePair<Integer> removedLeaderCards = cliView.askChoiceLeaderCards();
         Resource resource1=null;
         SameTypePair<Integer> position1=null;
         Resource resource2=null;
         SameTypePair<Integer> position2=null;
+
         if(clientModel.getMyIndex()>=1){
-            resource1 = Resource.COIN;
-            position1= new SameTypePair<>();
-            position1.setVal1(3);
-            position1.setVal2(1);
+            resource1 = cliView.askResource();
+            position1= cliView.askWarehouseCell();
         }
         if(clientModel.getMyIndex()==3){//per il secondo e terzo 1 res, per il quarto 2
-            resource2 = Resource.COIN;
-            position2= new SameTypePair<>();
-            position2.setVal1(3);
-            position2.setVal2(2);
+            resource2 = cliView.askResource();
+            position2= cliView.askWarehouseCell();
+            while(!checkInitialChoice(resource1,resource2,position1,position2)){
+                cliView.showMessage("Invalid choice! Try again to choose the second resource and its position. ",false);
+                resource2 = cliView.askResource();
+                position2= cliView.askWarehouseCell();
+            }
         }
 
-        serverHandler.send(new InitialChoiceEvent(removedLeader1,removedLeader2,resource1,resource2,position1,position2));
+        serverHandler.send(new InitialChoiceEvent(removedLeaderCards.getVal1(), removedLeaderCards.getVal2(), resource1,resource2,position1,position2));
         cliView.showMessage("Choice saved",false); //per debug
+    }
+
+    /**
+     * Helper method of initial choice.
+     */
+    private boolean checkInitialChoice(Resource resource1, Resource resource2, SameTypePair<Integer> pos1, SameTypePair<Integer> pos2){
+        if(pos1.getVal1().equals(pos2.getVal1()) && pos1.getVal2().equals(pos2.getVal2())){
+            return false;
+        }
+        if(resource1==resource2 && !pos1.getVal1().equals(pos2.getVal1())){
+            return false;
+        }
+        if(resource1!=resource2 && pos1.getVal1().equals(pos2.getVal1())){
+            return false;
+        }
+        return true;
     }
 
     /**

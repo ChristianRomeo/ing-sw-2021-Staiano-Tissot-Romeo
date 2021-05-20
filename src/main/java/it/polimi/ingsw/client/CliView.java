@@ -104,20 +104,22 @@ public class CliView implements View {
      * @return the set of the indexes of the chosen cards
      */
     @Override
-    public TreeSet<Integer> askChoiceLeaderCards() {
+    public SameTypePair<Integer> askChoiceLeaderCards() {
 
-        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose 2 cards :"),false);
-        List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
+        List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         showMessage(" ↳: ",false);
         leaderCard.forEach(this::showLeaderCard);
 
-        String chosenCards = scanner.nextLine();
-        while (checkLeaderCardNum(chosenCards)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            chosenCards = scanner.nextLine();
+        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose the first card you don't want to keep (0,1,2,3) :"),false);
+        int index1 = askNumber(0,3);
+        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose the second card you don't want to keep (0,1,2,3) :"),false);
+        int index2 = askNumber(0,3);
+        while(index1 == index2){
+            showMessage("You can't select two times the same card! Try again, select the second card you don't want two keep: ",false);
+            index2 = askNumber(0,3);
         }
 
-        return checkLeaderCardNum(chosenCards);
+        return new SameTypePair<>(index1,index2);
     }
 
     /**
@@ -442,6 +444,7 @@ public class CliView implements View {
                 showMessage("You can also insert the resource in this leader card (if it has the considered resource type) (4). ",false);
             }
             choiceNumber = askNumber(0,4);
+
             if (choiceNumber==0){
                 selectedCell = askWarehouseCell();
                 try {
@@ -495,7 +498,7 @@ public class CliView implements View {
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
         }
-        return checkNumber(choice, 0 ,2);
+        return checkNumber(choice, lowLimit ,highLimit);
     }
 
 
@@ -787,7 +790,7 @@ public class CliView implements View {
      * @param errorMessage The message to be shown
      */
     public void showErrorMessage(String errorMessage) {     //invalid action
-        showMessage(Styler.color('r',"That's unfortunate: "+errorMessage),true);
+        showMessage(Styler.color('r',"That's unfortunate: "+errorMessage),false);
     }
 
     /**
@@ -850,21 +853,6 @@ public class CliView implements View {
 
                                                                 //########################## CHECKS #########################
 
-    /**
-     * Tests if the input is a valid LeaderCard choice (1...4)
-     * @param leaderNum The entered text
-     * @return  The null value if the string is not a correct value, otherwise a TreeSet with row and column
-     */
-    public TreeSet<Integer> checkLeaderCardNum(String leaderNum) { //todo: da controllare
-        int first=5, last=5;
-        try {
-            first = Integer.parseInt(String.valueOf(leaderNum.charAt(0)));
-            last = Integer.parseInt(String.valueOf(leaderNum.charAt(1)));
-        } catch (NumberFormatException ignored) {}
-        TreeSet<Integer> s1 = new TreeSet<>();
-        s1.add(first);
-        return (first < 5 && last < 5 && s1.add(last)) ? s1 : null;
-    }
 
     /**
      * Tests if the input is a valid nickname with alphanumeric, one space, point, dash, underscore in regex
