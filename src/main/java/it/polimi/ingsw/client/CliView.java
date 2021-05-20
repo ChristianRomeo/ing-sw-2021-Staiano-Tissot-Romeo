@@ -241,7 +241,7 @@ public class CliView implements View {
         showMessage("You have to choose two resources you want to use for the production: ",false);
         baseProductionResources.setVal1(askResource());
         baseProductionResources.setVal2(askResource());
-        showMessage("You have to choose a resource you want to product: ",false);
+        showMessage("You have to choose a resource you want to produce: ",false);
         baseProductionResources.setVal3(askResource());
 
         return baseProductionResources;
@@ -622,13 +622,17 @@ public class CliView implements View {
      */
     @Override
     public void showFaithTrack() {
+        int numPlayer = 0;
         showMessage(" " + Styler.format('b', "Faith Tracks: \n"),true);
         for(int i = 0; i < clientModel.getNicknames().size(); i++)
         {
-            showMessage("\nPlayer "+i+1+'"'+clientModel.getNicknames().get(i)+'"', false);
+            numPlayer = i + 1;
+            showMessage("\nPlayer "+numPlayer+" "+'"'+clientModel.getNicknames().get(i)+'"', false);
             showMessage("\nFaith Track Position is "+clientModel.getPlayersFTPositions().get(i).toString()+"\n", false);
-            for(int j = 0; j < 3; j++) //there are 3 Pope Favor Tiles
-                showMessage("Pope Favor Tile "+j+" status is "+clientModel.getPlayersPopeTiles().get(i).get(j).toString()+"\n", false);
+            showMessage("Pope Favor Tile 1 status is "+clientModel.getPlayersPopeTiles().get(i).getVal1().toString()+"\n", false);
+            showMessage("Pope Favor Tile 2 status is "+clientModel.getPlayersPopeTiles().get(i).getVal2().toString()+"\n", false);
+            showMessage("Pope Favor Tile 3 status is "+clientModel.getPlayersPopeTiles().get(i).getVal3().toString()+"\n", false);
+            System.out.println("\n\n\n");
         }
 
 
