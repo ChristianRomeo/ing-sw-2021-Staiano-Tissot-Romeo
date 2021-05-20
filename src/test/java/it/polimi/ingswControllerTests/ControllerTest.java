@@ -216,6 +216,26 @@ public class ControllerTest {
         assert(game.getIllegalActions().size()==1);
 
     }
+    @Test
+    public void useMarketTest1() throws Exception{
+        Game game = new Game();
+        Player player = new Player("");
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
+        player.getStatusPlayer().addLeaderCard(new SonOfLeaderCard());
+
+        Controller controller = new Controller(game);
+        game.addNewPlayer(player);
+        game.setCurrentPlayer(player);
+        PlayerWarehouse playerWarehouse = new PlayerWarehouse();
+
+        player.getStatusPlayer().getPlayerWarehouse().setWarehouse(playerWarehouse);
+
+        Map<Resource,Integer> discardedRes =  new HashMap<>(controller.fromMarblesToResources(game.getBoard().getMarket().getRowColors(0),false, null));
+
+        controller.useMarket('r',0,playerWarehouse,discardedRes,0,0, null);
+        assert(game.getIllegalActions().size()==0);
+
+    }
 
     @Test //test superato
     public void activateLeaderCardByDevelopmentCardsTest() throws IOException, InvalidWarehouseInsertionException, InvalidCardInsertionException {

@@ -141,6 +141,8 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public synchronized void handleEvent(UseMarketEvent event){
         if(!controller.getGame().hasDoneAction()){
             controller.useMarket(event.getRowOrColumn(), event.getIndex(),event.getNewWarehouse(),event.getDiscardedRes(),event.getLeaderCardSlots1(),event.getLeaderCardSlots2(), event.getWhiteMarbleChoices());
+        }else{
+            controller.getGame().addIllegalAction(new IllegalAction(controller.getGame().getCurrentPlayer(),"AlreadyDoneAction"));
         }
     }
 

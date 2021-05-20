@@ -53,4 +53,9 @@ public class UseMarketEvent extends ClientEvent{
     public List<Integer> getWhiteMarbleChoices() {
         return whiteMarbleChoices;
     }
+
+    @Override
+    public void notifyHandler(ClientEventHandler eventHandler){
+        eventHandler.handleEvent(this);
+    }
 }

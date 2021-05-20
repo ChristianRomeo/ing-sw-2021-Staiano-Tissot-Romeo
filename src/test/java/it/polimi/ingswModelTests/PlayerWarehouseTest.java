@@ -38,6 +38,21 @@ public class PlayerWarehouseTest {
             assertNull(playerWarehouse.getResource(4,1));
     }
 
+    @Test
+    public void testCheckWarehouse() throws Exception{
+        PlayerWarehouse playerWarehouse = new PlayerWarehouse();
+
+        playerWarehouse.insertResource(Resource.COIN,1,0);
+        playerWarehouse.insertResource(Resource.SERVANT,2,1);
+        playerWarehouse.insertResource(Resource.SERVANT,2,2);
+        playerWarehouse.insertResource(Resource.SHIELD,3,1);
+        playerWarehouse.insertResource(Resource.SHIELD,3,2);
+        playerWarehouse.insertResource(Resource.SHIELD,3,3);
+
+        assert (playerWarehouse.checkWarehouse());
+
+    }
+
     @Test // test passed, full cell check work
     public void fullCellTest() throws Exception
     {

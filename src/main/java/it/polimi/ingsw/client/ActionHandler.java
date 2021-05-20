@@ -87,13 +87,14 @@ public class ActionHandler {
         PlayerWarehouse newWarehouse = new PlayerWarehouse();
         newWarehouse.setWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
         SameTypePair<Integer> fullLeaderSlots = new SameTypePair<>(leaderCards.get(0).getFullSlotsNumber(),leaderCards.get(1).getFullSlotsNumber());
-        Map<Resource,Integer> discardedResources = new HashMap<>();
-        cliView.insertBoughtResources(newWarehouse,fullLeaderSlots, boughtResources, discardedResources);
+
+        Map<Resource,Integer> discardedResources =cliView.insertBoughtResources(newWarehouse,fullLeaderSlots, boughtResources);
+
         if(fullLeaderSlots.getVal1()==null){
-            fullLeaderSlots.setVal1(-1);
+            fullLeaderSlots.setVal1(0);
         }
         if(fullLeaderSlots.getVal2()==null){
-            fullLeaderSlots.setVal2(-1);
+            fullLeaderSlots.setVal2(0);
         }
         serverHandler.send(new UseMarketEvent(rowOrColumn,index,newWarehouse,discardedResources,fullLeaderSlots.getVal1(),fullLeaderSlots.getVal2(),whiteMarbleChoices ));
     }

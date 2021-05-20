@@ -207,7 +207,7 @@ public class CliView implements View {
 
         showMessage("This is your card board: ", false);
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
-
+        //todo: se lo slot è vuoto allora non chiedere se si vuole attivare la produzione li
         for(int i=1; i<=3; i++){
             showMessage("Do you want to activate the production of the card in position "+i+ " ? y/n", false);
             choice = scanner.nextLine();
@@ -422,15 +422,16 @@ public class CliView implements View {
     /**
      * Asks the user how he wants to insert/discard the resources he has bought at the market.
      * It edit the warehouse passed and the number of full slots of the two leader cards (if the user has the right type of cards).
-     * It also edit di list of discarded resources.
+     * @return the map of the discarded resources.
      */
-    public void insertBoughtResources(PlayerWarehouse warehouse, SameTypePair<Integer> fullLeaderSlots, List<Resource> boughtResources, Map<Resource,Integer> discardedResources) {
+    public Map<Resource,Integer> insertBoughtResources(PlayerWarehouse warehouse, SameTypePair<Integer> fullLeaderSlots, List<Resource> boughtResources) {
         Resource leaderCardResource1 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).getAbilityResource();
         Resource leaderCardResource2 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).getAbilityResource();
         int choiceNumber;
+        Map<Resource, Integer> discardedResources= new HashMap<>();
         SameTypePair<Integer> selectedCell;
         while (boughtResources.size()>0) {
-            System.out.println("These are the bought resources: "+ boughtResources); //todo: da stampare meglio sta lista di risorse
+            System.out.println("These are the bought resources: "+ boughtResources);
             System.out.println("Now the considered resource is: "+ boughtResources.get(0));
             showMessage("This is your warehouse: ", false);
             showWarehouse(warehouse);
@@ -475,6 +476,7 @@ public class CliView implements View {
                 }
             }
         }
+        return discardedResources;
     }
         /**
          * Asks the user a cell of the warehouse.
@@ -658,9 +660,9 @@ public class CliView implements View {
             if(!personalCardBoard.isCardPileEmpty(i)){
                 System.out.println("SLOT "+ (i+1));
                 showCard(personalCardBoard.getUpperCard(i));
-            }/*else{
+            }else{
                 System.out.println("\nEMPTY SLOT \n");
-            }*/
+            }
         }
     }
 

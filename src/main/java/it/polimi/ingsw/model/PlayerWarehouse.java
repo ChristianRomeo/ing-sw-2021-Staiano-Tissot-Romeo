@@ -121,7 +121,7 @@ public class PlayerWarehouse implements Serializable {
      *     this method tells you if the warehouse respects the rules of the warehouse or not.
      */
     public boolean checkWarehouse() {
-        if(middleRow.contains(upperRow)|| lowerRow.contains(upperRow)){
+        if(upperRow!=null &&(middleRow.contains(upperRow)|| lowerRow.contains(upperRow))){
             return false;
         }
         for(Resource r: Resource.values()) {
