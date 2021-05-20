@@ -109,10 +109,10 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
     public synchronized void handleEvent(BoughtCardEvent event){
 
-        logger.info("compra carta"); //per debug
         if(!controller.getGame().hasDoneAction()){
-            logger.info("compra carta"); //per debug
             controller.buyDevelopmentCard(event.getRow(), event.getColumn(), event.getPile());
+        }else{
+            controller.getGame().addIllegalAction(new IllegalAction(controller.getGame().getCurrentPlayer(),"AlreadyDoneAction"));
         }
     }
 
@@ -135,6 +135,8 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         SameTypeTriple<Resource> BPResources = new SameTypeTriple<>(event.getRequestedResBP1(),event.getRequestedResBP2(),event.getProducedResBP());
         if(!controller.getGame().hasDoneAction()){
             controller.activateProduction(event.getActivatedProduction(),event.isBPActivated(),BPResources,event.getProducedResLC1(),event.getProducedResLC2());
+        }else{
+            controller.getGame().addIllegalAction(new IllegalAction(controller.getGame().getCurrentPlayer(),"AlreadyDoneAction"));
         }
     }
 

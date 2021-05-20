@@ -183,6 +183,10 @@ public class GuiView extends Application implements View {
 
     }
 
+    @Override
+    public void showLorenzoTurn(SoloAction soloAction){
+
+    }
     /**
      * Asks the player what action should engage
      */

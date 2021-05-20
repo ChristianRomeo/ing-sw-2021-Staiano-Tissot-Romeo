@@ -136,9 +136,6 @@ public class EventsHandler implements ServerEventObserver {
     @Override
     public void handleEvent(GameStarterEventS2C event) {
         clientModel.setIsPregame(true);
-        //imposto cose nel client model (board ecc)
-        //dico al giocatore di aspettare il suo turno e poi cliccare tipo SCEGLI
-        //intanto gli mostro le cose
 
         clientModel.initClientModel(event.getNicknames(), event.getMarket(), event.getCardBoard());
         clientModel.setMyIndex(event.getIndexPlayer());
@@ -157,7 +154,9 @@ public class EventsHandler implements ServerEventObserver {
 
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
-
+        clientModel.setDevelopmentCardBoard(event.getNewBoard());
+        view.showLorenzoTurn(event.getActivatedSoloAction());
+        //todo: da controllare
     }
 
     @Override

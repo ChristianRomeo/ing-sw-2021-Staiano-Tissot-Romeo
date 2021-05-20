@@ -89,6 +89,8 @@ public interface View {
      */
     void showErrorMessage(String errorMessage);
 
+    void showLorenzoTurn(SoloAction soloAction);
+
     /**
      * Asks the player what action should engage
      */

@@ -818,6 +818,12 @@ public class CliView implements View {
             showMessage(Styler.color('y',"That's sad, YOU LOSE " ),true);
     }
 
+    @Override
+    public void showLorenzoTurn(SoloAction soloAction){
+        showMessage("Lorenzo has made his actions! \nThe activated solo action was: ", false);
+        System.out.println(soloAction);//todo: da stampare meglio
+    }
+
     //todo to be changed
     public void printActions() {
         List<Integer> availableActions= new ArrayList<>();
