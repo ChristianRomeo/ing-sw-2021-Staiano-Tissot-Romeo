@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
+import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import javafx.application.Application;
@@ -158,7 +159,7 @@ public class GuiView extends Application implements View {
      *
      */
     @Override
-    public void showLadderBoard() {
+    public void showLadderBoard(EndGameEventS2C endGameEvent) {
 
     }
 

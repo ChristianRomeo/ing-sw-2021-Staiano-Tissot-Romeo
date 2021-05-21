@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
+import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.model.*;
 
 import java.io.FileNotFoundException;
@@ -75,7 +76,7 @@ public interface View {
      * Shows the LadderBoard of the match
      *
      */
-    void showLadderBoard() throws FileNotFoundException;
+    void showLadderBoard(EndGameEventS2C endGameEvent);
 
     /**
      * shows a message to the user.

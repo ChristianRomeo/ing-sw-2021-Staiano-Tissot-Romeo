@@ -78,7 +78,11 @@ public class EventsHandler implements ServerEventObserver {
 
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
-        clientModel.setFTPosition(event.getPlayerNickname(), event.getNewPosition());
+        if(event.getPlayerNickname().equals("Lorenzo il Magnifico")){
+            clientModel.setBlackCrossPosition(event.getNewPosition());
+        }else{
+            clientModel.setFTPosition(event.getPlayerNickname(), event.getNewPosition());
+        }
         view.showMessage(event.getPlayerNickname()+ " è andato avanti di 1 nel percorso fede!",false);
         //qui volendo gli mostro qualcosa
     }
@@ -113,7 +117,7 @@ public class EventsHandler implements ServerEventObserver {
 
         //todo riguardare
         if(event.getNickname().equals(clientModel.getMyNickname())){
-            view.showMessage(Styler.color('g',"è il tuo turno"),true);
+            view.showMessage(Styler.color('g',"\n\nè il tuo turno"),false);
             if(clientModel.isPregame()){
                 view.showMessage("scrivi SCEGLI per iniziare la scelta",false);
             }else{
@@ -149,14 +153,16 @@ public class EventsHandler implements ServerEventObserver {
 
     @Override
     public void handleEvent(EndGameEventS2C event) {
-
+        view.showLadderBoard(event);
+        clientModel.setHasGameStarted(false);
+        clientModel.setGameEnded(true); //è finito il gioco
+        view.showMessage("Write 'exit' to continue.",false);
     }
 
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
         clientModel.setDevelopmentCardBoard(event.getNewBoard());
         view.showLorenzoTurn(event.getActivatedSoloAction());
-        //todo: da controllare
     }
 
     @Override

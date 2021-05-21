@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.controller.Client;
+import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
@@ -49,14 +51,13 @@ public class CliView implements View {
 
     @Override
     public void askActions(){
-        while(true){ //poi ci sarà qualche altra condizione
+        while(!clientModel.isGameEnded()){
             scanner.reset();
             String newAction = scanner.nextLine();
-            //qui ora si deve passare questa stringa newAction a chi vede se è una azione valida o no
-            //e nel caso si chiama il metodo corrispondente (che potrà ulteriormente parlare all'utente
-            //e chiedergli cose):
+
             actionHandler.handleAction(newAction);
         }
+        askNewGame();
     }
 
     /**
@@ -503,6 +504,25 @@ public class CliView implements View {
         return checkNumber(choice, lowLimit ,highLimit);
     }
 
+    private void askNewGame(){
+
+        showMessage(Styler.ANSI_TALK + "\n\tDo you wish to play again? [Yes/No]: ",false);
+        String choice = scanner.nextLine();
+
+        while (!choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("no")){
+            showErrorMessage("Invalid choice! Try again: ");
+            choice = scanner.nextLine();
+        }
+
+        if (choice.equals("yes")) {
+            try {
+                Client.main(null);
+            } catch (FileNotFoundException e) {
+                System.out.println("Error in restarting the application.");
+            }
+        }
+    }
+
 
 
     //                  ------ SHOW METHODS -----   //da testare
@@ -692,29 +712,21 @@ public class CliView implements View {
      * Print the map received in input with the ladder
      */
     @Override
-    public void showLadderBoard() throws FileNotFoundException {
+    public void showLadderBoard(EndGameEventS2C endGameEvent){
+        if(endGameEvent.getWinners().contains(clientModel.getMyNickname())){
+            showMessage("You won!!!",false);
+        }else{
+            showMessage("You lose!!!",false);
+        }
+
         showMessage(Styler.format('b',Styler.ANSI_TALK + "This is the LadderBoard of the game:"+ Styler.ANSI_VICTORY ),true);
 
-        Map<String, Integer> temp = new HashMap<>();
-        AtomicInteger i = new AtomicInteger();
-
-        clientModel.getNicknames().forEach(x-> temp.put(x,clientModel.getPlayersVP().get(i.getAndIncrement())));
-
-        temp.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(k-> showMessage(Styler.format('b', "Player ▷ " + k + "points"),false));
-
-        askNewGame();
-    }
-
-    private void askNewGame() throws FileNotFoundException {
-
-        showMessage(Styler.ANSI_TALK + "\n\tDo you wish to play again? [Yes/No]: ",false);
-        String choice = scanner.nextLine();
-
-        while (!choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("no")){
-            showErrorMessage("Invalid choice! Try again: ");
-            choice = scanner.nextLine();
+        for(String nickname : endGameEvent.getVictoryPoints().keySet()){
+            showMessage(Styler.format('b', "Player ▷ " + nickname + " has victory points: " + endGameEvent.getVictoryPoints().get(nickname)),false);
         }
-        serverHandler.sendNewGame(choice.equalsIgnoreCase("yes"));
+        for(String nickname: endGameEvent.getWinners()){
+            showMessage(nickname + " is a winner!",false);
+        }
     }
 
     /**
@@ -821,7 +833,10 @@ public class CliView implements View {
     @Override
     public void showLorenzoTurn(SoloAction soloAction){
         showMessage("Lorenzo has made his actions! \nThe activated solo action was: ", false);
-        System.out.println(soloAction);//todo: da stampare meglio
+        System.out.println("Type: "+ soloAction.getType());
+        if(soloAction.getType()==SoloActionType.DISCARDTWOCARDS){
+            System.out.println("The discarded cards were of type: " + soloAction.getDiscardedCardsType());
+        }
     }
 
     //todo to be changed

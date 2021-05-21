@@ -49,12 +49,18 @@ public class ActionHandler {
             case "MOSTRAFT" -> cliView.showFaithTrack();
             case "MOSTRALEADERS" -> cliView.showPlayersLeaderCards();
             case "MOSTRABOARDS" -> cliView.showPlayersBoard();
+            case "EXIT" -> exit();
             default -> cliView.showErrorMessage("Invalid choice! Try again: ");
         }
 
     }
 
 
+    public void exit(){
+        if(!clientModel.isGameEnded()){
+            cliView.showErrorMessage("You can't do this action now, Please Wait...");
+        }
+    }
 
     public void useMarket() {
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){

@@ -30,11 +30,13 @@ public class ClientModel {
 
    private List<Integer> playersFTPositions;
 
+   private int blackCrossPosition;
+
    private List<SameTypeTriple<PopeFavorTileStatus>> playersPopeTiles;
 
    private List<List<LeaderCard>> playersLeaderCards;
 
-   private List<Integer> playersVP;
+   // private List<Integer> playersVP; credo non serve
 
    private int serverCookie;
 
@@ -50,88 +52,102 @@ public class ClientModel {
 
    private boolean hasGameStarted=false; //è cominciato il gioco normale
 
+   private boolean isGameEnded = false;
+
    public ClientModel(int serverCookie) {
       this.serverCookie = serverCookie;
    }
 
-   public Market getMarket() {
+   public synchronized Market getMarket() {
       return market;
    }
 
-   public List<String> getPlayersNicknames() {
+   public synchronized List<String> getPlayersNicknames() {
       return playersNicknames;
    }
 
-   public List<PersonalCardBoard> getPlayersCardBoards() {
+   public synchronized List<PersonalCardBoard> getPlayersCardBoards() {
       return playersCardBoards;
    }
 
-   public List<Integer> getPlayersFTPositions() {
+   public synchronized List<Integer> getPlayersFTPositions() {
       return playersFTPositions;
    }
 
-   public List<SameTypeTriple<PopeFavorTileStatus>> getPlayersPopeTiles() {
+   public synchronized int getBlackCrossPosition(){
+      return blackCrossPosition;
+   }
+
+   public synchronized List<SameTypeTriple<PopeFavorTileStatus>> getPlayersPopeTiles() {
       return playersPopeTiles;
    }
 
-   public List<List<LeaderCard>> getPlayersLeaderCards() {
+   public synchronized List<List<LeaderCard>> getPlayersLeaderCards() {
       return playersLeaderCards;
    }
 
-   public int getServerCookie() {
+   public synchronized int getServerCookie() {
       return serverCookie;
    }
 
-   public DevelopmentCardBoard getDevelopmentCardBoard() {
+   public synchronized DevelopmentCardBoard getDevelopmentCardBoard() {
       return developmentCardBoard;
    }
 
-   public List<Integer> getPlayersVP() {
-      return playersVP;
+   // public List<Integer> getPlayersVP() { credo non serve
+   //   return playersVP;
+   //}
+
+   public boolean isGameEnded() {
+      return isGameEnded;
    }
 
-   public boolean isPregame() {
+   public void setGameEnded(boolean gameEnded) {
+      isGameEnded = gameEnded;
+   }
+
+   public synchronized boolean isPregame() {
       return isPregame;
    }
 
-   public boolean hasGameStarted() {
+   public synchronized boolean hasGameStarted() {
       return hasGameStarted;
    }
 
-   public void setIsPregame(boolean isPregame) {
+   public synchronized void setIsPregame(boolean isPregame) {
       this.isPregame = isPregame;
    }
 
-   public void setHasGameStarted(boolean gameStarted) {
+   public synchronized void setHasGameStarted(boolean gameStarted) {
       hasGameStarted = gameStarted;
    }
 
-   public void setMyNickname(String nickname){
+   public synchronized void setMyNickname(String nickname){
       this.myNickname=nickname;
    }
 
-   public String getMyNickname(){
+   public synchronized String getMyNickname(){
       return myNickname;
    }
 
-   public String getCurrentPlayerNick(){
+   public synchronized String getCurrentPlayerNick(){
       return currentPlayerNick;
    }
 
    //metodo che dice se il client è il current player o no
-   public boolean isCurrentPlayer(){
+   public synchronized boolean isCurrentPlayer(){
       return myNickname.equals(currentPlayerNick);
    }
 
-   public List<Map<Resource, Integer>> getPlayersStrongboxes() {
+   public synchronized List<Map<Resource, Integer>> getPlayersStrongboxes() {
       return new ArrayList<>(playersStrongboxes);
    }
 
-   public List<PlayerWarehouse> getPlayersWarehouses() {
+   public synchronized List<PlayerWarehouse> getPlayersWarehouses() {
       return new ArrayList<>(playersWarehouses);
    }
 
-   public void initClientModel(List<String> nicknames, Market market, DevelopmentCardBoard developmentCardBoard){
+   public synchronized void initClientModel(List<String> nicknames, Market market, DevelopmentCardBoard developmentCardBoard){
       setMarket(market);
       setDevelopmentCardBoard(developmentCardBoard);
       this.playersNicknames = nicknames;
@@ -156,15 +172,15 @@ public class ClientModel {
       }
    }
 
-   public void setCurrentPlayer(String nickname){
+   public synchronized void setCurrentPlayer(String nickname){
       this.currentPlayerNick=nickname;
    }
 
-   public void setDevelopmentCardBoard(DevelopmentCardBoard developmentCardBoard) {
+   public synchronized void setDevelopmentCardBoard(DevelopmentCardBoard developmentCardBoard) {
       this.developmentCardBoard = developmentCardBoard;
    }
 
-   public void setMarket(Market market) {
+   public synchronized void setMarket(Market market) {
       this.market = market;
    }
 
@@ -173,56 +189,60 @@ public class ClientModel {
       this.playersNicknames = playersNicknames;
    }
 */
-   public void setMyIndex(int myIndex) {
+   public synchronized void setMyIndex(int myIndex) {
       this.myIndex = myIndex;
    }
 
    //this method sets the leader cards of a player
-   public void setLeaderCards(String player, List<LeaderCard> leaderCards){
+   public synchronized void setLeaderCards(String player, List<LeaderCard> leaderCards){
       playersLeaderCards.get(playersNicknames.indexOf(player)).clear();
       playersLeaderCards.get(playersNicknames.indexOf(player)).addAll(leaderCards);
    }
 
    //this method sets the warehouse of a player
-   public void setWarehouse(String player, PlayerWarehouse warehouse){
+   public synchronized void setWarehouse(String player, PlayerWarehouse warehouse){
       playersWarehouses.set(playersNicknames.indexOf(player),warehouse);
    }
 
-   public int getMyIndex() {
+   public synchronized int getMyIndex() {
       return myIndex;
    }
 
    //ritorna tutti i nicknames
-   public List<String> getNicknames(){
+   public synchronized List<String> getNicknames(){
       return  new ArrayList<>(playersNicknames);
    }
 
-   public List<LeaderCard> getPlayerLeaderCards(String player){
+   public synchronized List<LeaderCard> getPlayerLeaderCards(String player){
       return playersLeaderCards.get(playersNicknames.indexOf(player));
    }
 
    //this method sets the strongbox of a player
-   public void setStrongbox(String player, Map<Resource,Integer> strongbox){
+   public synchronized void setStrongbox(String player, Map<Resource,Integer> strongbox){
       playersStrongboxes.set(playersNicknames.indexOf(player),strongbox);
    }
 
    //this method sets the personal card board of a player
-   public void setPersonalCardBoard(String player, PersonalCardBoard personalCardBoard){
+   public synchronized void setPersonalCardBoard(String player, PersonalCardBoard personalCardBoard){
       playersCardBoards.set(playersNicknames.indexOf(player),personalCardBoard);
    }
 
    //this method sets the position of a player
-   public void setFTPosition(String player, int position){
+   public synchronized void setFTPosition(String player, int position){
       playersFTPositions.set(playersNicknames.indexOf(player),position);
    }
 
+   public synchronized void setBlackCrossPosition(int blackCrossPosition){
+      this.blackCrossPosition = blackCrossPosition;
+   }
+
    //this method sets the position of a player
-   public void setPopeTiles(String player, SameTypeTriple<PopeFavorTileStatus> popeTileStatus){
+   public synchronized void setPopeTiles(String player, SameTypeTriple<PopeFavorTileStatus> popeTileStatus){
       playersPopeTiles.set(playersNicknames.indexOf(player), popeTileStatus);
    }
 
    //this method takes marbles and returns the corresponding resources
-   public List<Resource> fromMarblesToResources(List<MarbleColor> marbles, List<Integer> whiteMarbleChoices){
+   public synchronized List<Resource> fromMarblesToResources(List<MarbleColor> marbles, List<Integer> whiteMarbleChoices){
 
       if(marbles==null)
          return null;

@@ -38,6 +38,10 @@ public class ServerHandler implements Runnable{
                 //qua viene passato l'evento all'handler di eventi che farà le dovute cose
                 serverMessage.notifyHandler(serverEventHandler);
 
+                if(serverMessage instanceof EndGameEventS2C){
+                    break;
+                }
+
 
             } catch (ClassNotFoundException | IOException e) {
                 if (isConnected)
@@ -46,6 +50,7 @@ public class ServerHandler implements Runnable{
                     isConnected = false;
             }
         }
+        closeConnection();
     }
 
     public void setUpConnection(){
@@ -84,24 +89,16 @@ public class ServerHandler implements Runnable{
         view.showMessage("Attendi che tutti si connettono...",false);
     }
 
-    /**
-     * New game or shutdown
-     *
-     * @param choice The choice of the user
-     */
-    public void sendNewGame(boolean choice) throws FileNotFoundException {
-        isConnected = false;
-        closeConnection();
-        if (choice)
-            Client.main(null);
-    }
 
     /**
      * Graceful closes the connection to the server
      */
     public void closeConnection() {
         try {
+            input.close();
+            output.close();
             socket.close();
+            isConnected=false;
         } catch (IOException e) {
             logger.warning(""+e);
         }
