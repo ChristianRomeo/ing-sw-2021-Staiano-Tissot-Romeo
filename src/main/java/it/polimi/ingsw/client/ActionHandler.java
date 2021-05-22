@@ -13,7 +13,6 @@ public class ActionHandler {
     private final ClientModel clientModel;
     private final CliView cliView;
     private final ServerHandler serverHandler;
-    private final Scanner scanner;
 
     /**
      * Instantiated by the cliView
@@ -25,7 +24,6 @@ public class ActionHandler {
         this.clientModel=clientModel;
         this.cliView=cliView;
         this.serverHandler = serverHandler;
-        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -131,14 +129,13 @@ public class ActionHandler {
             resource2 = cliView.askResource();
             position2= cliView.askWarehouseCell();
             while(!checkInitialChoice(resource1,resource2,position1,position2)){
-                cliView.showMessage("Invalid choice! Try again to choose the second resource and its position. ",false);
+                cliView.showMessage("Invalid choice! Try again to choose the second resource and its position. ");
                 resource2 = cliView.askResource();
                 position2= cliView.askWarehouseCell();
             }
         }
 
         serverHandler.send(new InitialChoiceEvent(removedLeaderCards.getVal1(), removedLeaderCards.getVal2(), resource1,resource2,position1,position2));
-        cliView.showMessage("Choice saved",false); //per debug
     }
 
     /**

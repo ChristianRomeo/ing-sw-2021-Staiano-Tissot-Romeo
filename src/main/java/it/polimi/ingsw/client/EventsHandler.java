@@ -41,7 +41,7 @@ public class EventsHandler implements ServerEventObserver {
         if(event.isDiscarded2())
             leaderCards.get(1).discard();
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " ha fatto un'azione leader!",false);
+        view.showMessage(clientModel.getCurrentPlayerNick() + " ha fatto un'azione leader!");
         //qua magari mostro la sua nuova situazione delle sue carte leader
 
     }
@@ -58,7 +58,7 @@ public class EventsHandler implements ServerEventObserver {
         if(event.getFullSlotsLeaderCard2()!=null)
             clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(1).setFullSlotsNumber(event.getFullSlotsLeaderCard2());
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " ha comprato una carta!",false);
+        view.showMessage(clientModel.getCurrentPlayerNick() + " ha comprato una carta!");
         //qui magari mostro le cose che sono cambiate
     }
 
@@ -72,7 +72,7 @@ public class EventsHandler implements ServerEventObserver {
         if(event.getFullSlotsLeaderCard2()!=null)
             clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(1).setFullSlotsNumber(event.getFullSlotsLeaderCard2());
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " ha attivato la produzione!",false);
+        view.showMessage(clientModel.getCurrentPlayerNick() + " ha attivato la produzione!");
         //qui magari mostro le cose che sono cambiate
     }
 
@@ -83,7 +83,7 @@ public class EventsHandler implements ServerEventObserver {
         }else{
             clientModel.setFTPosition(event.getPlayerNickname(), event.getNewPosition());
         }
-        view.showMessage(event.getPlayerNickname()+ " è andato avanti di 1 nel percorso fede!",false);
+        view.showMessage(event.getPlayerNickname()+ " è andato avanti di 1 nel percorso fede!");
         //qui volendo gli mostro qualcosa
     }
 
@@ -92,7 +92,7 @@ public class EventsHandler implements ServerEventObserver {
         for(String player: clientModel.getNicknames())
             clientModel.setPopeTiles(player,event.getNewPopeTilesStatus().get(player));
 
-        view.showMessage("E' stato attivato un rapporto in vaticano!",false);
+        view.showMessage("E' stato attivato un rapporto in vaticano!");
         //qui volendo gli mostro qualcosa
     }
 
@@ -106,7 +106,7 @@ public class EventsHandler implements ServerEventObserver {
         if(event.getFullSlotsLeaderCard2()!=null)
             clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(1).setFullSlotsNumber(event.getFullSlotsLeaderCard2());
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " ha attivato il Mercato!",false);
+        view.showMessage(clientModel.getCurrentPlayerNick() + " ha attivato il Mercato!");
         //qui magari mostro le cose che sono cambiate
     }
 
@@ -117,16 +117,16 @@ public class EventsHandler implements ServerEventObserver {
 
         //todo riguardare
         if(event.getNickname().equals(clientModel.getMyNickname())){
-            view.showMessage(Styler.color('g',"\n\nè il tuo turno"),false);
+            view.showMessage(Styler.color('g',"\n\nè il tuo turno"));
             if(clientModel.isPregame()){
-                view.showMessage("scrivi SCEGLI per iniziare la scelta",false);
+                view.showMessage("scrivi SCEGLI per iniziare la scelta");
             }else{
                 if(clientModel.hasGameStarted()){
                     //qui mostro tutte le azioni che può fare
                 }
             }
         }else{
-            view.showMessage("è il turno di "+event.getNickname(),false);
+            view.showMessage("è il turno di "+event.getNickname());
             //qui potrei mettere tipo le azioni che può fare quando non è il suo turno (cioè solo show roba)
         }
     }
@@ -147,7 +147,7 @@ public class EventsHandler implements ServerEventObserver {
 
         //ho messo al giocatore tutte le leader card tra cui può scegliere, cosi poi gli mostro direttamente
         //le sue leadercards
-        view.showMessage("è iniziato il pregame, aspetta il tuo turno e poi scrivi SCEGLI",false); //da fare meglio
+        view.showMessage("è iniziato il pregame, aspetta il tuo turno e poi scrivi SCEGLI"); //da fare meglio
         //gli devo mostrare le cose
     }
 
@@ -156,7 +156,7 @@ public class EventsHandler implements ServerEventObserver {
         view.showLadderBoard(event);
         clientModel.setHasGameStarted(false);
         clientModel.setGameEnded(true); //è finito il gioco
-        view.showMessage("Write 'exit' to continue.",false);
+        view.showMessage("Write 'exit' to continue.");
     }
 
     @Override
@@ -176,12 +176,15 @@ public class EventsHandler implements ServerEventObserver {
         }
 
         clientModel.setCurrentPlayer(clientModel.getNicknames().get(0));
-        view.showMessage("Finito il pregame, ora inizia il vero gioco. E' il turno di "+ clientModel.getNicknames().get(0),true);
+        Styler.cls();
+        view.showMessage("Finito il pregame, ora inizia il vero gioco. E' il turno di "+ clientModel.getNicknames().get(0));
 
-        if(clientModel.getMyNickname().equals(clientModel.getNicknames().get(0)))
-            view.showMessage("E' il tuo turno! Le azioni che puoi fare sono ....",true);
+        if(clientModel.getMyNickname().equals(clientModel.getNicknames().get(0))){
+            Styler.cls();
+            view.showMessage("E' il tuo turno! Le azioni che puoi fare sono ....");
+        }
         else
-            view.showMessage("E' il turno di "+ clientModel.getNicknames().get(0)+" Le azioni che puoi fare sono ....",false);
+            view.showMessage("E' il turno di "+ clientModel.getNicknames().get(0)+" Le azioni che puoi fare sono ....");
 
     }
 

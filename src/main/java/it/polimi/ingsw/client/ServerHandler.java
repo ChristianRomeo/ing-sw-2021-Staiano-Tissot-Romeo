@@ -65,12 +65,10 @@ public class ServerHandler implements Runnable{
 
         //faccio set nel model nel launcher della cli, ora lo mando al server e poi lo riprendo e lo risetto
         send(new NewConnectionEvent(view.getClientModel().getMyNickname())); // invio evento con nickname
-        view.showMessage("nick inviato",false); // debug
 
         try {
             //ricevo risposta dal server
             NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();
-            view.showMessage("risposta ricevuta",false); // debug
             view.getClientModel().setMyNickname(serverAnswer.getNickname()); //si imposta il nick ricevuto
 
             if(serverAnswer.isFirstPlayer()){
@@ -86,7 +84,7 @@ public class ServerHandler implements Runnable{
         //eventualmente il numero di giocatori
         //ora attivo la ricezione di messaggi da server
         (new Thread(this)).start();
-        view.showMessage("Attendi che tutti si connettono...",false);
+        view.showMessage("Attendi che tutti si connettono...");
     }
 
 

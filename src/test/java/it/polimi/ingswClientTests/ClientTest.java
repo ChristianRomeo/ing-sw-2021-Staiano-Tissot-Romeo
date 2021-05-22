@@ -18,7 +18,7 @@ public class ClientTest {
     public void printMarketTest() throws Exception {
         CliView cliView = new CliView();
         Market market = new Market();
-        cliView.showMessage(Styler.color('b',"#\t1\t\t2\t\t3\t\t4"),false);
+        cliView.showMessage(Styler.color('b',"#\t1\t\t2\t\t3\t\t4"));
         for (int i = 0; i< Market.MAXROWS; ++i){
             System.out.print(i+1 + "\t");
             for (int j=0;j<Market.MAXCOLUMNS;++j){

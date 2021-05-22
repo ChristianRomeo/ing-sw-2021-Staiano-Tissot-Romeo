@@ -167,10 +167,9 @@ public class GuiView extends Application implements View {
      * shows a message to the user.
      *
      * @param message showed
-     * @param cls if you want to clear the screen
      */
     @Override
-    public void showMessage(String message, boolean cls) {
+    public void showMessage(String message) {
 
     }
 
@@ -294,14 +293,4 @@ public class GuiView extends Application implements View {
 
     }
 
-    /**
-     * Notify that the game has ended and the winning status
-     *
-     * @param winner The nickname of the winner
-     * @param youWon True if the player has win
-     */
-    @Override
-    public void showEndGameMessage(String winner, boolean youWon) {
-
-    }
 }

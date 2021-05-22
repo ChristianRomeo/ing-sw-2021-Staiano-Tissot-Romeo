@@ -82,7 +82,7 @@ public interface View {
      * shows a message to the user.
      * @param message showed
      */
-    void showMessage(String message,boolean cls);
+    void showMessage(String message);
 
     /**
      * Shows an error message
@@ -156,10 +156,5 @@ public interface View {
      */
     void showTurn(String currentNickname);
 
-    /**
-     * Notify that the game has ended and the winning status
-     * @param winner The nickname of the winner
-     * @param youWon True if the player has win
-     */
-    void showEndGameMessage(String winner, boolean youWon);
+
 }
