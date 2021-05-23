@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.Game;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -109,16 +108,6 @@ public class Server {
         currentVirtualView = new VirtualView(controller);
         controller.setVirtualView(currentVirtualView);
 
-        // Starts the game controller
-        //executor.submit(controller.gameStarter());
-        //OR
-        /*(new Thread(() -> {
-            try {
-                controller.gameStarter();
-            } catch (Exception ignored) {
-            }
-            logger.warning("Status: Controller has stopped.");
-        })).start();*/
     }
 
     //executor.shutdown();  //dentro alla funzione dove si usa

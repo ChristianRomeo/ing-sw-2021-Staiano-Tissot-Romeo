@@ -2,18 +2,19 @@ package it.polimi.ingsw.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.LeaderCardDiscount;
 import it.polimi.ingsw.model.LeaderCardSlots;
 import it.polimi.ingsw.model.LeaderCardWhiteMarble;
 import it.polimi.ingsw.model.LeaderCard;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Reads configs files from json, LeaderCards, DevelopmentCards and NetworkConfig
@@ -31,41 +32,39 @@ public class Configs {
     /**
      * Getter of Default ip address
      * @return  string the ip address from file
-     * @throws FileNotFoundException file not found
+     * @throws JsonIOException file not found
      */
-    public static String getServerIp() throws FileNotFoundException {
-        String CONFIGPATH = "src/main/resources/Configs.json";
+    public static String getServerIp() throws JsonIOException {
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(CONFIGPATH));
-        Configs configs = new Gson().fromJson(bufferedReader, Configs.class);
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+
+        Configs configs = new Gson().fromJson(new InputStreamReader(in), Configs.class);
         return configs.server_ip;
     }
 
     /**
      * Getter of Default port number
      * @return int the port number from file
-     * @throws FileNotFoundException file not found
+     * @throws JsonIOException file not found
      */
-    public static int getServerPort() throws FileNotFoundException {
-        String CONFIGPATH = "src/main/resources/Configs.json";
+    public static int getServerPort() throws JsonIOException {
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(CONFIGPATH));
-        Configs configs = new Gson().fromJson(bufferedReader, Configs.class);
+        Configs configs = new Gson().fromJson(new InputStreamReader(in), Configs.class);
         return configs.server_port;
     }
 
     /**
      * Getter of LeaderCards from file
      * @return list with all the leader cards
-     * @throws FileNotFoundException file not found
+     * @throws JsonIOException file not found
      */
-    public static List<LeaderCard> getLeaderCards() throws FileNotFoundException {
-        String LEADERPATH = "src/main/resources/Leaders.json";
+    public static List<LeaderCard> getLeaderCards() throws JsonIOException {
 
         List<LeaderCard> leaderCardList = new ArrayList<>();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(LEADERPATH));
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
         Gson gson = new Gson();
-        JsonArray json = gson.fromJson(bufferedReader, JsonArray.class);
+        JsonArray json = gson.fromJson(new InputStreamReader(in), JsonArray.class);
 
         for (int i = 0; i < json.size(); ++i)
             switch (gson.fromJson(json.get(i), SonOfLeaderCard.class).getAbility()) {
@@ -89,13 +88,13 @@ public class Configs {
     /**
      * Getter of development cards
      * @return list with all of the development cards
-     * @throws FileNotFoundException file not found
+     * @throws JsonIOException file not found
      */
-    public static List<DevelopmentCard> getDevelopmentCards() throws FileNotFoundException {
-        String CARDPATH = "src/main/resources/Cards.json";
+    public static List<DevelopmentCard> getDevelopmentCards() throws JsonIOException {
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(CARDPATH));
-        JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+
+        JsonArray json = new Gson().fromJson(new InputStreamReader(in), JsonArray.class);
         return new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
     }
 

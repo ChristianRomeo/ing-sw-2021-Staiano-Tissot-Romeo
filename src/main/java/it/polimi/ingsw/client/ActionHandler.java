@@ -38,7 +38,7 @@ public class ActionHandler {
 
         //todo: bisogna aggiungere le azioni di show
         switch (action.toUpperCase()) {
-            case "SCEGLI" -> initialChoice();   //o anche un altro nome al comando (se non vi piace questo)
+            case "SCEGLI" -> initialChoice();   //DA FAR ANDARE SENZA L'INTERVENTO UTENTE initialchoice()
             case "AZIONELEADER" -> leaderAction();
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
@@ -58,6 +58,7 @@ public class ActionHandler {
         if(!clientModel.isGameEnded()){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
         }
+            //cliView.askNewGame();
     }
 
     public void useMarket() {
@@ -148,10 +149,7 @@ public class ActionHandler {
         if(resource1==resource2 && !pos1.getVal1().equals(pos2.getVal1())){
             return false;
         }
-        if(resource1!=resource2 && pos1.getVal1().equals(pos2.getVal1())){
-            return false;
-        }
-        return true;
+        return resource1 == resource2 || !pos1.getVal1().equals(pos2.getVal1());
     }
 
     /**

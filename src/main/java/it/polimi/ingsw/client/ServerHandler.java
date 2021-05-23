@@ -1,10 +1,9 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.controller.Client;
+
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.controller.View;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -75,6 +74,8 @@ public class ServerHandler implements Runnable{
                 //qui si chiede il numero di giocatori voluto all'utente
                 int wantedNumPlayers = view.askNumPlayer();
                 send(new NumPlayerEvent(wantedNumPlayers));
+                if (wantedNumPlayers!=1)
+                    view.showMessage("Now please wait for others players...");
             }
         } catch (IOException | ClassNotFoundException e) {
             view.showErrorMessage("errore"+e); // da fare meglio
@@ -84,7 +85,7 @@ public class ServerHandler implements Runnable{
         //eventualmente il numero di giocatori
         //ora attivo la ricezione di messaggi da server
         (new Thread(this)).start();
-        view.showMessage("Attendi che tutti si connettono...");
+
     }
 
 

@@ -119,13 +119,14 @@ public class EventsHandler implements ServerEventObserver {
         if(event.getNickname().equals(clientModel.getMyNickname())){
             view.showMessage(Styler.color('g',"\n\nè il tuo turno"));
             if(clientModel.isPregame()){
-                view.showMessage("scrivi SCEGLI per iniziare la scelta");
+                view.showMessage("scrivi SCEGLI per iniziare la scelta");   //in automatico
             }else{
                 if(clientModel.hasGameStarted()){
-                    //qui mostro tutte le azioni che può fare
+                    view.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
                 }
             }
         }else{
+            Styler.cls();
             view.showMessage("è il turno di "+event.getNickname());
             //qui potrei mettere tipo le azioni che può fare quando non è il suo turno (cioè solo show roba)
         }
@@ -183,8 +184,10 @@ public class EventsHandler implements ServerEventObserver {
             Styler.cls();
             view.showMessage("E' il tuo turno! Le azioni che puoi fare sono ....");
         }
-        else
+        else{
+            Styler.cls();
             view.showMessage("E' il turno di "+ clientModel.getNicknames().get(0)+" Le azioni che puoi fare sono ....");
+        }
 
     }
 
