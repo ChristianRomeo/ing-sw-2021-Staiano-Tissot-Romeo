@@ -111,7 +111,7 @@ public class ServerHandler implements Runnable{
     public void send(ClientEvent message) {
         if (isConnected) {
             try {
-                //synchronized (lock) { /               /??
+                //synchronized (lock) { //??
                     output.writeUnshared(message);
                     output.flush();
                     output.reset();

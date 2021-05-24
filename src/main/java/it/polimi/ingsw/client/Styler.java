@@ -19,16 +19,16 @@ public enum Styler {
     ANSI_HELLO("\uD83D\uDC4B"),
     ANSI_INVALID("✋"),
     ANSI_VICTORY("\uD83C\uDFC6"),
-    ANSI_STONE("\uD83E\uDEA8"),
-    ANSI_SERVANT("\uD83E\uDDCE"),
-    ANSI_COIN("\uD83E\uDE99"),
+    ANSI_STONE("\uD83D\uDDFF"),
+    ANSI_SERVANT("\uD83D\uDE4D"),
+    ANSI_COIN("\uD83D\uDCB2"),
     ANSI_SHIELD("\uD83D\uDEE1"),
     ANSI_PURPLECARD("\uD83D\uDFEA"),
     ANSI_GREENCARD("\uD83D\uDFE9"),
     ANSI_BLUECARD("\uD83D\uDFE6"),
     ANSI_YELLOWCARD("\uD83D\uDFE8"),
-    ANSI_TOGIVE("⇤"),
-    ANSI_TOHAVE("⇥");
+    ANSI_TOGIVE("\uD83E\uDCA4"),
+    ANSI_TOHAVE("🢥");
 
     private final String escape;
     Styler(String escape) {
@@ -62,6 +62,8 @@ public enum Styler {
 
     public static void header(){
         System.out.println(color('y', """
+                                
+                                
                 ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███████╗     ██████╗ ███████╗
                 ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝    ██╔═══██╗██╔════╝
                 ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝███████╗    ██║   ██║█████╗ \s
@@ -75,15 +77,19 @@ public enum Styler {
                 ██╔══██╗██╔══╝  ██║╚██╗██║██╔══██║██║╚════██║╚════██║██╔══██║██║╚██╗██║██║     ██╔══╝ \s
                 ██║  ██║███████╗██║ ╚████║██║  ██║██║███████║███████║██║  ██║██║ ╚████║╚██████╗███████╗
                 ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝
-                Powered by GC24:    E. Staiano,     T. Tissot,       C. Romeo\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040
-                
-                # Press Enter to begin... #\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040\040
+                Powered by GC24:    E. Staiano,     T. Tissot,       C. Romeo
+                                
+                # Press Enter to begin... #
                                                                                                       \s"""));
     }
 
     public static void cls() {
         new PrintWriter(System.out,true).println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[H\033[2J");
-        System.out.println(format('r', 'b', color('y', "MASTERS OF RENAISSANCE")));
+        System.out.println(color('g', """
+                ┌┬┐┌─┐┌─┐┌┬┐┌─┐┬─┐┌─┐  ┌─┐┌─┐  ┬─┐┌─┐┌┐┌┌─┐┬┌─┐┌─┐┌─┐┌┐┌┌─┐┌─┐
+                │││├─┤└─┐ │ ├┤ ├┬┘└─┐  │ │├┤   ├┬┘├┤ │││├─┤│└─┐└─┐├─┤││││  ├┤\s
+                ┴ ┴┴ ┴└─┘ ┴ └─┘┴└─└─┘  └─┘└    ┴└─└─┘┘└┘┴ ┴┴└─┘└─┘┴ ┴┘└┘└─┘└─┘
+                \s"""));
     }
 
     @Override

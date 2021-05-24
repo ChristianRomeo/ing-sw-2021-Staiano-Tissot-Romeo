@@ -62,7 +62,7 @@ public class Configs {
     public static List<LeaderCard> getLeaderCards() throws JsonIOException {
 
         List<LeaderCard> leaderCardList = new ArrayList<>();
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Leaders.json");
         Gson gson = new Gson();
         JsonArray json = gson.fromJson(new InputStreamReader(in), JsonArray.class);
 
@@ -92,7 +92,7 @@ public class Configs {
      */
     public static List<DevelopmentCard> getDevelopmentCards() throws JsonIOException {
 
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Cards.json");
 
         JsonArray json = new Gson().fromJson(new InputStreamReader(in), JsonArray.class);
         return new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());

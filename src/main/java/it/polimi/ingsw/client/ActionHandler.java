@@ -36,9 +36,10 @@ public class ActionHandler {
         if(action.contains(" "))
             action = action.substring(0,action.indexOf(" "));
 
+
         //todo: bisogna aggiungere le azioni di show
         switch (action.toUpperCase()) {
-            case "SCEGLI" -> initialChoice();   //DA FAR ANDARE SENZA L'INTERVENTO UTENTE initialchoice()
+            case "SCEGLI" -> initialChoice();   //DA mettere che vada SENZA L'INTERVENTO UTENTE initialchoice()
             case "AZIONELEADER" -> leaderAction();
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
@@ -55,6 +56,7 @@ public class ActionHandler {
 
 
     public void exit(){
+        Styler.cls();
         if(!clientModel.isGameEnded()){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
         }
@@ -62,6 +64,7 @@ public class ActionHandler {
     }
 
     public void useMarket() {
+        Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -110,7 +113,7 @@ public class ActionHandler {
      * Guides the player throught the initial choice of leaderCards and resources
      */
     public void initialChoice(){
-
+        Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.isPregame() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -156,7 +159,7 @@ public class ActionHandler {
      * Activate/discard leaderCards
      */
     public void leaderAction(){
-
+        Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -173,6 +176,7 @@ public class ActionHandler {
      * this enables the user to end his turn.
      */
     public void endTurn(){
+        Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -184,6 +188,7 @@ public class ActionHandler {
      * enables the player to buy a card from the board
      */
     public void buyDevelopmentCard(){
+        Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -197,6 +202,7 @@ public class ActionHandler {
      * enables the player to activate the production.
      */
     public void activateProduction(){
+        Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;

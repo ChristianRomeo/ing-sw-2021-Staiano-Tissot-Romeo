@@ -38,7 +38,7 @@ public class MastersOfRenaissance {
         View view = new CliView();
         view.setConnectionHandler(new ServerHandler(view));
         view.launcher();
-        Styler.cls();
+        //Styler.cls();
     }
 
     private static void launchGui() {

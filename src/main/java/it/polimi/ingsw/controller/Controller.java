@@ -70,7 +70,9 @@ public class Controller extends ServerObservable {
         game.shufflePlayers();
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
+        logger.info("get players!");
         List<LeaderCard> leaderCardList = Configs.getLeaderCards();
+        logger.info("Leader cards loaded!");
         Collections.shuffle(leaderCardList);
 
         for (Player pl : players){
@@ -510,7 +512,7 @@ public class Controller extends ServerObservable {
                 case WHITE -> { //todo: la parte isActivated credo è inutile, sta già controllo nella carta
                     if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
                         if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
-                            boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());
+                            boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());  //nullpointerexception?
                         }else{
                             boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(0).getWhiteMarbleResource());
                         }
