@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.GUI.EventsHandlerGUI;
+import it.polimi.ingsw.client.GUI.GuiView;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.LeaderCard;
@@ -11,6 +13,9 @@ import java.util.List;
 //o forse basta che metto dei metodi show (tipo show messaggio di inizio pregame) nella view e li chiamo da
 //qua, poi a seconda di che view è agisce in un modo diverso
 
+//questo dovrebbe settare le cose nel client model in base a che evento arriva
+//poi passa l'evento a eventhandlerview che mostra le cose all'utente
+
 /**
  * Handles Server incoming Events and dispatch actions, it uses VISITOR PATTERN
  *  todo:cli and gui
@@ -20,9 +25,16 @@ public class EventsHandler implements ServerEventObserver {
     private final ClientModel clientModel;
     private final View view;            //non so se dobbiamo dividere tra cliview e guiview
 
+    private final ServerEventObserver eventHandlerView; //questo gestisce gli eventi dal server per quanto riguarda la view
+
     public EventsHandler(ClientModel clientModel, View view){
         this.clientModel =clientModel;
         this.view=view;
+        if(view instanceof CliView){
+            eventHandlerView = new EventsHandlerCLI(clientModel,(CliView) view);
+        }else{
+            eventHandlerView = new EventsHandlerGUI(clientModel,(GuiView)view);
+        }
     }
 
     @Override
@@ -142,15 +154,17 @@ public class EventsHandler implements ServerEventObserver {
     @Override
     public void handleEvent(GameStarterEventS2C event) {
         clientModel.setIsPregame(true);
-
         clientModel.initClientModel(event.getNicknames(), event.getMarket(), event.getCardBoard());
         clientModel.setMyIndex(event.getIndexPlayer());
         clientModel.setLeaderCards(clientModel.getMyNickname(), event.getChoiceLeaderCards());
 
         //ho messo al giocatore tutte le leader card tra cui può scegliere, cosi poi gli mostro direttamente
         //le sue leadercards
-        view.showMessage(Styler.ANSI_TALK+"Please wait your turn..."); //da fare meglio
+        // view.showMessage(Styler.ANSI_TALK+"Please wait your turn..."); QUESTO MO STA NELL EVENTHANDLERVIEW
         //gli devo mostrare le cose
+
+        event.notifyHandler(eventHandlerView); //ciò poi si occupa di mostrare le cose (in base a che view è)
+
     }
 
     @Override
