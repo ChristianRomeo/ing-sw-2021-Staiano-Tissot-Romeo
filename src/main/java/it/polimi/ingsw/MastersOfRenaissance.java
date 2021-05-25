@@ -27,6 +27,12 @@ public class MastersOfRenaissance {
      */
     public static void main(String[] args) throws FileNotFoundException {
 
+        // fix for NO ARGS at all.
+        if (args.length == 0) {
+            launchGui();
+            return;
+        }
+
         switch (args[0].toUpperCase()) {
             case "CLI" -> launchCli();
             case "SERVER" -> launchServer();
@@ -42,6 +48,8 @@ public class MastersOfRenaissance {
     }
 
     private static void launchGui() {
+        System.out.println("Initializing GUI... ");
+
         View view = new GuiView();
         //view.setConnectionHandler(new ServerHandler(view));
         //view.launch();
