@@ -23,26 +23,32 @@
             <version>5.8.0-M1</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.6</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-maven-plugin</artifactId>
             <version>0.0.6</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>15.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>15.0.1</version>
         </dependency>
+
+        <!--
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
@@ -55,61 +61,87 @@
             <version>15.0.1</version>
             <classifier>linux</classifier>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>15.0.1</version>
             <classifier>mac</classifier>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
             <version>15.0.1</version>
             <classifier>win</classifier>
+
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
             <version>15.0.1</version>
             <classifier>linux</classifier>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
             <version>15.0.1</version>
             <classifier>mac</classifier>
         </dependency>
+         -->
+
+        <!--
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.3.0</version>
         </dependency>
+        -->
+
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.8.0</version>
             <type>maven-plugin</type>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-maven-archetypes</artifactId>
             <version>0.0.6</version>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>15.0.1</version>
+        </dependency>
+
     </dependencies>
+
     <build>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+
             <plugins>
+
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+                <!--
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
+                -->
+
                 <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+
+                <!--
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.2</version>
                 </plugin>
+                -->
+
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.0</version>
@@ -118,10 +150,13 @@
                         <target>15</target>
                     </configuration>
                 </plugin>
+
+                <!--
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.1</version>
                 </plugin>
+
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.1.2</version>
@@ -148,14 +183,13 @@
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
+
                 <plugin>
                     <groupId>org.openjfx</groupId>
                     <artifactId>javafx-maven-plugin</artifactId>
                     <version>0.0.6</version>
                     <executions>
                         <execution>
-                            <!-- Default configuration for running -->
-                            <!-- Usage: mvn clean javafx:run -->
                             <id>default-gui</id>
                             <configuration>
                                 <mainClass>it.polimi.ingsw.MastersOfRenaissance</mainClass>
@@ -163,6 +197,8 @@
                         </execution>
                     </executions>
                 </plugin>
+                 -->
+
                 <!-- added SHADE plug in -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -188,9 +224,8 @@
                     </executions>
                 </plugin>
                 <!-- end of added shade plugin -->
-            </plugins>
-        </pluginManagement>
-        <plugins>
+
+            <!--
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -213,6 +248,8 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+                             -->
+
+            </plugins>
     </build>
 </project>
