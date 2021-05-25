@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.CliView;
+import it.polimi.ingsw.client.GUI.FxLauncher;
 import it.polimi.ingsw.client.GUI.GuiView;
 import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.client.Styler;
@@ -51,9 +52,10 @@ public class MastersOfRenaissance {
     private static void launchGui() {
         System.out.println("Initializing GUI... ");
 
-        View view = new GuiView();
+        FxLauncher.main(null);
+        //View view = new GuiView();
        // view.setConnectionHandler(new ServerHandler(view)); ho spostato cio stesso nella gui
-        view.launcher();
+        //view.launcher();
     }
 
     private static void launchServer() {
