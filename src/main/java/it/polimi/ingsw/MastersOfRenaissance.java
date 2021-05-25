@@ -40,19 +40,20 @@ public class MastersOfRenaissance {
         }
     }
 
-    private static void launchCli() throws FileNotFoundException {
+    private static void launchCli(){
         View view = new CliView();
         view.setConnectionHandler(new ServerHandler(view));
         view.launcher();
         //Styler.cls();
     }
 
+
     private static void launchGui() {
         System.out.println("Initializing GUI... ");
 
         View view = new GuiView();
-        //view.setConnectionHandler(new ServerHandler(view));
-        //view.launch();
+       // view.setConnectionHandler(new ServerHandler(view)); ho spostato cio stesso nella gui
+        view.launcher();
     }
 
     private static void launchServer() {

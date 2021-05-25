@@ -22,7 +22,7 @@ public interface View {
     /**
      * Interface launcher. set connection CAN AGGREGATE
      */
-    void launcher() throws FileNotFoundException;
+    void launcher(); //throws FileNotFoundException; provo senza sta eccez
 
     //getter del client model
     ClientModel getClientModel();
