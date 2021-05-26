@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.Styler;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.controller.View;
+import javafx.application.Platform;
 
 //per ora li tengo separati gli events handler di gui e cli, se no è un casino, però sarebbe meglio
 //tenere la parte in cui si settano le cose nel client model in una sola classe, quindi potrei fare
@@ -58,7 +59,14 @@ public class EventsHandlerGUI implements ServerEventObserver {
 
     @Override
     public void handleEvent(NewTurnEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(clientModel.isPregame()){
+                    guiView.getCurrentSceneController().updateScene();
+                }
+            }
+        });
     }
 
     @Override
@@ -74,6 +82,12 @@ public class EventsHandlerGUI implements ServerEventObserver {
         //guiView.showMessage(Styler.ANSI_TALK+"Please wait your turn..."); //da fare meglio
         //gli devo mostrare le cose
 
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.setCurrentScene("pregameScene");
+            }
+        });
 
     }
 

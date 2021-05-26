@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class InitialSceneController extends FXMLController {
-    private ClientModel clientModel;
-    private ServerHandler serverHandler;
+   // private ClientModel clientModel;
+    //private ServerHandler serverHandler;
 
 
     //private int numPlayers=0;
@@ -77,13 +77,6 @@ public class InitialSceneController extends FXMLController {
     */
 
 
-    public void setClientModel(ClientModel clientModel){
-        this.clientModel=clientModel;
-    }
-
-    public void setServerHandler(ServerHandler serverHandler) {
-        this.serverHandler = serverHandler;
-    }
 /*
     public void askNumPLayer(){
         upperLabel.setText("Inserisci il numero giocatori (1-4): ");

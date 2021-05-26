@@ -126,21 +126,8 @@ public class EventsHandler implements ServerEventObserver {
     public void handleEvent(NewTurnEventS2C event) {
         clientModel.setCurrentPlayer(event.getNickname());
         //qui avviso l'utente che è il turno di questo tizio,poi magari se è il suo gli dico "è il tuo turno", e le azioni che può fare
-        Styler.cls();
-        //todo riguardare
-        if(event.getNickname().equals(clientModel.getMyNickname())){
-            view.showMessage(Styler.color('g',Styler.ANSI_TALK+"It's your turn"));
 
-            if(clientModel.isPregame())
-                view.showMessage("scrivi SCEGLI per iniziare la scelta");   //in automatico ActionHandler.initialchoice();
-            else
-                if(clientModel.hasGameStarted())
-                   view.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
-
-        }else{
-            view.showMessage(Styler.ANSI_TALK+"It's "+event.getNickname()+"'s turn");
-            view.showMessage("You can chose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
-        }
+        event.notifyHandler(eventHandlerView);
     }
 
     @Override

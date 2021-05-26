@@ -32,7 +32,7 @@ public class GuiView extends Application implements View {
 
     //qui ci vanno tutte le varie scene del gioco ed i relativi controller ( home, menu, caricamento, fine...)
     private final Map<String, Scene> scenes = new HashMap<>();
-    //private final Map<String, controllerFx> controller = new HashMap<>();
+    private final Map<String, FXMLController> controllers = new HashMap<>(); //qua dentro sta nomescena->controller
 
     private static Scene currentScene;
     private static Stage currentStage;
@@ -65,16 +65,12 @@ public class GuiView extends Application implements View {
 
         serverHandler = new ServerHandler(this);
 
+        loadScenes();
         currentStage = stage;
         currentStage.setTitle("maestri del rinascimento");
-        //currentScene = new Scene(loadFXML("initialScene"));
-        FXMLLoader loaderInitialScene = getFXMLLoader("initialScene");
-        currentScene = new Scene(loaderInitialScene.load());
-        currentStage.setScene(currentScene);
-        InitialSceneController initialSceneController = loaderInitialScene.getController();
-        currentFXMLController = initialSceneController;
-        initialSceneController.setClientModel(clientModel);
-        initialSceneController.setServerHandler(serverHandler);
+
+        currentStage.setScene(getScene("initialScene"));
+        currentFXMLController = getSceneController("initialScene");
 
         currentStage.show();
         //System.out.println(askNumPlayer());
@@ -102,6 +98,55 @@ public class GuiView extends Application implements View {
 
     private void drawCards(GraphicsContext gc) {
 
+    }
+
+
+    //sto metodo carica tutte le scene e i loro controller, dai file fxml
+    public void loadScenes(){
+        try{
+            FXMLController sceneController;
+
+            FXMLLoader loaderInitialScene = getFXMLLoader("initialScene");
+            scenes.put("initialScene",new Scene(loaderInitialScene.load()));
+            sceneController = loaderInitialScene.getController();
+            sceneController.setClientModel(clientModel);
+            sceneController.setServerHandler(serverHandler);
+            controllers.put("initialScene",sceneController);
+
+            FXMLLoader loaderPregameScene = getFXMLLoader("pregameScene");
+            scenes.put("pregameScene",new Scene(loaderPregameScene.load()));
+            sceneController = loaderPregameScene.getController();
+            sceneController.setClientModel(clientModel);
+            sceneController.setServerHandler(serverHandler);
+            controllers.put("pregameScene",sceneController);
+
+        }catch (IOException e){
+            System.out.println("Errore nel caricare file fxml");
+        }
+
+    }
+
+    public Scene getScene(String sceneName){
+        return scenes.get(sceneName);
+    }
+
+    public FXMLController getSceneController(String sceneName){
+        return controllers.get(sceneName);
+    }
+
+    //setta la scena di cui da il nome come la corrente (cioè quella mostrata)
+    public void setCurrentScene(String sceneName){
+        currentStage.setScene(getScene(sceneName));
+        currentScene = getScene(sceneName);
+        currentFXMLController = getSceneController(sceneName);
+    }
+
+    public Scene getCurrentScene(){
+        return currentScene;
+    }
+
+    public FXMLController getCurrentSceneController(){
+        return currentFXMLController;
     }
 
     /**
