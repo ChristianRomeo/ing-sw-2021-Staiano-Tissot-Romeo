@@ -96,7 +96,7 @@ public class PlayerTest {
     @Test //test successful
     public void calculateAndSetVictoryPointsBasedOnLeaderCardsTest() throws FileNotFoundException {
         Player player = new Player("");
-        final String CARDPATH = "src/main/resources/Leaders.json";
+        final String CARDPATH = "src/main/resources/leaders.json";
         BufferedReader bufferedReader = new BufferedReader(new FileReader(CARDPATH));
         JsonArray json = new Gson().fromJson(bufferedReader, JsonArray.class);
         List<LeaderCard> list = new Gson().fromJson(String.valueOf(json), new TypeToken<List<SonOfLeaderCard>>() { }.getType());

@@ -30,11 +30,11 @@ public class DevelopmentCardBoard implements Serializable{
 
     /**
      * Constructor of the matrix.
-     * We use BufferedReader together with FileReader to buffer the input (text from "Cards.json") and to improve efficiency.
+     * We use BufferedReader together with FileReader to buffer the input (text from "cards.json") and to improve efficiency. NOT ANYMORE
      * Then, we create a JSON Array and we use the "fromJson" method which takes 2 parameters:
      * the JSON string we want to parse and the class to parse JSON string.
      * Then, we iterate over the enum CardType, in order to build the Card Board.
-     * @throws FileNotFoundException whenever Cards.json couldn't be found
+     * @throws FileNotFoundException whenever cards.json couldn't be found
      */
     public DevelopmentCardBoard() throws IOException {
 

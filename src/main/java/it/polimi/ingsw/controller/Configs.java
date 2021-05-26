@@ -14,7 +14,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Reads configs files from json, LeaderCards, DevelopmentCards and NetworkConfig
@@ -36,7 +35,7 @@ public class Configs {
      */
     public static String getServerIp() throws JsonIOException {
 
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("configs.json");
 
         Configs configs = new Gson().fromJson(new InputStreamReader(in), Configs.class);
         return configs.server_ip;
@@ -48,7 +47,7 @@ public class Configs {
      * @throws JsonIOException file not found
      */
     public static int getServerPort() throws JsonIOException {
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("configs.json");
 
         Configs configs = new Gson().fromJson(new InputStreamReader(in), Configs.class);
         return configs.server_port;
@@ -62,7 +61,7 @@ public class Configs {
     public static List<LeaderCard> getLeaderCards() throws JsonIOException {
 
         List<LeaderCard> leaderCardList = new ArrayList<>();
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Leaders.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("leaders.json");
         Gson gson = new Gson();
         JsonArray json = gson.fromJson(new InputStreamReader(in), JsonArray.class);
 
@@ -92,7 +91,7 @@ public class Configs {
      */
     public static List<DevelopmentCard> getDevelopmentCards() throws JsonIOException {
 
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Cards.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("cards.json");
 
         JsonArray json = new Gson().fromJson(new InputStreamReader(in), JsonArray.class);
         return new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
