@@ -2,12 +2,9 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.CliView;
 import it.polimi.ingsw.client.GUI.FxLauncher;
-import it.polimi.ingsw.client.GUI.GuiView;
 import it.polimi.ingsw.client.ServerHandler;
-import it.polimi.ingsw.client.Styler;
 import it.polimi.ingsw.controller.Server;
 import it.polimi.ingsw.controller.View;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -29,32 +26,28 @@ public class MastersOfRenaissance {
     public static void main(String[] args) throws FileNotFoundException {
 
         // fix for NO ARGS at all.
-        if (args.length == 0) {
+        if (args.length == 0)
             launchGui();
-            return;
-        }
-
-        switch (args[0].toUpperCase()) {
-            case "CLI" -> launchCli();
-            case "SERVER" -> launchServer();
-            default -> launchGui();
-        }
+        else
+            switch (args[0].toUpperCase()) {
+                case "CLI" -> launchCli();
+                case "SERVER" -> launchServer();
+                default -> launchGui();
+            }
     }
 
     private static void launchCli(){
         View view = new CliView();
         view.setConnectionHandler(new ServerHandler(view));
         view.launcher();
-        //Styler.cls();
     }
 
-
     private static void launchGui() {
-        System.out.println("Initializing GUI... ");
 
+        System.out.println("Initializing GUI... ");
         FxLauncher.main(null);
         //View view = new GuiView();
-       // view.setConnectionHandler(new ServerHandler(view)); ho spostato cio stesso nella gui
+        //View.setConnectionHandler(new ServerHandler(view)); ho spostato cio stesso nella gui
         //view.launcher();
     }
 

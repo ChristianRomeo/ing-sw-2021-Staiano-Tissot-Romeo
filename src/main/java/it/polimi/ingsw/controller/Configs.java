@@ -37,8 +37,8 @@ public class Configs {
 
         InputStream in = Configs.class.getClassLoader().getResourceAsStream("configs.json");
 
-        Configs configs = new Gson().fromJson(new InputStreamReader(in), Configs.class);
-        return configs.server_ip;
+        Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
+        return config.server_ip;
     }
 
     /**
@@ -49,8 +49,8 @@ public class Configs {
     public static int getServerPort() throws JsonIOException {
         InputStream in = Configs.class.getClassLoader().getResourceAsStream("configs.json");
 
-        Configs configs = new Gson().fromJson(new InputStreamReader(in), Configs.class);
-        return configs.server_port;
+        Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
+        return config.server_port;
     }
 
     /**

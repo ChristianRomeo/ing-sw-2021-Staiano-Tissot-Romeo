@@ -54,7 +54,7 @@ public class GuiView extends Application implements View {
      * Interface launcher. set connection CAN AGGREGATE
      */
     public void launcher(){
-        launch();
+        main(null);
     }
 
     /**
@@ -130,6 +130,7 @@ public class GuiView extends Application implements View {
 
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeFour);
         Optional<ButtonType> result = alert.showAndWait();
+
         if(result.get()==buttonTypeOne){
             return 1;
         }
