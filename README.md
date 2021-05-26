@@ -86,9 +86,9 @@ Di seguito si riportano gli aspetti che vengono valutati e contribuiscono alla d
 • La leggibilità del codice scritto, con particolare riferimento a nomi di variabili/metodi/classi/package, all’inserimento di commenti in inglese e documentazione JavaDoc in inglese, la mancanza di codice ripetuto e metodi di eccessiva lunghezza.<br />
 • L’efficacia e la copertura dei casi di test, il nome e i commenti di ogni test dovranno chiaramente specificare le funzionalità testate e i componenti coinvolti.<br />
 • L’utilizzo degli strumenti (IntelliJ IDEA, Git, Maven, ...).<br />
-• L’autonomia, l’impegno e la comunicazione (con i responsabili e all’interno del gruppo) durante tutte le fasi del progetto.<br />
-<img width="711" alt="model_coverage" src="https://user-images.githubusercontent.com/25418541/119738638-4bff1900-be81-11eb-9cdc-0a28892f93b6.png">
-<img width="711" alt="all_model_coverage" src="https://user-images.githubusercontent.com/25418541/119738652-515c6380-be81-11eb-8d4e-5b4ae20b3917.png">
-<img width="711" alt="controller_coverage" src="https://user-images.githubusercontent.com/25418541/119738674-591c0800-be81-11eb-82dc-88eba3b9eda3.png">
+• L’autonomia, l’impegno e la comunicazione (con i responsabili e all’interno del gruppo) durante tutte le fasi del progetto.<br /><br />
+<img width="711" alt="model_coverage" src="https://user-images.githubusercontent.com/25418541/119738638-4bff1900-be81-11eb-9cdc-0a28892f93b6.png"><br />
+<img width="711" alt="all_model_coverage" src="https://user-images.githubusercontent.com/25418541/119738652-515c6380-be81-11eb-8d4e-5b4ae20b3917.png"><br />
+<img width="711" alt="controller_coverage" src="https://user-images.githubusercontent.com/25418541/119738674-591c0800-be81-11eb-82dc-88eba3b9eda3.png"><br />
 
 ![Cranio-Creations](https://www.migliorigiochi.eu/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2018/07/cranio-creation-750x403.jpg.webp)
