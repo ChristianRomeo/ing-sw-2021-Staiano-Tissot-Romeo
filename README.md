@@ -87,5 +87,5 @@ Di seguito si riportano gli aspetti che vengono valutati e contribuiscono alla d
 • L’efficacia e la copertura dei casi di test, il nome e i commenti di ogni test dovranno chiaramente specificare le funzionalità testate e i componenti coinvolti.<br />
 • L’utilizzo degli strumenti (IntelliJ IDEA, Git, Maven, ...).<br />
 • L’autonomia, l’impegno e la comunicazione (con i responsabili e all’interno del gruppo) durante tutte le fasi del progetto.<br />
-
+<img src="https://i.postimg.cc/Gpyd2VYG/Screenshot-2021-05-26-at-23-56-19.png width="100" height="100"/>
 ![Cranio-Creations](https://www.migliorigiochi.eu/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2018/07/cranio-creation-750x403.jpg.webp)
