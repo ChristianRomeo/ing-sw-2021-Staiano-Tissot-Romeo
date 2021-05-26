@@ -48,7 +48,9 @@ public class Configs {
      * @throws JsonIOException file not found
      */
     public static int getServerPort() throws JsonIOException {
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+        //InputStream in = Configs.class.getClassLoader().getResourceAsStream("Configs.json");
+        // GUYS!!! file names are case sensitive under serious O.Ses. :)
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("configs.json");
 
         Configs configs = new Gson().fromJson(new InputStreamReader(in), Configs.class);
         return configs.server_port;
