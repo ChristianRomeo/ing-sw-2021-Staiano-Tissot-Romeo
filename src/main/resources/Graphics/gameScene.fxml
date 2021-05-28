@@ -7,6 +7,16 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.GameSceneController">
    <children>
       <Label fx:id="messageLabel" layoutX="168.0" layoutY="368.0" prefHeight="17.0" prefWidth="245.0" text="Fase di gioco " />
-      <Button fx:id="leaderActionButton" layoutX="238.0" layoutY="153.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="LEADER ACTION" />
+      <Button fx:id="leaderActionButton" layoutX="238.0" layoutY="153.0" mnemonicParsing="false" onAction="#leaderAction" prefHeight="25.0" prefWidth="123.0" text="LEADER ACTION" />
+      <AnchorPane fx:id="leaderActionPane" layoutX="85.0" layoutY="22.0" prefHeight="355.0" prefWidth="429.0" style="-fx-background-color: grey;">
+         <children>
+            <Button fx:id="firstLeaderCardButton" layoutX="86.0" layoutY="165.0" mnemonicParsing="false" onAction="#selectFirstLeaderCard" style="-fx-background-color: white;" text="Select" />
+            <Label layoutX="76.0" layoutY="31.0" prefHeight="17.0" prefWidth="239.0" text="Select the card you want to discard/activate" />
+            <Button fx:id="secondLeaderCardButton" layoutX="245.0" layoutY="165.0" mnemonicParsing="false" onAction="#selectSecondLeaderCard" style="-fx-background-color: white;" text="Select" />
+            <Label layoutX="62.0" layoutY="257.0" prefHeight="17.0" prefWidth="245.0" text="Do you want to activate or discard the card?" />
+            <Button fx:id="activateLeaderButton" layoutX="76.0" layoutY="286.0" mnemonicParsing="false" onAction="#activateLeaderCard" text="Activate" />
+            <Button fx:id="discardLeaderButton" layoutX="232.0" layoutY="286.0" mnemonicParsing="false" onAction="#discardLeaderCard" text="Discard" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

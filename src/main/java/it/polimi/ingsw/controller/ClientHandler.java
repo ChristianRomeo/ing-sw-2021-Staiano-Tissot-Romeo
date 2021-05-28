@@ -39,7 +39,7 @@ public class ClientHandler implements Runnable {
         this.output = new ObjectOutputStream(socket.getOutputStream());
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
-        socket.setSoTimeout(10000); // Sets the connection timeout to 30 seconds ?? todo:metti 60
+        socket.setSoTimeout(60000); // cosi il tizio deve mandare il num di giocatori entro 60 secondi
         //starts pinging tcp client
         /*
         (new Thread(() -> {
