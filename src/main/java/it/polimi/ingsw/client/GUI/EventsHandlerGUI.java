@@ -77,11 +77,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
     @Override
     public void handleEvent(GameStarterEventS2C event) {
 
-        //ho messo al giocatore tutte le leader card tra cui può scegliere, cosi poi gli mostro direttamente
-        //le sue leadercards
-        //guiView.showMessage(Styler.ANSI_TALK+"Please wait your turn..."); //da fare meglio
-        //gli devo mostrare le cose
-
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -103,7 +98,18 @@ public class EventsHandlerGUI implements ServerEventObserver {
 
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.setCurrentScene("gameScene");
+                guiView.getCurrentSceneController().updateScene();
+                if(clientModel.isCurrentPlayer()){
+                    guiView.getCurrentSceneController().showMessage("E' il tuo turno! ");
+                }else{
+                    guiView.getCurrentSceneController().showMessage("E' il turno di: "+ clientModel.getCurrentPlayerNick());
+                }
+            }
+        });
     }
 
     @Override

@@ -19,4 +19,8 @@ public abstract class FXMLController {
     public void updateScene(){
 
     }
+
+    public void showMessage(String message){
+
+    }
 }

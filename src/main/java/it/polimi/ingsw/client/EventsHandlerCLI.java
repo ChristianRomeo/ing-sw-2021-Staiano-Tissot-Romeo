@@ -87,7 +87,19 @@ public class EventsHandlerCLI implements ServerEventObserver {
 
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
+        Styler.cls();
+        cliView.showMessage("The game has been set up.\nStarting the match...");
 
+        if(clientModel.getMyNickname().equals(clientModel.getNicknames().get(0))){
+
+            cliView.showMessage(Styler.color('g',"It's your turn!"));
+            cliView.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
+        }
+        else{
+            //Styler.cls();
+            cliView.showMessage(Styler.ANSI_TALK+"It's "+ clientModel.getNicknames().get(0)+"'s turn.");
+            cliView.showMessage("You can chose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
+        }
     }
 
     @Override

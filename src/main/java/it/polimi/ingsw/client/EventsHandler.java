@@ -170,7 +170,6 @@ public class EventsHandler implements ServerEventObserver {
 
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
-        Styler.cls();
         clientModel.setIsPregame(false);
         clientModel.setHasGameStarted(true);
         //setto i warehouse arrivati (e anche le leader cards)
@@ -178,21 +177,9 @@ public class EventsHandler implements ServerEventObserver {
             clientModel.setWarehouse(player, event.getWarehouses().get(player));
             clientModel.setLeaderCards(player,event.getLeaderCards().get(player));
         }
-
         clientModel.setCurrentPlayer(clientModel.getNicknames().get(0));
-        view.showMessage("The game has been set up.\nStarting the match...");
 
-        if(clientModel.getMyNickname().equals(clientModel.getNicknames().get(0))){
-
-            view.showMessage(Styler.color('g',"It's your turn!"));
-            view.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
-        }
-        else{
-            //Styler.cls();
-            view.showMessage(Styler.ANSI_TALK+"It's "+ clientModel.getNicknames().get(0)+"'s turn.");
-            view.showMessage("You can chose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
-        }
-
+        event.notifyHandler(eventHandlerView);
     }
 
 

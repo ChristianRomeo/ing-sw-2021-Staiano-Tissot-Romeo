@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 public class InitialChoiceEvent extends ClientEvent {
 
     //mi faccio dare gli indici delle carte leader che vuole RIMUOVERE
-    private final int indexLeader1;
+    private final int indexLeader1; //da 0 a 3
     private final int indexLeader2;
 
     private final Resource resource1;

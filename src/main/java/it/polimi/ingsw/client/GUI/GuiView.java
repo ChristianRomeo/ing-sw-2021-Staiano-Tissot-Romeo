@@ -83,6 +83,7 @@ public class GuiView extends Application implements View {
         currentStage.getScene().setRoot(loadFXML(fxml));
     }
 
+    //credo metodo da togliere
     private static Parent loadFXML(String fxml) throws IOException {
         return FXMLLoader.load(Objects.requireNonNull(GuiView.class.getResource("/Graphics/" + fxml + ".fxml")));
     }
@@ -104,6 +105,7 @@ public class GuiView extends Application implements View {
     //sto metodo carica tutte le scene e i loro controller, dai file fxml
     public void loadScenes(){
         try{
+            /*
             FXMLController sceneController;
 
             FXMLLoader loaderInitialScene = getFXMLLoader("initialScene");
@@ -119,11 +121,27 @@ public class GuiView extends Application implements View {
             sceneController.setClientModel(clientModel);
             sceneController.setServerHandler(serverHandler);
             controllers.put("pregameScene",sceneController);
+            */
+
+            loadScene("initialScene");
+            loadScene("pregameScene");
+            loadScene("gameScene");
+
 
         }catch (IOException e){
             System.out.println("Errore nel caricare file fxml");
         }
 
+    }
+
+    //carica una scena dal file fxml, è solo un metodo helper di loadScenes
+    private void loadScene(String sceneName) throws IOException{
+        FXMLLoader sceneLoader = getFXMLLoader(sceneName);
+        scenes.put(sceneName,new Scene(sceneLoader.load()));
+        FXMLController sceneController = sceneLoader.getController();
+        sceneController.setClientModel(clientModel);
+        sceneController.setServerHandler(serverHandler);
+        controllers.put(sceneName,sceneController);
     }
 
     public Scene getScene(String sceneName){
