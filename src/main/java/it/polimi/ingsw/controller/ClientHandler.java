@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Logger;
 
 /**
@@ -38,7 +39,7 @@ public class ClientHandler implements Runnable {
         this.output = new ObjectOutputStream(socket.getOutputStream());
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
-        // socket.setSoTimeout(30000); // Sets the connection timeout to 30 seconds ??
+        socket.setSoTimeout(10000); // Sets the connection timeout to 30 seconds ?? todo:metti 60
         //starts pinging tcp client
         /*
         (new Thread(() -> {
@@ -104,6 +105,7 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException | ClassNotFoundException e) {
             logger.warning("errore nel leggere il nickname");
+            setDisconnected();
         }
 
         if(isFirstPlayer) {
@@ -119,6 +121,7 @@ public class ClientHandler implements Runnable {
                 }
             } catch (Exception e) {
                 logger.warning("errore nel leggere il numero giocatori");
+                setDisconnected();
             }
 
         }else{
@@ -126,6 +129,13 @@ public class ClientHandler implements Runnable {
             send(newConnectionEventS2C);
         }
         System.out.println("fine connection setup"); // debug
+        startPing();
+        try {
+            socket.setSoTimeout(8000);
+        } catch (SocketException e) {
+            e.printStackTrace();
+            setDisconnected();
+        }
     }
 
     /**
@@ -155,7 +165,7 @@ public class ClientHandler implements Runnable {
      * Sends to the client a message if he's available
      * @param message what to be sent to the player
      */
-     public void send(ServerEvent message) {
+     public synchronized void send(ServerEvent message) {
 
          if (isConnected) //todo: se quando non è più connesso si chiude tutto forse, quindi questo if che serve?
             try {
@@ -198,11 +208,15 @@ public class ClientHandler implements Runnable {
             try {
                 ClientEvent clientEvent = (ClientEvent) input.readObject();
                 //viene chiamata la virtualView che gestirà l'evento chiamando il controller
-                synchronized (virtualView){
-                    if(nickname.equals(virtualView.getController().getGame().getCurrentPlayer().getNickname())){
-                        clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare
+                if(!(clientEvent instanceof PingEventC2S)){
+                    synchronized (virtualView){
+                        if(nickname.equals(virtualView.getController().getGame().getCurrentPlayer().getNickname())){
+                            clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare
+                        }
                     }
-                }
+                }//else{
+                   // System.out.println("ping ricevuto");
+                //}
             }
             catch (IOException | ClassNotFoundException e) {
                 if (isConnected) {  // This player has disconnected
@@ -214,5 +228,23 @@ public class ClientHandler implements Runnable {
 
                 closeSocket();
             }
+    }
+
+    public void startPing(){
+        Thread pingThread = new Thread(new Runnable() {
+            @Override
+            public void run(){
+                while(isConnected){
+                    try {
+                        Thread.sleep(5000);
+                        send(new PingEventS2C());
+                        //System.out.println("ping inviato");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        pingThread.start();
     }
 }

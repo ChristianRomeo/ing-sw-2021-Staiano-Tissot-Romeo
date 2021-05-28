@@ -35,7 +35,12 @@ public class ServerHandler implements Runnable{
             try {
                 ServerEvent serverMessage = (ServerEvent) input.readObject();
                 //qua viene passato l'evento all'handler di eventi che farà le dovute cose
-                serverMessage.notifyHandler(serverEventHandler);
+                if(serverMessage instanceof PingEventS2C){
+                    send(new PingEventC2S());
+                    //System.out.println("ping ricevuto e inviato");
+                }else{
+                    serverMessage.notifyHandler(serverEventHandler);
+                }
 
                 if(serverMessage instanceof EndGameEventS2C){
                     break;
@@ -47,6 +52,8 @@ public class ServerHandler implements Runnable{
                     //CliView.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during reading" : "") + ".",true);    //during sending if server is alive
                     //do things
                     isConnected = false;
+                    System.out.println("Disconnesso server");
+                    break;
             }
         }
         closeConnection();
@@ -108,7 +115,7 @@ public class ServerHandler implements Runnable{
      *
      * @param message The message to be sent
      */
-    public void send(ClientEvent message) {
+    public synchronized void send(ClientEvent message) {
         if (isConnected) {
             try {
                 //synchronized (lock) { //??
