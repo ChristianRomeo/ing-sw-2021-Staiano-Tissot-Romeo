@@ -39,7 +39,7 @@ public class ActionHandler {
 
         //todo: bisogna aggiungere le azioni di show
         switch (action.toUpperCase()) {
-            case "SCEGLI" -> initialChoice();   //DA mettere che vada SENZA L'INTERVENTO UTENTE initialchoice()
+            case "SCEGLI" -> initialChoice();
             case "AZIONELEADER" -> leaderAction();
             case "PRODUZIONE" -> activateProduction();
             case "FINETURNO" -> endTurn();
@@ -75,11 +75,12 @@ public class ActionHandler {
         List<MarbleColor> takenMarbles;
         List<Resource> boughtResources;
         List<Integer> whiteMarbleChoices = null;
-        if(rowOrColumn == 'r'){
+
+        if(rowOrColumn == 'r')
             takenMarbles = clientModel.getMarket().getRowColors(index);
-        }else{
+        else
             takenMarbles = clientModel.getMarket().getColumnColors(index);
-        }
+        
         List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null && leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null) {
             //allora l'utente ha 2 carte leader white marble attive

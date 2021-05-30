@@ -18,13 +18,11 @@ public class Server {
     private VirtualView currentVirtualView;
     private int addedPlayers;
     private final static Logger logger = Logger.getLogger(Server.class.getName());
-    private final ExecutorService executor;
 
     /**
      * Constructor: build a Server
      */
     public Server() {
-        this.executor = Executors.newCachedThreadPool();
         this.currentGame = null;
         this.currentVirtualView = null;
         this.addedPlayers = 0;
@@ -53,7 +51,6 @@ public class Server {
                 if(serverSocket != null && !serverSocket.isClosed())
                     try {
                         serverSocket.close();   //giusto?
-                        //executor.shutdown();    //qui?
                     } catch (IOException ignored) {}
             }
         }
@@ -68,9 +65,9 @@ public class Server {
         // Creates a game if it doesn't exist and add the client to it
         if (currentGame == null) {
             initGame();
-            executor.submit(new ClientHandler(true, socket, currentVirtualView));       //se era già connesso che succ?
+            new Thread(new ClientHandler(true, socket, currentVirtualView)).start();       //se era già connesso che succ?
         } else
-            executor.submit(new ClientHandler(false, socket, currentVirtualView));
+            new Thread(new ClientHandler(false, socket, currentVirtualView)).start();
 
 
         //Sleep until the number of players of the game has been set by the first player (wakeupserver in controller)
@@ -110,5 +107,4 @@ public class Server {
 
     }
 
-    //executor.shutdown();  //dentro alla funzione dove si usa
 }
