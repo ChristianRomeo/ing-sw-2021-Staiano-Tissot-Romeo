@@ -1,11 +1,11 @@
 package it.polimi.ingsw.controller;
+
 import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.Game;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 /**
@@ -20,7 +20,7 @@ public class Server {
     private final static Logger logger = Logger.getLogger(Server.class.getName());
 
     /**
-     * Constructor: build a Server
+     * Constructor: builds a Server
      */
     public Server() {
         this.currentGame = null;
@@ -28,20 +28,25 @@ public class Server {
         this.addedPlayers = 0;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(Configs in) throws IOException {
         Server server = new Server();
-
         try{
-            server.launch();
+            server.launch(in);
         }catch (IOException e){
-            logger.warning("Fatal error: Could not start the server. Cannot open server on port " + Configs.getServerPort()); //server catch
+            logger.warning("Fatal error: Could not start the server. Cannot open server on port " + Configs.getServerPort(in)); //server catch
             serverSocket.close();
         }
     }
 
-    public void launch() throws IOException {   //eccezione per il file di configurazione della porta e ip
-        serverSocket = new ServerSocket(Configs.getServerPort());   //ascolto, una porta un server per tutti i clienti
-        logger.info("Server started successfully on port "+ Configs.getServerPort());
+    /**
+     *
+     * {$link} https://stackoverflow.com/questions/4684727/java-serversocket-why-is-the-ip-address-0-0-0-0-yet-i-can-still-connect-remote/4684806
+     */
+    public void launch(Configs in) throws IOException {   //eccezione per il file di configurazione della porta e ip
+
+        serverSocket = new ServerSocket(Configs.getServerPort(in));     //ascolto, una porta un server per tutti i clienti
+
+        logger.info("Server started successfully on port "+ serverSocket.getLocalSocketAddress());
 
         while(true){
             try {
@@ -60,7 +65,7 @@ public class Server {
     public void initClient() throws IOException, InterruptedException, DisconnectionException {
 
         Socket socket = serverSocket.accept();  //accetto un singolo cliente ogni volta
-        logger.info( socket.getRemoteSocketAddress() + " has connected.");
+        logger.info( socket.getRemoteSocketAddress() + " has connected. This is: " +socket.getLocalSocketAddress());
 
         // Creates a game if it doesn't exist and add the client to it
         if (currentGame == null) {

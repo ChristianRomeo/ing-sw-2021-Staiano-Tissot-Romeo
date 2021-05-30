@@ -1,13 +1,12 @@
 package it.polimi.ingsw.client;
 
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.controller.View;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.io.*;
 import java.net.Socket;
 import java.util.logging.Logger;
 
@@ -21,12 +20,14 @@ public class ServerHandler implements Runnable{
     private boolean isConnected=false;
     private final ServerEventObserver serverEventHandler;
     private final View view;
+    private final Configs in;
     private final static Logger logger = Logger.getLogger(ServerHandler.class.getName());
 
 
-    public ServerHandler(View view){
+    public ServerHandler(View view, Configs in){
         this.view=view;
         serverEventHandler = new EventsHandler(view.getClientModel(),view);
+        this.in=in;
     }
 
     @Override
@@ -61,12 +62,14 @@ public class ServerHandler implements Runnable{
 
     public void setUpConnection(){
         try{
-            socket = new Socket(Configs.getServerIp(), Configs.getServerPort());    //metodo del server nel client
+
+            socket = new Socket(Configs.getServerIp(in), Configs.getServerPort(in));    //metodo del server nel client
+
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             isConnected=true;
         }catch (Exception e){
-            view.showErrorMessage("errore"+e); // da fare meglio
+            view.showErrorMessage("error"+e); // da fare meglio
         }
 
         //faccio set nel model nel launcher della cli, ora lo mando al server e poi lo riprendo e lo risetto

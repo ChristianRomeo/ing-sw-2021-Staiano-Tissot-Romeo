@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 
 public class InitialSceneController extends FXMLController {
    // private ClientModel clientModel;
-    //private ServerHandler serverHandler;
+   // private ServerHandler serverHandler;
 
 
     //private int numPlayers=0;

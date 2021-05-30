@@ -214,9 +214,7 @@ public class ClientHandler implements Runnable {
                             clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare
                         }
                     }
-                }//else{
-                   // System.out.println("ping ricevuto");
-                //}
+                }
             }
             catch (IOException | ClassNotFoundException e) {
                 if (isConnected) {  // This player has disconnected
@@ -231,20 +229,16 @@ public class ClientHandler implements Runnable {
     }
 
     public void startPing(){
-        Thread pingThread = new Thread(new Runnable() {
-            @Override
-            public void run(){
-                while(isConnected){
-                    try {
-                        Thread.sleep(5000);
-                        send(new PingEventS2C());
-                        //System.out.println("ping inviato");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        (new Thread(() -> {
+            while(isConnected){
+                try {
+                    Thread.sleep(5000);
+                    send(new PingEventS2C());
+                    logger.info("ping inviato");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        });
-        pingThread.start();
+        })).start();
     }
 }

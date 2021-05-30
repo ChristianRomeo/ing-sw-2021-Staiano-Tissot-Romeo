@@ -1,12 +1,14 @@
 package it.polimi.ingsw;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.client.CliView;
 import it.polimi.ingsw.client.GUI.FxLauncher;
 import it.polimi.ingsw.client.ServerHandler;
+import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Server;
 import it.polimi.ingsw.controller.View;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
 
 /**
  * The entrypoint of the MOR game.
@@ -23,37 +25,48 @@ public class MastersOfRenaissance {
      *
      * @param args the cmd arguments
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
 
-        // fix for NO ARGS at all.
+
         if (args.length == 0)
-            launchGui();
+            launchGui(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
         else
-            switch (args[0].toUpperCase()) {
-                case "CLI" -> launchCli();
-                case "SERVER" -> launchServer();
-                default -> launchGui();
+            if (args.length==2){
+                if(args[1] != null && !args[1].trim().isEmpty())    //il file deve essere nello stesso percorso per evitare slash - backslash problem
+                    switch (args[0].toUpperCase()) {
+                        case "CLI" -> launchCli(new FileInputStream(args[1]));
+                        case "SERVER" -> launchServer(new FileInputStream(args[1]));
+                        default -> launchGui(new FileInputStream(args[1]));
+                    }
             }
+            else
+                switch (args[0].toUpperCase()) {
+                    case "CLI" -> launchCli(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
+                    case "SERVER" -> launchServer(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
+                    default -> launchGui(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
+                }
+
     }
 
-    private static void launchCli(){
+    private static void launchCli(InputStream in){
         View view = new CliView();
-        view.setConnectionHandler(new ServerHandler(view));
+        Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
+        view.setConnectionHandler(new ServerHandler(view,config));
         view.launcher();
     }
 
-    private static void launchGui() {
+    private static void launchGui(InputStream in) {
 
         System.out.println("Initializing GUI... ");
-        FxLauncher.main(null);
-        //View view = new GuiView();
-        //View.setConnectionHandler(new ServerHandler(view)); ho spostato cio stesso nella gui
-        //view.launcher();
+        Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
+        FxLauncher.main(config);
+
     }
 
-    private static void launchServer() {
+    private static void launchServer(InputStream in) {
         try{
-            Server.main(null);
+            Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
+            Server.main(config);
         } catch (IOException e){
             System.out.println("Error initializing server "+ e);
             System.exit(1);

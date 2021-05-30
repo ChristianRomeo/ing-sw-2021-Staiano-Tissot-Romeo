@@ -6,6 +6,8 @@ import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
@@ -41,8 +43,6 @@ public class CliView implements View {
     @Override
     public void launcher() {
         actionHandler = new ActionHandler(clientModel,this, serverHandler);
-
-        //todo: chiedere server IP e porta (se non vogliono cambiare fanno invio e vanno quelli di default)
 
         clientModel.setMyNickname(askNickname()); //chiedo e imposto il nickname
         serverHandler.setUpConnection();
@@ -535,6 +535,8 @@ public class CliView implements View {
                 MastersOfRenaissance.main("CLI".split(""));
             } catch (FileNotFoundException e) {
                 System.out.println("Error while restarting the application.");
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
             }
         }
     }

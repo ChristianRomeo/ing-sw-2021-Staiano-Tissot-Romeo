@@ -11,9 +11,11 @@ import it.polimi.ingsw.model.LeaderCardWhiteMarble;
 import it.polimi.ingsw.model.LeaderCard;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Reads configs files from json, LeaderCards, DevelopmentCards and NetworkConfig
@@ -22,8 +24,9 @@ public class Configs {
 
     private final String server_ip;
     private final int server_port;
+    private static boolean set;
 
-    public Configs(String server_ip, int server_port) {     //va bene il costruttore?
+    public Configs(String server_ip, int server_port) {
         this.server_ip = server_ip;
         this.server_port = server_port;
     }
@@ -33,11 +36,8 @@ public class Configs {
      * @return  string the ip address from file
      * @throws JsonIOException file not found
      */
-    public static String getServerIp() throws JsonIOException {
+    public static String getServerIp(Configs config) throws JsonIOException {
 
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("configs.json");
-
-        Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
         return config.server_ip;
     }
 
@@ -46,12 +46,12 @@ public class Configs {
      * @return int the port number from file
      * @throws JsonIOException file not found
      */
-    public static int getServerPort() throws JsonIOException {
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("configs.json");
+    public static int getServerPort(Configs config) throws JsonIOException {
 
-        Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
-        return config.server_port;
+            return config.server_port;
+
     }
+
 
     /**
      * Getter of LeaderCards from file
@@ -63,7 +63,7 @@ public class Configs {
         List<LeaderCard> leaderCardList = new ArrayList<>();
         InputStream in = Configs.class.getClassLoader().getResourceAsStream("leaders.json");
         Gson gson = new Gson();
-        JsonArray json = gson.fromJson(new InputStreamReader(in), JsonArray.class);
+        JsonArray json = gson.fromJson(new InputStreamReader(Objects.requireNonNull(in)), JsonArray.class);
 
         for (int i = 0; i < json.size(); ++i)
             switch (gson.fromJson(json.get(i), SonOfLeaderCard.class).getAbility()) {
@@ -93,15 +93,8 @@ public class Configs {
 
         InputStream in = Configs.class.getClassLoader().getResourceAsStream("cards.json");
 
-        JsonArray json = new Gson().fromJson(new InputStreamReader(in), JsonArray.class);
+        JsonArray json = new Gson().fromJson(new InputStreamReader(Objects.requireNonNull(in)), JsonArray.class);
         return new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());
     }
 
-    /**
-     * Util that client can use to check if it's still connected to the server
-     * @return true if the method can be called
-     */
-    public static boolean isServerAlive(){
-        return true;
-    }
 }

@@ -2,23 +2,25 @@ package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
+import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
-//to change game font
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
+
+//to change game font
 
 /**
  * @see javafx.application.Application
@@ -28,7 +30,7 @@ import java.util.logging.Logger;
  */
 public class GuiView extends Application implements View {
     private final ClientModel clientModel;
-    private ServerHandler serverHandler;
+    private static ServerHandler serverHandler;
 
     //qui ci vanno tutte le varie scene del gioco ed i relativi controller ( home, menu, caricamento, fine...)
     private final Map<String, Scene> scenes = new HashMap<>();
@@ -41,29 +43,25 @@ public class GuiView extends Application implements View {
     //per riprodurre musica in background
     private MediaPlayer mediaPlayer;
     private final static Logger logger = Logger.getLogger(GuiView.class.getName());
+    private static Configs conf;
 
     public GuiView(){
         clientModel = new ClientModel(1);
     }
 
-    public static void main(String[] args) {
+    public static void main(Configs args) {
+        conf=args;
         launch();
     }
 
-    /**
-     * Interface launcher. set connection CAN AGGREGATE
-     */
-    public void launcher(){
-        main(null);
-    }
 
     /**
      * @see Application#start(Stage)
      */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
 
-        serverHandler = new ServerHandler(this);
+        serverHandler = new ServerHandler(this, conf);
 
         loadScenes();
         currentStage = stage;
@@ -73,8 +71,8 @@ public class GuiView extends Application implements View {
         currentFXMLController = getSceneController("initialScene");
 
         currentStage.show();
-        //System.out.println(askNumPlayer());
 
+        //System.out.println(askNumPlayer());
 
         //currentScene.getStylesheets().add("/style.css");
     }
@@ -174,8 +172,11 @@ public class GuiView extends Application implements View {
      */
     @Override
     public void setConnectionHandler(ServerHandler serverHandler) {
-        this.serverHandler = serverHandler;
+        GuiView.serverHandler = serverHandler;
     }
+
+
+    public void launcher() {}
 
     @Override
     public ClientModel getClientModel() {
