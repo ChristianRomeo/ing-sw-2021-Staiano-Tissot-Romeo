@@ -132,9 +132,8 @@ public class EventsHandler implements ServerEventObserver {
 
     @Override
     public void handleEvent(IllegalActionEventS2C event) { //si potrà fare meglio
-        Styler.cls();
-        view.showErrorMessage("Illegal action: "+event.getIllegalAction().getDescription());
-        //show choices
+        event.notifyHandler(eventHandlerView);
+
     }
 
     //todo pregame da riguardare

@@ -65,13 +65,26 @@ public class EventsHandlerGUI implements ServerEventObserver {
                 if(clientModel.isPregame()){
                     guiView.getCurrentSceneController().updateScene();
                 }
+                if(clientModel.hasGameStarted()){
+                    guiView.getCurrentSceneController().updateScene();
+                    if(clientModel.isCurrentPlayer()){
+                        guiView.getCurrentSceneController().showMessage("E' il tuo turno! ");
+                    }else{
+                        guiView.getCurrentSceneController().showMessage("E' il turno di: "+ clientModel.getCurrentPlayerNick());
+                    }
+                }
             }
         });
     }
 
     @Override
     public void handleEvent(IllegalActionEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.getCurrentSceneController().showMessage("Illegal action: "+event.getIllegalAction().getDescription());
+            }
+        });
     }
 
     @Override
