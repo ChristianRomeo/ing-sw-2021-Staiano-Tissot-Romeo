@@ -40,21 +40,6 @@ public class ClientHandler implements Runnable {
         this.input = new ObjectInputStream(socket.getInputStream());
         this.isConnected = true;
         socket.setSoTimeout(60000); // cosi il tizio deve mandare il num di giocatori entro 60 secondi
-        //starts pinging tcp client
-        /*
-        (new Thread(() -> {
-            while(true)
-                try {
-                    logger.warning("Pinging...");
-                    if (!socket.getInetAddress().isReachable(3000)){
-                        logger.warning("s'è disconnesso il client");
-                        setDisconnected();
-                    }
-                    logger.warning("tt'appost");
-                } catch (IOException ignored) {}
-        })).start();
-        */
-        //(new PingSender(this, true)).start();
     }
 
     /**
@@ -133,7 +118,7 @@ public class ClientHandler implements Runnable {
         try {
             socket.setSoTimeout(8000);
         } catch (SocketException e) {
-            e.printStackTrace();
+            logger.severe("ping non arrivato");
             setDisconnected();
         }
     }
@@ -169,7 +154,7 @@ public class ClientHandler implements Runnable {
 
          if (isConnected) //todo: se quando non è più connesso si chiude tutto forse, quindi questo if che serve?
             try {
-                synchronized (lock) { //lock??
+                synchronized (lock) {
                     output.writeUnshared(message);
                     output.flush();
                     output.reset();
@@ -194,7 +179,7 @@ public class ClientHandler implements Runnable {
         connectionSetUp();
 
         //Controlla rispetto al game se è stato inizializzato il numero di giocatori e allora il game può iniziare perchè al completo
-        synchronized (virtualView.getController().getGame()){ //synch su game???
+        synchronized (virtualView.getController().getGame()){ //synch su game?
             if(!virtualView.getController().isPreGameStarted()&&virtualView.getController().getGame().getWantedNumPlayers()==virtualView.getController().getGame().getPlayersNumber())
                 try {
                     virtualView.getController().gameStarter();
@@ -203,29 +188,29 @@ public class ClientHandler implements Runnable {
                 }
         }
 
-        //finchè è connesso allora ascolta lo stream input
+
         while (isConnected)
             try {
                 ClientEvent clientEvent = (ClientEvent) input.readObject();
-                //viene chiamata la virtualView che gestirà l'evento chiamando il controller
-                if(!(clientEvent instanceof PingEventC2S)){
+
+                if(!(clientEvent instanceof PingEventC2S))
                     synchronized (virtualView){
-                        if(nickname.equals(virtualView.getController().getGame().getCurrentPlayer().getNickname())){
-                            clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare
-                        }
+                        if(nickname.equals(virtualView.getController().getGame().getCurrentPlayer().getNickname()))
+                            clientEvent.notifyHandler(virtualView); //notifica la view solo se è il current player, forse sarà da cambiare, viene chiamata la virtualView che gestirà l'evento chiamando il controller
                     }
-                }
+
             }
             catch (IOException | ClassNotFoundException e) {
                 if (isConnected) {  // This player has disconnected
                     logger.warning(nickname + " has disconnected in receive");
-                    isConnected = false;
-                    virtualView.setDisconnected(this);
+                    //virtualView.setDisconnected(this);
+                    closeSocket();
+                    break;
                 } else  // Another player has disconnected
-                    logger.warning(nickname + " was disconnected due to shutdown in receive");
+                    logger.warning(nickname + " was disconnected due to shutdown in receive VEDERE QUANDO SUCCEDE");
 
-                closeSocket();
             }
+
     }
 
     public void startPing(){
@@ -234,7 +219,6 @@ public class ClientHandler implements Runnable {
                 try {
                     Thread.sleep(5000);
                     send(new PingEventS2C());
-                    logger.info("ping inviato");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

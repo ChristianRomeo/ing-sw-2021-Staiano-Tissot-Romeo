@@ -30,6 +30,11 @@ public interface View {
     //chide il numero di giocatori voluto
     int askNumPlayer();
 
+    /**
+     * chiede se vuole fare una nuova partita
+     */
+    void askNewGame();
+
     /*
      * Asks nickname and if it's a new game the number of players for the game and notify the information to the serverHandler
      *

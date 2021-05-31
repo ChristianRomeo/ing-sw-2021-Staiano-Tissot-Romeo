@@ -1,10 +1,14 @@
 package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 public class InitialSceneController extends FXMLController {
    // private ClientModel clientModel;
@@ -13,7 +17,8 @@ public class InitialSceneController extends FXMLController {
 
     //private int numPlayers=0;
 
-
+    @FXML
+    private Pane pane;
     @FXML
     private TextField textField;
     @FXML
@@ -23,10 +28,13 @@ public class InitialSceneController extends FXMLController {
     @FXML
     private Label upperLabel;
 
+
     @FXML
     public void initialize(){
         textField.setText("Nickname here");
         //submitNumButton.setVisible(false);
+
+
     }
     @FXML
     public void submitNick(){

@@ -2,7 +2,7 @@ package it.polimi.ingsw;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.client.CliView;
-import it.polimi.ingsw.client.GUI.FxLauncher;
+import it.polimi.ingsw.client.GUI.GuiView;
 import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Server;
@@ -26,7 +26,6 @@ public class MastersOfRenaissance {
      * @param args the cmd arguments
      */
     public static void main(String[] args) throws IOException, URISyntaxException {
-
 
         if (args.length == 0)
             launchGui(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
@@ -59,7 +58,7 @@ public class MastersOfRenaissance {
 
         System.out.println("Initializing GUI... ");
         Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
-        FxLauncher.main(config);
+        GuiView.main(config);
 
     }
 

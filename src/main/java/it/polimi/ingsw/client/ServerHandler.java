@@ -1,12 +1,13 @@
 package it.polimi.ingsw.client;
 
 
-import com.google.gson.Gson;
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.controller.View;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Logger;
 
@@ -21,6 +22,7 @@ public class ServerHandler implements Runnable{
     private final ServerEventObserver serverEventHandler;
     private final View view;
     private final Configs in;
+    private final Object lock= new Object();
     private final static Logger logger = Logger.getLogger(ServerHandler.class.getName());
 
 
@@ -32,32 +34,26 @@ public class ServerHandler implements Runnable{
 
     @Override
     public void run() { // qua vengono ricevuti i messaggi da server e mandati a chi li gestisce
-        while (isConnected) {
+        while (isConnected)
             try {
+
                 ServerEvent serverMessage = (ServerEvent) input.readObject();
-                //qua viene passato l'evento all'handler di eventi che farà le dovute cose
-                if(serverMessage instanceof PingEventS2C){
+
+                if(serverMessage instanceof PingEventS2C)
                     send(new PingEventC2S());
-                    //System.out.println("ping ricevuto e inviato");
-                }else{
-                    serverMessage.notifyHandler(serverEventHandler);
-                }
+                else
+                    serverMessage.notifyHandler(serverEventHandler); //qua viene passato l'evento all'handler di eventi che farà le dovute cose
 
-                if(serverMessage instanceof EndGameEventS2C){
+                if(serverMessage instanceof EndGameEventS2C)
                     break;
-                }
-
 
             } catch (ClassNotFoundException | IOException e) {
                 if (isConnected)
-                    //CliView.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during reading" : "") + ".",true);    //during sending if server is alive
-                    //do things
-                    isConnected = false;
                     System.out.println("Disconnesso server");
-                    break;
+                closeConnection();
             }
-        }
-        closeConnection();
+
+        //closeConnection();
     }
 
     public void setUpConnection(){
@@ -69,33 +65,31 @@ public class ServerHandler implements Runnable{
             input = new ObjectInputStream(socket.getInputStream());
             isConnected=true;
         }catch (Exception e){
-            view.showErrorMessage("error"+e); // da fare meglio
+            view.showErrorMessage("error during setUpConnection "+e); // da fare meglio
         }
 
         //faccio set nel model nel launcher della cli, ora lo mando al server e poi lo riprendo e lo risetto
         send(new NewConnectionEvent(view.getClientModel().getMyNickname())); // invio evento con nickname
 
         try {
-            //ricevo risposta dal server
-            NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();
-            view.getClientModel().setMyNickname(serverAnswer.getNickname()); //si imposta il nick ricevuto
+            NewConnectionEventS2C serverAnswer = (NewConnectionEventS2C) input.readObject();            //ricevo risposta dal server
+            view.getClientModel().setMyNickname(serverAnswer.getNickname());                            //si imposta il nick ricevuto
 
             if(serverAnswer.isFirstPlayer()){
-                //qui si chiede il numero di giocatori voluto all'utente
-                int wantedNumPlayers = view.askNumPlayer();
+                int wantedNumPlayers = view.askNumPlayer();                                             //qui si chiede il numero di giocatori voluto all'utente
                 send(new NumPlayerEvent(wantedNumPlayers));
                 if (wantedNumPlayers!=1)
                     view.showMessage("Now please wait for others players...");
             }
         } catch (IOException | ClassNotFoundException e) {
-            view.showErrorMessage("errore"+e); // da fare meglio
+            System.out.println("Disconnesso server "+e);
+            closeConnection();
         }
 
         //quindi arrivato qua il client si è connesso con il server,ha inviato il suo nickname e
         //eventualmente il numero di giocatori
-        //ora attivo la ricezione di messaggi da server
-        (new Thread(this)).start();
 
+        (new Thread(this)).start();     //ora attivo la ricezione di messaggi da server
     }
 
 
@@ -108,8 +102,9 @@ public class ServerHandler implements Runnable{
             output.close();
             socket.close();
             isConnected=false;
+            view.askNewGame();
         } catch (IOException e) {
-            logger.warning(""+e);
+            logger.warning("errore in chiusura connessione"+e);
         }
     }
 
@@ -121,14 +116,14 @@ public class ServerHandler implements Runnable{
     public synchronized void send(ClientEvent message) {
         if (isConnected) {
             try {
-                //synchronized (lock) { //??
+                synchronized (lock) { //per ping
                     output.writeUnshared(message);
                     output.flush();
                     output.reset();
-                //}
+                }
             } catch (IOException e) {
-                isConnected = false;
-                //view.showMessage("Server unreachable" + (Configs.isServerAlive() ? " during sending" : "") + ".",false);  //during sending if server is alive
+                System.out.println("errore in lettura, la partita si è chiusa, per rientrare, usare lo stesso username assegnato");
+               closeConnection();
             }
         }
     }

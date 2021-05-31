@@ -520,7 +520,7 @@ public class CliView implements View {
         return checkNumber(choice, lowLimit ,highLimit);
     }
 
-    private void askNewGame(){
+    public void askNewGame(){
 
         showMessage(Styler.ANSI_TALK + "\nDo you wish to play again? [y/n]: ");
         String choice = scanner.nextLine();

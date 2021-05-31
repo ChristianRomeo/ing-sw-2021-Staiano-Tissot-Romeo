@@ -7,17 +7,25 @@ import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import java.util.logging.Logger;
 
 //to change game font
@@ -68,12 +76,34 @@ public class GuiView extends Application implements View {
         currentStage.setTitle("maestri del rinascimento");
 
         currentStage.setScene(getScene("initialScene"));
+
         currentFXMLController = getSceneController("initialScene");
+
+        /*
+        // keep gridPane at original size
+        gridPane.setMinSize(1500, 500);
+        gridPane.setMaxSize(1500, 500);
+        StackPane root = new StackPane(gridPane);
+        // root.setAlignment(Pos.TOP_LEFT);
+        // use gridPane size to determine the factor to scale by
+        NumberBinding maxScale = Bindings.min(root.widthProperty().divide(1500),root.heightProperty().divide(500));
+        gridPane.scaleXProperty().bind(maxScale);
+        gridPane.scaleYProperty().bind(maxScale);
+        Scene scene = new Scene(root, 1500, 500);
+
+        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = resolution.getWidth();
+        double height = resolution.getHeight();
+        double w = width/1920;  // your window width
+        double h = height/1080;  // your window height
+        Scale scale = new Scale(w, h, 0, 0);
+        currentStage.getScene().getRoot().getTransforms().add(scale);
+*/
+
 
         currentStage.show();
 
         //System.out.println(askNumPlayer());
-
         //currentScene.getStylesheets().add("/style.css");
     }
 
@@ -226,6 +256,14 @@ public class GuiView extends Application implements View {
             }
         }
         return initialSceneController.getNumPlayers();*/
+    }
+
+    /**
+     * chiede se vuole fare una nuova partita
+     */
+    @Override
+    public void askNewGame() {
+
     }
 
     /**
