@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.LeaderCardWhiteMarble;
 import it.polimi.ingsw.model.LeaderCard;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,7 +60,7 @@ public class Configs {
     public static List<LeaderCard> getLeaderCards() throws JsonIOException {
 
         List<LeaderCard> leaderCardList = new ArrayList<>();
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("leaders.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("leadercards.json");
         Gson gson = new Gson();
         JsonArray json = gson.fromJson(new InputStreamReader(Objects.requireNonNull(in)), JsonArray.class);
 
@@ -91,7 +90,7 @@ public class Configs {
      */
     public static List<DevelopmentCard> getDevelopmentCards() throws JsonIOException {
 
-        InputStream in = Configs.class.getClassLoader().getResourceAsStream("cards.json");
+        InputStream in = Configs.class.getClassLoader().getResourceAsStream("developmentcards.json");
 
         JsonArray json = new Gson().fromJson(new InputStreamReader(Objects.requireNonNull(in)), JsonArray.class);
         return new Gson().fromJson(String.valueOf(json), new TypeToken<List<DevelopmentCard>>() { }.getType());

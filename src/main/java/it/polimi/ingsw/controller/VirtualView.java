@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class VirtualView implements ClientEventHandler, ServerEventObserver {
     private final List<ClientHandler> clientHandlers;
-    private List<String> disconnectedClients;
+    private final List<String> disconnectedClients = new ArrayList<>();
     private final Controller controller;
     private final static Logger logger = Logger.getLogger(VirtualView.class.getName());
 

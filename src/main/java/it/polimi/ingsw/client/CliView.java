@@ -5,8 +5,9 @@ import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import org.apache.commons.io.input.CharSequenceInputStream;
+
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,7 +21,6 @@ public class CliView implements View {
     private final static Logger logger = Logger.getLogger(CliView.class.getName());
     private ActionHandler actionHandler;
     private final ClientModel clientModel;
-
 
     /**
      * Constructor
@@ -104,6 +104,8 @@ public class CliView implements View {
         }
         return checkNumber(numPlayer,1,4);
     }
+
+
 
     /**
      * Asks the game cards in the initial choice
@@ -520,9 +522,9 @@ public class CliView implements View {
         return checkNumber(choice, lowLimit ,highLimit);
     }
 
-    public void askNewGame(){
+        public void askNewGame() {
 
-        showMessage(Styler.ANSI_TALK + "\nDo you wish to play again? [y/n]: ");
+        showMessage("\n"+ Styler.ANSI_TALK + "Do you wish to play again? [y/n]: ");
         String choice = scanner.nextLine();
 
         while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
@@ -532,7 +534,7 @@ public class CliView implements View {
 
         if (choice.equalsIgnoreCase("y")) {
             try {
-                MastersOfRenaissance.main("CLI".split(""));
+                MastersOfRenaissance.main("cli ".split(" "));
             } catch (FileNotFoundException e) {
                 System.out.println("Error while restarting the application.");
             } catch (IOException | URISyntaxException e) {
