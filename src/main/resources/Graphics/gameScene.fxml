@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,6 +16,7 @@
       <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="317.0" layoutY="532.0" prefHeight="17.0" prefWidth="174.0" text="Fase di gioco " GridPane.columnIndex="1" />
       <Button fx:id="leaderActionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="342.0" layoutY="165.0" mnemonicParsing="false" onAction="#leaderAction" prefHeight="25.0" prefWidth="123.0" text="LEADER ACTION" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Button fx:id="buyCardButton" layoutX="354.0" layoutY="209.0" mnemonicParsing="false" onAction="#buyCard" prefHeight="25.0" prefWidth="107.0" text="BUY CARD" />
+      <Button fx:id="useMarketButton" layoutX="381.0" layoutY="353.0" mnemonicParsing="false" onAction="#useMarket" text="MARKET" />
       <AnchorPane fx:id="leaderActionPane" layoutX="246.0" layoutY="126.0" prefHeight="349.0" prefWidth="357.0" style="-fx-background-color: lightblue;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <Button fx:id="firstLeaderCardButton" alignment="CENTER" layoutX="86.0" layoutY="165.0" mnemonicParsing="false" onAction="#selectFirstLeaderCard" style="-fx-background-color: white;" text="Select" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -103,6 +105,43 @@
             <Button fx:id="submitLeaderProductionButton" layoutX="171.0" layoutY="290.0" mnemonicParsing="false" onAction="#submitLeaderProduction" text="Done!" />
             <Label layoutX="59.0" layoutY="30.0" prefHeight="42.0" prefWidth="314.0" text="Select the resource you want to use and than click active if you want to activate that production. " wrapText="true" />
             <Label layoutX="189.0" layoutY="14.0" prefHeight="17.0" prefWidth="131.0" text="Leader Card Production" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="marketPane" layoutX="168.0" layoutY="42.0" prefHeight="447.0" prefWidth="513.0" style="-fx-background-color: lightblue;" visible="false">
+         <children>
+            <ToggleButton layoutX="406.0" layoutY="122.0" mnemonicParsing="false" selected="true" text="Select (r0)">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroupMarket" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton layoutX="409.0" layoutY="168.0" mnemonicParsing="false" text="Select(r1)" toggleGroup="$toggleGroupMarket" />
+            <ToggleButton layoutX="407.0" layoutY="211.0" mnemonicParsing="false" text="Select(r2)" toggleGroup="$toggleGroupMarket" />
+            <ToggleButton layoutX="48.0" layoutY="252.0" mnemonicParsing="false" text="Select(c0)" toggleGroup="$toggleGroupMarket" />
+            <ToggleButton layoutX="142.0" layoutY="251.0" mnemonicParsing="false" text="Select(c1)" toggleGroup="$toggleGroupMarket" />
+            <ToggleButton layoutX="241.0" layoutY="252.0" mnemonicParsing="false" text="Select(c2)" toggleGroup="$toggleGroupMarket" />
+            <ToggleButton layoutX="337.0" layoutY="252.0" mnemonicParsing="false" text="Select(c3)" toggleGroup="$toggleGroupMarket" />
+            <Label layoutX="87.0" layoutY="43.0" prefHeight="17.0" prefWidth="184.0" text="Choose a row or a column" />
+            <Button fx:id="submitMarketButton" layoutX="231.0" layoutY="326.0" mnemonicParsing="false" onAction="#submitMarket" text="Done!" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="insertResourcesPane" layoutX="163.0" layoutY="48.0" prefHeight="437.0" prefWidth="510.0" style="-fx-background-color: lightblue;" visible="false">
+         <children>
+            <Button fx:id="insertResourceButton" layoutX="353.0" layoutY="43.0" mnemonicParsing="false" onAction="#insertResource" text="Insert resource" />
+            <Button fx:id="discardResourceButton" layoutX="353.0" layoutY="87.0" mnemonicParsing="false" onAction="#discardResource" text="Discard resource" />
+            <Button layoutX="354.0" layoutY="131.0" mnemonicParsing="false" text="Edit warehouse" />
+            <ToggleButton disable="true" layoutX="50.0" layoutY="84.0" mnemonicParsing="false" selected="true" text="1,1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroupInsertWarehouse" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton disable="true" layoutX="50.0" layoutY="118.0" mnemonicParsing="false" text="2,1" toggleGroup="$toggleGroupInsertWarehouse" />
+            <ToggleButton disable="true" layoutX="101.0" layoutY="117.0" mnemonicParsing="false" text="2,2" toggleGroup="$toggleGroupInsertWarehouse" />
+            <ToggleButton disable="true" layoutX="51.0" layoutY="158.0" mnemonicParsing="false" text="3,1" toggleGroup="$toggleGroupInsertWarehouse" />
+            <ToggleButton disable="true" layoutX="100.0" layoutY="157.0" mnemonicParsing="false" text="3,2" toggleGroup="$toggleGroupInsertWarehouse" />
+            <ToggleButton disable="true" layoutX="153.0" layoutY="156.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupInsertWarehouse" />
+            <Button fx:id="submitInsertResourceButton" disable="true" layoutX="90.0" layoutY="206.0" mnemonicParsing="false" onAction="#submitInsertResource" text="Done!" />
+            <Label fx:id="insertResourceLabel" layoutX="29.0" layoutY="34.0" prefHeight="40.0" prefWidth="236.0" text="Choose your action." wrapText="true" />
+            <Label layoutX="340.0" layoutY="234.0" prefHeight="77.0" prefWidth="138.0" text="qui ci saranno le risorse da inserire, con la risorsa considerata al momento" wrapText="true" />
          </children>
       </AnchorPane>
    </children>

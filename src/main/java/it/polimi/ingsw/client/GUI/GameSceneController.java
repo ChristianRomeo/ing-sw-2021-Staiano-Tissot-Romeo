@@ -1,17 +1,14 @@
 package it.polimi.ingsw.client.GUI;
-import it.polimi.ingsw.controller.Events.ActivatedProductionEvent;
-import it.polimi.ingsw.controller.Events.BoughtCardEvent;
-import it.polimi.ingsw.controller.Events.EndTurnEvent;
-import it.polimi.ingsw.controller.Events.LeaderCardActionEvent;
-import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.LeaderCardProduction;
-import it.polimi.ingsw.model.Resource;
+import it.polimi.ingsw.controller.Events.*;
+import it.polimi.ingsw.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameSceneController extends FXMLController {
 
@@ -26,6 +23,8 @@ public class GameSceneController extends FXMLController {
     private Button endTurnButton;
     @FXML
     private Button activateProductionButton;
+    @FXML
+    private Button useMarketButton;
 
     //----- cose per pane azione leader -----
     @FXML
@@ -105,6 +104,40 @@ public class GameSceneController extends FXMLController {
     @FXML
     private Button submitLeaderProductionButton;
 
+    //----- cose per pane compra al mercato -----
+    private char rowOrColumn;
+    private int marketIndex;
+    private List<Resource> boughtResources;
+    private List<Integer> whiteMarbleChoices;
+    private Map<Resource,Integer> discardedResources;
+    private Integer fullLeaderSlots1;
+    private Integer fullLeaderSlots2;
+    private PlayerWarehouse newWarehouse;
+
+    //pane con proprio il mercato
+    @FXML
+    private AnchorPane marketPane;
+    @FXML
+    private ToggleGroup toggleGroupMarket;
+    @FXML
+    private Button submitMarketButton;
+    //pane per inserire/scartare risorse
+    @FXML
+    private AnchorPane insertResourcesPane;
+    @FXML
+    private Label insertResourceLabel;
+    @FXML
+    private ToggleGroup toggleGroupInsertWarehouse;
+    @FXML
+    private Button insertResourceButton;
+    @FXML
+    private Button discardResourceButton;
+    @FXML
+    private Button submitInsertResourceButton;
+
+
+    //---- cose per la schermata principale---
+
     @Override
     public void updateScene(){ //todo: da fare
         if(clientModel.isCurrentPlayer()){
@@ -130,8 +163,6 @@ public class GameSceneController extends FXMLController {
         buyCardColumnChoiceBox.setValue(0);
     }
 
-    //---- cose per la schermata principale---
-
     @FXML
     public void leaderAction(){
         initializeLeaderPanel();
@@ -149,6 +180,10 @@ public class GameSceneController extends FXMLController {
     public void activateProduction(){
         initializeProductionPane();
         productionPane.setVisible(true);
+    }
+    @FXML
+    public void useMarket(){
+        marketPane.setVisible(true);
     }
 
     //----- cose per pane azione leader -----
@@ -208,7 +243,7 @@ public class GameSceneController extends FXMLController {
 
     //----- cose per pane attiva produzione -----
 
-    public void initializeProductionPane(){
+    private void initializeProductionPane(){
         cardProductions = new ArrayList<>();
         activateBaseProduction=false;
         requestedResBP1=null;
@@ -282,6 +317,89 @@ public class GameSceneController extends FXMLController {
     public void submitLeaderProduction(){
         serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResource1,leaderProductionResource2));
         leaderProductionPane.setVisible(false);
+    }
+
+    //----- cose per mercato -----
+
+    @FXML
+    public void submitMarket(){
+        int indexSelectedToggle = toggleGroupMarket.getToggles().indexOf(toggleGroupMarket.getSelectedToggle());
+        if(indexSelectedToggle<3){
+            rowOrColumn='r';
+        }else{
+            rowOrColumn='c';
+        }
+        switch (indexSelectedToggle) {
+            case 0, 3 -> marketIndex = 0;
+            case 1, 4 -> marketIndex = 1;
+            case 2, 5 -> marketIndex = 2;
+            case 6 -> marketIndex = 3;
+        }
+        collectResource();
+        marketPane.setVisible(false);
+        //System.out.println(rowOrColumn+" "+ marketIndex); //debug
+        System.out.println(boughtResources); //debug
+        initializeInsertResourcesPane();
+    }
+
+    //una volta che l'utente ha scelto riga/colonna allora si prendono le relative risorse, si chiedono all'utente eventuali
+    //scelte se tipo ha due carte leader whitemarble
+    private void collectResource(){
+        List<MarbleColor> takenMarbles;
+        if(rowOrColumn == 'r')
+            takenMarbles = clientModel.getMarket().getRowColors(marketIndex);
+        else
+            takenMarbles = clientModel.getMarket().getColumnColors(marketIndex);
+
+        //todo: qui devo chiedere il fatto di se ha due carte white marble (probabilmente con dei dialog)
+
+        boughtResources = clientModel.fromMarblesToResources(takenMarbles, whiteMarbleChoices);
+    }
+
+    private void initializeInsertResourcesPane(){
+        newWarehouse = new PlayerWarehouse();
+        newWarehouse.setWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
+        List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
+        fullLeaderSlots1 = leaderCards.get(0).getFullSlotsNumber();
+        fullLeaderSlots2 = leaderCards.get(1).getFullSlotsNumber();
+        discardedResources = new HashMap<>();
+        if(boughtResources.size()==0){
+            serverHandler.send(new UseMarketEvent(rowOrColumn,marketIndex,newWarehouse,discardedResources,fullLeaderSlots1,fullLeaderSlots2,whiteMarbleChoices ));
+            insertResourcesPane.setVisible(false);
+        }else{
+            insertResourcesPane.setVisible(true);
+            //todo:qui devo inizializzare la roba delle carte leader (bottoni ecc) e devo pure mostrare le risorse comprate
+        }
+    }
+
+    @FXML
+    public void insertResource(){
+
+    }
+    @FXML
+    public void submitInsertResource(){
+
+    }
+    @FXML
+    public void discardResource(){
+        discardedResources = Resource.addOneResource(discardedResources,boughtResources.get(0));
+        boughtResources.remove(0);
+        checkFinishedResources();
+        //System.out.println(boughtResources +" disc res: "+ discardedResources); //debug
+    }
+
+    //controlla se sono finite le risorse comprate, e se si invia l'evento
+    private void checkFinishedResources(){
+        if(boughtResources.size()==0){
+            if(fullLeaderSlots1==null){
+                fullLeaderSlots1=0;
+            }
+            if(fullLeaderSlots2==null){
+                fullLeaderSlots2=0;
+            }
+            serverHandler.send(new UseMarketEvent(rowOrColumn,marketIndex,newWarehouse,discardedResources,fullLeaderSlots1,fullLeaderSlots2,whiteMarbleChoices));
+            insertResourcesPane.setVisible(false);
+        }
     }
 
 
