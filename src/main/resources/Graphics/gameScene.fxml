@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -94,7 +93,7 @@
          <children>
             <Button fx:id="activeLeaderProductionButton1" layoutX="253.0" layoutY="133.0" mnemonicParsing="false" onAction="#activeLeaderProduction1" text="Active" />
             <Button fx:id="activeLeaderProductionButton2" layoutX="253.0" layoutY="237.0" mnemonicParsing="false" onAction="#activeLeaderProduction2" text="Active" />
-            <RadioButton layoutX="137.0" layoutY="85.0" mnemonicParsing="false" text="Coin">
+            <RadioButton layoutX="137.0" layoutY="85.0" mnemonicParsing="false" selected="true" text="Coin">
                <toggleGroup>
                   <ToggleGroup fx:id="toggleGroupLeaderResource" />
                </toggleGroup>
@@ -109,17 +108,17 @@
       </AnchorPane>
       <AnchorPane fx:id="marketPane" layoutX="168.0" layoutY="42.0" prefHeight="447.0" prefWidth="513.0" style="-fx-background-color: lightblue;" visible="false">
          <children>
-            <ToggleButton layoutX="406.0" layoutY="122.0" mnemonicParsing="false" selected="true" text="Select (r0)">
+            <RadioButton layoutX="406.0" layoutY="122.0" mnemonicParsing="false" selected="true" text="Select (r0)">
                <toggleGroup>
                   <ToggleGroup fx:id="toggleGroupMarket" />
                </toggleGroup>
-            </ToggleButton>
-            <ToggleButton layoutX="409.0" layoutY="168.0" mnemonicParsing="false" text="Select(r1)" toggleGroup="$toggleGroupMarket" />
-            <ToggleButton layoutX="407.0" layoutY="211.0" mnemonicParsing="false" text="Select(r2)" toggleGroup="$toggleGroupMarket" />
-            <ToggleButton layoutX="48.0" layoutY="252.0" mnemonicParsing="false" text="Select(c0)" toggleGroup="$toggleGroupMarket" />
-            <ToggleButton layoutX="142.0" layoutY="251.0" mnemonicParsing="false" text="Select(c1)" toggleGroup="$toggleGroupMarket" />
-            <ToggleButton layoutX="241.0" layoutY="252.0" mnemonicParsing="false" text="Select(c2)" toggleGroup="$toggleGroupMarket" />
-            <ToggleButton layoutX="337.0" layoutY="252.0" mnemonicParsing="false" text="Select(c3)" toggleGroup="$toggleGroupMarket" />
+            </RadioButton>
+            <RadioButton layoutX="409.0" layoutY="168.0" mnemonicParsing="false" text="Select(r1)" toggleGroup="$toggleGroupMarket" />
+            <RadioButton layoutX="407.0" layoutY="211.0" mnemonicParsing="false" text="Select(r2)" toggleGroup="$toggleGroupMarket" />
+            <RadioButton layoutX="48.0" layoutY="252.0" mnemonicParsing="false" text="Select(c0)" toggleGroup="$toggleGroupMarket" />
+            <RadioButton layoutX="142.0" layoutY="251.0" mnemonicParsing="false" text="Select(c1)" toggleGroup="$toggleGroupMarket" />
+            <RadioButton layoutX="241.0" layoutY="252.0" mnemonicParsing="false" text="Select(c2)" toggleGroup="$toggleGroupMarket" />
+            <RadioButton layoutX="337.0" layoutY="252.0" mnemonicParsing="false" text="Select(c3)" toggleGroup="$toggleGroupMarket" />
             <Label layoutX="87.0" layoutY="43.0" prefHeight="17.0" prefWidth="184.0" text="Choose a row or a column" />
             <Button fx:id="submitMarketButton" layoutX="231.0" layoutY="326.0" mnemonicParsing="false" onAction="#submitMarket" text="Done!" />
          </children>
@@ -128,20 +127,45 @@
          <children>
             <Button fx:id="insertResourceButton" layoutX="353.0" layoutY="43.0" mnemonicParsing="false" onAction="#insertResource" text="Insert resource" />
             <Button fx:id="discardResourceButton" layoutX="353.0" layoutY="87.0" mnemonicParsing="false" onAction="#discardResource" text="Discard resource" />
-            <Button layoutX="354.0" layoutY="131.0" mnemonicParsing="false" text="Edit warehouse" />
-            <ToggleButton disable="true" layoutX="50.0" layoutY="84.0" mnemonicParsing="false" selected="true" text="1,1">
+            <Button fx:id="editWarehouseButton" layoutX="354.0" layoutY="131.0" mnemonicParsing="false" onAction="#editWarehouse" text="Edit warehouse" />
+            <RadioButton disable="true" layoutX="50.0" layoutY="84.0" mnemonicParsing="false" selected="true" text="1,1">
                <toggleGroup>
                   <ToggleGroup fx:id="toggleGroupInsertWarehouse" />
                </toggleGroup>
-            </ToggleButton>
-            <ToggleButton disable="true" layoutX="50.0" layoutY="118.0" mnemonicParsing="false" text="2,1" toggleGroup="$toggleGroupInsertWarehouse" />
-            <ToggleButton disable="true" layoutX="101.0" layoutY="117.0" mnemonicParsing="false" text="2,2" toggleGroup="$toggleGroupInsertWarehouse" />
-            <ToggleButton disable="true" layoutX="51.0" layoutY="158.0" mnemonicParsing="false" text="3,1" toggleGroup="$toggleGroupInsertWarehouse" />
-            <ToggleButton disable="true" layoutX="100.0" layoutY="157.0" mnemonicParsing="false" text="3,2" toggleGroup="$toggleGroupInsertWarehouse" />
-            <ToggleButton disable="true" layoutX="153.0" layoutY="156.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupInsertWarehouse" />
+            </RadioButton>
+            <RadioButton disable="true" layoutX="50.0" layoutY="118.0" mnemonicParsing="false" text="2,1" toggleGroup="$toggleGroupInsertWarehouse" />
+            <RadioButton disable="true" layoutX="101.0" layoutY="117.0" mnemonicParsing="false" text="2,2" toggleGroup="$toggleGroupInsertWarehouse" />
+            <RadioButton disable="true" layoutX="51.0" layoutY="158.0" mnemonicParsing="false" text="3,1" toggleGroup="$toggleGroupInsertWarehouse" />
+            <RadioButton disable="true" layoutX="100.0" layoutY="157.0" mnemonicParsing="false" text="3,2" toggleGroup="$toggleGroupInsertWarehouse" />
+            <RadioButton disable="true" layoutX="153.0" layoutY="156.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupInsertWarehouse" />
             <Button fx:id="submitInsertResourceButton" disable="true" layoutX="90.0" layoutY="206.0" mnemonicParsing="false" onAction="#submitInsertResource" text="Done!" />
             <Label fx:id="insertResourceLabel" layoutX="29.0" layoutY="34.0" prefHeight="40.0" prefWidth="236.0" text="Choose your action." wrapText="true" />
             <Label layoutX="340.0" layoutY="234.0" prefHeight="77.0" prefWidth="138.0" text="qui ci saranno le risorse da inserire, con la risorsa considerata al momento" wrapText="true" />
+            <Button fx:id="insertLeaderButton1" layoutX="56.0" layoutY="374.0" mnemonicParsing="false" onAction="#insertLeader1" text="Insert Leader 1" />
+            <Button fx:id="insertLeaderButton2" layoutX="179.0" layoutY="374.0" mnemonicParsing="false" onAction="#insertLeader2" text="Insert Leader 2" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="editWarehousePane" layoutX="173.0" layoutY="58.0" prefHeight="437.0" prefWidth="510.0" style="-fx-background-color: lightgreen;" visible="false">
+         <children>
+            <Button fx:id="reinsertResourceButton" layoutX="353.0" layoutY="43.0" mnemonicParsing="false" onAction="#reinsertResource" text="Re-insert resource" />
+            <Button fx:id="temporaryRemoveResourceButton" layoutX="353.0" layoutY="87.0" mnemonicParsing="false" onAction="#temporaryRemoveResource" text="Remove resource" />
+            <Button fx:id="exitEditWarehouseButton" layoutX="353.0" layoutY="130.0" mnemonicParsing="false" onAction="#exitEditWarehouse" prefHeight="25.0" prefWidth="108.0" text="Exit" />
+            <RadioButton layoutX="50.0" layoutY="84.0" mnemonicParsing="false" selected="true" text="1,1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroupEditWarehouse" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="50.0" layoutY="118.0" mnemonicParsing="false" text="2,1" toggleGroup="$toggleGroupEditWarehouse" />
+            <RadioButton layoutX="101.0" layoutY="117.0" mnemonicParsing="false" text="2,2" toggleGroup="$toggleGroupEditWarehouse" />
+            <RadioButton layoutX="51.0" layoutY="158.0" mnemonicParsing="false" text="3,1" toggleGroup="$toggleGroupEditWarehouse" />
+            <RadioButton layoutX="100.0" layoutY="157.0" mnemonicParsing="false" text="3,2" toggleGroup="$toggleGroupEditWarehouse" />
+            <RadioButton layoutX="153.0" layoutY="156.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupEditWarehouse" />
+            <Label layoutX="29.0" layoutY="34.0" prefHeight="42.0" prefWidth="271.0" text="You can temporary remove a resource from the selected position or re-insert a removed resource" wrapText="true" />
+            <Label layoutX="340.0" layoutY="234.0" prefHeight="77.0" prefWidth="138.0" text="qui ci saranno le risorse temporaneamente rimosse, con la risorsa considerata al momento" wrapText="true" />
+            <Button fx:id="reinsertLeaderResourceButton1" layoutX="10.0" layoutY="374.0" mnemonicParsing="false" onAction="#reinsertLeaderResource1" prefHeight="25.0" prefWidth="113.0" text="Re-Insert Leader 1" />
+            <Button fx:id="reinsertLeaderResourceButton2" layoutX="238.0" layoutY="374.0" mnemonicParsing="false" onAction="#reinsertLeaderResource2" text="Re-Insert Leader 2" />
+            <Button fx:id="removeLeaderResourceButton1" layoutX="133.0" layoutY="374.0" mnemonicParsing="false" onAction="#removeLeaderResource1" text="Remove Leader1" />
+            <Button fx:id="removeLeaderResourceButton2" layoutX="355.0" layoutY="374.0" mnemonicParsing="false" onAction="#removeLeaderResource2" text="Remove Leader2" />
          </children>
       </AnchorPane>
    </children>
