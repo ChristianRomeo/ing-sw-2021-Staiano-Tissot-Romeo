@@ -89,6 +89,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
 
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
+
         Styler.cls();
         cliView.showMessage("The game has been set up.\nStarting the match...");
 

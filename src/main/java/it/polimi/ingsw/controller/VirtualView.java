@@ -28,64 +28,43 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public synchronized List<ClientHandler> getClientHandlers(){ return  clientHandlers;}
 
     public synchronized void addClientHandler(ClientHandler clientHandler) {
-        //todo : togliere synchronized (clientHandlers) {
+
             clientHandlers.add(clientHandler);
-            controller.getGame().addNewPlayer(new Player(clientHandler.getNickname())); //copia aggiunta utente in game e creazione giocatore
-      //  }
-        logger.info("nuovo player aggiunto con nickname:"+ clientHandler.getNickname());
+            controller.getGame().addNewPlayer(new Player(clientHandler.getNickname()));                                 //copia aggiunta utente in game e creazione giocatore
+
+        logger.info("A new player joined: "+ clientHandler.getNickname());
     }
 
     public void sendToEveryone(ServerEvent serverEvent){
-        for (ClientHandler clientHandler : clientHandlers) {
-        //if client connected send message
+        for (ClientHandler clientHandler : clientHandlers)
             if(clientHandler.isConnected())
                 clientHandler.send(serverEvent);
-        }
     }
 
-    //gli dai il nickname di chi non deve ricevere il messaggio
+    //gli dai il nickname di chi non deve ricevere il messaggio, quando dobbiamo mandare informazioni a tutti gli altri tranne il giocatore corrente che in teoria l'ha già, per risparmiare
     public void sendToEveryoneExcept(ServerEvent serverEvent, String nickname){
-        //quando dobbiamo mandare informazioni a tutti gli altri tranne il giocatore corrente che in teoria l'ha già, per risparmiare
-        for (ClientHandler clientHandler : clientHandlers) {
-            if(clientHandler.isConnected() && !clientHandler.getNickname().equals(nickname)){
+        for (ClientHandler clientHandler : clientHandlers)
+            if(clientHandler.isConnected() && !clientHandler.getNickname().equals(nickname))
                 clientHandler.send(serverEvent);
-            }
-        }
     }
 
     //invia evento a solo un client
     public void sendTo(ServerEvent serverEvent, String nickname){
-        for (ClientHandler clientHandler : clientHandlers) {
+        for (ClientHandler clientHandler : clientHandlers)
             if(clientHandler.isConnected() && clientHandler.getNickname().equals(nickname)){
                 clientHandler.send(serverEvent);
                 return;
             }
-        }
     }
 
-    /*public void setUpGame(){ //todo : da togliere forse
-        //setnickname and if già usato chiama setnewnickname che lo richiede o lo incrementa, setnumplayers
-        //controller.wakeUpController();
-    }
-
-    public void setChosenLeaderCards(){
-        //controller.setLeaderCards(choice, nickname)
-    }
-
-    public void setFirstPlayer(){
-        //controller.setFirstPlayer(nickname)
-    }
-
-    public void setAction(){
-        //notify controller that player has chosen an action
-    }*/
-
+    //per la disconnessione , DEPRECATED
     public synchronized void setDisconnected(ClientHandler client){
         //notify controller that player has been disconnected
         disconnectedClients.add(client.getNickname());
         clientHandlers.remove(client);
     }
 
+    //per la disconnessione , DEPRECATED
     public synchronized List<String> getDisconnectedClients() {
         return new ArrayList<>(disconnectedClients);
     }
@@ -102,7 +81,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public synchronized void closeAll() {
         for (ClientHandler clientHandler : clientHandlers)
             if (clientHandler.isConnected())
-                clientHandler.setDisconnected();
+                clientHandler.closeSocket();
     }
 
     // ---- events from the client----

@@ -1,14 +1,10 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.MastersOfRenaissance;
 import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
-import org.apache.commons.io.input.CharSequenceInputStream;
 
-import java.io.*;
-import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
@@ -304,12 +300,12 @@ public class CliView implements View {
     public Resource askResource(){
         showMessage(Styler.ANSI_TALK+"Choose a resource to obtain (*Stone* -"+Styler.ANSI_STONE+" *Shield* -"+Styler.ANSI_SHIELD+" *Servant* -"+Styler.ANSI_SERVANT+" *Coin* -"+Styler.ANSI_COIN+"):");
         String choice = scanner.nextLine();
-        if (actionHandler.newGame)
+        if (actionHandler.isNewGame())
             actionHandler.getNewGame(choice);
         while(!choice.equalsIgnoreCase("coin")&& !choice.equalsIgnoreCase("shield")&&!choice.equalsIgnoreCase("stone") &&!choice.equalsIgnoreCase("servant")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
-            if (actionHandler.newGame)
+            if (actionHandler.isNewGame())
                 actionHandler.getNewGame(choice);
         }
         return Resource.valueOf(choice.toUpperCase());
@@ -322,12 +318,12 @@ public class CliView implements View {
         showMarket();
         showMessage(Styler.ANSI_TALK+"Do you want to select a row or a column? r/c");
         String choice = scanner.nextLine();
-        if (actionHandler.newGame)
+        if (actionHandler.isNewGame())
             actionHandler.getNewGame(choice);
         while(!choice.equalsIgnoreCase("r") && !choice.equalsIgnoreCase("c")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
-            if (actionHandler.newGame)
+            if (actionHandler.isNewGame())
                 actionHandler.getNewGame(choice);
         }
         rowOrColumn = choice.charAt(0);
@@ -522,13 +518,13 @@ public class CliView implements View {
     public int askNumber(int lowLimit, int highLimit){
 
         String choice = scanner.nextLine();
-        if (actionHandler.newGame)
+        if (actionHandler.isNewGame())
                 actionHandler.getNewGame(choice);
         else
             while(checkNumber(choice,lowLimit,highLimit)==null){
                 showErrorMessage("Invalid choice! Try again: ");
                 choice = scanner.nextLine();
-                if (actionHandler.newGame)
+                if (actionHandler.isNewGame())
                     actionHandler.getNewGame(choice);
             }
 
@@ -538,13 +534,13 @@ public class CliView implements View {
 
     public String askChoice(){
         String choice = scanner.nextLine();
-        if (actionHandler.newGame)
+        if (actionHandler.isNewGame())
             actionHandler.getNewGame(choice);
         else
             while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
                 showErrorMessage("Invalid choice! Try again: ");
                 choice = scanner.nextLine();
-                if (actionHandler.newGame)
+                if (actionHandler.isNewGame())
                     actionHandler.getNewGame(choice);
             }
             return choice.toLowerCase();
@@ -552,7 +548,7 @@ public class CliView implements View {
 
         public void askNewGame() {
 
-        actionHandler.newGame=true;
+        actionHandler.setNewGame(true);
         showMessage("\n"+ Styler.ANSI_TALK + "Do you wish to play again? [y/n]: ");
 
         //String choice = scanner.nextLine();

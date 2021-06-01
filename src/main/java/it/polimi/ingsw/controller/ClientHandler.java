@@ -137,23 +137,19 @@ public class ClientHandler implements Runnable {
     }
 
     public void setDisconnected() {
-        if (virtualView.getController().isPreGameStarted()){
+
             virtualView.getController().getGame().setInactive();
-            //CLEAR GAME
-            //send disconnect all
-        }
-        this.isConnected = false;
-        //virtualView.setDisconnected(this);
-        closeSocket();
+            virtualView.closeAll();
+
     }
 
     /**
      * Closes the player socket for graceful disconnection
      */
-    private void closeSocket() {
+    public void closeSocket() {
         try {
-            socket.close();
-            isConnected=false;
+            this.socket.close();
+            this.isConnected=false;
         } catch (IOException ignored) {}
     }
 

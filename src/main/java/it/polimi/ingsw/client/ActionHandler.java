@@ -5,10 +5,12 @@ import it.polimi.ingsw.MastersOfRenaissance;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Controller client-side of player's actions, dispatch actions to methods (CLI-only)
@@ -18,7 +20,7 @@ public class ActionHandler {
     private final CliView cliView;
     private final ServerHandler serverHandler;
     private boolean done;
-    public boolean newGame= false;
+    private boolean newGame= false;
 
     /**
      * Instantiated by the cliView
@@ -63,11 +65,11 @@ public class ActionHandler {
     }
 
     public void getNewGame(String choice) {
-        if (newGame){
 
+        if (newGame){
             if (choice.equalsIgnoreCase("y")) {
                 try {
-                    if (MastersOfRenaissance.save==null)
+                    if (MastersOfRenaissance.getSave()==null)
                     MastersOfRenaissance.main("cli ".split(" "));
                     else
                         MastersOfRenaissance.main("cli save ".split(" "));
@@ -82,16 +84,25 @@ public class ActionHandler {
 
     }
 
+    public boolean isNewGame() {
+        return newGame;
+    }
+
+    public void setNewGame(boolean newGame) {
+        this.newGame = newGame;
+    }
 
     public void exit(){
+
         Styler.cls();
-        if(!clientModel.isGameEnded()){
+        if(!clientModel.isGameEnded())
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
-        }
+
             //cliView.askNewGame();
     }
 
     public void useMarket() {
+
         Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
@@ -101,6 +112,7 @@ public class ActionHandler {
             cliView.showErrorMessage("You've already done an action");
             return;
         }
+
         Pair<Character, Integer> marketChoice = cliView.askMarketUse();
         char rowOrColumn = marketChoice.getVal1();
         int index = marketChoice.getVal2();
@@ -117,11 +129,11 @@ public class ActionHandler {
         if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null && leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null) {
             //allora l'utente ha 2 carte leader white marble attive
             whiteMarbleChoices = new ArrayList<>();
-            for(MarbleColor marble : takenMarbles){
-                if(marble == MarbleColor.WHITE){
+            for(MarbleColor marble : takenMarbles)
+                if(marble == MarbleColor.WHITE)
                     whiteMarbleChoices.add(cliView.askWhiteMarbleChoice());
-                }
-            }
+
+
         }
         boughtResources = clientModel.fromMarblesToResources(takenMarbles, whiteMarbleChoices);
 
@@ -131,17 +143,16 @@ public class ActionHandler {
 
         Map<Resource,Integer> discardedResources =cliView.insertBoughtResources(newWarehouse,fullLeaderSlots, boughtResources);
 
-        if(fullLeaderSlots.getVal1()==null){
+        if(fullLeaderSlots.getVal1()==null)
             fullLeaderSlots.setVal1(0);
-        }
-        if(fullLeaderSlots.getVal2()==null){
+
+        if(fullLeaderSlots.getVal2()==null)
             fullLeaderSlots.setVal2(0);
-        }
+
         serverHandler.send(new UseMarketEvent(rowOrColumn,index,newWarehouse,discardedResources,fullLeaderSlots.getVal1(),fullLeaderSlots.getVal2(),whiteMarbleChoices ));
+
         done=true;
     }
-
-
 
     /**
      * Guides the player throught the initial choice of leaderCards and resources
@@ -163,6 +174,7 @@ public class ActionHandler {
             resource1 = cliView.askResource();
             position1= cliView.askWarehouseCell();
         }
+
         if(clientModel.getMyIndex()==3){//per il secondo e terzo 1 res, per il quarto 2
             resource2 = cliView.askResource();
             position2= cliView.askWarehouseCell();
@@ -180,12 +192,13 @@ public class ActionHandler {
      * Helper method of initial choice.
      */
     private boolean checkInitialChoice(Resource resource1, Resource resource2, SameTypePair<Integer> pos1, SameTypePair<Integer> pos2){
-        if(pos1.getVal1().equals(pos2.getVal1()) && pos1.getVal2().equals(pos2.getVal2())){
+
+        if(pos1.getVal1().equals(pos2.getVal1()) && pos1.getVal2().equals(pos2.getVal2()))
             return false;
-        }
-        if(resource1==resource2 && !pos1.getVal1().equals(pos2.getVal1())){
+
+        if(resource1==resource2 && !pos1.getVal1().equals(pos2.getVal1()))
             return false;
-        }
+
         return resource1 == resource2 || !pos1.getVal1().equals(pos2.getVal1());
     }
 
@@ -193,6 +206,7 @@ public class ActionHandler {
      * Activate/discard leaderCards
      */
     public void leaderAction(){
+
         Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
@@ -200,17 +214,16 @@ public class ActionHandler {
         }
 
         List<Integer> answer = cliView.askLeaderCard();
-
         char activeOrDiscard = answer.get(0)==0 ? 'a': 'd';
 
         serverHandler.send(new LeaderCardActionEvent(activeOrDiscard,answer.get(1)));
-
     }
 
     /**
      * this enables the user to end his turn.
      */
     public void endTurn(){
+
         Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
@@ -224,15 +237,18 @@ public class ActionHandler {
      * enables the player to buy a card from the board
      */
     public void buyDevelopmentCard(){
+
+        Styler.cls();
         if (done){
             cliView.showErrorMessage("You've already done an action");
             return;
         }
-        Styler.cls();
+
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
+
         SameTypePair<Integer> position = cliView.askDevelopmentCard();
 
         serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.askCardPile()));
@@ -243,11 +259,12 @@ public class ActionHandler {
      * enables the player to activate the production.
      */
     public void activateProduction(){
+
+        Styler.cls();
         if (done){
             cliView.showErrorMessage("You've already done an action");
             return;
         }
-        Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -272,6 +289,7 @@ public class ActionHandler {
         SameTypePair<Resource> leaderProductionResources = cliView.askLeaderProductions();
 
         serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResources.getVal1(),leaderProductionResources.getVal2()));
-    done=true;
+        done=true;
     }
+
 }

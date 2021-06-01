@@ -37,10 +37,9 @@ public class Controller extends ServerObservable {
         return preGameStarted;
     }
 
-    public void setPreGameStarted(){
-        preGameStarted=true;
+    public void setPreGameStarted(Boolean set){
+        this.preGameStarted=set;
     }
-
 
     public Game getGame(){
         return game;
@@ -58,7 +57,7 @@ public class Controller extends ServerObservable {
      * @throws FileNotFoundException for the leaderCards
      */
     public void gameStarter() throws FileNotFoundException {
-        setPreGameStarted();
+        preGameStarted=true;
 
         //in teoria non serve, c'è già il controllo prima di chiamarlo
         /*synchronized (this) {

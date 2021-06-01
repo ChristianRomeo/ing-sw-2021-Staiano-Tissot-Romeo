@@ -88,7 +88,7 @@ public class ServerHandler implements Runnable{
                 view.getClientModel().setMyNickname(serverAnswer.getNickname());                            //si imposta il nick ricevuto
 
                 if (!Objects.equals(view.getClientModel().getMyNickname(), old))
-                    view.showMessage(Styler.color('g',"Your new username is " + view.getClientModel().getCurrentPlayerNick()));
+                    view.showMessage(Styler.color('g',"Your new username is " + view.getClientModel().getMyNickname()));
 
                 if(serverAnswer.isFirstPlayer()){
                     int wantedNumPlayers = view.askNumPlayer();                                             //qui si chiede il numero di giocatori voluto all'utente

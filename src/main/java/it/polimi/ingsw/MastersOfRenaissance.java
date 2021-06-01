@@ -18,7 +18,7 @@ import java.util.Objects;
  * @see it.polimi.ingsw.controller
  */
 public class MastersOfRenaissance {
-     public static FileInputStream save=null;
+     private static FileInputStream save=null;
      private static Configs config=null;
     /**
      * Initializes and launches the MOR game.
@@ -79,4 +79,7 @@ public class MastersOfRenaissance {
         }
     }
 
+    public static FileInputStream getSave() {
+        return save;
+    }
 }
