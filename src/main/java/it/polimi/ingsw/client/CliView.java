@@ -96,13 +96,15 @@ public class CliView implements View {
     @Override
     public int askNumPlayer(){
         Styler.cls();
-        showMessage("Choose how many player will play: ");
-        String numPlayer = scanner.nextLine();
+        showMessage("Choose how many players will play: ");
+        /*String numPlayer = scanner.nextLine();                          //todo: ASKNUMBER() ?
         while (checkNumber(numPlayer,1,4)==null){
             showErrorMessage("Invalid choice! Try again: ");
             numPlayer = scanner.nextLine();
         }
-        return checkNumber(numPlayer,1,4);
+        return checkNumber(numPlayer,1,4);*/
+
+        return askNumber(1,4);
     }
 
 
@@ -119,13 +121,15 @@ public class CliView implements View {
         leaderCard.forEach(this::showLeaderCard);
         showMessage("Legend: Stones -"+Styler.ANSI_STONE+" Shields -"+Styler.ANSI_SHIELD+" Servants -"+Styler.ANSI_SERVANT+" Coins -"+Styler.ANSI_COIN+" Yellow/Green/Blue/Purple Cards -"+Styler.ANSI_YELLOWCARD+Styler.ANSI_GREENCARD+Styler.ANSI_BLUECARD+Styler.ANSI_PURPLECARD);
         showMessage( Styler.format('b', "\n"+Styler.ANSI_TALK +"Choose the first card to discard (0,1,2,3) :"));
-        int index1 = askNumber(0,3);
+        int index1= askNumber(0,3);
         showMessage( Styler.format('b', Styler.ANSI_TALK +"Choose the second card to discard (0,1,2,3) :"));
         int index2 = askNumber(0,3);
+
         while(index1 == index2){
             showErrorMessage("You can't discard the same card twice! Try again, Choose the second card to discard (0,1,2,3) :");
             index2 = askNumber(0,3);
         }
+
         return new SameTypePair<>(index1,index2);
     }
 
@@ -142,22 +146,38 @@ public class CliView implements View {
         leaderCard.forEach(this::showLeaderCard);
 
         showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose action:  [activation - 0 / discard - 1] :"));
+        /*
         String string =scanner.nextLine();
+        if (actionHandler.newGame)
+            actionHandler.getNewGame(string);
+        else
         while (checkNumber(string,0,1)==null) {
             showErrorMessage("Invalid choice! Try again: ");
             string =scanner.nextLine();
-        }
+            if (actionHandler.newGame)
+                actionHandler.getNewGame(string);
+        }*/
+        int choice = askNumber(0,1);
 
         //todo:controllare se carta già attiva o scartata
         showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose what card:"));
+        /*
         String chosenCard = scanner.nextLine();
+        if (actionHandler.newGame)
+            actionHandler.getNewGame(string);
+        else
         while (checkNumber(chosenCard,0,1)==null){
             showErrorMessage("Invalid choice! Try again: ");
             chosenCard = scanner.nextLine();
-        }
+            if (actionHandler.newGame)
+                actionHandler.getNewGame(string);
+        }*/
+        int card = askNumber(0,1);
         List<Integer> ret = new ArrayList<>();
-        ret.add(checkNumber(string,0,1));
-        ret.add(checkNumber(chosenCard,0,1));
+        //ret.add(checkNumber(string,0,1));
+        //ret.add(checkNumber(chosenCard,0,1));
+        ret.add(choice);
+        ret.add(card);
 
         return ret;
     }
@@ -172,20 +192,21 @@ public class CliView implements View {
         showDevelopmentCardBoard();
         SameTypePair<Integer> position = new SameTypePair<>();
         showMessage("\nChoose the card position, select row: ");
-        String string = scanner.nextLine();
+        /*String string = scanner.nextLine();
         while(checkNumber(string,0,2)==null){
             showErrorMessage("Invalid choice! Try again: ");
             string = scanner.nextLine();
-        }
-        position.setVal1(checkNumber(string,0,2));
+        }*/
+        position.setVal1(askNumber(0,2));
         showMessage("Now select column: ");
-        string = scanner.nextLine();
+
+        /*string = scanner.nextLine();
         while(checkNumber(string,0,3)==null){
             showErrorMessage("Invalid choice! Try again: ");
             string = scanner.nextLine();
-        }
+        }*/
 
-        position.setVal2(checkNumber(string,0,3));
+        position.setVal2(askNumber(0,3));
         return position;
     }
 
@@ -199,12 +220,13 @@ public class CliView implements View {
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
         showMessage("Chose the pile where you want to insert your card (0,1,2): ");
 
-        String string = scanner.nextLine();
+        /*String string = scanner.nextLine();
         while(checkNumber(string,0,2)==null){
             showErrorMessage("Invalid choice! Try again: ");
             string = scanner.nextLine();
         }
-        return checkNumber(string,0,2);
+        return checkNumber(string,0,2);*/
+        return askNumber(0,2);
     }
 
     /**
@@ -220,11 +242,7 @@ public class CliView implements View {
         //todo: se lo slot è vuoto allora non chiedere se si vuole attivare la produzione li
         for(int i=1; i<=3; i++){
             showMessage("Do you want to activate the production of the card in position "+i+ " ? y/n");
-            choice = scanner.nextLine();
-            while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
-                showErrorMessage("Invalid choice! Try again: ");
-                choice = scanner.nextLine();
-            }
+            choice = askChoice();
 
             if(choice.equalsIgnoreCase("y"))
                 positions.add(i-1);
@@ -240,11 +258,8 @@ public class CliView implements View {
     public SameTypeTriple<Resource> askBaseProduction(){
         SameTypeTriple<Resource> baseProductionResources = new SameTypeTriple<>();
         showMessage(Styler.ANSI_TALK+"Do you want to activate the base production? y/n");
-        String choice = scanner.nextLine();
-        while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
-            showErrorMessage("Invalid choice! Try again: ");
-            choice = scanner.nextLine();
-        }
+        String choice = askChoice();
+
         if(choice.equalsIgnoreCase("n"))
             return null;
 
@@ -271,11 +286,8 @@ public class CliView implements View {
                 showMessage("--------------------");
                 showLeaderCard(leaderCards.get(i));
                 showMessage(Styler.ANSI_TALK+"Do you want to activate this card production? y/n");
-                choice = scanner.nextLine();
-                while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
-                    showErrorMessage("Invalid choice! Try again: ");
-                    choice = scanner.nextLine();
-                }
+                choice = askChoice();
+
                 if(choice.equalsIgnoreCase("y")){
                     showMessage("Choose what resource you want to product: ");
                     chosenResources.set(askResource(),i);
@@ -292,9 +304,13 @@ public class CliView implements View {
     public Resource askResource(){
         showMessage(Styler.ANSI_TALK+"Choose a resource to obtain (*Stone* -"+Styler.ANSI_STONE+" *Shield* -"+Styler.ANSI_SHIELD+" *Servant* -"+Styler.ANSI_SERVANT+" *Coin* -"+Styler.ANSI_COIN+"):");
         String choice = scanner.nextLine();
+        if (actionHandler.newGame)
+            actionHandler.getNewGame(choice);
         while(!choice.equalsIgnoreCase("coin")&& !choice.equalsIgnoreCase("shield")&&!choice.equalsIgnoreCase("stone") &&!choice.equalsIgnoreCase("servant")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
+            if (actionHandler.newGame)
+                actionHandler.getNewGame(choice);
         }
         return Resource.valueOf(choice.toUpperCase());
     }
@@ -306,28 +322,23 @@ public class CliView implements View {
         showMarket();
         showMessage(Styler.ANSI_TALK+"Do you want to select a row or a column? r/c");
         String choice = scanner.nextLine();
+        if (actionHandler.newGame)
+            actionHandler.getNewGame(choice);
         while(!choice.equalsIgnoreCase("r") && !choice.equalsIgnoreCase("c")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
+            if (actionHandler.newGame)
+                actionHandler.getNewGame(choice);
         }
         rowOrColumn = choice.charAt(0);
 
         if(rowOrColumn=='r'){
             showMessage(Styler.ANSI_TALK+"What row do you want to select? (0,1,2)");
-            choice = scanner.nextLine();
-            while(checkNumber(choice,0,2)==null){
-                showErrorMessage("Invalid choice! Try again: ");
-                choice = scanner.nextLine();
-            }
-            index = checkNumber(choice,0,2);
+            index = askNumber(0,2);
+
         }else{
             showMessage(Styler.ANSI_TALK+"What column do you want to select? (0,1,2,3)");
-            choice = scanner.nextLine();
-            while(checkNumber(choice,0,3)==null){
-                showErrorMessage("Invalid choice! Try again: ");
-                choice = scanner.nextLine();
-            }
-            index = checkNumber(choice,0,3);
+            index = askNumber(0,3);
         }
         Styler.cls();
         return new Pair<>(rowOrColumn,index);
@@ -343,12 +354,7 @@ public class CliView implements View {
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
 
         showMessage(Styler.ANSI_TALK+"You have two white marble leader cards active, which one do you want to use for this white marble? 0/1");
-        String choice = scanner.nextLine();
-        while(checkNumber(choice,0,1)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            choice = scanner.nextLine();
-        }
-        return checkNumber(choice,0,1);
+        return askNumber(0,1);
     }
 
     /**
@@ -514,20 +520,44 @@ public class CliView implements View {
      * @return the chosen number.
      */
     public int askNumber(int lowLimit, int highLimit){
+
         String choice = scanner.nextLine();
-        while(checkNumber(choice,lowLimit,highLimit)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            choice = scanner.nextLine();
-        }
+        if (actionHandler.newGame)
+                actionHandler.getNewGame(choice);
+        else
+            while(checkNumber(choice,lowLimit,highLimit)==null){
+                showErrorMessage("Invalid choice! Try again: ");
+                choice = scanner.nextLine();
+                if (actionHandler.newGame)
+                    actionHandler.getNewGame(choice);
+            }
+
         return checkNumber(choice, lowLimit ,highLimit);
+
+    }
+
+    public String askChoice(){
+        String choice = scanner.nextLine();
+        if (actionHandler.newGame)
+            actionHandler.getNewGame(choice);
+        else
+            while(!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
+                showErrorMessage("Invalid choice! Try again: ");
+                choice = scanner.nextLine();
+                if (actionHandler.newGame)
+                    actionHandler.getNewGame(choice);
+            }
+            return choice.toLowerCase();
     }
 
         public void askNewGame() {
 
         showMessage("\n"+ Styler.ANSI_TALK + "Do you wish to play again? [y/n]: ");
-        String choice = scanner.nextLine();
 
-        while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
+        actionHandler.newGame=true;
+
+        //String choice = scanner.nextLine();
+        /*while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
             showErrorMessage("Invalid choice! Try again: ");
             choice = scanner.nextLine();
         }
@@ -540,7 +570,7 @@ public class CliView implements View {
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
 
@@ -581,7 +611,7 @@ public class CliView implements View {
             System.out.print("\n");
         }
         showMessage("");
-        System.out.flush();//prova
+
     }
 
     @Override
@@ -713,14 +743,13 @@ public class CliView implements View {
      * @param personalCardBoard is the board you want to show.
      */
     public void showPersonalCardBoard(PersonalCardBoard personalCardBoard){
-        for(int i=0; i<3; ++i){
+        for(int i=0; i<3; ++i)
             if(!personalCardBoard.isCardPileEmpty(i)){
                 System.out.println("SLOT "+ (i+1));
                 showCard(personalCardBoard.getUpperCard(i));
-            }else{
+            }else
                 System.out.println("\nEMPTY SLOT");
-            }
-        }
+
     }
 
     /**
@@ -755,20 +784,19 @@ public class CliView implements View {
     @Override
     public void showLadderBoard(EndGameEventS2C endGameEvent){
         Styler.cls();
-        if(endGameEvent.getWinners().contains(clientModel.getMyNickname())){
+        if(endGameEvent.getWinners().contains(clientModel.getMyNickname()))
             showMessage("You won!!!"+Styler.ANSI_VICTORY);
-        }else{
+        else
             showMessage("You lost!!!"+Styler.ANSI_LOST);
-        }
 
         showMessage(Styler.format('b',Styler.ANSI_TALK + "This is the LadderBoard of the game:"+ Styler.ANSI_VICTORY ));
 
-        for(String nickname : endGameEvent.getVictoryPoints().keySet()){
+        for(String nickname : endGameEvent.getVictoryPoints().keySet())
             showMessage(Styler.format('b', "Player ▷ " + nickname + " has victory points: " + endGameEvent.getVictoryPoints().get(nickname)));
-        }
-        for(String nickname: endGameEvent.getWinners()){
+
+        for(String nickname: endGameEvent.getWinners())
             showMessage(nickname + " is a winner!");
-        }
+
     }
 
     /**

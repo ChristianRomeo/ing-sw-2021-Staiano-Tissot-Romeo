@@ -1,9 +1,13 @@
 package it.polimi.ingsw.client;
 
 
+import it.polimi.ingsw.MastersOfRenaissance;
 import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 /**
@@ -14,6 +18,7 @@ public class ActionHandler {
     private final CliView cliView;
     private final ServerHandler serverHandler;
     private boolean done;
+    public boolean newGame= false;
 
     /**
      * Instantiated by the cliView
@@ -50,8 +55,27 @@ public class ActionHandler {
             case "MOSTRALEADERS" -> cliView.showPlayersLeaderCards();
             case "MOSTRABOARDS" -> cliView.showPlayersBoard();
             case "EXIT" -> exit();
+            case "Y" -> getNewGame("y");
+            case "N" -> getNewGame("N");
             default -> cliView.showErrorMessage("Invalid choice! Try again: ");
         }
+
+    }
+
+    public void getNewGame(String choice) {
+        if (newGame){
+
+            if (choice.equalsIgnoreCase("y")) {
+                try {
+                    MastersOfRenaissance.main("cli ".split(" "));
+                } catch (IOException | URISyntaxException e) {
+                    System.out.println("Error while restarting the application." +e);
+                }
+            }else
+                System.exit(0);
+            newGame=false;
+        }else
+            cliView.showErrorMessage("Invalid choice! Try again: ");
 
     }
 

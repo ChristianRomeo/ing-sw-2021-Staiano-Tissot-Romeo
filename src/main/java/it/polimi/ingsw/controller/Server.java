@@ -30,21 +30,24 @@ public class Server {
 
     public static void main(Configs in) throws IOException {
         Server server = new Server();
-        try{
-            server.launch(in);
-        }catch (IOException e){
-            logger.warning("Fatal error: Could not start the server. Cannot open server on port " + Configs.getServerPort(in)); //server catch
-            serverSocket.close();
-        }
+        server.launch(in);
     }
 
     /**
      *
      * @see {$link} https://stackoverflow.com/questions/4684727/java-serversocket-why-is-the-ip-address-0-0-0-0-yet-i-can-still-connect-remote/4684806
      */
-    public void launch(Configs in) throws IOException {   //eccezione per il file di configurazione della porta e ip
+    public void launch(Configs in) {   //eccezione per il file di configurazione della porta e ip
 
-        serverSocket = new ServerSocket(Configs.getServerPort(in));     //ascolto, una porta un server per tutti i clienti
+        try {
+            serverSocket = new ServerSocket(Configs.getServerPort(in));     //ascolto, una porta un server per tutti i clienti
+        } catch (IOException e) {
+            logger.severe("Fatal error: Could not start the server.\n Conifg file isn't compatible, Cannot open server on port " + Configs.getServerPort(in) +"\nFalling back to port 9876..."); //server catch
+            try {
+                serverSocket = new ServerSocket(9876);
+            } catch (IOException ignored) {}
+
+        }
 
         logger.info("Server started successfully on port "+ serverSocket.getLocalSocketAddress());
 
