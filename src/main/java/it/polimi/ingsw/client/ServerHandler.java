@@ -64,9 +64,18 @@ public class ServerHandler implements Runnable{
             input = new ObjectInputStream(socket.getInputStream());
 
             isConnected=true;
-        }catch (Exception e){
-            view.showErrorMessage("error during setUpConnection (cause: server down or config file) "); // da fare meglio
-            closeConnection();
+        }catch (IOException e){
+            view.showErrorMessage("error during setUpConnection (cause: server down or config file)\nTrying to fall back to 127.0.0.1:9876 ...");
+            if (socket==null)
+                try {
+                    socket = new Socket("127.0.0.1", 9876);
+                    output = new ObjectOutputStream(socket.getOutputStream());
+                    input = new ObjectInputStream(socket.getInputStream());
+                    isConnected=true;
+                }catch (IOException l) {
+                    closeConnection();
+                }
+
         }
 
         if (isConnected){

@@ -67,7 +67,10 @@ public class ActionHandler {
 
             if (choice.equalsIgnoreCase("y")) {
                 try {
+                    if (MastersOfRenaissance.save==null)
                     MastersOfRenaissance.main("cli ".split(" "));
+                    else
+                        MastersOfRenaissance.main("cli save ".split(" "));
                 } catch (IOException | URISyntaxException e) {
                     System.out.println("Error while restarting the application." +e);
                 }

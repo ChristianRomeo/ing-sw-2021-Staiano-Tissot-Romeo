@@ -552,9 +552,8 @@ public class CliView implements View {
 
         public void askNewGame() {
 
-        showMessage("\n"+ Styler.ANSI_TALK + "Do you wish to play again? [y/n]: ");
-
         actionHandler.newGame=true;
+        showMessage("\n"+ Styler.ANSI_TALK + "Do you wish to play again? [y/n]: ");
 
         //String choice = scanner.nextLine();
         /*while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
