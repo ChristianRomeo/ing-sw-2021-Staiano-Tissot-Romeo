@@ -459,10 +459,11 @@ public class GuiView extends Application implements View {
 
     /**
      * Shows a player Faith Track
-     *
+     * @param faithTrackPosition is the player's faith track position
+     * @param showLorenzoFT is used to check if the method has to show Lorenzo's Faith Track position or not
      */
     @Override
-    public void showFaithTrack(int faithTrackPosition) {
+    public void showFaithTrack(int faithTrackPosition, boolean showLorenzoFT) {
 
     }
 

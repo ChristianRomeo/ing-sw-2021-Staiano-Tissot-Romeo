@@ -69,7 +69,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
     public void handleEvent(IllegalActionEventS2C event) {
         Styler.cls();
         cliView.showErrorMessage("Illegal action: "+event.getIllegalAction().getDescription());
-        //show choices
+        //todo: show choices
     }
 
     @Override

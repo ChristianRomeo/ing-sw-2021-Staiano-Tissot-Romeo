@@ -164,9 +164,10 @@ public interface View {
 
     /**
      * Shows a player Faith Track
-     *
+     * @param faithTrackPosition is the player's faith track position
+     * @param showLorenzoFT is used to check if the method has been called by "showMyState" method or not
      */
-    void showFaithTrack(int faithTrackPosition);
+    void showFaithTrack(int faithTrackPosition, boolean showLorenzoFT);
 
     /**
      * Notify all that a player has been disconnected (and the game has ended ?FA)

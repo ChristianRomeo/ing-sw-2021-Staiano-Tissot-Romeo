@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
-
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
@@ -156,7 +155,7 @@ public class CliView implements View {
         int choice = askNumber(0,1);
 
         //todo:controllare se carta già attiva o scartata
-        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose what card:"));
+        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose which card:"));
         /*
         String chosenCard = scanner.nextLine();
         if (actionHandler.newGame)
@@ -187,14 +186,14 @@ public class CliView implements View {
         //todo:riguardare il modo di chiedere
         showDevelopmentCardBoard();
         SameTypePair<Integer> position = new SameTypePair<>();
-        showMessage("\nChoose the card position, select row: ");
+        showMessage("\nChoose the card position, select a row: ");
         /*String string = scanner.nextLine();
         while(checkNumber(string,0,2)==null){
             showErrorMessage("Invalid choice! Try again: ");
             string = scanner.nextLine();
         }*/
         position.setVal1(askNumber(0,2));
-        showMessage("Now select column: ");
+        showMessage("Now select a column: ");
 
         /*string = scanner.nextLine();
         while(checkNumber(string,0,3)==null){
@@ -262,7 +261,7 @@ public class CliView implements View {
         showMessage(Styler.ANSI_TALK+"Now please choose two resources you want to use for the production: ");
         baseProductionResources.setVal1(askResource());
         baseProductionResources.setVal2(askResource());
-        showMessage(Styler.ANSI_TALK+"You have to choose what resource you want to produce: ");
+        showMessage(Styler.ANSI_TALK+"You have to choose which resource you want to produce: ");
         baseProductionResources.setVal3(askResource());
 
         return baseProductionResources;
@@ -285,7 +284,7 @@ public class CliView implements View {
                 choice = askChoice();
 
                 if(choice.equalsIgnoreCase("y")){
-                    showMessage("Choose what resource you want to product: ");
+                    showMessage("Choose which resource you want to product: ");
                     chosenResources.set(askResource(),i);
                 }
             }
@@ -349,7 +348,7 @@ public class CliView implements View {
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
 
-        showMessage(Styler.ANSI_TALK+"You have two white marble leader cards active, which one do you want to use for this white marble? 0/1");
+        showMessage(Styler.ANSI_TALK+"You have two white marble leader cards activated, which one do you want to use for this white marble? 0/1");
         return askNumber(0,1);
     }
 
@@ -695,35 +694,41 @@ public class CliView implements View {
         int numPlayer;
         Styler.cls();
         showMessage(Styler.format('b', "Faith Track player positions: \n"));
+        if(clientModel.getNicknames().size() == 1)
+            showFaithTrack(clientModel.getPlayersFTPositions().get(0), true);
         for(int i = 0; i < clientModel.getNicknames().size(); i++)
         {
             numPlayer = i + 1;
 
-            showMessage("Player "+numPlayer+" "+'"'+clientModel.getNicknames().get(i)+'"');
-            showFaithTrack(clientModel.getPlayersFTPositions().get(i));
-            /*
-            showMessage("Faith Track position is "+clientModel.getPlayersFTPositions().get(i).toString());
-            showMessage("Pope Favor tile 1 (5-8) status is "+clientModel.getPlayersPopeTiles().get(i).getVal1().toString());
-            showMessage("Pope Favor tile 2 (12-16) status is "+clientModel.getPlayersPopeTiles().get(i).getVal2().toString());
-            showMessage("Pope Favor tile 3 (19-24) status is "+clientModel.getPlayersPopeTiles().get(i).getVal3().toString());
-            */
+            showMessage("\n\nPlayer "+numPlayer+" "+'"'+clientModel.getNicknames().get(i)+'"');
+            showFaithTrack(clientModel.getPlayersFTPositions().get(i), false);
 
             //show current victory points ??
             showMessage("--------------------");
         }
         //show list of actions
+
     }
 
+    /**
+     * Shows a player Faith Track
+     * @param faithTrackPosition is the player's faith track position
+     * @param showLorenzoFT is used to check if the method has to show Lorenzo's Faith Track position or not
+     */
     @Override
-    public void showFaithTrack(int faithTrackPosition){
+    public void showFaithTrack(int faithTrackPosition, boolean showLorenzoFT){
         //if single player mode then show Lorenzo's faith track position
         if(clientModel.getNicknames().size() == 1)
         {
-            showMessage("Your Faith Track position is "+faithTrackPosition);
-            showMessage("Your Pope Favor tile 1 (5-8) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal1().toString());
-            showMessage("Your Pope Favor tile 2 (12-16) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal2().toString());
-            showMessage("Your Pope Favor tile 3 (19-24) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal3().toString());
-            showMessage("\n\nLorenzo's Faith Track position is "+clientModel.getBlackCrossPosition());
+            if(!showLorenzoFT)
+            {
+                showMessage(Styler.format('b', "Your Faith Track position: " + faithTrackPosition));
+                showMessage("Your Pope Favor tile 1 (5-8) status is " + clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal1().toString());
+                showMessage("Your Pope Favor tile 2 (12-16) status is " + clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal2().toString());
+                showMessage("Your Pope Favor tile 3 (19-24) status is " + clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal3().toString());
+            }
+            else
+                showMessage("\n\nLorenzo's Faith Track position: "+clientModel.getBlackCrossPosition());
         }
         else
         {
@@ -810,32 +815,39 @@ public class CliView implements View {
         showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
         System.out.println("\n\n");
-        showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()));
+        showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()), false);
         showMessage("--------------------");
     }
 
     @Override
     public void showOthersState(){
        //creates a list containing all nicknames except for the player who called it
-       List<String> nicknamesExcept = new ArrayList<>();
-       for(int i = 0; i < clientModel.getNicknames().size(); i++)
-       {
-           if(!clientModel.getNicknames().get(i).equals(clientModel.getMyNickname()))
-               nicknamesExcept.add(clientModel.getNicknames().get(i));
-       }
+        if(clientModel.getNicknames().size() == 1)
+            showMessage("\n\nLorenzo's Faith Track position is "+clientModel.getBlackCrossPosition());
 
-       for(int i = 0; i < nicknamesExcept.size(); i++)
-       {
-           showMessage("Player"+" "+'"'+nicknamesExcept.get(i)+'"');
-           showMessage(Styler.format('b', "\n\nWarehouse:\n"));
-           showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
-           showMessage(Styler.format('b', "\n\nStrongbox:\n"));
-           showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
-           showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
-           showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
-           System.out.println("\n\n");
-           showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()));
-       }
+        else
+        {
+            List<String> nicknamesExcept = new ArrayList<>();
+            for(int i = 0; i < clientModel.getNicknames().size(); i++)
+            {
+                if(!clientModel.getNicknames().get(i).equals(clientModel.getMyNickname()))
+                    nicknamesExcept.add(clientModel.getNicknames().get(i));
+            }
+
+            for (String s : nicknamesExcept) {
+                showMessage("Player" + " " + '"' + s + '"');
+                showMessage(Styler.format('b', "\n\nWarehouse:\n"));
+                showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
+                showMessage(Styler.format('b', "\n\nStrongbox:\n"));
+                showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
+                showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
+                showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
+                System.out.println("\n\n");
+                showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()), true);
+            }
+
+        }
+
        showMessage("--------------------");
     }
 
