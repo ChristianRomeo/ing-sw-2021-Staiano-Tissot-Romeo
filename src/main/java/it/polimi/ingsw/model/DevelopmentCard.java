@@ -34,10 +34,18 @@ public class DevelopmentCard implements Serializable {
 
     public int getId(){ return id; }
 
+    /**
+     * getter of the leader card's type
+     * @return  the leader card's type
+     */
     public CardType getType() {
         return type;
     }
 
+    /**
+     * getter of the leader card's level
+     * @return  the leader card's level
+     */
     public int getLevel() {
         return level;
     }
@@ -45,6 +53,11 @@ public class DevelopmentCard implements Serializable {
     /**
      * this method returns the (original) cost of the card
      * @return  the cost of the card
+     */
+
+    /**
+     * getter of the leader card's cost
+     * @return  the leader card's cost
      */
     public Map<Resource, Integer> getCost() {
         if(cost!=null){
@@ -71,10 +84,18 @@ public class DevelopmentCard implements Serializable {
         return null;
     }
 
+    /**
+     * getter of the leader card's victory points
+     * @return  the leader card's victory points
+     */
     public int getVictoryPoints() {
         return victoryPoints;
     }
 
+    /**
+     * getter of the required resources needed to activate the leader card
+     * @return  a map containing all the resources needed, with their specific needed amount
+     */
     public Map<Resource, Integer> getRequiredResources() {
         if(requiredResources!=null){
             return new HashMap<>(requiredResources);
@@ -82,6 +103,10 @@ public class DevelopmentCard implements Serializable {
         return null;
     }
 
+    /**
+     * getter of the leader card's produced resources
+     * @return  a map containing all the resources produced, with their specific produced amount
+     */
     public Map<Resource, Integer> getProducedResources() {
         if(producedResources!=null){
             return new HashMap<>(producedResources);
@@ -89,6 +114,10 @@ public class DevelopmentCard implements Serializable {
         return null;
     }
 
+    /**
+     * getter of the leader card's produced faith points
+     * @return  the leader card's produced faith points
+     */
     public int getProducedFaithPoints() {return producedFaithPoints;}
 
     /**

@@ -91,7 +91,7 @@ public class ServerHandler implements Runnable{
                     view.showMessage(Styler.color('g',"Your new username is " + view.getClientModel().getMyNickname()));
 
                 if(serverAnswer.isFirstPlayer()){
-                    int wantedNumPlayers = view.askNumPlayer();                                             //qui si chiede il numero di giocatori voluto all'utente
+                    int wantedNumPlayers = view.askNumPlayers();                                             //qui si chiede il numero di giocatori voluto all'utente
                     send(new NumPlayerEvent(wantedNumPlayers));
                     if (wantedNumPlayers!=1)
                         view.showMessage("Now please wait for others players...");

@@ -86,7 +86,7 @@ public class InitialSceneController extends FXMLController {
 
 
 /*
-    public void askNumPLayer(){
+    public void askNumPLayers(){
         upperLabel.setText("Inserisci il numero giocatori (1-4): ");
         textField.clear();
         upperLabel.setVisible(true);

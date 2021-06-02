@@ -175,7 +175,7 @@ View
 +launcher()
 +askActions()
 +askNickname(): String
-+askNumPlayer(): int
++askNumPlayers(): int
 +getClientModel(): ClientModel
 +setUpGame(Game)
 +askChoiceLeaderCards(): TreeSet&lt;Integer&gt;

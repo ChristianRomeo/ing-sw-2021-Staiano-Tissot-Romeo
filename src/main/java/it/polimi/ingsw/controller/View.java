@@ -28,7 +28,7 @@ public interface View {
     ClientModel getClientModel();
 
     //chide il numero di giocatori voluto
-    int askNumPlayer();
+    int askNumPlayers();
 
     /**
      * chiede se vuole fare una nuova partita
@@ -72,10 +72,23 @@ public interface View {
     void showPlayersLeaderCards();
 
     /**
-     * Shows the faith track
+     * Shows the faith track of the match
      *
      */
-    void showFaithTrack();
+    void showFaithTracks();
+
+
+    /**
+     * Shows a player's overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     *
+     */
+    void showMyState();
+
+    /**
+     * Shows all players overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     * except for the player who called it
+     */
+    void showOthersState();
 
     /**
      * Shows the LadderBoard of the match
@@ -148,6 +161,12 @@ public interface View {
      * @param strongbox to show
      */
     void showStrongbox(Map<Resource,Integer> strongbox);
+
+    /**
+     * Shows a player Faith Track
+     *
+     */
+    void showFaithTrack(int faithTrackPosition);
 
     /**
      * Notify all that a player has been disconnected (and the game has ended ?FA)

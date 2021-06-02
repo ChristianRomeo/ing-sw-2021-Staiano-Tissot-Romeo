@@ -57,11 +57,11 @@ public class EventsHandlerCLI implements ServerEventObserver {
                 cliView.showMessage("scrivi SCEGLI per iniziare la scelta");   //in automatico ActionHandler.initialchoice();
             else
             if(clientModel.hasGameStarted())
-                cliView.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
+                cliView.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
 
         }else{
             cliView.showMessage(Styler.ANSI_TALK+"It's "+event.getNickname()+"'s turn");
-            cliView.showMessage("You can chose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
+            cliView.showMessage("You can choose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
         }
     }
 
@@ -96,12 +96,12 @@ public class EventsHandlerCLI implements ServerEventObserver {
         if(clientModel.getMyNickname().equals(clientModel.getNicknames().get(0))){
 
             cliView.showMessage(Styler.color('g',"It's your turn!"));
-            cliView.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
+            cliView.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
         }
         else{
             //Styler.cls();
             cliView.showMessage(Styler.ANSI_TALK+"It's "+ clientModel.getNicknames().get(0)+"'s turn.");
-            cliView.showMessage("You can chose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
+            cliView.showMessage("You can choose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
         }
     }
 

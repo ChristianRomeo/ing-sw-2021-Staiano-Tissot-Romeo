@@ -49,7 +49,7 @@ public class ClientTest {
     }
 
     @Test
-    public void showStrongboxTest() throws Exception {
+    public void showStrongboxTest() {
         CliView cliView = new CliView();
         Map<Resource,Integer> strongbox = new HashMap<>();
         strongbox.put(Resource.COIN,3);
@@ -59,4 +59,20 @@ public class ClientTest {
 
         cliView.showStrongbox(strongbox);
     }
+
+    @Test
+    public void checkNumberTest() {
+        CliView cliView = new CliView();
+        boolean check;
+        check = cliView.checkNumber("3", 1,5) == 3;
+        assert(check);
+    }
+
+    @Test
+    public void checkNicknameTest() {
+        CliView cliView = new CliView();
+         assert(!cliView.checkNickname("tom§ç"));
+         assert(cliView.checkNickname("tom -_00"));
+    }
+
 }

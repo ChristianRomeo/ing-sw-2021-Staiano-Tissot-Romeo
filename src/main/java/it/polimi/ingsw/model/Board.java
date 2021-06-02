@@ -97,14 +97,26 @@ public class Board {
         Collections.shuffle(soloActions);
     }
 
+    /**
+     * getter of the market
+     * @return the market
+     */
     public Market getMarket() {
         return market;
     }
 
+    /**
+     * getter of the development card board
+     * @return the development card board
+     */
     public DevelopmentCardBoard getDevelopmentCardBoard() {
         return developmentCardBoard;
     }
 
+    /**
+     * getter of Lorenzo player
+     * @return the player Lorenzo
+     */
     public Player getLorenzo(){
         return lorenzo;
     }

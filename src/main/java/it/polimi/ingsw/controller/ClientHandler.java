@@ -61,7 +61,7 @@ public class ClientHandler implements Runnable {
 
     private void connectionSetUp() {
 
-        //SEND setupgame dove c'è execute di asknickname, if(newgame) asknumplayer
+        //SEND setupgame dove c'è execute di asknickname, if(newgame) asknumplayers
         //il client dopo aver inserito il nick e avviato la connessione al server resta in attesa per l'esito e per l'eventuale inserimento di numero giocatori
         //manda il nickname (così se viene modificato lo sa) al client e se è first player chiede il numero di giocatori
         //send(new SetUpGame(isFirstPlayer, nickname)); //Sends the initial connectionSetUp message to the client
@@ -170,7 +170,7 @@ public class ClientHandler implements Runnable {
                     logger.warning(nickname + " has disconnected in send");
                     setDisconnected();
                 } else{// Another player has disconnected
-                    logger.warning(nickname + " was disconnected due to shutdown in send CAPIRE QUANDO SUCCEDE");
+                    logger.warning(nickname + " was disconnected due to shutdown in send");
                     closeSocket();                  //?? IDK in "teoria" è da chiudere il socket del player disconnesso, non quello attuale che scrive a tutti
                 }
             }
@@ -209,7 +209,7 @@ public class ClientHandler implements Runnable {
                     logger.warning(nickname + " has disconnected in receive");
                     setDisconnected();
                 } else{// Another player has disconnected
-                    logger.warning(nickname + " was disconnected due to shutdown in receive CAPIRE QUANDO SUCCEDE");
+                    logger.warning(nickname + " was disconnected due to shutdown in receive");
                     closeSocket();
                 }
 

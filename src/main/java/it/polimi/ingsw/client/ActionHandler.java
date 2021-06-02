@@ -53,9 +53,11 @@ public class ActionHandler {
             case "FINETURNO" -> endTurn();
             case "COMPRACARTA" -> buyDevelopmentCard();
             case "MERCATO" -> useMarket();
-            case "MOSTRAFT" -> cliView.showFaithTrack();
+            case "MOSTRAFT" -> cliView.showFaithTracks();
             case "MOSTRALEADERS" -> cliView.showPlayersLeaderCards();
             case "MOSTRABOARDS" -> cliView.showPlayersBoard();
+            case "MOSTRAMIOSTATO" -> cliView.showMyState();
+            case "MOSTRASTATOALTRI" -> cliView.showOthersState();
             case "EXIT" -> exit();
             case "Y" -> getNewGame("y");
             case "N" -> getNewGame("N");
@@ -95,7 +97,7 @@ public class ActionHandler {
     public void exit(){
 
         Styler.cls();
-        if(!clientModel.isGameEnded())
+        if(!clientModel.hasGameEnded())
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
 
             //cliView.askNewGame();

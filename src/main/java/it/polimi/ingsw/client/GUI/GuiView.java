@@ -103,7 +103,7 @@ public class GuiView extends Application implements View {
 
         currentStage.show();
 
-        //System.out.println(askNumPlayer());
+        //System.out.println(askNumPlayers());
         //currentScene.getStylesheets().add("/style.css");
     }
 
@@ -214,7 +214,7 @@ public class GuiView extends Application implements View {
     }
 
     @Override
-    public int askNumPlayer() {
+    public int askNumPlayers() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Seleziona il numero di giocatori.");
         ButtonType buttonTypeOne = new ButtonType("One");
@@ -243,7 +243,7 @@ public class GuiView extends Application implements View {
         InitialSceneController initialSceneController = (InitialSceneController) currentFXMLController;
         Platform.runLater(new Runnable() {
                               @Override public void run() {
-                                    initialSceneController.askNumPLayer();
+                                    initialSceneController.askNumPlayers();
                               }
         });
         synchronized (initialSceneController){
@@ -316,10 +316,27 @@ public class GuiView extends Application implements View {
      *
      */
     @Override
-    public void showFaithTrack() {
+    public void showFaithTracks() {
 
     }
 
+    /**
+     * Shows a player's overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     *
+     */
+    @Override
+    public void showMyState() {
+
+    }
+
+    /**
+     * Shows all players overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     * except for the player who called it
+     */
+    @Override
+    public void showOthersState() {
+
+    }
 
     /**
      * Shows the LadderBoard of the match
@@ -437,6 +454,15 @@ public class GuiView extends Application implements View {
      */
     @Override
     public void showStrongbox(Map<Resource,Integer> strongbox) {
+
+    }
+
+    /**
+     * Shows a player Faith Track
+     *
+     */
+    @Override
+    public void showFaithTrack(int faithTrackPosition) {
 
     }
 

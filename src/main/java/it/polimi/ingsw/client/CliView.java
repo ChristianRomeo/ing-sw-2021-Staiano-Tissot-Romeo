@@ -48,10 +48,10 @@ public class CliView implements View {
 
     @Override
     public void askActions(){
-        while(!clientModel.isGameEnded()){
+        while(!clientModel.hasGameEnded()){
             scanner.reset();
             //if (clientModel.hasGameStarted())   //bisogna scegliere se current o no, viene stampato "x ha usato il mercato" dopo questo show, non va bene, deve essere il contrario
-            //showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS EXIT :");
+            //showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
 
             String newAction = scanner.nextLine();
 
@@ -90,7 +90,7 @@ public class CliView implements View {
     }
 
     @Override
-    public int askNumPlayer(){
+    public int askNumPlayers(){
         Styler.cls();
         showMessage("Choose how many players will play: ");
         /*String numPlayer = scanner.nextLine();                          //todo: ASKNUMBER() ?
@@ -501,11 +501,11 @@ public class CliView implements View {
          * @return the coordinate of the cell.
          */
     public SameTypePair<Integer> askWarehouseCell(){
-        showMessage(Styler.ANSI_TALK+"Select the row of your warehouse you want to use (1,2,3)");
+        showMessage(Styler.ANSI_TALK+"Select your warehouse's row you want to use (1,2,3)");
         int row = askNumber(1,3);
         int col = 1;
         if (row!=1){
-            showMessage(Styler.ANSI_TALK+"Select the column of your warehouse you want to use (1,2" + (row==3 ? ",3)" : ")") + ":");
+            showMessage(Styler.ANSI_TALK+"Select your warehouse's column you want to use (1,2" + (row==3 ? ",3)" : ")") + ":");
              col = askNumber(1,3);
         }
         return new SameTypePair<>(row,col);
@@ -691,23 +691,51 @@ public class CliView implements View {
      * Shows Players faith tracks
      */
     @Override
-    public void showFaithTrack() {
+    public void showFaithTracks() {
         int numPlayer;
         Styler.cls();
-        showMessage(" " + Styler.format('b', "Faith Track player positions: \n"));
+        showMessage(Styler.format('b', "Faith Track player positions: \n"));
         for(int i = 0; i < clientModel.getNicknames().size(); i++)
         {
             numPlayer = i + 1;
+
             showMessage("Player "+numPlayer+" "+'"'+clientModel.getNicknames().get(i)+'"');
-            showMessage("Faith Track Position is "+clientModel.getPlayersFTPositions().get(i).toString());
-            showMessage("Pope Favor Tile 1 (5-8) status is "+clientModel.getPlayersPopeTiles().get(i).getVal1().toString());
-            showMessage("Pope Favor Tile 2 (12-16) status is "+clientModel.getPlayersPopeTiles().get(i).getVal2().toString());
-            showMessage("Pope Favor Tile 3 (19-24) status is "+clientModel.getPlayersPopeTiles().get(i).getVal3().toString());
+            showFaithTrack(clientModel.getPlayersFTPositions().get(i));
+            /*
+            showMessage("Faith Track position is "+clientModel.getPlayersFTPositions().get(i).toString());
+            showMessage("Pope Favor tile 1 (5-8) status is "+clientModel.getPlayersPopeTiles().get(i).getVal1().toString());
+            showMessage("Pope Favor tile 2 (12-16) status is "+clientModel.getPlayersPopeTiles().get(i).getVal2().toString());
+            showMessage("Pope Favor tile 3 (19-24) status is "+clientModel.getPlayersPopeTiles().get(i).getVal3().toString());
+            */
+
             //show current victory points ??
             showMessage("--------------------");
         }
-            //show list of actions
+        //show list of actions
     }
+
+    @Override
+    public void showFaithTrack(int faithTrackPosition){
+        //if single player mode then show Lorenzo's faith track position
+        if(clientModel.getNicknames().size() == 1)
+        {
+            showMessage("Your Faith Track position is "+faithTrackPosition);
+            showMessage("Your Pope Favor tile 1 (5-8) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal1().toString());
+            showMessage("Your Pope Favor tile 2 (12-16) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal2().toString());
+            showMessage("Your Pope Favor tile 3 (19-24) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal3().toString());
+            showMessage("\n\nLorenzo's Faith Track position is "+clientModel.getBlackCrossPosition());
+        }
+        else
+        {
+            showMessage(Styler.format('b', "Faith Track Position: "+faithTrackPosition));
+            showMessage("Pope Favor tile 1 (5-8) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal1().toString());
+            showMessage("Pope Favor tile 2 (12-16) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal2().toString());
+            showMessage("Pope Favor tile 3 (19-24) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal3().toString());
+        }
+
+        showMessage("--------------------");
+    }
+
 
     /**
      * Shows other player cards
@@ -771,6 +799,44 @@ public class CliView implements View {
 
         });
 
+    }
+
+    @Override
+    public void showMyState(){
+        showMessage(Styler.format('b', "\n\nWarehouse:\n"));
+        showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
+        showMessage(Styler.format('b', "\n\nStrongbox:\n"));
+        showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
+        showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
+        showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
+        System.out.println("\n\n");
+        showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()));
+        showMessage("--------------------");
+    }
+
+    @Override
+    public void showOthersState(){
+       //creates a list containing all nicknames except for the player who called it
+       List<String> nicknamesExcept = new ArrayList<>();
+       for(int i = 0; i < clientModel.getNicknames().size(); i++)
+       {
+           if(!clientModel.getNicknames().get(i).equals(clientModel.getMyNickname()))
+               nicknamesExcept.add(clientModel.getNicknames().get(i));
+       }
+
+       for(int i = 0; i < nicknamesExcept.size(); i++)
+       {
+           showMessage("Player"+" "+'"'+nicknamesExcept.get(i)+'"');
+           showMessage(Styler.format('b', "\n\nWarehouse:\n"));
+           showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
+           showMessage(Styler.format('b', "\n\nStrongbox:\n"));
+           showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
+           showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
+           showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
+           System.out.println("\n\n");
+           showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()));
+       }
+       showMessage("--------------------");
     }
 
     /**
@@ -924,8 +990,7 @@ public class CliView implements View {
     }*/
 
 
-
-                                                                //########################## CHECKS #########################
+    //########################## CHECKS #########################
 
 
     /**

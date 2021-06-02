@@ -51,6 +51,7 @@ public class PlayerWarehouse implements Serializable {
      * but I recommend to use getResource. #Utils
      * @return Resource - type
      */
+    /*
     public Resource getUpperRowResource(){
         return upperRow;
     }
@@ -60,6 +61,8 @@ public class PlayerWarehouse implements Serializable {
     public Resource getLowerRowResource(int col){
         return lowerRow.get(col);
     }
+
+     */
 
     /**
      *  this method returns all the resources in the warehouse

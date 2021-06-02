@@ -53,7 +53,11 @@ public class StatusPlayer {
                 return popeFavorTiles.get(index);
         }
 
-
+        /**
+         * Method getPopeFavorTile takes an integer between 1 and 3, and returns the
+         * the status of the first, second or third pope favor tile correspondingly
+         * @return the status of all the player's pope favor tiles
+         */
         public SameTypeTriple<PopeFavorTileStatus> getPopeFavorTiles(){
                 return popeFavorTiles;
         }
