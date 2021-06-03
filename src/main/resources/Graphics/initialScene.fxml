@@ -3,27 +3,23 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.InitialSceneController">
+<AnchorPane fx:id="root" prefHeight="550.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.InitialSceneController">
+   <Label fx:id="credits" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" maxHeight="85.0" maxWidth="200.0" minHeight="85.0" minWidth="200.0" textAlignment="CENTER">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
 
-        <ImageView fx:id="sfondo" fitHeight="596.0" fitWidth="547.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <Image url="@../MoRWall.jpeg" />
-        </ImageView>
-
-        <TextField fx:id="textField" alignment="CENTER" layoutX="175.0" layoutY="212.0" onAction="#submitNick" promptText="Nickname">
+        <TextField fx:id="textField" alignment="CENTER" layoutX="175.0" layoutY="212.0" maxHeight="25.0" maxWidth="151.0" minHeight="25.0" minWidth="151.0" onAction="#submitNick" promptText="Nickname">
         </TextField>
-        <Button fx:id="submitNickButton" alignment="CENTER" contentDisplay="BOTTOM" layoutX="229.0" layoutY="327.0" mnemonicParsing="false" onAction="#submitNick" text="Play!" textAlignment="CENTER" textFill="#887722" AnchorPane.topAnchor="327.0" />
-        <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="207.0" prefHeight="35.0" prefWidth="252.0" text="waiting others players..." textAlignment="CENTER" visible="false" wrapText="true">
+        <Button fx:id="submitNickButton" alignment="CENTER" contentDisplay="CENTER" layoutX="205.0" layoutY="278.0" maxHeight="25.0" maxWidth="50.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" onAction="#submitNick" text="Play!" textAlignment="CENTER" textFill="#807c21" />
+        <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="207.0" maxHeight="35.0" maxWidth="252.0" minHeight="35.0" minWidth="252.0" text="waiting others players..." textAlignment="CENTER" visible="false" wrapText="true">
       <font>
          <Font size="24.0" />
       </font>
-      <effect>
-         <Bloom />
-      </effect></Label>
+</Label>
 
 </AnchorPane>

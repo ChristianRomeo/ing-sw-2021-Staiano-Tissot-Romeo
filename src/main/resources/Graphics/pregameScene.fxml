@@ -4,61 +4,120 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="537.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.PregameSceneController">
-   <Label fx:id="upperLabel" layoutX="199.0" layoutY="57.0" prefHeight="17.0" prefWidth="165.0" text="Sei nel pregame, attendi..." />
-   <Button fx:id="firstCardButton" layoutX="85.0" layoutY="272.0" mnemonicParsing="false" onAction="#choseFirstCard" text="Select" visible="false" />
-   <Button fx:id="secondCardButton" layoutX="234.0" layoutY="272.0" mnemonicParsing="false" onAction="#choseSecondCard" text="Select" visible="false" />
-   <Button fx:id="thirdCardButton" layoutX="396.0" layoutY="272.0" mnemonicParsing="false" onAction="#choseThirdCard" text="Select" visible="false" />
-   <Button fx:id="fourthCardButton" layoutX="577.0" layoutY="272.0" mnemonicParsing="false" onAction="#choseFourthCard" text="Select" visible="false" />
-   <ImageView fx:id="leaderCardImage1" fitHeight="186.0" fitWidth="129.0" layoutX="49.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="leaderCardImage2" fitHeight="186.0" fitWidth="129.0" layoutX="193.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="leaderCardImage3" fitHeight="186.0" fitWidth="129.0" layoutX="355.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fx:id="leaderCardImage4" fitHeight="186.0" fitWidth="129.0" layoutX="536.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
-   <AnchorPane fx:id="chooseInitialResourcesPane" layoutX="59.0" layoutY="41.0" prefHeight="449.0" prefWidth="613.0" style="-fx-background-color: lightblue;" visible="false">
-      <children>
-         <RadioButton layoutX="62.0" layoutY="56.0" mnemonicParsing="false" selected="true" text="1,1">
-            <toggleGroup>
-               <ToggleGroup fx:id="toggleGroupInitialResPos1" />
-            </toggleGroup>
-         </RadioButton>
-         <RadioButton layoutX="62.0" layoutY="95.0" mnemonicParsing="false" text="2,1" toggleGroup="$toggleGroupInitialResPos1" />
-         <RadioButton layoutX="136.0" layoutY="95.0" mnemonicParsing="false" text="2,2" toggleGroup="$toggleGroupInitialResPos1" />
-         <RadioButton layoutX="62.0" layoutY="134.0" mnemonicParsing="false" text="3,1" toggleGroup="$toggleGroupInitialResPos1" />
-         <RadioButton layoutX="139.0" layoutY="132.0" mnemonicParsing="false" text="3,2" toggleGroup="$toggleGroupInitialResPos1" />
-         <RadioButton layoutX="211.0" layoutY="132.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupInitialResPos1" />
-         <RadioButton layoutX="358.0" layoutY="46.0" mnemonicParsing="false" selected="true" text="coin">
-            <toggleGroup>
-               <ToggleGroup fx:id="toggleGroupInitialResource1" />
-            </toggleGroup>
-         </RadioButton>
-         <RadioButton layoutX="358.0" layoutY="75.0" mnemonicParsing="false" text="stone" toggleGroup="$toggleGroupInitialResource1" />
-         <RadioButton layoutX="356.0" layoutY="104.0" mnemonicParsing="false" text="servant" toggleGroup="$toggleGroupInitialResource1" />
-         <RadioButton layoutX="358.0" layoutY="134.0" mnemonicParsing="false" text="shield" toggleGroup="$toggleGroupInitialResource1" />
-         <Label layoutX="67.0" layoutY="26.0" prefHeight="17.0" prefWidth="203.0" text="Choose a resource and its position" />
-         <Button fx:id="submitInitialResourceButton1" layoutX="279.0" layoutY="167.0" mnemonicParsing="false" onAction="#submitInitialResource1" text="Done!" />
-         <RadioButton layoutX="68.0" layoutY="271.0" mnemonicParsing="false" selected="true" text="1,1">
-            <toggleGroup>
-               <ToggleGroup fx:id="toggleGroupInitialResPos2" />
-            </toggleGroup>
-         </RadioButton>
-         <RadioButton layoutX="66.0" layoutY="299.0" mnemonicParsing="false" text="2,1" toggleGroup="$toggleGroupInitialResPos2" />
-         <RadioButton layoutX="139.0" layoutY="299.0" mnemonicParsing="false" text="2,2" toggleGroup="$toggleGroupInitialResPos2" />
-         <RadioButton layoutX="65.0" layoutY="337.0" mnemonicParsing="false" text="3,1" toggleGroup="$toggleGroupInitialResPos2" />
-         <RadioButton layoutX="141.0" layoutY="339.0" mnemonicParsing="false" text="3,2" toggleGroup="$toggleGroupInitialResPos2" />
-         <RadioButton layoutX="213.0" layoutY="339.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupInitialResPos2" />
-         <RadioButton layoutX="372.0" layoutY="290.0" mnemonicParsing="false" selected="true" text="coin">
-            <toggleGroup>
-               <ToggleGroup fx:id="toggleGroupInitialResource2" />
-            </toggleGroup>
-         </RadioButton>
-         <RadioButton layoutX="370.0" layoutY="319.0" mnemonicParsing="false" text="stone" toggleGroup="$toggleGroupInitialResource2" />
-         <RadioButton layoutX="368.0" layoutY="344.0" mnemonicParsing="false" text="servant" toggleGroup="$toggleGroupInitialResource2" />
-         <RadioButton layoutX="371.0" layoutY="372.0" mnemonicParsing="false" text="shield" toggleGroup="$toggleGroupInitialResource2" />
-         <Button fx:id="submitInitialResourceButton2" layoutX="281.0" layoutY="394.0" mnemonicParsing="false" onAction="#submitInitialResource2" text="Done!" />
-         <Label fx:id="chooseSecondInitialResLabel" layoutX="63.0" layoutY="241.0" prefHeight="17.0" prefWidth="298.0" text="Choose your second resource and its position" />
-      </children>
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.PregameSceneController">
+   <ImageView fitHeight="720.0" fitWidth="1280.0" nodeOrientation="INHERIT" opacity="0.8" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Image requestedHeight="720" url="@../backboardgame.png" />
+   </ImageView>
+   <Label fx:id="upperLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="530.0" layoutY="50.0" prefHeight="27.0" prefWidth="219.0" text="Sei nel pregame, attendi..." textAlignment="CENTER" textFill="#804747">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+   <ImageView fx:id="leaderCardImage1" fitHeight="284.0" fitWidth="187.0" layoutX="106.0" layoutY="167.0" onMouseClicked="#choseFirstCard" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="106.0" />
+   <ImageView fx:id="leaderCardImage2" fitHeight="284.0" fitWidth="187.0" layoutX="391.0" layoutY="167.0" onMouseClicked="#choseSecondCard" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="391.0" />
+   <ImageView fx:id="leaderCardImage3" fitHeight="284.0" fitWidth="187.0" layoutX="702.0" layoutY="167.0" onMouseClicked="#choseThirdCard" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="391.0" />
+   <ImageView fx:id="leaderCardImage4" fitHeight="284.0" fitWidth="187.0" layoutX="988.0" layoutY="167.0" onMouseClicked="#choseFourthCard" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="105.0" />
+   <AnchorPane fx:id="chooseInitialResourcesPane" layoutX="103.0" layoutY="50.0" maxHeight="620.0" maxWidth="1074.0" minHeight="620.0" minWidth="1074.0" prefHeight="620.0" prefWidth="1074.0" visible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="103.0" AnchorPane.topAnchor="50.0">
+      <ImageView fitHeight="620.0" fitWidth="1074.0" opacity="0.87" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <Image url="@../sfondo.png" />
+      </ImageView>
+      <ImageView fitHeight="207.0" fitWidth="203.0" layoutX="168.0" layoutY="61.0" opacity="0.86" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="661.0">
+         <Image url="@../magazzino.png" />
+      </ImageView>
+      <RadioButton layoutX="267.0" layoutY="118.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" selected="true" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroupInitialResPos1" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="249.0" layoutY="167.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos1" />
+      <RadioButton layoutX="274.0" layoutY="167.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos1" />
+      <RadioButton layoutX="230.0" layoutY="215.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos1" />
+      <RadioButton layoutX="260.0" layoutY="215.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos1" />
+      <RadioButton layoutX="292.0" layoutY="210.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos1" />
+      <ImageView fitHeight="35.0" fitWidth="51.0" layoutX="722.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <Blend>
+               <topInput>
+                  <Glow />
+               </topInput>
+            </Blend>
+         </effect>
+         <Image url="@../coinGr.png" />
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="665.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../shieldGr.png" />
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="723.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../servantPicc.png" />
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="54.0" layoutX="661.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../stoneGr.png" />
+      </ImageView>
+      <RadioButton layoutX="852.0" layoutY="118.0" mnemonicParsing="false" selected="true" text="coin" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroupInitialResource1" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="852.0" layoutY="147.0" mnemonicParsing="false" text="stone" textFill="WHITE" toggleGroup="$toggleGroupInitialResource1" />
+      <RadioButton layoutX="850.0" layoutY="176.0" mnemonicParsing="false" text="servant" textFill="WHITE" toggleGroup="$toggleGroupInitialResource1" />
+      <RadioButton layoutX="852.0" layoutY="206.0" mnemonicParsing="false" text="shield" textFill="WHITE" toggleGroup="$toggleGroupInitialResource1" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="14.0" prefHeight="35.0" prefWidth="370.0" text="Choose a resource and its position" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="310.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="submitInitialResourceButton1" layoutX="695.0" layoutY="220.0" mnemonicParsing="false" onAction="#submitInitialResource1" text="Done!" />
+      <ImageView fitHeight="207.0" fitWidth="203.0" layoutX="168.0" layoutY="311.0" opacity="0.86" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="661.0">
+         <Image url="@../magazzino.png" />
+      </ImageView>
+      <RadioButton layoutX="263.0" layoutY="368.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" selected="true" textFill="WHITE" visible="false">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroupInitialResPos2" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="248.0" layoutY="415.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos2" visible="false" />
+      <RadioButton layoutX="277.0" layoutY="415.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos2" visible="false" />
+      <RadioButton layoutX="236.0" layoutY="464.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos2" visible="false" />
+      <RadioButton layoutX="263.0" layoutY="464.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos2" visible="false" />
+      <RadioButton layoutX="292.0" layoutY="464.0" mnemonicParsing="false" opacity="0.24" prefHeight="26.0" prefWidth="23.0" textFill="WHITE" toggleGroup="$toggleGroupInitialResPos2" visible="false" />
+      <ImageView fitHeight="35.0" fitWidth="51.0" layoutX="722.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <effect>
+            <Blend>
+               <topInput>
+                  <Glow />
+               </topInput>
+            </Blend>
+         </effect>
+         <Image url="@../coinGr.png" />
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="665.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <Image url="@../shieldGr.png" />
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="723.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <Image url="@../servantPicc.png" />
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="54.0" layoutX="661.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <Image url="@../stoneGr.png" />
+      </ImageView>
+      <RadioButton layoutX="846.0" layoutY="354.0" mnemonicParsing="false" selected="true" text="coin" textFill="WHITE" visible="false">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroupInitialResource2" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="846.0" layoutY="385.0" mnemonicParsing="false" text="stone" textFill="WHITE" toggleGroup="$toggleGroupInitialResource2" visible="false" />
+      <RadioButton layoutX="848.0" layoutY="415.0" mnemonicParsing="false" text="servant" textFill="WHITE" toggleGroup="$toggleGroupInitialResource2" visible="false" />
+      <RadioButton layoutX="848.0" layoutY="450.0" mnemonicParsing="false" text="shield" textFill="WHITE" toggleGroup="$toggleGroupInitialResource2" visible="false" />
+      <Button fx:id="submitInitialResourceButton2" layoutX="699.0" layoutY="459.0" mnemonicParsing="false" onAction="#submitInitialResource2" text="Done!" visible="false" />
+      <Label fx:id="chooseSecondInitialResLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="265.0" layoutY="528.0" prefHeight="35.0" prefWidth="496.0" text="Choose your second resource and its position" textAlignment="CENTER" textFill="WHITE" visible="false" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="265.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </AnchorPane>
 </AnchorPane>

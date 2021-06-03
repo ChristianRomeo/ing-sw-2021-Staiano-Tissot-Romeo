@@ -26,4 +26,7 @@ public abstract class FXMLController {
 
     public void updateWidthConstraints(double doubleValue){
     }
+
+    public  void updateHeightConstraints(double doubleValue){
+    }
 }

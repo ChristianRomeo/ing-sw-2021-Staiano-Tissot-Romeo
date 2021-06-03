@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 
@@ -63,10 +65,7 @@ public class PregameSceneController extends FXMLController{
     public void updateScene(){
         if(clientModel.isCurrentPlayer()){
             upperLabel.setText("E' il tuo turno, scegli le carte che vuoi scartare: ");
-            firstCardButton.setVisible(true);
-            secondCardButton.setVisible(true);
-            thirdCardButton.setVisible(true);
-            fourthCardButton.setVisible(true);
+
             List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
 
             leaderCardImage1.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(0)));
@@ -81,64 +80,94 @@ public class PregameSceneController extends FXMLController{
 
     @FXML
     public void choseFirstCard(){
-        firstCardButton.setDisable(true);
-        firstCardButton.setStyle("-fx-background-color: #ff0000; ");
+        DropShadow d= new DropShadow();
+        d.setRadius(20);
+        d.setOffsetX(25);
+        d.setOffsetY(25);
+        d.setColor(Color.DARKGRAY);
+
+        leaderCardImage1.setEffect(d);
+        leaderCardImage1.setDisable(true);
+
         if(removedLeaderCard1==-1){
             removedLeaderCard1=0;
         }else{
             if(removedLeaderCard2==-1){
                 removedLeaderCard2=0;
-                secondCardButton.setDisable(true);
-                thirdCardButton.setDisable(true);
-                fourthCardButton.setDisable(true);
+                leaderCardImage2.setDisable(true);
+                leaderCardImage3.setDisable(true);
+                leaderCardImage4.setDisable(true);
+
                 chooseResource();
             }
         }
     }
     @FXML
     public void choseSecondCard(){
-        secondCardButton.setDisable(true);
-        secondCardButton.setStyle("-fx-background-color: #ff0000; ");
+        DropShadow d= new DropShadow();
+        d.setRadius(20);
+        d.setOffsetX(25);
+        d.setOffsetY(25);
+        d.setColor(Color.DARKGRAY);
+
+        leaderCardImage2.setEffect(d);
+        leaderCardImage2.setDisable(true);
+
         if(removedLeaderCard1==-1){
             removedLeaderCard1=1;
         }else{
             if(removedLeaderCard2==-1){
                 removedLeaderCard2=1;
-                firstCardButton.setDisable(true);
-                thirdCardButton.setDisable(true);
-                fourthCardButton.setDisable(true);
+                leaderCardImage1.setDisable(true);
+                leaderCardImage3.setDisable(true);
+                leaderCardImage4.setDisable(true);
+
                 chooseResource();
             }
         }
     }
     @FXML
     public void choseThirdCard(){
-        thirdCardButton.setDisable(true);
-        thirdCardButton.setStyle("-fx-background-color: #ff0000; ");
+        DropShadow d= new DropShadow();
+        d.setRadius(20);
+        d.setOffsetX(25);
+        d.setOffsetY(25);
+        d.setColor(Color.DARKGRAY);
+
+        leaderCardImage3.setEffect(d);
+        leaderCardImage3.setDisable(true);
+
         if(removedLeaderCard1==-1){
             removedLeaderCard1=2;
         }else{
             if(removedLeaderCard2==-1){
                 removedLeaderCard2=2;
-                firstCardButton.setDisable(true);
-                secondCardButton.setDisable(true);
-                fourthCardButton.setDisable(true);
+                leaderCardImage2.setDisable(true);
+                leaderCardImage1.setDisable(true);
+                leaderCardImage4.setDisable(true);
                 chooseResource();
             }
         }
     }
     @FXML
     public void choseFourthCard(){
-        fourthCardButton.setDisable(true);
-        fourthCardButton.setStyle("-fx-background-color: #ff0000; ");
+        DropShadow d= new DropShadow();
+        d.setRadius(20);
+        d.setOffsetX(25);
+        d.setOffsetY(25);
+        d.setColor(Color.DARKGRAY);
+
+        leaderCardImage4.setEffect(d);
+        leaderCardImage4.setDisable(true);
+
         if(removedLeaderCard1==-1){
             removedLeaderCard1=3;
         }else{
             if(removedLeaderCard2==-1){
                 removedLeaderCard2=3;
-                firstCardButton.setDisable(true);
-                secondCardButton.setDisable(true);
-                thirdCardButton.setDisable(true);
+                leaderCardImage2.setDisable(true);
+                leaderCardImage1.setDisable(true);
+                leaderCardImage3.setDisable(true);
                 chooseResource();
             }
         }

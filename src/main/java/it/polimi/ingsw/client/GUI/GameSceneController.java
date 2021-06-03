@@ -190,6 +190,8 @@ public class GameSceneController extends FXMLController {
         buyCardColumnChoiceBox.getItems().removeAll();
         buyCardColumnChoiceBox.getItems().addAll(0,1,2,3);
         buyCardColumnChoiceBox.setValue(0);
+
+
     }
 
     @FXML
