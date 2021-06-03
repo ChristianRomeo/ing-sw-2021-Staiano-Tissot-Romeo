@@ -29,32 +29,68 @@ public class EventsHandlerGUI implements ServerEventObserver {
 
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.getSceneController("gameScene").updateScene();
+                guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has activated/discarded a leader card");
+            }
+        });
     }
 
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.getSceneController("gameScene").updateScene();
+                guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
+            }
+        });
     }
 
     @Override
     public void handleEvent(ActivatedProductionEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.getSceneController("gameScene").updateScene();
+                guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
+            }
+        });
     }
 
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.getSceneController("gameScene").updateScene();
+                guiView.getCurrentSceneController().showMessage(event.getPlayerNickname()+ " has proceeded in the faith track");
+            }
+        });
     }
 
     @Override
     public void handleEvent(VaticanReportEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.getSceneController("gameScene").updateScene();
+                guiView.getCurrentSceneController().showMessage("A vatican report has been activated");
+            }
+        });
     }
 
     @Override
     public void handleEvent(UseMarketEventS2C event) {
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                guiView.getSceneController("gameScene").updateScene();
+                guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
+            }
+        });
     }
 
     @Override
@@ -66,7 +102,7 @@ public class EventsHandlerGUI implements ServerEventObserver {
                     guiView.getCurrentSceneController().updateScene();
                 }
                 if(clientModel.hasGameStarted()){
-                    guiView.getCurrentSceneController().updateScene();
+                    guiView.getSceneController("gameScene").updateScene();
                     if(clientModel.isCurrentPlayer()){
                         guiView.getCurrentSceneController().showMessage("E' il tuo turno! ");
                     }else{
