@@ -78,7 +78,7 @@ public class CliView implements View {
         scanner.nextLine();
         scanner.reset();
         showMessage(Styler.format('i', Styler.ANSI_HELLO + " Welcome!\nYou will join the first available game..."));
-        showMessage(Styler.ANSI_TALK +"Select your nickname: ");
+        showMessage(Styler.ANSI_TALK +" Select your nickname: ");
         String nickname = scanner.nextLine();
         while (!checkNickname(nickname)){
             showErrorMessage("Invalid choice! Try again: ");
@@ -115,9 +115,9 @@ public class CliView implements View {
         showMessage("--------------------");
         leaderCard.forEach(this::showLeaderCard);
         showMessage("Legend: Stones -"+Styler.ANSI_STONE+" Shields -"+Styler.ANSI_SHIELD+" Servants -"+Styler.ANSI_SERVANT+" Coins -"+Styler.ANSI_COIN+" Yellow/Green/Blue/Purple Cards -"+Styler.ANSI_YELLOWCARD+Styler.ANSI_GREENCARD+Styler.ANSI_BLUECARD+Styler.ANSI_PURPLECARD);
-        showMessage( Styler.format('b', "\n"+Styler.ANSI_TALK +"Choose the first card to discard (0,1,2,3) :"));
+        showMessage( Styler.format('b', "\n"+Styler.ANSI_TALK +" Choose the first card to discard (0,1,2,3) :"));
         int index1= askNumber(0,3);
-        showMessage( Styler.format('b', Styler.ANSI_TALK +"Choose the second card to discard (0,1,2,3) :"));
+        showMessage( Styler.format('b', Styler.ANSI_TALK +" Choose the second card to discard (0,1,2,3) :"));
         int index2 = askNumber(0,3);
 
         while(index1 == index2){
@@ -140,7 +140,7 @@ public class CliView implements View {
         showMessage("--------------------");
         leaderCard.forEach(this::showLeaderCard);
 
-        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose action:  [activation - 0 / discard - 1] :"));
+        showMessage(Styler.ANSI_TALK + Styler.format('b', " Choose action:  [activation - 0 / discard - 1] :"));
         /*
         String string =scanner.nextLine();
         if (actionHandler.newGame)
@@ -155,7 +155,7 @@ public class CliView implements View {
         int choice = askNumber(0,1);
 
         //todo:controllare se carta già attiva o scartata
-        showMessage(Styler.ANSI_TALK + Styler.format('b', "Choose which card:"));
+        showMessage(Styler.ANSI_TALK + Styler.format('b', " Choose which card:"));
         /*
         String chosenCard = scanner.nextLine();
         if (actionHandler.newGame)
@@ -252,16 +252,16 @@ public class CliView implements View {
      */
     public SameTypeTriple<Resource> askBaseProduction(){
         SameTypeTriple<Resource> baseProductionResources = new SameTypeTriple<>();
-        showMessage(Styler.ANSI_TALK+"Do you want to activate the base production? y/n");
+        showMessage(Styler.ANSI_TALK+" Do you want to activate the base production? y/n");
         String choice = askChoice();
 
         if(choice.equalsIgnoreCase("n"))
             return null;
 
-        showMessage(Styler.ANSI_TALK+"Now please choose two resources you want to use for the production: ");
+        showMessage(Styler.ANSI_TALK+" Now please choose two resources you want to use for the production: ");
         baseProductionResources.setVal1(askResource());
         baseProductionResources.setVal2(askResource());
-        showMessage(Styler.ANSI_TALK+"You have to choose which resource you want to produce: ");
+        showMessage(Styler.ANSI_TALK+" You have to choose which resource you want to produce: ");
         baseProductionResources.setVal3(askResource());
 
         return baseProductionResources;
@@ -280,7 +280,7 @@ public class CliView implements View {
             if(leaderCards.get(i).isActivated() &&(leaderCards.get(i) instanceof LeaderCardProduction)){
                 showMessage("--------------------");
                 showLeaderCard(leaderCards.get(i));
-                showMessage(Styler.ANSI_TALK+"Do you want to activate this card production? y/n");
+                showMessage(Styler.ANSI_TALK+" Do you want to activate this card production? y/n");
                 choice = askChoice();
 
                 if(choice.equalsIgnoreCase("y")){
@@ -297,7 +297,7 @@ public class CliView implements View {
      * @return the resource chosen.
      */
     public Resource askResource(){
-        showMessage(Styler.ANSI_TALK+"Choose a resource to obtain (*Stone* -"+Styler.ANSI_STONE+" *Shield* -"+Styler.ANSI_SHIELD+" *Servant* -"+Styler.ANSI_SERVANT+" *Coin* -"+Styler.ANSI_COIN+"):");
+        showMessage(Styler.ANSI_TALK+" Choose a resource to obtain (*Stone* -"+Styler.ANSI_STONE+" *Shield* -"+Styler.ANSI_SHIELD+" *Servant* -"+Styler.ANSI_SERVANT+" *Coin* -"+Styler.ANSI_COIN+"):");
         String choice = scanner.nextLine();
         if (actionHandler.isNewGame())
             actionHandler.getNewGame(choice);
@@ -315,7 +315,7 @@ public class CliView implements View {
         int index;
 
         showMarket();
-        showMessage(Styler.ANSI_TALK+"Do you want to select a row or a column? r/c");
+        showMessage(Styler.ANSI_TALK+" Do you want to select a row or a column? r/c");
         String choice = scanner.nextLine();
         if (actionHandler.isNewGame())
             actionHandler.getNewGame(choice);
@@ -328,11 +328,11 @@ public class CliView implements View {
         rowOrColumn = choice.charAt(0);
 
         if(rowOrColumn=='r'){
-            showMessage(Styler.ANSI_TALK+"What row do you want to select? (0,1,2)");
+            showMessage(Styler.ANSI_TALK+" What row do you want to select? (0,1,2)");
             index = askNumber(0,2);
 
         }else{
-            showMessage(Styler.ANSI_TALK+"What column do you want to select? (0,1,2,3)");
+            showMessage(Styler.ANSI_TALK+" What column do you want to select? (0,1,2,3)");
             index = askNumber(0,3);
         }
         Styler.cls();
@@ -348,7 +348,7 @@ public class CliView implements View {
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
 
-        showMessage(Styler.ANSI_TALK+"You have two white marble leader cards activated, which one do you want to use for this white marble? 0/1");
+        showMessage(Styler.ANSI_TALK+" You have two white marble leader cards activated, which one do you want to use for this white marble? 0/1");
         return askNumber(0,1);
     }
 
@@ -451,7 +451,7 @@ public class CliView implements View {
             showWarehouse(warehouse);
             System.out.println("\nNow the considered resource is: "+ boughtResources.get(0));
 
-            showMessage(Styler.ANSI_TALK+"You can insert the resource (0), discard the resource (1) or edit your warehouse (2).");
+            showMessage(Styler.ANSI_TALK+" You can insert the resource (0), discard the resource (1) or edit your warehouse (2).");
             if(fullLeaderSlots.getVal1()!=null){
                 System.out.println("This is your Slot Leader Card:  type: " + leaderCardResource1 + " number of full slots: " + fullLeaderSlots.getVal1());
                 showMessage("You can also insert the resource in this leader card (if it has the considered resource type) (3). ");
@@ -500,11 +500,11 @@ public class CliView implements View {
          * @return the coordinate of the cell.
          */
     public SameTypePair<Integer> askWarehouseCell(){
-        showMessage(Styler.ANSI_TALK+"Select your warehouse's row you want to use (1,2,3)");
+        showMessage(Styler.ANSI_TALK+" Select your warehouse's row you want to use (1,2,3)");
         int row = askNumber(1,3);
         int col = 1;
         if (row!=1){
-            showMessage(Styler.ANSI_TALK+"Select your warehouse's column you want to use (1,2" + (row==3 ? ",3)" : ")") + ":");
+            showMessage(Styler.ANSI_TALK+" Select your warehouse's column you want to use (1,2" + (row==3 ? ",3)" : ")") + ":");
              col = askNumber(1,3);
         }
         return new SameTypePair<>(row,col);
@@ -548,7 +548,7 @@ public class CliView implements View {
         public void askNewGame() {
 
         actionHandler.setNewGame(true);
-        showMessage("\n"+ Styler.ANSI_TALK + "Do you wish to play again? [y/n]: ");
+        showMessage("\n"+ Styler.ANSI_TALK + " Do you wish to play again? [y/n]: ");
 
         //String choice = scanner.nextLine();
         /*while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
@@ -687,30 +687,6 @@ public class CliView implements View {
     }
 
     /**
-     * Shows Players faith tracks
-     */
-    @Override
-    public void showFaithTracks() {
-        int numPlayer;
-        Styler.cls();
-        showMessage(Styler.format('b', "Faith Track player positions: \n"));
-        if(clientModel.getNicknames().size() == 1)
-            showFaithTrack(clientModel.getPlayersFTPositions().get(0), true);
-        for(int i = 0; i < clientModel.getNicknames().size(); i++)
-        {
-            numPlayer = i + 1;
-
-            showMessage("\n\nPlayer "+numPlayer+" "+'"'+clientModel.getNicknames().get(i)+'"');
-            showFaithTrack(clientModel.getPlayersFTPositions().get(i), false);
-
-            //show current victory points ??
-            showMessage("--------------------");
-        }
-        //show list of actions
-
-    }
-
-    /**
      * Shows a player Faith Track
      * @param faithTrackPosition is the player's faith track position
      * @param showLorenzoFT is used to check if the method has to show Lorenzo's Faith Track position or not
@@ -741,6 +717,30 @@ public class CliView implements View {
         showMessage("--------------------");
     }
 
+
+    /**
+     * Shows Players faith tracks
+     */
+    @Override
+    public void showFaithTracks() {
+        int numPlayer;
+        Styler.cls();
+        showMessage(Styler.format('b', "Faith Track player positions: \n"));
+        if(clientModel.getNicknames().size() == 1)
+            showFaithTrack(clientModel.getPlayersFTPositions().get(0), true);
+        for(int i = 0; i < clientModel.getNicknames().size(); i++)
+        {
+            numPlayer = i + 1;
+
+            showMessage("\n\nPlayer "+numPlayer+" "+'"'+clientModel.getNicknames().get(i)+'"');
+            showFaithTrack(clientModel.getPlayersFTPositions().get(i), false);
+
+            //show current victory points ??
+            showMessage("--------------------");
+        }
+        //show list of actions
+
+    }
 
     /**
      * Shows other player cards
@@ -781,53 +781,94 @@ public class CliView implements View {
     }
 
     /**
-     * Shows other player LeaderCards, if activated
+     * Shows other players LeaderCards, if activated
      */
     @Override
     public void showPlayersLeaderCards(){ // da capire
         Styler.cls();
-        showMessage(" " + Styler.format('b', "Players' LeaderCards:"));
+        if(clientModel.getNicknames().size() == 1)
+        {
+            if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).isActivated())
+                showMessage(Styler.format('i', "You have Leader Card 1 active "));
+            else
+                showMessage(Styler.format('b', "Inactive Leader Card 1"));
+            showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
+            if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).isActivated())
+                showMessage(Styler.format('i', "You have Leader Card 2 active "));
+            else
+                showMessage(Styler.format('b', "Inactive Leader Card 2"));
+            showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
+        }
+        else {
+            AtomicInteger numOfActivatedLeaderCards = new AtomicInteger();
+            showMessage(" " + Styler.format('b', "Players' LeaderCards:"));
 
-        clientModel.getNicknames().forEach(x-> {
-            showMessage(Styler.format('b', " ▷ " + x));
-            if (!clientModel.isPregame() && clientModel.getPlayerLeaderCards(x)!=null){
-                showMessage("--------------------");
-                if (clientModel.getPlayerLeaderCards(x).get(0).isActivated()){
-                    showMessage(Styler.format('i', " Has Activated "));
-                    showLeaderCard(clientModel.getPlayerLeaderCards(x).get(0));
+            clientModel.getNicknames().forEach(x -> {
+                showMessage(Styler.format('b', " ▷ " + x));
+                if (!clientModel.isPregame() && clientModel.getPlayerLeaderCards(x) != null) {
+                    showMessage("--------------------");
+                    if (clientModel.getPlayerLeaderCards(x).get(0).isActivated()) {
+                        showMessage(Styler.format('b', " has Leader Card 1 active "));
+                        showLeaderCard(clientModel.getPlayerLeaderCards(x).get(0));
+                        numOfActivatedLeaderCards.getAndIncrement();
+                    }
+                    if (clientModel.getPlayerLeaderCards(x).get(1).isActivated()) {
+                        showMessage(Styler.format('b', " has Leader Card 2 active "));
+                        showLeaderCard(clientModel.getPlayerLeaderCards(x).get(1));
+                        numOfActivatedLeaderCards.getAndIncrement();
+                    }
                 }
-                if (clientModel.getPlayerLeaderCards(x).get(1).isActivated()){
-                    showMessage(Styler.format('i', " Has Activated "));
-                    showLeaderCard(clientModel.getPlayerLeaderCards(x).get(1));
-                }
-            }
+                if(numOfActivatedLeaderCards.get()== 0)
+                    showMessage(Styler.format('b', x+" has no activated Leader Cards yet"));
 
-        });
+                numOfActivatedLeaderCards.set(0);
+            });
+        }
 
     }
 
+    /**
+     * Shows a player's overall state(Warehouse, Strongbox, CardBoard, LeaderCards, Faith Track position)
+     *
+     */
     @Override
     public void showMyState(){
+        Styler.cls();
         showMessage(Styler.format('b', "\n\nWarehouse:\n"));
         showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
         showMessage(Styler.format('b', "\n\nStrongbox:\n"));
         showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
         showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
-        System.out.println("\n\n");
+        if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).isActivated())
+            showMessage(Styler.format('b', "\n\nYou have Leader Card 1 active"));
+        else
+            showMessage(Styler.format('b', "\n\nInactive Leader Card 1"));
+        showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
+        if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).isActivated())
+            showMessage(Styler.format('b', "\n\nYou have Leader Card 2 active"));
+        else
+            showMessage(Styler.format('b', "\n\nInactive Leader Card 2"));
+        showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
+        System.out.println("\n");
         showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()), false);
         showMessage("--------------------");
     }
 
+    /**
+     * Shows all players overall state(Warehouse, Strongbox, CardBoard, LeaderCards, Faith Track position)
+     * except for the player who called it
+     */
     @Override
     public void showOthersState(){
-       //creates a list containing all nicknames except for the player who called it
+        Styler.cls();
         if(clientModel.getNicknames().size() == 1)
             showMessage("\n\nLorenzo's Faith Track position is "+clientModel.getBlackCrossPosition());
-
         else
         {
             List<String> nicknamesExcept = new ArrayList<>();
+            int numOfActivatedLeaderCards = 0;
+            //creates a list containing all nicknames except for the player who called it
             for(int i = 0; i < clientModel.getNicknames().size(); i++)
             {
                 if(!clientModel.getNicknames().get(i).equals(clientModel.getMyNickname()))
@@ -842,6 +883,21 @@ public class CliView implements View {
                 showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
                 showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
                 showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
+                showMessage(Styler.format('b', "\n\nActivated Leader Cards:\n"));
+                if (clientModel.getPlayerLeaderCards(s).get(0).isActivated()) {
+                    showMessage(Styler.format('b', s+" has Leader Card 1 active"));
+                    showLeaderCard(clientModel.getPlayerLeaderCards(s).get(0));
+                    numOfActivatedLeaderCards ++;
+                }
+                if (clientModel.getPlayerLeaderCards(s).get(0).isActivated()) {
+                    showMessage(Styler.format('b', s+" has Leader Card 2 active"));
+                    showLeaderCard(clientModel.getPlayerLeaderCards(s).get(1));
+                    numOfActivatedLeaderCards ++;
+                }
+                if (numOfActivatedLeaderCards == 0)
+                    showMessage(Styler.format('i', s+" has no activated Leader Cards yet"));
+                numOfActivatedLeaderCards = 0;
+
                 System.out.println("\n\n");
                 showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()), true);
             }
@@ -862,7 +918,7 @@ public class CliView implements View {
         else
             showMessage("You lost!!!"+Styler.ANSI_LOST);
 
-        showMessage(Styler.format('b',Styler.ANSI_TALK + "This is the LadderBoard of the game:"+ Styler.ANSI_VICTORY ));
+        showMessage(Styler.format('b',Styler.ANSI_TALK + " This is the LadderBoard of the game:"+ Styler.ANSI_VICTORY ));
 
         for(String nickname : endGameEvent.getVictoryPoints().keySet())
             showMessage(Styler.format('b', "Player ▷ " + nickname + " has victory points: " + endGameEvent.getVictoryPoints().get(nickname)));
@@ -988,7 +1044,7 @@ public class CliView implements View {
 
         //PRINT OTHER USEFUL THINGS TO THE PLAYER
 
-        showMessage(Styler.format('b', Styler.ANSI_TALK + "Insert your action: "));
+        showMessage(Styler.format('b', Styler.ANSI_TALK + " Insert your action: "));
         String choice = scanner.nextLine();
 
         //todo:fix it
