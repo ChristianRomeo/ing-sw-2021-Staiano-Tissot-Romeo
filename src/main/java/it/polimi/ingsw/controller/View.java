@@ -77,15 +77,14 @@ public interface View {
      */
     void showFaithTracks();
 
-
     /**
-     * Shows a player's overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     * Shows a player's overall state(Warehouse, Strongbox, CardBoard, LeaderCards Faith Track position)
      *
      */
     void showMyState();
 
     /**
-     * Shows all players overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     * Shows all players overall state(Warehouse, Strongbox, CardBoard, LeaderCards Faith Track position)
      * except for the player who called it
      */
     void showOthersState();

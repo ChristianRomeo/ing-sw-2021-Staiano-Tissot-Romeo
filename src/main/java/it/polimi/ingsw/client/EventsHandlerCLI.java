@@ -52,7 +52,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
         Styler.cls();
         //todo riguardare
         if(event.getNickname().equals(clientModel.getMyNickname())){
-            cliView.showMessage(Styler.color('g',Styler.ANSI_TALK+"It's your turn"));
+            cliView.showMessage(Styler.color('g',Styler.ANSI_TALK+" It's your turn"));
 
             if(clientModel.isPregame())
                 cliView.showMessage("scrivi SCEGLI per iniziare la scelta");   //in automatico ActionHandler.initialchoice();
@@ -61,7 +61,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
                 cliView.showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
 
         }else{
-            cliView.showMessage(Styler.ANSI_TALK+"It's "+event.getNickname()+"'s turn");
+            cliView.showMessage(Styler.color('r',Styler.ANSI_TALK+" It's "+event.getNickname()+"'s turn"));
             cliView.showMessage("You can choose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
         }
     }
@@ -75,7 +75,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
 
     @Override
     public void handleEvent(GameStarterEventS2C event) {
-        cliView.showMessage(Styler.ANSI_TALK+"Please wait your turn..."); //da fare meglio
+        cliView.showMessage(Styler.ANSI_TALK+" Please wait your turn..."); //da fare meglio
     }
 
     @Override
@@ -101,8 +101,8 @@ public class EventsHandlerCLI implements ServerEventObserver {
         }
         else{
             //Styler.cls();
-            cliView.showMessage(Styler.ANSI_TALK+"It's "+ clientModel.getNicknames().get(0)+"'s turn.");
-            cliView.showMessage("You can choose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
+            cliView.showMessage(Styler.color('r', Styler.ANSI_TALK+"It's "+ clientModel.getNicknames().get(0)+"'s turn."));
+            cliView.showMessage(" You can choose between MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
         }
     }
 

@@ -156,7 +156,7 @@ public class EventsHandler implements ServerEventObserver {
 
         //ho messo al giocatore tutte le leader card tra cui può scegliere, cosi poi gli mostro direttamente
         //le sue leadercards
-        // view.showMessage(Styler.ANSI_TALK+"Please wait your turn..."); QUESTO MO STA NELL EVENTHANDLERVIEW
+        // view.showMessage(Styler.ANSI_TALK+" Please wait your turn..."); QUESTO MO STA NELL EVENTHANDLERVIEW
         //gli devo mostrare le cose
 
         event.notifyHandler(eventHandlerView); //ciò poi si occupa di mostrare le cose (in base a che view è)

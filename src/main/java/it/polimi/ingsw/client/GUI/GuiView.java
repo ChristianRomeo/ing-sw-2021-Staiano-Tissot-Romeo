@@ -320,7 +320,7 @@ public class GuiView extends Application implements View {
     }
 
     /**
-     * Shows a player's overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     * Shows a player's overall state(Warehouse, Strongbox, CardBoard, LeaderCards Faith Track position)
      *
      */
     @Override
@@ -329,7 +329,7 @@ public class GuiView extends Application implements View {
     }
 
     /**
-     * Shows all players overall state(Warehouse, Strongbox, CardBoard, Faith Track position)
+     * Shows all players overall state(Warehouse, Strongbox, CardBoard, LeaderCards Faith Track position)
      * except for the player who called it
      */
     @Override
