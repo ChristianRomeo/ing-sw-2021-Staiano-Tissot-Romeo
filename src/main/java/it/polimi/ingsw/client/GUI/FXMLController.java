@@ -23,4 +23,7 @@ public abstract class FXMLController {
     public void showMessage(String message){
 
     }
+
+    public void updateWidthConstraints(double doubleValue){
+    }
 }

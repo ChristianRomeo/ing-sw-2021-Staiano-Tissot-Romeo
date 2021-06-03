@@ -1,51 +1,59 @@
 package it.polimi.ingsw.client.GUI;
 
-import it.polimi.ingsw.client.*;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.NumberBinding;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-
-import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.ImagePattern;
 
 public class InitialSceneController extends FXMLController {
-   // private ClientModel clientModel;
-   // private ServerHandler serverHandler;
-
-
-    //private int numPlayers=0;
 
     @FXML
-    private Pane pane;
+    private AnchorPane root;
+    @FXML
+    private ImageView sfondo;
     @FXML
     private TextField textField;
     @FXML
     private Button submitNickButton;
     @FXML
     private Label messageLabel;
-    @FXML
-    private Label upperLabel;
 
 
     @FXML
     public void initialize(){
-        textField.setText("Nickname here");
+
+        BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(sfondo.getImage()), CornerRadii.EMPTY, Insets.EMPTY);
+        root.setBackground(new Background(backgroundFill));
+
         //submitNumButton.setVisible(false);
 
 
     }
+    public  void updateWidthConstraints(double width) {
+
+        AnchorPane.setRightAnchor(submitNickButton, width * 0.45 );
+        AnchorPane.setRightAnchor(textField, width * 0.35);
+        AnchorPane.setRightAnchor(messageLabel,width * 0.40);
+
+    }
+
     @FXML
     public void submitNick(){
 
         if( textField.getText().matches("^[\\p{Alnum}\\s._-]+$")){
             clientModel.setMyNickname(textField.getText());
-            messageLabel.setVisible(false);
+
             //devo far cambiare la scena e metterla tipo attendi
             textField.setVisible(false);
             submitNickButton.setVisible(false);
-            upperLabel.setText("Nickname inserito! Attendi...");
+
 
             /* non va con il task
             Task<Void> task = new Task<>() {
@@ -56,11 +64,16 @@ public class InitialSceneController extends FXMLController {
                 }
             };
             (new Thread(task)).start();*/
+
             serverHandler.setUpConnection();
+            messageLabel.setVisible(true);
         }
         else{
-            messageLabel.setText("Nickname invalido!!! ");
+            textField.clear();
+            textField.setPromptText("Nickname invalido!!! ");
+            textField.setEditable(true);
         }
+
        // chosenNick.setText("hey "+textField.getText()+" ciaone");//prova
     }
 
@@ -82,18 +95,15 @@ public class InitialSceneController extends FXMLController {
         }
 
     }
-    */
 
-
-/*
     public void askNumPLayers(){
         upperLabel.setText("Inserisci il numero giocatori (1-4): ");
         textField.clear();
         upperLabel.setVisible(true);
         textField.setVisible(true);
         submitNumButton.setVisible(true);
-    }*/
-/*
+    }
+
     public synchronized int getNumPlayers(){
         return numPlayers;
     }*/

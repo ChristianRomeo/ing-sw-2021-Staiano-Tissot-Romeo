@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.*;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -18,6 +20,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.transform.Scale;
@@ -80,56 +84,29 @@ public class GuiView extends Application implements View {
 
         currentFXMLController = getSceneController("initialScene");
 
-        /*
-        // keep gridPane at original size
-        gridPane.setMinSize(1500, 500);
-        gridPane.setMaxSize(1500, 500);
-        StackPane root = new StackPane(gridPane);
-        // root.setAlignment(Pos.TOP_LEFT);
-        // use gridPane size to determine the factor to scale by
-        NumberBinding maxScale = Bindings.min(root.widthProperty().divide(1500),root.heightProperty().divide(500));
-        gridPane.scaleXProperty().bind(maxScale);
-        gridPane.scaleYProperty().bind(maxScale);
-        Scene scene = new Scene(root, 1500, 500);
+        //currentStage.setResizable(false);
+        //currentStage.sizeToScene();
 
-        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
-        double width = resolution.getWidth();
-        double height = resolution.getHeight();
-        double w = width/1920;  // your window width
-        double h = height/1080;  // your window height
-        Scale scale = new Scale(w, h, 0, 0);
-        currentStage.getScene().getRoot().getTransforms().add(scale);
-*/
+        currentStage.minWidthProperty().bind(currentStage.getScene().heightProperty().multiply(1));
+        currentStage.minHeightProperty().bind(currentStage.getScene().widthProperty().divide(1));
 
+        currentStage.setResizable(true);
+
+        currentStage.getScene().widthProperty().addListener((observable, oldValue, newValue) -> getCurrentSceneController().updateWidthConstraints(newValue.doubleValue()));
 
         currentStage.show();
 
-        //System.out.println(askNumPlayers());
-        //currentScene.getStylesheets().add("/style.css");
+        getCurrentSceneController().updateWidthConstraints(currentStage.getScene().getWidth());
+
+                //System.out.println(askNumPlayers());
+                //currentScene.getStylesheets().add("/style.css");
     }
 
-    static void setRoot(String fxml) throws IOException {
-        currentStage.getScene().setRoot(loadFXML(fxml));
-    }
-
-    //credo metodo da togliere
-    private static Parent loadFXML(String fxml) throws IOException {
-        return FXMLLoader.load(Objects.requireNonNull(GuiView.class.getResource("/Graphics/" + fxml + ".fxml")));
-    }
 
     //ritorna il loader per quella scena, poi lo usiamo per ottenere la scena e il suo controller
     private FXMLLoader getFXMLLoader(String fxml){
         return new FXMLLoader(getClass().getResource("/Graphics/" + fxml + ".fxml"));
     }
-
-
-    public void stop(){
-    }
-
-    private void drawCards(GraphicsContext gc) {
-
-    }
-
 
     //sto metodo carica tutte le scene e i loro controller, dai file fxml
     public void loadScenes(){
@@ -158,7 +135,7 @@ public class GuiView extends Application implements View {
 
 
         }catch (IOException e){
-            System.out.println("Errore nel caricare file fxml");
+            logger.warning("Errore nel caricare file fxml");
         }
 
     }
@@ -205,9 +182,6 @@ public class GuiView extends Application implements View {
     public void setConnectionHandler(ServerHandler serverHandler) {
         GuiView.serverHandler = serverHandler;
     }
-
-
-    public void launcher() {}
 
     @Override
     public ClientModel getClientModel() {
@@ -262,6 +236,11 @@ public class GuiView extends Application implements View {
     //tu gli dai una leader card e questo metodo ti ritorna la sua immagine
     public static Image getLeaderCardImage(LeaderCard leaderCard){
         return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "lead" + leaderCard.getId() +  ".png")));
+    }
+
+    public void launcher() {}
+
+    public void stop(){
     }
 
     /**
