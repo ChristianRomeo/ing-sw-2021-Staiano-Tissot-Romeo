@@ -315,7 +315,7 @@ public class GameSceneController extends FXMLController {
 
     @FXML
     public void submitProduction(){
-        //devo mettere la send
+
         if(cardProductionButton1.isSelected()){
             cardProductions.add(0);
         }

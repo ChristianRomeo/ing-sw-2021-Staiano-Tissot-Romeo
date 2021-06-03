@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.transform.Scale;
@@ -256,6 +257,11 @@ public class GuiView extends Application implements View {
             }
         }
         return initialSceneController.getNumPlayers();*/
+    }
+
+    //tu gli dai una leader card e questo metodo ti ritorna la sua immagine
+    public static Image getLeaderCardImage(LeaderCard leaderCard){
+        return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "lead" + leaderCard.getId() +  ".png")));
     }
 
     /**
