@@ -53,8 +53,8 @@ public class EventsHandler implements ServerEventObserver {
         if(event.isDiscarded2())
             leaderCards.get(1).discard();
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " has used a leader card");
 
+        event.notifyHandler(eventHandlerView);
         //qua magari mostro la sua nuova situazione delle sue carte leader
     }
 
@@ -70,7 +70,8 @@ public class EventsHandler implements ServerEventObserver {
         if(event.getFullSlotsLeaderCard2()!=null)
             clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(1).setFullSlotsNumber(event.getFullSlotsLeaderCard2());
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
+
+        event.notifyHandler(eventHandlerView);
 
         //qui magari mostro le cose che sono cambiate
     }
@@ -85,8 +86,8 @@ public class EventsHandler implements ServerEventObserver {
         if(event.getFullSlotsLeaderCard2()!=null)
             clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(1).setFullSlotsNumber(event.getFullSlotsLeaderCard2());
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
 
+        event.notifyHandler(eventHandlerView);
         //qui magari mostro le cose che sono cambiate
     }
 
@@ -97,7 +98,8 @@ public class EventsHandler implements ServerEventObserver {
         }else{
             clientModel.setFTPosition(event.getPlayerNickname(), event.getNewPosition());
         }
-        view.showMessage(event.getPlayerNickname()+ " has proceeded in the faith track");
+
+        event.notifyHandler(eventHandlerView);
 
         //qui volendo gli mostro qualcosa
     }
@@ -107,7 +109,8 @@ public class EventsHandler implements ServerEventObserver {
         for(String player: clientModel.getNicknames())
             clientModel.setPopeTiles(player,event.getNewPopeTilesStatus().get(player));
 
-        view.showMessage("A vatican report has been activated");
+
+        event.notifyHandler(eventHandlerView);
 
         //qui volendo gli mostro qualcosa
     }
@@ -122,7 +125,8 @@ public class EventsHandler implements ServerEventObserver {
         if(event.getFullSlotsLeaderCard2()!=null)
             clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick()).get(1).setFullSlotsNumber(event.getFullSlotsLeaderCard2());
 
-        view.showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
+
+        event.notifyHandler(eventHandlerView);
 
         //qui magari mostro le cose che sono cambiate
     }
@@ -165,13 +169,13 @@ public class EventsHandler implements ServerEventObserver {
         clientModel.setHasGameStarted(false);
         clientModel.setGameEnded(true);
         view.showMessage("Write 'exit' to continue.");
-
+//todo: da vedere nella gui
         //è finito il gioco
     }
 
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
-
+//todo: da vedere nella gui
         clientModel.setDevelopmentCardBoard(event.getNewBoard());
         view.showLorenzoTurn(event.getActivatedSoloAction());
     }

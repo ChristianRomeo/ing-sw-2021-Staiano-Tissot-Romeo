@@ -18,31 +18,32 @@ public class EventsHandlerCLI implements ServerEventObserver {
     }
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
-
+        cliView.showMessage(clientModel.getCurrentPlayerNick() + " has activated/discarded a leader card");
     }
 
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
-
+        cliView.showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
     }
 
     @Override
     public void handleEvent(ActivatedProductionEventS2C event) {
-
+        cliView.showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
     }
 
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
-
+        cliView.showMessage(event.getPlayerNickname()+ " has proceeded in the faith track");
     }
 
     @Override
     public void handleEvent(VaticanReportEventS2C event) {
-
+        cliView.showMessage("A vatican report has been activated");
     }
 
     @Override
     public void handleEvent(UseMarketEventS2C event) {
+        cliView.showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
 
     }
 
