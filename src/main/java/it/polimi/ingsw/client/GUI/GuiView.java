@@ -252,6 +252,11 @@ public class GuiView extends Application implements View {
         return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "lead" + leaderCard.getId() +  ".png")));
     }
 
+    //tu gli dai una development card e questo metodo ti ritorna la sua immagine
+    public static Image getDevelopmentCardImage(DevelopmentCard developmentCard){
+        return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "dev" + developmentCard.getId() +  ".png")));
+    }
+
     public void launcher() {}
 
     public void stop(){

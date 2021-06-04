@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.*;
@@ -36,6 +38,10 @@ public class GameSceneController extends FXMLController {
     private Button activateLeaderButton;
     @FXML
     private Button discardLeaderButton;
+    @FXML
+    private ImageView chooseLeaderCardImage1;
+    @FXML
+    private ImageView chooseLeaderCardImage2;
 
     private int selectedLeaderCard;
 
@@ -50,6 +56,12 @@ public class GameSceneController extends FXMLController {
     @FXML
     private Button nextBuyCardButton;
     //pane2
+    @FXML
+    private ImageView choosePersonalCardBoardPileImage1;
+    @FXML
+    private ImageView choosePersonalCardBoardPileImage2;
+    @FXML
+    private ImageView choosePersonalCardBoardPileImage3;
     @FXML
     private AnchorPane buyCardPane2;
     @FXML
@@ -66,6 +78,13 @@ public class GameSceneController extends FXMLController {
     private Resource producedResBP;
     private Resource leaderProductionResource1;
     private Resource leaderProductionResource2;
+
+    @FXML
+    private ImageView cardProductionImage1;
+    @FXML
+    private ImageView cardProductionImage2;
+    @FXML
+    private ImageView cardProductionImage3;
 
     @FXML
     private AnchorPane productionPane;
@@ -92,6 +111,10 @@ public class GameSceneController extends FXMLController {
     private Button submitBaseProductionButton;
     //pane leader productions
     private boolean hasLeaderCardProduction;
+    @FXML
+    private ImageView leaderCardProductionImage1;
+    @FXML
+    private ImageView leaderCardProductionImage2;
     @FXML
     private AnchorPane leaderProductionPane;
     @FXML
@@ -225,6 +248,17 @@ public class GameSceneController extends FXMLController {
         secondLeaderCardButton.setDisable(false);
         firstLeaderCardButton.setStyle("-fx-background-color: white;");
         secondLeaderCardButton.setStyle("-fx-background-color: white;");
+        List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
+        if(myLeaderCards.get(0).isActivated()||myLeaderCards.get(0).isDiscarded()){
+            chooseLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
+        }else{
+            chooseLeaderCardImage1.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(0)));
+        }
+        if(myLeaderCards.get(1).isActivated()||myLeaderCards.get(1).isDiscarded()){
+            chooseLeaderCardImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
+        }else{
+            chooseLeaderCardImage2.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(1)));
+        }
     }
     @FXML
     public void selectFirstLeaderCard(){
@@ -256,7 +290,7 @@ public class GameSceneController extends FXMLController {
     }
 
     //----- cose per pane compra carta -----
-
+    //todo: devo settare le immagini nel pane 2 (già ho messo le image view)
     @FXML
     public void nextBuyCard(){
         buyCardPane1.setVisible(false);
@@ -287,16 +321,32 @@ public class GameSceneController extends FXMLController {
         leaderProductionResource1=null;
         leaderProductionResource2=null;
 
+        PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
+        if(myPersonalCardBoard.getUpperCard(0)!=null){
+            cardProductionImage1.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(0)));
+        }
+        if(myPersonalCardBoard.getUpperCard(1)!=null){
+            cardProductionImage2.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(1)));
+        }
+        if(myPersonalCardBoard.getUpperCard(2)!=null){
+            cardProductionImage3.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(2)));
+        }
+        //cardProductionImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
+        //cardProductionImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
+        //cardProductionImage3.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
+
         List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         if(leaderCards.get(0).isActivated() &&(leaderCards.get(0) instanceof LeaderCardProduction)){
             activeLeaderProductionButton1.setVisible(true);
             activeLeaderProductionButton1.setDisable(false);
             hasLeaderCardProduction=true;
+            leaderCardProductionImage1.setImage(GuiView.getLeaderCardImage(leaderCards.get(0)));
         }
         if(leaderCards.get(1).isActivated() &&(leaderCards.get(1) instanceof LeaderCardProduction)){
             activeLeaderProductionButton2.setVisible(true);
             activeLeaderProductionButton2.setDisable(false);
             hasLeaderCardProduction=true;
+            leaderCardProductionImage2.setImage(GuiView.getLeaderCardImage(leaderCards.get(1)));
         }
     }
 
@@ -430,10 +480,8 @@ public class GameSceneController extends FXMLController {
         discardedResources = new HashMap<>();
         insertLeaderButton1.setVisible(fullLeaderSlots1 != null);
         insertLeaderButton2.setVisible(fullLeaderSlots2 != null);
-        if(boughtResources.size()==0){
-            serverHandler.send(new UseMarketEvent(rowOrColumn,marketIndex,newWarehouse,discardedResources,fullLeaderSlots1,fullLeaderSlots2,whiteMarbleChoices ));
-            insertResourcesPane.setVisible(false);
-        }else{
+        checkFinishedResources();
+        if(boughtResources.size()>0){
             insertResourcesPane.setVisible(true);
             //todo:qui devo mostrare le risorse comprate
         }

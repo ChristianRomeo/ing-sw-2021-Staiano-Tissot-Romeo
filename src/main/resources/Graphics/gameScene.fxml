@@ -39,12 +39,14 @@
    <Button fx:id="buyCardButton" layoutX="853.0" layoutY="235.0" mnemonicParsing="false" onAction="#buyCard" prefHeight="25.0" prefWidth="107.0" text="BUY CARD" />
    <Button fx:id="useMarketButton" layoutX="1204.0" layoutY="235.0" mnemonicParsing="false" onAction="#useMarket" text="MARKET" />
    <AnchorPane fx:id="leaderActionPane" layoutX="246.0" layoutY="126.0" prefHeight="349.0" prefWidth="357.0" style="-fx-background-color: lightblue;" visible="false">
-      <Button fx:id="firstLeaderCardButton" alignment="CENTER" layoutX="86.0" layoutY="165.0" mnemonicParsing="false" onAction="#selectFirstLeaderCard" style="-fx-background-color: white;" text="Select" />
+      <Button fx:id="firstLeaderCardButton" alignment="CENTER" layoutX="81.0" layoutY="205.0" mnemonicParsing="false" onAction="#selectFirstLeaderCard" style="-fx-background-color: white;" text="Select" />
       <Label alignment="CENTER" layoutX="76.0" layoutY="31.0" prefHeight="17.0" prefWidth="239.0" text="Select the card you want to discard/activate" />
-      <Button fx:id="secondLeaderCardButton" layoutX="245.0" layoutY="165.0" mnemonicParsing="false" onAction="#selectSecondLeaderCard" style="-fx-background-color: white;" text="Select" />
+      <Button fx:id="secondLeaderCardButton" layoutX="236.0" layoutY="205.0" mnemonicParsing="false" onAction="#selectSecondLeaderCard" style="-fx-background-color: white;" text="Select" />
       <Label layoutX="62.0" layoutY="257.0" prefHeight="17.0" prefWidth="245.0" text="Do you want to activate or discard the card?" />
       <Button fx:id="activateLeaderButton" layoutX="76.0" layoutY="286.0" mnemonicParsing="false" onAction="#activateLeaderCard" text="Activate" />
       <Button fx:id="discardLeaderButton" layoutX="232.0" layoutY="286.0" mnemonicParsing="false" onAction="#discardLeaderCard" text="Discard" />
+      <ImageView fx:id="chooseLeaderCardImage1" fitHeight="150.0" fitWidth="138.0" layoutX="36.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="chooseLeaderCardImage2" fitHeight="150.0" fitWidth="138.0" layoutX="191.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
    </AnchorPane>
    <AnchorPane fx:id="buyCardPane1" layoutX="177.0" layoutY="78.0" prefHeight="405.0" prefWidth="450.0" style="-fx-background-color: lightblue;" visible="false">
       <ChoiceBox fx:id="buyCardRowChoiceBox" layoutX="70.0" layoutY="296.0" prefHeight="25.0" prefWidth="131.0" />
@@ -53,22 +55,38 @@
       <Label layoutX="229.0" layoutY="299.0" prefHeight="17.0" prefWidth="50.0" text="Column" />
       <Button fx:id="nextBuyCardButton" layoutX="203.0" layoutY="347.0" mnemonicParsing="false" onAction="#nextBuyCard" text="Next" />
    </AnchorPane>
-   <AnchorPane fx:id="buyCardPane2" layoutX="188.0" layoutY="87.0" prefHeight="378.0" prefWidth="435.0" style="-fx-background-color: lightblue;" visible="false">
-      <RadioButton layoutX="48.0" layoutY="234.0" mnemonicParsing="false" selected="true" text="Pile 1">
+   <AnchorPane fx:id="buyCardPane2" layoutX="188.0" layoutY="87.0" prefHeight="487.0" prefWidth="615.0" style="-fx-background-color: lightblue;">
+      <ImageView fitHeight="334.0" fitWidth="462.0" layoutX="66.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../personalcardboard.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="choosePersonalCardBoardPileImage1" fitHeight="138.0" fitWidth="93.0" layoutX="162.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="choosePersonalCardBoardPileImage2" fitHeight="150.0" fitWidth="108.0" layoutX="275.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="choosePersonalCardBoardPileImage3" fitHeight="150.0" fitWidth="99.0" layoutX="410.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
+      <RadioButton layoutX="200.0" layoutY="365.0" mnemonicParsing="false" selected="true" text="Pile 1">
          <toggleGroup>
             <ToggleGroup fx:id="toggleGroupSelectPile" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="180.0" layoutY="233.0" mnemonicParsing="false" text="Pile 2" toggleGroup="$toggleGroupSelectPile" />
-      <RadioButton layoutX="307.0" layoutY="232.0" mnemonicParsing="false" text="Pile 3" toggleGroup="$toggleGroupSelectPile" />
-      <Button fx:id="submitBuyCardButton" layoutX="193.0" layoutY="295.0" mnemonicParsing="false" onAction="#submitBuyCard" text="Done!" />
+      <RadioButton layoutX="312.0" layoutY="365.0" mnemonicParsing="false" text="Pile 2" toggleGroup="$toggleGroupSelectPile" />
+      <RadioButton layoutX="433.0" layoutY="363.0" mnemonicParsing="false" text="Pile 3" toggleGroup="$toggleGroupSelectPile" />
+      <Button fx:id="submitBuyCardButton" layoutX="310.0" layoutY="413.0" mnemonicParsing="false" onAction="#submitBuyCard" text="Done!" />
    </AnchorPane>
-   <AnchorPane fx:id="productionPane" layoutX="190.0" layoutY="110.0" prefHeight="354.0" prefWidth="475.0" style="-fx-background-color: lightblue;" visible="false">
-      <Button fx:id="submitProductionButton" layoutX="212.0" layoutY="273.0" mnemonicParsing="false" onAction="#submitProduction" text="Done!" />
-      <RadioButton fx:id="cardProductionButton1" layoutX="195.0" layoutY="215.0" mnemonicParsing="false" />
-      <RadioButton fx:id="cardProductionButton2" layoutX="286.0" layoutY="211.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="22.0" />
-      <RadioButton fx:id="cardProductionButton3" layoutX="382.0" layoutY="215.0" mnemonicParsing="false" />
-      <Button fx:id="baseProductionButton" layoutX="38.0" layoutY="211.0" mnemonicParsing="false" onAction="#baseProduction" prefHeight="25.0" prefWidth="107.0" text="Base Production" />
+   <AnchorPane fx:id="productionPane" layoutX="190.0" layoutY="110.0" prefHeight="472.0" prefWidth="642.0" style="-fx-background-color: lightblue;" visible="false">
+      <ImageView fitHeight="407.0" fitWidth="519.0" layoutX="71.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../personalcardboard.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cardProductionImage1" fitHeight="244.0" fitWidth="144.0" layoutX="164.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="cardProductionImage2" fitHeight="240.0" fitWidth="144.0" layoutX="295.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="cardProductionImage3" fitHeight="242.0" fitWidth="157.0" layoutX="431.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="submitProductionButton" layoutX="307.0" layoutY="411.0" mnemonicParsing="false" onAction="#submitProduction" text="Done!" />
+      <RadioButton fx:id="cardProductionButton1" layoutX="224.0" layoutY="359.0" mnemonicParsing="false" />
+      <RadioButton fx:id="cardProductionButton2" layoutX="356.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="22.0" />
+      <RadioButton fx:id="cardProductionButton3" layoutX="495.0" layoutY="357.0" mnemonicParsing="false" />
+      <Button fx:id="baseProductionButton" layoutX="55.0" layoutY="367.0" mnemonicParsing="false" onAction="#baseProduction" prefHeight="25.0" prefWidth="107.0" text="Base Production" />
    </AnchorPane>
    <AnchorPane fx:id="baseProductionPane" layoutX="187.0" layoutY="110.0" prefHeight="354.0" prefWidth="475.0" style="-fx-background-color: lightblue;" visible="false">
       <RadioButton layoutX="39.0" layoutY="106.0" mnemonicParsing="false" selected="true" text="Coin">
@@ -101,9 +119,11 @@
       <Label layoutX="39.0" layoutY="216.0" prefHeight="17.0" prefWidth="245.0" text="Select the resource you want to produce:" />
       <Button fx:id="submitBaseProductionButton" layoutX="212.0" layoutY="307.0" mnemonicParsing="false" onAction="#submitBaseProduction" text="Done!" />
    </AnchorPane>
-   <AnchorPane fx:id="leaderProductionPane" layoutX="213.0" layoutY="126.0" prefHeight="336.0" prefWidth="429.0" style="-fx-background-color: lightblue;" visible="false">
-      <Button fx:id="activeLeaderProductionButton1" layoutX="253.0" layoutY="133.0" mnemonicParsing="false" onAction="#activeLeaderProduction1" text="Active" />
-      <Button fx:id="activeLeaderProductionButton2" layoutX="253.0" layoutY="237.0" mnemonicParsing="false" onAction="#activeLeaderProduction2" text="Active" />
+   <AnchorPane fx:id="leaderProductionPane" layoutX="222.0" layoutY="125.0" prefHeight="425.0" prefWidth="508.0" style="-fx-background-color: lightblue;" visible="false">
+      <ImageView fx:id="leaderCardProductionImage1" fitHeight="150.0" fitWidth="108.0" layoutX="104.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leaderCardProductionImage2" fitHeight="150.0" fitWidth="108.0" layoutX="290.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="activeLeaderProductionButton1" layoutX="139.0" layoutY="317.0" mnemonicParsing="false" onAction="#activeLeaderProduction1" text="Active" />
+      <Button fx:id="activeLeaderProductionButton2" layoutX="316.0" layoutY="315.0" mnemonicParsing="false" onAction="#activeLeaderProduction2" text="Active" />
       <RadioButton layoutX="137.0" layoutY="85.0" mnemonicParsing="false" selected="true" text="Coin">
          <toggleGroup>
             <ToggleGroup fx:id="toggleGroupLeaderResource" />
@@ -112,7 +132,7 @@
       <RadioButton layoutX="189.0" layoutY="85.0" mnemonicParsing="false" text="Stone" toggleGroup="$toggleGroupLeaderResource" />
       <RadioButton layoutX="253.0" layoutY="85.0" mnemonicParsing="false" text="Servant" toggleGroup="$toggleGroupLeaderResource" />
       <RadioButton layoutX="322.0" layoutY="85.0" mnemonicParsing="false" text="Shield" toggleGroup="$toggleGroupLeaderResource" />
-      <Button fx:id="submitLeaderProductionButton" layoutX="171.0" layoutY="290.0" mnemonicParsing="false" onAction="#submitLeaderProduction" text="Done!" />
+      <Button fx:id="submitLeaderProductionButton" layoutX="229.0" layoutY="363.0" mnemonicParsing="false" onAction="#submitLeaderProduction" text="Done!" />
       <Label layoutX="59.0" layoutY="30.0" prefHeight="42.0" prefWidth="314.0" text="Select the resource you want to use and than click active if you want to activate that production. " wrapText="true" />
       <Label layoutX="189.0" layoutY="14.0" prefHeight="17.0" prefWidth="131.0" text="Leader Card Production" />
    </AnchorPane>
