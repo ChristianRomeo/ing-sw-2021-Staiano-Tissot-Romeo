@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.BuyCardSceneController">
+    <ChoiceBox fx:id="buyCardRowChoiceBox" layoutX="533.0" layoutY="505.0" prefHeight="25.0" prefWidth="131.0" />
+    <ChoiceBox fx:id="buyCardColumnChoiceBox" layoutX="834.0" layoutY="506.0" prefHeight="25.0" prefWidth="123.0" />
+    <Label layoutX="432.0" layoutY="516.0" prefHeight="17.0" prefWidth="36.0" text="Row" />
+    <Label layoutX="737.0" layoutY="510.0" prefHeight="17.0" prefWidth="50.0" text="Column" />
+    <Button fx:id="nextBuyCardButton" layoutX="616.0" layoutY="587.0" mnemonicParsing="false" onAction="#nextBuyCard" text="Next" />
+   
+    <AnchorPane fx:id="buyCardPane2" layoutX="156.0" layoutY="59.0" prefHeight="647.0" prefWidth="995.0" style="-fx-background-color: lightblue;" visible="false">
+        <ImageView fitHeight="334.0" fitWidth="462.0" layoutX="66.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../personalcardboard.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="choosePersonalCardBoardPileImage1" fitHeight="138.0" fitWidth="93.0" layoutX="162.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="choosePersonalCardBoardPileImage2" fitHeight="150.0" fitWidth="108.0" layoutX="275.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="choosePersonalCardBoardPileImage3" fitHeight="150.0" fitWidth="99.0" layoutX="410.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
+        <RadioButton layoutX="200.0" layoutY="365.0" mnemonicParsing="false" selected="true" text="Pile 1">
+            <toggleGroup>
+                <ToggleGroup fx:id="toggleGroupSelectPile" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton layoutX="312.0" layoutY="365.0" mnemonicParsing="false" text="Pile 2" toggleGroup="$toggleGroupSelectPile" />
+        <RadioButton layoutX="433.0" layoutY="363.0" mnemonicParsing="false" text="Pile 3" toggleGroup="$toggleGroupSelectPile" />
+        <Button fx:id="submitBuyCardButton" layoutX="310.0" layoutY="413.0" mnemonicParsing="false" onAction="#submitBuyCard" text="Done!" />
+    </AnchorPane>
+</AnchorPane>

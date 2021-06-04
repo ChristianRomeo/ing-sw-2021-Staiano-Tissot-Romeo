@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.LeaderActionSceneController">
+    <Button fx:id="firstLeaderCardButton" alignment="CENTER" layoutX="527.0" layoutY="280.0" mnemonicParsing="false" onAction="#selectFirstLeaderCard" style="-fx-background-color: white;" text="Select" />
+    <Label alignment="CENTER" layoutX="559.0" layoutY="56.0" prefHeight="17.0" prefWidth="239.0" text="Select the card you want to discard/activate" />
+    <Button fx:id="secondLeaderCardButton" layoutX="700.0" layoutY="280.0" mnemonicParsing="false" onAction="#selectSecondLeaderCard" style="-fx-background-color: white;" text="Select" />
+    <Label layoutX="487.0" layoutY="319.0" prefHeight="17.0" prefWidth="245.0" text="Do you want to activate or discard the card?" />
+    <Button fx:id="activateLeaderButton" layoutX="535.0" layoutY="364.0" mnemonicParsing="false" onAction="#activateLeaderCard" text="Activate" />
+    <Button fx:id="discardLeaderButton" layoutX="680.0" layoutY="366.0" mnemonicParsing="false" onAction="#discardLeaderCard" text="Discard" />
+    <ImageView fx:id="chooseLeaderCardImage1" fitHeight="178.0" fitWidth="138.0" layoutX="485.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="chooseLeaderCardImage2" fitHeight="174.0" fitWidth="150.0" layoutX="672.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+</AnchorPane>

@@ -1,8 +1,13 @@
 package it.polimi.ingsw.client.GUI;
-import it.polimi.ingsw.controller.Events.*;
+
+
+import it.polimi.ingsw.controller.Events.BoughtCardEvent;
+import it.polimi.ingsw.controller.Events.UseMarketEvent;
+import it.polimi.ingsw.model.PersonalCardBoard;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import javafx.fxml.FXML;
+
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -11,125 +16,8 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.*;
 
-public class GameSceneController extends FXMLController {
+public class UseMarketSceneController extends FXMLController{
 
-    //---- cose per la schermata principale---
-    @FXML
-    private Label messageLabel;
-    @FXML
-    private Button leaderActionButton;
-    @FXML
-    private Button buyCardButton;
-    @FXML
-    private Button endTurnButton;
-    @FXML
-    private Button activateProductionButton;
-    @FXML
-    private Button useMarketButton;
-/*
-    //----- cose per pane azione leader -----
-    @FXML
-    private AnchorPane leaderActionPane;
-    @FXML
-    private Button firstLeaderCardButton;
-    @FXML
-    private Button secondLeaderCardButton;
-    @FXML
-    private Button activateLeaderButton;
-    @FXML
-    private Button discardLeaderButton;
-    @FXML
-    private ImageView chooseLeaderCardImage1;
-    @FXML
-    private ImageView chooseLeaderCardImage2;
-
-    private int selectedLeaderCard;
-*/
-    //----- cose per pane compra carta -----
-    /*
-    //pane1
-    @FXML
-    private AnchorPane buyCardPane1;
-    @FXML
-    private ChoiceBox<Integer> buyCardRowChoiceBox;
-    @FXML
-    private ChoiceBox<Integer> buyCardColumnChoiceBox;
-    @FXML
-    private Button nextBuyCardButton;
-    //pane2
-    @FXML
-    private ImageView choosePersonalCardBoardPileImage1;
-    @FXML
-    private ImageView choosePersonalCardBoardPileImage2;
-    @FXML
-    private ImageView choosePersonalCardBoardPileImage3;
-    @FXML
-    private AnchorPane buyCardPane2;
-    @FXML
-    private Button submitBuyCardButton;
-    @FXML
-    private ToggleGroup toggleGroupSelectPile;
-*/
-    //----- cose per pane attiva produzione -----
-    /*
-    //pane principale
-    private List<Integer> cardProductions;
-    private boolean activateBaseProduction;
-    private Resource requestedResBP1;
-    private Resource requestedResBP2;
-    private Resource producedResBP;
-    private Resource leaderProductionResource1;
-    private Resource leaderProductionResource2;
-
-    @FXML
-    private ImageView cardProductionImage1;
-    @FXML
-    private ImageView cardProductionImage2;
-    @FXML
-    private ImageView cardProductionImage3;
-
-    @FXML
-    private AnchorPane productionPane;
-    @FXML
-    private RadioButton cardProductionButton1;
-    @FXML
-    private RadioButton cardProductionButton2;
-    @FXML
-    private RadioButton cardProductionButton3;
-    @FXML
-    private Button baseProductionButton;
-    @FXML
-    private Button submitProductionButton;
-    //pane base production
-    @FXML
-    private AnchorPane baseProductionPane;
-    @FXML
-    private ToggleGroup toggleGroupResourceBP1;
-    @FXML
-    private ToggleGroup toggleGroupResourceBP2;
-    @FXML
-    private ToggleGroup toggleGroupResourceBP3;
-    @FXML
-    private Button submitBaseProductionButton;
-    //pane leader productions
-    private boolean hasLeaderCardProduction;
-    @FXML
-    private ImageView leaderCardProductionImage1;
-    @FXML
-    private ImageView leaderCardProductionImage2;
-    @FXML
-    private AnchorPane leaderProductionPane;
-    @FXML
-    private ToggleGroup toggleGroupLeaderResource;
-    @FXML
-    private Button activeLeaderProductionButton1;
-    @FXML
-    private Button activeLeaderProductionButton2;
-    @FXML
-    private Button submitLeaderProductionButton;
-*/
-    //----- cose per pane compra al mercato -----
-    /*
     private char rowOrColumn;
     private int marketIndex;
     private List<Resource> boughtResources;
@@ -142,8 +30,6 @@ public class GameSceneController extends FXMLController {
     private PlayerWarehouse newWarehouse;
 
     //pane con proprio il mercato
-    @FXML
-    private AnchorPane marketPane;
     @FXML
     private ToggleGroup toggleGroupMarket;
     @FXML
@@ -189,246 +75,8 @@ public class GameSceneController extends FXMLController {
     private Button removeLeaderResourceButton1;
     @FXML
     private Button removeLeaderResourceButton2;
-*/
 
-    //---- cose per la schermata principale---
-
-    @Override
-    public void updateScene(){ //todo: da fare
-        if(clientModel.isCurrentPlayer()){
-            leaderActionButton.setVisible(true);
-        }else{
-            leaderActionButton.setVisible(false);
-        }
-    }
-
-    @Override
-    public void showMessage(String message){
-        messageLabel.setText(message);
-    }
-
-    @FXML //sto metodo inizializza la scena solo quando viene caricata la prima volta, in automaticao
-    public void initialize(){
-        /*
-        buyCardRowChoiceBox.getItems().removeAll();
-        buyCardRowChoiceBox.getItems().addAll(0,1,2);
-        buyCardRowChoiceBox.setValue(0);
-
-        buyCardColumnChoiceBox.getItems().removeAll();
-        buyCardColumnChoiceBox.getItems().addAll(0,1,2,3);
-        buyCardColumnChoiceBox.setValue(0);
-*/
-
-    }
-
-    @FXML
-    public void leaderAction(){
-       // initializeLeaderPanel();
-        //leaderActionPane.setVisible(true);
-        guiView.getSceneController("leaderActionScene").updateScene();
-        guiView.setCurrentScene("leaderActionScene");
-    }
-    @FXML
-    public void buyCard(){
-        //initializeBuyCardPane();
-        //buyCardPane1.setVisible(true);
-        guiView.getSceneController("buyCardScene").updateScene();
-        guiView.setCurrentScene("buyCardScene");
-    }
-    @FXML
-    public void endTurn(){
-        serverHandler.send(new EndTurnEvent());
-    }
-    @FXML
-    public void activateProduction(){
-        //initializeProductionPane();
-        //productionPane.setVisible(true);
-        guiView.getSceneController("activateProductionScene").updateScene();
-        guiView.setCurrentScene("activateProductionScene");
-    }
-    @FXML
-    public void useMarket(){
-        //marketPane.setVisible(true);
-        guiView.getSceneController("useMarketScene").updateScene();
-        guiView.setCurrentScene("useMarketScene");
-    }
-/*
-    //----- cose per pane azione leader -----
-
-    private void initializeLeaderPanel(){
-        selectedLeaderCard=-1;
-        firstLeaderCardButton.setDisable(false);
-        secondLeaderCardButton.setDisable(false);
-        firstLeaderCardButton.setStyle("-fx-background-color: white;");
-        secondLeaderCardButton.setStyle("-fx-background-color: white;");
-        List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
-        if(myLeaderCards.get(0).isActivated()||myLeaderCards.get(0).isDiscarded()){
-            chooseLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
-        }else{
-            chooseLeaderCardImage1.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(0)));
-        }
-        if(myLeaderCards.get(1).isActivated()||myLeaderCards.get(1).isDiscarded()){
-            chooseLeaderCardImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
-        }else{
-            chooseLeaderCardImage2.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(1)));
-        }
-    }
-    @FXML
-    public void selectFirstLeaderCard(){
-        selectedLeaderCard=0;
-        firstLeaderCardButton.setDisable(true);
-        secondLeaderCardButton.setDisable(true);
-        firstLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
-    }
-    @FXML
-    public void selectSecondLeaderCard(){
-        selectedLeaderCard=1;
-        firstLeaderCardButton.setDisable(true);
-        secondLeaderCardButton.setDisable(true);
-        secondLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
-    }
-    @FXML
-    public void activateLeaderCard(){
-        if(selectedLeaderCard!=-1){
-            serverHandler.send(new LeaderCardActionEvent('a',selectedLeaderCard));
-            leaderActionPane.setVisible(false);
-        }
-    }
-    @FXML
-    public void discardLeaderCard(){
-        if(selectedLeaderCard!=-1){
-            serverHandler.send(new LeaderCardActionEvent('d',selectedLeaderCard));
-            leaderActionPane.setVisible(false);
-        }
-    }
-*/
-    /*
-    //----- cose per pane compra carta -----
-    private void initializeBuyCardPane(){
-        PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
-        if(myPersonalCardBoard.getUpperCard(0)!=null){
-            choosePersonalCardBoardPileImage1.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(0)));
-        }
-        if(myPersonalCardBoard.getUpperCard(1)!=null){
-            choosePersonalCardBoardPileImage2.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(1)));
-        }
-        if(myPersonalCardBoard.getUpperCard(2)!=null){
-            choosePersonalCardBoardPileImage3.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(2)));
-        }
-        buyCardPane1.setVisible(true);
-    }
-
-    @FXML
-    public void nextBuyCard(){
-        buyCardPane1.setVisible(false);
-        buyCardPane2.setVisible(true);
-    }
-    @FXML
-    public void submitBuyCard(){
-        int row = buyCardRowChoiceBox.getValue();
-        int column = buyCardColumnChoiceBox.getValue();
-        int pile = toggleGroupSelectPile.getToggles().indexOf(toggleGroupSelectPile.getSelectedToggle());
-        serverHandler.send(new BoughtCardEvent(row,column,pile));
-        buyCardPane2.setVisible(false);
-        //System.out.println(row + " "+ column+ " "+ pile +" ");//debug
-    }
-*/
-    //----- cose per pane attiva produzione -----
-/*
-    private void initializeProductionPane(){
-        cardProductions = new ArrayList<>();
-        activateBaseProduction=false;
-        requestedResBP1=null;
-        requestedResBP2=null;
-        producedResBP=null;
-        baseProductionButton.setDisable(false);
-        activeLeaderProductionButton1.setVisible(false);
-        activeLeaderProductionButton2.setVisible(false);
-        hasLeaderCardProduction=false;
-        leaderProductionResource1=null;
-        leaderProductionResource2=null;
-
-        PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
-        if(myPersonalCardBoard.getUpperCard(0)!=null){
-            cardProductionImage1.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(0)));
-        }
-        if(myPersonalCardBoard.getUpperCard(1)!=null){
-            cardProductionImage2.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(1)));
-        }
-        if(myPersonalCardBoard.getUpperCard(2)!=null){
-            cardProductionImage3.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(2)));
-        }
-        //cardProductionImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
-        //cardProductionImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
-        //cardProductionImage3.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
-
-        List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
-        if(leaderCards.get(0).isActivated() &&(leaderCards.get(0) instanceof LeaderCardProduction)){
-            activeLeaderProductionButton1.setVisible(true);
-            activeLeaderProductionButton1.setDisable(false);
-            hasLeaderCardProduction=true;
-            leaderCardProductionImage1.setImage(GuiView.getLeaderCardImage(leaderCards.get(0)));
-        }
-        if(leaderCards.get(1).isActivated() &&(leaderCards.get(1) instanceof LeaderCardProduction)){
-            activeLeaderProductionButton2.setVisible(true);
-            activeLeaderProductionButton2.setDisable(false);
-            hasLeaderCardProduction=true;
-            leaderCardProductionImage2.setImage(GuiView.getLeaderCardImage(leaderCards.get(1)));
-        }
-    }
-
-    @FXML
-    public void baseProduction(){
-        baseProductionPane.setVisible(true);
-    }
-    @FXML
-    public void submitBaseProduction(){
-        activateBaseProduction=true;
-        //ciò si basa sull'ordine delle risorse sui bottoni, quindi non cambiarlo
-        requestedResBP1 = Resource.values()[toggleGroupResourceBP1.getToggles().indexOf(toggleGroupResourceBP1.getSelectedToggle())];
-        requestedResBP2 = Resource.values()[toggleGroupResourceBP2.getToggles().indexOf(toggleGroupResourceBP2.getSelectedToggle())];
-        producedResBP = Resource.values()[toggleGroupResourceBP3.getToggles().indexOf(toggleGroupResourceBP3.getSelectedToggle())];
-        baseProductionPane.setVisible(false);
-        baseProductionButton.setDisable(true);
-    }
-
-    @FXML
-    public void submitProduction(){
-
-        if(cardProductionButton1.isSelected()){
-            cardProductions.add(0);
-        }
-        if(cardProductionButton2.isSelected()){
-            cardProductions.add(1);
-        }
-        if(cardProductionButton3.isSelected()){
-            cardProductions.add(2);
-        }
-        productionPane.setVisible(false);
-        if(hasLeaderCardProduction){
-            leaderProductionPane.setVisible(true);
-        }else{
-            serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,null,null));
-        }
-    }
-    @FXML
-    public void activeLeaderProduction1(){
-        leaderProductionResource1 = Resource.values()[toggleGroupLeaderResource.getToggles().indexOf(toggleGroupLeaderResource.getSelectedToggle())];
-        activeLeaderProductionButton1.setDisable(true);
-    }
-    @FXML
-    public void activeLeaderProduction2(){
-        leaderProductionResource2 = Resource.values()[toggleGroupLeaderResource.getToggles().indexOf(toggleGroupLeaderResource.getSelectedToggle())];
-        activeLeaderProductionButton2.setDisable(true);
-    }
-    @FXML
-    public void submitLeaderProduction(){
-        serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResource1,leaderProductionResource2));
-        leaderProductionPane.setVisible(false);
-    }
-*/
-    //----- cose per l'uso del mercato -----
-    /*
+//todo: qua ci vorrà l' updateScene per le immagini ecc
 
     //cose per il pane proprio del mercato
     @FXML
@@ -446,7 +94,7 @@ public class GameSceneController extends FXMLController {
             case 6 -> marketIndex = 3;
         }
         collectResource();
-        marketPane.setVisible(false);
+        //marketPane.setVisible(false);
         //System.out.println(rowOrColumn+" "+ marketIndex); //debug
         System.out.println(boughtResources); //debug
         initializeInsertResourcesPane();
@@ -468,7 +116,7 @@ public class GameSceneController extends FXMLController {
             whiteMarbleChoices = new ArrayList<>();
             for(MarbleColor marble : takenMarbles){
                 if(marble == MarbleColor.WHITE){
-                   whiteMarbleChoices.add(askWhiteMarbleChoice());
+                    whiteMarbleChoices.add(askWhiteMarbleChoice());
                 }
             }
         }
@@ -605,6 +253,8 @@ public class GameSceneController extends FXMLController {
             }
             serverHandler.send(new UseMarketEvent(rowOrColumn,marketIndex,newWarehouse,discardedResources,fullLeaderSlots1,fullLeaderSlots2,whiteMarbleChoices));
             insertResourcesPane.setVisible(false);
+            guiView.getSceneController("gameScene").updateScene();
+            guiView.setCurrentScene("gameScene");
         }
     }
 
@@ -734,7 +384,4 @@ public class GameSceneController extends FXMLController {
             exitEditWarehouseButton.setDisable(true);
         }
     }
-*/
-
-
 }

@@ -120,28 +120,14 @@ public class GuiView extends Application implements View {
     //sto metodo carica tutte le scene e i loro controller, dai file fxml
     public void loadScenes(){
         try{
-            /*
-            FXMLController sceneController;
-
-            FXMLLoader loaderInitialScene = getFXMLLoader("initialScene");
-            scenes.put("initialScene",new Scene(loaderInitialScene.load()));
-            sceneController = loaderInitialScene.getController();
-            sceneController.setClientModel(clientModel);
-            sceneController.setServerHandler(serverHandler);
-            controllers.put("initialScene",sceneController);
-
-            FXMLLoader loaderPregameScene = getFXMLLoader("pregameScene");
-            scenes.put("pregameScene",new Scene(loaderPregameScene.load()));
-            sceneController = loaderPregameScene.getController();
-            sceneController.setClientModel(clientModel);
-            sceneController.setServerHandler(serverHandler);
-            controllers.put("pregameScene",sceneController);
-            */
 
             loadScene("initialScene");
             loadScene("pregameScene");
             loadScene("gameScene");
-
+            loadScene("leaderActionScene");
+            loadScene("buyCardScene");
+            loadScene("activateProductionScene");
+            loadScene("useMarketScene");
 
         }catch (IOException e){
             logger.warning("Errore nel caricare file fxml");
@@ -156,6 +142,7 @@ public class GuiView extends Application implements View {
         FXMLController sceneController = sceneLoader.getController();
         sceneController.setClientModel(clientModel);
         sceneController.setServerHandler(serverHandler);
+        sceneController.setGuiView(this);
         controllers.put(sceneName,sceneController);
     }
 
