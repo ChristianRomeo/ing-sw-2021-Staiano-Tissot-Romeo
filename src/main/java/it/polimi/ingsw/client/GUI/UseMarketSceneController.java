@@ -34,7 +34,17 @@ public class UseMarketSceneController extends FXMLController{
     private ToggleGroup toggleGroupMarket;
     @FXML
     private Button submitMarketButton;
+
     //pane per inserire/scartare risorse
+    @FXML
+    private ImageView boughtResourceImage1;
+    @FXML
+    private ImageView boughtResourceImage2;
+    @FXML
+    private ImageView boughtResourceImage3;
+    @FXML
+    private ImageView boughtResourceImage4;
+
     @FXML
     private AnchorPane insertResourcesPane;
     @FXML
@@ -56,6 +66,15 @@ public class UseMarketSceneController extends FXMLController{
 
     //pane per edit Warehouse
     private List<Resource> temporaryRemovedResources;
+
+    @FXML
+    private ImageView temporaryRemovedResourceImage1;
+    @FXML
+    private ImageView temporaryRemovedResourceImage2;
+    @FXML
+    private ImageView temporaryRemovedResourceImage3;
+    @FXML
+    private ImageView temporaryRemovedResourceImage4;
 
     @FXML
     private AnchorPane editWarehousePane;
@@ -160,8 +179,31 @@ public class UseMarketSceneController extends FXMLController{
         if(boughtResources.size()>0){
             insertResourcesPane.setVisible(true);
             //todo:qui devo mostrare le risorse comprate
+            updateInsertResourcePane();
         }
     }
+
+    //fa l'update del pane per inserire risorse, cosi mostra le giuste immagini nel warehouse e nelle cose da
+    //inserire
+    private void updateInsertResourcePane(){
+        boughtResourceImage1.setImage(null);
+        boughtResourceImage2.setImage(null);
+        boughtResourceImage3.setImage(null);
+        boughtResourceImage4.setImage(null);
+        if(boughtResources.size()>0){
+            boughtResourceImage1.setImage(GuiView.getResourceImage(boughtResources.get(0)));
+        }
+        if(boughtResources.size()>1){
+            boughtResourceImage2.setImage(GuiView.getResourceImage(boughtResources.get(1)));
+        }
+        if(boughtResources.size()>2){
+            boughtResourceImage3.setImage(GuiView.getResourceImage(boughtResources.get(2)));
+        }
+        if(boughtResources.size()>3){
+            boughtResourceImage4.setImage(GuiView.getResourceImage(boughtResources.get(3)));
+        }
+    }
+
 
     @FXML
     public void insertResource(){
@@ -193,6 +235,7 @@ public class UseMarketSceneController extends FXMLController{
             newWarehouse.insertResource(boughtResources.get(0), selectedCell.getVal1(), selectedCell.getVal2());
             boughtResources.remove(0);
             checkFinishedResources();
+            updateInsertResourcePane();
         } catch (InvalidWarehouseInsertionException e) {
             //ignored
         }
@@ -238,6 +281,7 @@ public class UseMarketSceneController extends FXMLController{
     public void discardResource(){
         discardedResources = Resource.addOneResource(discardedResources,boughtResources.get(0));
         boughtResources.remove(0);
+        updateInsertResourcePane();
         checkFinishedResources();
         System.out.println(boughtResources +" disc res: "+ discardedResources); //debug
     }
@@ -263,6 +307,7 @@ public class UseMarketSceneController extends FXMLController{
         if(fullLeaderSlots1<2 && leaderCardResource1 == boughtResources.get(0)){
             boughtResources.remove(0);
             fullLeaderSlots1 = fullLeaderSlots1+1;
+            updateInsertResourcePane();
             checkFinishedResources();
         }
     }
@@ -272,6 +317,7 @@ public class UseMarketSceneController extends FXMLController{
         if(fullLeaderSlots2<2 && leaderCardResource2 == boughtResources.get(0)){
             boughtResources.remove(0);
             fullLeaderSlots2 = fullLeaderSlots2+1;
+            updateInsertResourcePane();
             checkFinishedResources();
         }
     }
@@ -289,9 +335,32 @@ public class UseMarketSceneController extends FXMLController{
         reinsertLeaderResourceButton2.setVisible(fullLeaderSlots2 != null);
         removeLeaderResourceButton1.setVisible(fullLeaderSlots1 != null);
         removeLeaderResourceButton2.setVisible(fullLeaderSlots2 != null);
+
+        updateEditWarehousePane();
     }
 
-    //cose per il pane di edit warehouse
+    //----cose per il pane di edit warehouse----
+
+    //fa l'update del pane per edit warehouse, cosi mostra le giuste immagini nel warehouse e nelle cose da
+    //inserire
+    private void updateEditWarehousePane(){
+        temporaryRemovedResourceImage1.setImage(null);
+        temporaryRemovedResourceImage2.setImage(null);
+        temporaryRemovedResourceImage3.setImage(null);
+        temporaryRemovedResourceImage4.setImage(null);
+        if(temporaryRemovedResources.size()>0){
+            temporaryRemovedResourceImage1.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(0)));
+        }
+        if(temporaryRemovedResources.size()>1){
+            temporaryRemovedResourceImage2.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(1)));
+        }
+        if(temporaryRemovedResources.size()>2){
+            temporaryRemovedResourceImage3.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(2)));
+        }
+        if(temporaryRemovedResources.size()>3){
+            temporaryRemovedResourceImage4.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(3)));
+        }
+    }
 
     @FXML
     public void reinsertResource(){
@@ -299,6 +368,7 @@ public class UseMarketSceneController extends FXMLController{
         try {
             newWarehouse.insertResource(temporaryRemovedResources.get(0), selectedCell.getVal1(), selectedCell.getVal2());
             temporaryRemovedResources.remove(0);
+            updateEditWarehousePane();
             if(temporaryRemovedResources.size()==0){
                 reinsertResourceButton.setDisable(true);
                 reinsertLeaderResourceButton1.setDisable(true);
@@ -315,6 +385,7 @@ public class UseMarketSceneController extends FXMLController{
         if (newWarehouse.getResource(selectedCell.getVal1(), selectedCell.getVal2()) != null)
             temporaryRemovedResources.add(newWarehouse.removeResource(selectedCell.getVal1(), selectedCell.getVal2()));
 
+        updateEditWarehousePane();
         if(temporaryRemovedResources.size()>0){
             reinsertResourceButton.setDisable(false);
             reinsertLeaderResourceButton1.setDisable(false);
@@ -326,6 +397,7 @@ public class UseMarketSceneController extends FXMLController{
     public void exitEditWarehouse(){
         if(temporaryRemovedResources.size()==0){
             editWarehousePane.setVisible(false);
+            updateInsertResourcePane();
             insertResourcesPane.setVisible(true);
         }
         System.out.println(newWarehouse.getResource(1,1)); //debug
@@ -337,6 +409,7 @@ public class UseMarketSceneController extends FXMLController{
         if(fullLeaderSlots1<2 && leaderCardResource1 == temporaryRemovedResources.get(0)){
             temporaryRemovedResources.remove(0);
             fullLeaderSlots1 = fullLeaderSlots1+1;
+            updateEditWarehousePane();
         }
         if(temporaryRemovedResources.size()==0){
             reinsertResourceButton.setDisable(true);
@@ -350,6 +423,7 @@ public class UseMarketSceneController extends FXMLController{
         if(fullLeaderSlots2<2 && leaderCardResource2 == temporaryRemovedResources.get(0)){
             temporaryRemovedResources.remove(0);
             fullLeaderSlots2 = fullLeaderSlots2+1;
+            updateEditWarehousePane();
         }
         if(temporaryRemovedResources.size()==0){
             reinsertResourceButton.setDisable(true);
@@ -363,6 +437,7 @@ public class UseMarketSceneController extends FXMLController{
         if(fullLeaderSlots1>0){
             temporaryRemovedResources.add(leaderCardResource1);
             fullLeaderSlots1=fullLeaderSlots1-1;
+            updateEditWarehousePane();
         }
         if(temporaryRemovedResources.size()>0){
             reinsertResourceButton.setDisable(false);
@@ -376,6 +451,7 @@ public class UseMarketSceneController extends FXMLController{
         if(fullLeaderSlots2>0){
             temporaryRemovedResources.add(leaderCardResource2);
             fullLeaderSlots2=fullLeaderSlots2-1;
+            updateEditWarehousePane();
         }
         if(temporaryRemovedResources.size()>0){
             reinsertResourceButton.setDisable(false);

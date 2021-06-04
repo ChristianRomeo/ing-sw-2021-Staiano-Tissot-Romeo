@@ -244,6 +244,16 @@ public class GuiView extends Application implements View {
         return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "dev" + developmentCard.getId() +  ".png")));
     }
 
+    //ritorna l'immagine (piccola) della risorsa passata
+    public static Image getResourceImage(Resource resource){
+        if(resource!=null){
+            String resourceName = resource.toString().toLowerCase();
+            return new Image(String.valueOf(GuiView.class.getResource("/"+resourceName+"Picc.png")));
+        }else{
+            return null;
+        }
+    }
+
     public void launcher() {}
 
     public void stop(){

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.UseMarketSceneController">
@@ -22,9 +23,9 @@
     <Button fx:id="submitMarketButton" layoutX="603.0" layoutY="458.0" mnemonicParsing="false" onAction="#submitMarket" text="Done!" />
 
     <AnchorPane fx:id="insertResourcesPane" layoutX="163.0" layoutY="48.0" prefHeight="625.0" prefWidth="939.0" style="-fx-background-color: lightblue;" visible="false">
-        <Button fx:id="insertResourceButton" layoutX="353.0" layoutY="43.0" mnemonicParsing="false" onAction="#insertResource" text="Insert resource" />
-        <Button fx:id="discardResourceButton" layoutX="353.0" layoutY="87.0" mnemonicParsing="false" onAction="#discardResource" text="Discard resource" />
-        <Button fx:id="editWarehouseButton" layoutX="354.0" layoutY="131.0" mnemonicParsing="false" onAction="#editWarehouse" text="Edit warehouse" />
+        <Button fx:id="insertResourceButton" layoutX="745.0" layoutY="61.0" mnemonicParsing="false" onAction="#insertResource" text="Insert resource" />
+        <Button fx:id="discardResourceButton" layoutX="745.0" layoutY="105.0" mnemonicParsing="false" onAction="#discardResource" text="Discard resource" />
+        <Button fx:id="editWarehouseButton" layoutX="746.0" layoutY="149.0" mnemonicParsing="false" onAction="#editWarehouse" text="Edit warehouse" />
         <RadioButton disable="true" layoutX="50.0" layoutY="84.0" mnemonicParsing="false" selected="true" text="1,1">
             <toggleGroup>
                 <ToggleGroup fx:id="toggleGroupInsertWarehouse" />
@@ -37,15 +38,23 @@
         <RadioButton disable="true" layoutX="153.0" layoutY="156.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupInsertWarehouse" />
         <Button fx:id="submitInsertResourceButton" disable="true" layoutX="90.0" layoutY="206.0" mnemonicParsing="false" onAction="#submitInsertResource" text="Done!" />
         <Label fx:id="insertResourceLabel" layoutX="29.0" layoutY="34.0" prefHeight="40.0" prefWidth="236.0" text="Choose your action." wrapText="true" />
-        <Label layoutX="340.0" layoutY="234.0" prefHeight="77.0" prefWidth="138.0" text="qui ci saranno le risorse da inserire, con la risorsa considerata al momento" wrapText="true" />
+        <Label layoutX="445.0" layoutY="274.0" prefHeight="77.0" prefWidth="138.0" text="Considered Resource" wrapText="true" />
         <Button fx:id="insertLeaderButton1" layoutX="56.0" layoutY="374.0" mnemonicParsing="false" onAction="#insertLeader1" text="Insert Leader 1" />
         <Button fx:id="insertLeaderButton2" layoutX="179.0" layoutY="374.0" mnemonicParsing="false" onAction="#insertLeader2" text="Insert Leader 2" />
+      <ImageView fx:id="boughtResourceImage1" fitHeight="51.0" fitWidth="71.0" layoutX="484.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="boughtResourceImage2" fitHeight="51.0" fitWidth="71.0" layoutX="643.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="boughtResourceImage3" fitHeight="51.0" fitWidth="71.0" layoutX="751.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="boughtResourceImage4" fitHeight="51.0" fitWidth="71.0" layoutX="835.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" />
     </AnchorPane>
 
     <AnchorPane fx:id="editWarehousePane" layoutX="173.0" layoutY="58.0" prefHeight="616.0" prefWidth="915.0" style="-fx-background-color: lightgreen;" visible="false">
-        <Button fx:id="reinsertResourceButton" layoutX="353.0" layoutY="43.0" mnemonicParsing="false" onAction="#reinsertResource" text="Re-insert resource" />
-        <Button fx:id="temporaryRemoveResourceButton" layoutX="353.0" layoutY="87.0" mnemonicParsing="false" onAction="#temporaryRemoveResource" text="Remove resource" />
-        <Button fx:id="exitEditWarehouseButton" layoutX="353.0" layoutY="130.0" mnemonicParsing="false" onAction="#exitEditWarehouse" prefHeight="25.0" prefWidth="108.0" text="Exit" />
+      <ImageView fx:id="temporaryRemovedResourceImage1" fitHeight="51.0" fitWidth="71.0" layoutX="426.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="temporaryRemovedResourceImage2" fitHeight="51.0" fitWidth="71.0" layoutX="620.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="temporaryRemovedResourceImage3" fitHeight="51.0" fitWidth="71.0" layoutX="737.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="temporaryRemovedResourceImage4" fitHeight="51.0" fitWidth="71.0" layoutX="817.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="reinsertResourceButton" layoutX="744.0" layoutY="28.0" mnemonicParsing="false" onAction="#reinsertResource" text="Re-insert resource" />
+        <Button fx:id="temporaryRemoveResourceButton" layoutX="744.0" layoutY="72.0" mnemonicParsing="false" onAction="#temporaryRemoveResource" text="Remove resource" />
+        <Button fx:id="exitEditWarehouseButton" layoutX="744.0" layoutY="115.0" mnemonicParsing="false" onAction="#exitEditWarehouse" prefHeight="25.0" prefWidth="108.0" text="Exit" />
         <RadioButton layoutX="50.0" layoutY="84.0" mnemonicParsing="false" selected="true" text="1,1">
             <toggleGroup>
                 <ToggleGroup fx:id="toggleGroupEditWarehouse" />
@@ -57,7 +66,7 @@
         <RadioButton layoutX="100.0" layoutY="157.0" mnemonicParsing="false" text="3,2" toggleGroup="$toggleGroupEditWarehouse" />
         <RadioButton layoutX="153.0" layoutY="156.0" mnemonicParsing="false" text="3,3" toggleGroup="$toggleGroupEditWarehouse" />
         <Label layoutX="29.0" layoutY="34.0" prefHeight="42.0" prefWidth="271.0" text="You can temporary remove a resource from the selected position or re-insert a removed resource" wrapText="true" />
-        <Label layoutX="340.0" layoutY="234.0" prefHeight="77.0" prefWidth="138.0" text="qui ci saranno le risorse temporaneamente rimosse, con la risorsa considerata al momento" wrapText="true" />
+        <Label layoutX="400.0" layoutY="228.0" prefHeight="77.0" prefWidth="138.0" text="Considered Resource" wrapText="true" />
         <Button fx:id="reinsertLeaderResourceButton1" layoutX="10.0" layoutY="374.0" mnemonicParsing="false" onAction="#reinsertLeaderResource1" prefHeight="25.0" prefWidth="113.0" text="Re-Insert Leader 1" />
         <Button fx:id="reinsertLeaderResourceButton2" layoutX="238.0" layoutY="374.0" mnemonicParsing="false" onAction="#reinsertLeaderResource2" text="Re-Insert Leader 2" />
         <Button fx:id="removeLeaderResourceButton1" layoutX="133.0" layoutY="374.0" mnemonicParsing="false" onAction="#removeLeaderResource1" text="Remove Leader1" />
