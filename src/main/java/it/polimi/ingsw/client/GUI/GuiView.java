@@ -7,30 +7,17 @@ import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 import java.util.logging.Logger;
 
 //to change game font
@@ -160,6 +147,7 @@ public class GuiView extends Application implements View {
             currentStage.setResizable(false);
             currentStage.setMaxHeight(720);
             currentStage.setMaxWidth(1280);
+            currentStage.setX(100);
         }
         currentStage.setScene(getScene(sceneName));
         currentScene = getScene(sceneName);

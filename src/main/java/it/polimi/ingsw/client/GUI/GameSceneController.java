@@ -3,16 +3,23 @@ import it.polimi.ingsw.controller.Events.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.ImagePattern;
 
 import java.util.*;
 
 public class GameSceneController extends FXMLController {
 
+    @FXML
+    private AnchorPane root;
     //---- cose per la schermata principale---
     @FXML
     private Label messageLabel;
@@ -195,11 +202,7 @@ public class GameSceneController extends FXMLController {
 
     @Override
     public void updateScene(){ //todo: da fare
-        if(clientModel.isCurrentPlayer()){
-            leaderActionButton.setVisible(true);
-        }else{
-            leaderActionButton.setVisible(false);
-        }
+        leaderActionButton.setVisible(clientModel.isCurrentPlayer());
     }
 
     @Override
@@ -209,6 +212,8 @@ public class GameSceneController extends FXMLController {
 
     @FXML //sto metodo inizializza la scena solo quando viene caricata la prima volta, in automaticao
     public void initialize(){
+        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("medici.png")))), CornerRadii.EMPTY, Insets.EMPTY);
+        //root.setBackground(new Background(backgroundFill));
         /*
         buyCardRowChoiceBox.getItems().removeAll();
         buyCardRowChoiceBox.getItems().addAll(0,1,2);
