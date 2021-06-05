@@ -80,7 +80,8 @@ public class EventsHandlerCLI implements ServerEventObserver {
 
     @Override
     public void handleEvent(EndGameEventS2C event) {
-
+        cliView.showLadderBoard(event);
+        cliView.showMessage("Write 'exit' to continue.");
     }
 
     @Override

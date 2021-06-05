@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.GUI;
 
+import it.polimi.ingsw.MastersOfRenaissance;
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.controller.Configs;
@@ -24,6 +25,7 @@ import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -120,6 +122,7 @@ public class GuiView extends Application implements View {
             loadScene("buyCardScene");
             loadScene("activateProductionScene");
             loadScene("useMarketScene");
+            loadScene("endGameScene");
 
         }catch (IOException e){
             logger.warning("Errore nel caricare file fxml");
@@ -251,11 +254,25 @@ public class GuiView extends Application implements View {
     }
 
     /**
-     * chiede se vuole fare una nuova partita
+     * chiede se vuole fare una nuova partita, ciò dovrebbe avvenire solo in caso di errori di connessione.
+     * se arriva alla fine della partita senza problemi lo chiede in altro modo.
      */
     @Override
     public void askNewGame() {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Connection Error! The application will be closed.");
+            ButtonType buttonTypeOne = new ButtonType("Exit");
 
+            alert.getButtonTypes().setAll(buttonTypeOne);
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get()==buttonTypeOne){
+                System.exit(0);
+            }else{
+                //dovrebbe essere impossibile;
+            }
+        });
     }
 
     /**

@@ -165,10 +165,15 @@ public class EventsHandler implements ServerEventObserver {
     @Override
     public void handleEvent(EndGameEventS2C event) {
 
-        view.showLadderBoard(event);
+        //view.showLadderBoard(event);
         clientModel.setHasGameStarted(false);
         clientModel.setGameEnded(true);
-        view.showMessage("Write 'exit' to continue.");
+        clientModel.setVictoryPoints(event.getVictoryPoints());
+        clientModel.setWinners(event.getWinners());
+        //view.showMessage("Write 'exit' to continue.");
+
+        event.notifyHandler(eventHandlerView); //ciò poi si occupa di mostrare le cose (in base a che view è)
+
 //todo: da vedere nella gui
         //è finito il gioco
     }

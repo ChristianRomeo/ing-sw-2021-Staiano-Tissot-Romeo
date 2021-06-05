@@ -104,7 +104,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
 
     @Override
     public void handleEvent(EndGameEventS2C event) {
-
+        Platform.runLater(() -> {
+            guiView.getSceneController("endGameScene").updateScene();
+            guiView.setCurrentScene("endGameScene");
+        });
     }
 
     @Override

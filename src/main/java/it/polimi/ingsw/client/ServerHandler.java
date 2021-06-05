@@ -50,15 +50,14 @@ public class ServerHandler implements Runnable{
                 if (isConnected)
                     System.out.println("Server down, closing");
                 closeConnection();
+                view.askNewGame();
             }
 
-        //closeConnection();
+        closeConnection();
     }
 
     public void setUpConnection(){
         try{
-
-
             socket = new Socket(Configs.getServerIp(in), Configs.getServerPort(in));    //metodo del server nel client
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
@@ -74,6 +73,7 @@ public class ServerHandler implements Runnable{
                     isConnected=true;
                 }catch (IOException l) {
                     closeConnection();
+                    view.askNewGame();
                 }
 
         }
@@ -99,6 +99,7 @@ public class ServerHandler implements Runnable{
             } catch (IOException | ClassNotFoundException e) {
                 logger.warning("Server down during setup reading "+e);
                 closeConnection();
+                view.askNewGame();
             }
 
             //quindi arrivato qua il client si è connesso con il server,ha inviato il suo nickname e
@@ -121,8 +122,7 @@ public class ServerHandler implements Runnable{
             }else
                 logger.info("server unreachable");
 
-            view.askNewGame();
-
+            //view.askNewGame();
         } catch (IOException e) {
             logger.warning("errore in chiusura connessione " + e);                                                 //IT SHOULD NOT HAPPEN
         }
@@ -142,7 +142,8 @@ public class ServerHandler implements Runnable{
                     output.reset();
             } catch (IOException e) {
                 logger.warning("error in sending");
-               closeConnection();
+                closeConnection();
+                view.askNewGame();
             }
         }
     }

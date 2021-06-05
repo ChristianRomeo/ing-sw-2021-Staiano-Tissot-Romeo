@@ -38,6 +38,10 @@ public class ClientModel {
 
    // private List<Integer> playersVP; credo non serve
 
+   private List<String> winners; //list of the winners of the match
+
+   private Map<String,Integer> victoryPoints; //map of nickname->pv of that player
+
    private int serverCookie;
 
    private int numPlayers;
@@ -108,6 +112,10 @@ public class ClientModel {
 
    public synchronized int getServerCookie() {
       return serverCookie;
+   }
+
+   public synchronized int getNumPlayers(){
+      return numPlayers;
    }
 
    /**
@@ -361,6 +369,22 @@ public class ClientModel {
     */
    public synchronized void setPopeTiles(String player, SameTypeTriple<PopeFavorTileStatus> popeTileStatus){
       playersPopeTiles.set(playersNicknames.indexOf(player), popeTileStatus);
+   }
+
+   public synchronized void setWinners(List<String> winners){
+      this.winners = winners;
+   }
+
+   public synchronized List<String> getWinners(){
+      return winners;
+   }
+
+   public synchronized void setVictoryPoints(Map<String,Integer> victoryPoints){
+      this.victoryPoints = victoryPoints;
+   }
+
+   public synchronized Map<String,Integer> getVictoryPoints(){
+      return victoryPoints;
    }
 
    //this method takes marbles and returns the corresponding resources
