@@ -113,11 +113,10 @@
          <Image url="@../Cards/dev1.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="595.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Cards/dev1.png" />
-      </image>
-   </ImageView>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="595.0" layoutY="59.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../Cards/dev1.png"/>
+    </ImageView>
     <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="595.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev1.png" />
     </ImageView>
@@ -130,21 +129,18 @@
     <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="679.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev1.png" />
     </ImageView>
-   <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Cards/dev1.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Cards/dev1.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Cards/dev1.png" />
-      </image>
-   </ImageView>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="77.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../Cards/dev1.png"/>
+    </ImageView>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="59.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../Cards/dev1.png"/>
+    </ImageView>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="39.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../Cards/dev1.png"/>
+    </ImageView>
    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="1022.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../Cards/dev1.png" />

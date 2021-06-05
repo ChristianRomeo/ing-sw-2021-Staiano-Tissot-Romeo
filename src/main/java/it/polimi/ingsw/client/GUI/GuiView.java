@@ -13,11 +13,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import java.util.logging.Logger;
 
 //to change game font
@@ -76,19 +79,20 @@ public class GuiView extends Application implements View {
         //currentStage.setMinHeight(550);
         //currentStage.setMinWidth(680);
 
-        currentStage.setWidth(550);
+        //currentStage.setWidth(550);
 
         currentStage.minWidthProperty().bind(currentStage.getScene().heightProperty().multiply(1));
         currentStage.minHeightProperty().bind(currentStage.getScene().widthProperty().divide(1));
 
-        currentStage.setResizable(true);
+        //currentStage.setResizable(true);
+        currentStage.setResizable(false);
         currentStage.sizeToScene();
-        currentStage.setMaxHeight(900);
-        currentStage.setMaxWidth(900);
+        //currentStage.setMaxHeight(900);
+        //currentStage.setMaxWidth(900);
 
         currentStage.getIcons().add(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png"))));
-        currentStage.getScene().widthProperty().addListener((observable, oldValue, newValue) -> getCurrentSceneController().updateWidthConstraints(newValue.doubleValue()));
-        currentStage.getScene().heightProperty().addListener((observable, oldValue, newValue) -> getCurrentSceneController().updateHeightConstraints(newValue.doubleValue()));
+        //currentStage.getScene().widthProperty().addListener((observable, oldValue, newValue) -> getCurrentSceneController().updateWidthConstraints(newValue.doubleValue()));
+        //currentStage.getScene().heightProperty().addListener((observable, oldValue, newValue) -> getCurrentSceneController().updateHeightConstraints(newValue.doubleValue()));
 
         currentStage.show();
 
@@ -145,9 +149,11 @@ public class GuiView extends Application implements View {
     public void setCurrentScene(String sceneName){
         if (sceneName.equalsIgnoreCase("pregamescene")){
             currentStage.setResizable(false);
-            currentStage.setMaxHeight(720);
-            currentStage.setMaxWidth(1280);
-            currentStage.setX(100);
+
+            //currentStage.setMaxHeight(720);
+            //currentStage.setMaxWidth( 1080);
+
+            //currentStage.setX(100);
         }
         currentStage.setScene(getScene(sceneName));
         currentScene = getScene(sceneName);

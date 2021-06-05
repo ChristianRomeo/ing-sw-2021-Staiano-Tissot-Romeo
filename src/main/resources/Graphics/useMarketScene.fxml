@@ -11,61 +11,55 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.UseMarketSceneController">
-   <ImageView fitHeight="484.0" fitWidth="397.0" layoutX="451.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../market.png" />
-      </image>
-   </ImageView>
-   <GridPane gridLinesVisible="true" layoutX="516.0" layoutY="117.0" prefHeight="196.0" prefWidth="248.0">
-     <columnConstraints>
-       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-     </rowConstraints>
-      <children>
-         <ImageView fx:id="marbleImage00" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="marbleImage01" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-         <ImageView fx:id="marbleImage02" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-         <ImageView fx:id="marbleImage03" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-         <ImageView fx:id="marbleImage10" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-         <ImageView fx:id="marbleImage11" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <ImageView fx:id="marbleImage12" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-         <ImageView fx:id="marbleImage13" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-         <ImageView fx:id="marbleImage20" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-         <ImageView fx:id="marbleImage21" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         <ImageView fx:id="marbleImage22" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-         <ImageView fx:id="marbleImage23" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      </children>
-   </GridPane>
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.UseMarketSceneController">
+    <ImageView fitHeight="484.0" fitWidth="397.0" layoutX="451.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../market.png" />
+    </ImageView>
+    <GridPane gridLinesVisible="true" layoutX="516.0" layoutY="117.0" prefHeight="196.0" prefWidth="248.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <ImageView fx:id="marbleImage00" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="marbleImage01" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+        <ImageView fx:id="marbleImage02" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+        <ImageView fx:id="marbleImage03" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+        <ImageView fx:id="marbleImage10" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+        <ImageView fx:id="marbleImage11" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <ImageView fx:id="marbleImage12" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <ImageView fx:id="marbleImage13" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <ImageView fx:id="marbleImage20" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+        <ImageView fx:id="marbleImage21" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <ImageView fx:id="marbleImage22" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <ImageView fx:id="marbleImage23" fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+    </GridPane>
    <ImageView fx:id="slideMarbleImage" fitHeight="52.0" fitWidth="45.0" layoutX="773.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
-    <RadioButton layoutX="808.0" layoutY="169.0" mnemonicParsing="false" selected="true" text="Select (r0)">
+    <RadioButton layoutX="783.0" layoutY="165.0" mnemonicParsing="false" opacity="0.41" prefHeight="25.0" prefWidth="42.0" selected="true">
         <toggleGroup>
             <ToggleGroup fx:id="toggleGroupMarket" />
         </toggleGroup>
     </RadioButton>
-    <RadioButton layoutX="850.0" layoutY="218.0" mnemonicParsing="false" text="Select(r1)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="851.0" layoutY="260.0" mnemonicParsing="false" text="Select(r2)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="571.0" layoutY="410.0" mnemonicParsing="false" text="Select(c0)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="622.0" layoutY="392.0" mnemonicParsing="false" text="Select(c1)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="670.0" layoutY="412.0" mnemonicParsing="false" text="Select(c2)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="711.0" layoutY="392.0" mnemonicParsing="false" text="Select(c3)" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="783.0" layoutY="207.0" mnemonicParsing="false" opacity="0.41" prefHeight="25.0" prefWidth="42.0" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="781.0" layoutY="253.0" mnemonicParsing="false" opacity="0.41" prefHeight="25.0" prefWidth="42.0" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="571.0" layoutY="332.0" mnemonicParsing="false" opacity="0.41" prefHeight="61.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="609.0" layoutY="332.0" mnemonicParsing="false" opacity="0.41" prefHeight="61.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="655.0" layoutY="332.0" mnemonicParsing="false" opacity="0.41" prefHeight="61.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="697.0" layoutY="332.0" mnemonicParsing="false" opacity="0.41" prefHeight="61.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
     <Label layoutX="153.0" layoutY="102.0" prefHeight="17.0" prefWidth="184.0" text="Choose a row or a column" />
     <Button fx:id="submitMarketButton" layoutX="604.0" layoutY="617.0" mnemonicParsing="false" onAction="#submitMarket" text="Done!" />
    <Button fx:id="exitButton" layoutX="781.0" layoutY="613.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
 
     <AnchorPane fx:id="insertResourcesPane" layoutX="163.0" layoutY="48.0" prefHeight="625.0" prefWidth="939.0" style="-fx-background-color: lightblue;" visible="false">
-      <ImageView fitHeight="229.0" fitWidth="285.0" layoutX="124.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-         <image>
+        <ImageView fitHeight="229.0" fitWidth="285.0" layoutX="124.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../magazzino.png" />
-         </image>
-      </ImageView>
+        </ImageView>
       <ImageView fx:id="warehouseResourceInsertImage11" fitHeight="38.0" fitWidth="56.0" layoutX="221.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="warehouseResourceInsertImage21" fitHeight="38.0" fitWidth="56.0" layoutX="181.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="warehouseResourceInsertImage22" fitHeight="38.0" fitWidth="56.0" layoutX="245.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
@@ -107,11 +101,9 @@
       <ImageView fx:id="temporaryRemovedResourceImage2" fitHeight="51.0" fitWidth="71.0" layoutX="620.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="temporaryRemovedResourceImage3" fitHeight="51.0" fitWidth="71.0" layoutX="737.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="temporaryRemovedResourceImage4" fitHeight="51.0" fitWidth="71.0" layoutX="817.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="229.0" fitWidth="285.0" layoutX="123.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-         <image>
+        <ImageView fitHeight="229.0" fitWidth="285.0" layoutX="123.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../magazzino.png" />
-         </image>
-      </ImageView>
+        </ImageView>
       <ImageView fx:id="warehouseResourceEditImage11" fitHeight="38.0" fitWidth="56.0" layoutX="210.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="warehouseResourceEditImage21" fitHeight="38.0" fitWidth="56.0" layoutX="182.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="warehouseResourceEditImage22" fitHeight="38.0" fitWidth="56.0" layoutX="247.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true" />
