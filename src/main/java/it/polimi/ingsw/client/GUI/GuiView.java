@@ -74,25 +74,13 @@ public class GuiView extends Application implements View {
 
         currentFXMLController = getSceneController("initialScene");
 
-        //currentStage.setResizable(false);
-        //currentStage.sizeToScene();
-        //currentStage.setMinHeight(550);
-        //currentStage.setMinWidth(680);
+        //currentStage.minWidthProperty().bind(currentStage.getScene().heightProperty().multiply(1));
+        //currentStage.minHeightProperty().bind(currentStage.getScene().widthProperty().divide(1));
 
-        //currentStage.setWidth(550);
-
-        currentStage.minWidthProperty().bind(currentStage.getScene().heightProperty().multiply(1));
-        currentStage.minHeightProperty().bind(currentStage.getScene().widthProperty().divide(1));
-
-        //currentStage.setResizable(true);
         currentStage.setResizable(false);
         currentStage.sizeToScene();
-        //currentStage.setMaxHeight(900);
-        //currentStage.setMaxWidth(900);
 
         currentStage.getIcons().add(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png"))));
-        //currentStage.getScene().widthProperty().addListener((observable, oldValue, newValue) -> getCurrentSceneController().updateWidthConstraints(newValue.doubleValue()));
-        //currentStage.getScene().heightProperty().addListener((observable, oldValue, newValue) -> getCurrentSceneController().updateHeightConstraints(newValue.doubleValue()));
 
         currentStage.show();
 
@@ -147,14 +135,6 @@ public class GuiView extends Application implements View {
 
     //setta la scena di cui da il nome come la corrente (cioè quella mostrata)
     public void setCurrentScene(String sceneName){
-        if (sceneName.equalsIgnoreCase("pregamescene")){
-            currentStage.setResizable(false);
-
-            //currentStage.setMaxHeight(720);
-            //currentStage.setMaxWidth( 1080);
-
-            //currentStage.setX(100);
-        }
         currentStage.setScene(getScene(sceneName));
         currentScene = getScene(sceneName);
         currentFXMLController = getSceneController(sceneName);
