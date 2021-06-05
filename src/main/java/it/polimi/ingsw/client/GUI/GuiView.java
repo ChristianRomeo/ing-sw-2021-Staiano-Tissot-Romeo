@@ -229,7 +229,11 @@ public class GuiView extends Application implements View {
 
     //tu gli dai una development card e questo metodo ti ritorna la sua immagine
     public static Image getDevelopmentCardImage(DevelopmentCard developmentCard){
-        return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "dev" + developmentCard.getId() +  ".png")));
+        if(developmentCard!=null){
+            return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "dev" + developmentCard.getId() +  ".png")));
+        }else{
+            return null;
+        }
     }
 
     //ritorna l'immagine (piccola) della risorsa passata

@@ -7,21 +7,56 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.UseMarketSceneController">
-    <RadioButton layoutX="778.0" layoutY="254.0" mnemonicParsing="false" selected="true" text="Select (r0)">
+   <ImageView fitHeight="484.0" fitWidth="397.0" layoutX="451.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../market.png" />
+      </image>
+   </ImageView>
+   <GridPane gridLinesVisible="true" layoutX="516.0" layoutY="117.0" prefHeight="196.0" prefWidth="248.0">
+     <columnConstraints>
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+     </columnConstraints>
+     <rowConstraints>
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         <ImageView fitHeight="52.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      </children>
+   </GridPane>
+    <RadioButton layoutX="1084.0" layoutY="271.0" mnemonicParsing="false" selected="true" text="Select (r0)">
         <toggleGroup>
             <ToggleGroup fx:id="toggleGroupMarket" />
         </toggleGroup>
     </RadioButton>
-    <RadioButton layoutX="781.0" layoutY="300.0" mnemonicParsing="false" text="Select(r1)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="779.0" layoutY="343.0" mnemonicParsing="false" text="Select(r2)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="420.0" layoutY="384.0" mnemonicParsing="false" text="Select(c0)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="514.0" layoutY="383.0" mnemonicParsing="false" text="Select(c1)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="613.0" layoutY="384.0" mnemonicParsing="false" text="Select(c2)" toggleGroup="$toggleGroupMarket" />
-    <RadioButton layoutX="709.0" layoutY="384.0" mnemonicParsing="false" text="Select(c3)" toggleGroup="$toggleGroupMarket" />
-    <Label layoutX="459.0" layoutY="175.0" prefHeight="17.0" prefWidth="184.0" text="Choose a row or a column" />
-    <Button fx:id="submitMarketButton" layoutX="603.0" layoutY="458.0" mnemonicParsing="false" onAction="#submitMarket" text="Done!" />
+    <RadioButton layoutX="1087.0" layoutY="317.0" mnemonicParsing="false" text="Select(r1)" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="1085.0" layoutY="360.0" mnemonicParsing="false" text="Select(r2)" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="314.0" layoutY="567.0" mnemonicParsing="false" text="Select(c0)" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="408.0" layoutY="566.0" mnemonicParsing="false" text="Select(c1)" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="507.0" layoutY="567.0" mnemonicParsing="false" text="Select(c2)" toggleGroup="$toggleGroupMarket" />
+    <RadioButton layoutX="603.0" layoutY="567.0" mnemonicParsing="false" text="Select(c3)" toggleGroup="$toggleGroupMarket" />
+    <Label layoutX="153.0" layoutY="102.0" prefHeight="17.0" prefWidth="184.0" text="Choose a row or a column" />
+    <Button fx:id="submitMarketButton" layoutX="604.0" layoutY="617.0" mnemonicParsing="false" onAction="#submitMarket" text="Done!" />
 
     <AnchorPane fx:id="insertResourcesPane" layoutX="163.0" layoutY="48.0" prefHeight="625.0" prefWidth="939.0" style="-fx-background-color: lightblue;" visible="false">
       <ImageView fitHeight="229.0" fitWidth="285.0" layoutX="124.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">

@@ -8,15 +8,52 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.BuyCardSceneController">
-    <ChoiceBox fx:id="buyCardRowChoiceBox" layoutX="533.0" layoutY="505.0" prefHeight="25.0" prefWidth="131.0" />
-    <ChoiceBox fx:id="buyCardColumnChoiceBox" layoutX="834.0" layoutY="506.0" prefHeight="25.0" prefWidth="123.0" />
-    <Label layoutX="432.0" layoutY="516.0" prefHeight="17.0" prefWidth="36.0" text="Row" />
-    <Label layoutX="737.0" layoutY="510.0" prefHeight="17.0" prefWidth="50.0" text="Column" />
-    <Button fx:id="nextBuyCardButton" layoutX="616.0" layoutY="587.0" mnemonicParsing="false" onAction="#nextBuyCard" text="Next" />
+    <ChoiceBox fx:id="buyCardRowChoiceBox" layoutX="496.0" layoutY="549.0" prefHeight="25.0" prefWidth="131.0" />
+    <ChoiceBox fx:id="buyCardColumnChoiceBox" layoutX="797.0" layoutY="550.0" prefHeight="25.0" prefWidth="123.0" />
+    <Label layoutX="395.0" layoutY="560.0" prefHeight="17.0" prefWidth="36.0" text="Row" />
+    <Label layoutX="700.0" layoutY="554.0" prefHeight="17.0" prefWidth="50.0" text="Column" />
+    <Button fx:id="nextBuyCardButton" layoutX="668.0" layoutY="603.0" mnemonicParsing="false" onAction="#nextBuyCard" text="Next" />
+   <Label layoutX="381.0" layoutY="123.0" text="2" />
+   <Label layoutX="381.0" layoutY="265.0" text="1" />
+   <Label layoutX="381.0" layoutY="413.0" text="0" />
+   <Label layoutX="495.0" layoutY="501.0" text="0" />
+   <Label layoutX="606.0" layoutY="501.0" text="1" />
+   <Label layoutX="736.0" layoutY="501.0" text="2" />
+   <Label layoutX="845.0" layoutY="501.0" text="3" />
+   <GridPane gridLinesVisible="true" layoutX="441.0" layoutY="55.0" prefHeight="437.0" prefWidth="483.0">
+     <columnConstraints>
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+     </columnConstraints>
+     <rowConstraints>
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+         <ImageView fx:id="developmentCardImage20" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="developmentCardImage21" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+         <ImageView fx:id="developmentCardImage22" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+         <ImageView fx:id="developmentCardImage23" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+         <ImageView fx:id="developmentCardImage10" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+         <ImageView fx:id="developmentCardImage11" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <ImageView fx:id="developmentCardImage12" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         <ImageView fx:id="developmentCardImage13" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         <ImageView fx:id="developmentCardImage00" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+         <ImageView fx:id="developmentCardImage01" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <ImageView fx:id="developmentCardImage02" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         <ImageView fx:id="developmentCardImage03" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      </children>
+   </GridPane>
    
-    <AnchorPane fx:id="buyCardPane2" layoutX="156.0" layoutY="59.0" prefHeight="647.0" prefWidth="995.0" style="-fx-background-color: lightblue;" visible="false">
+    <AnchorPane fx:id="buyCardPane2" layoutX="174.0" layoutY="17.0" prefHeight="663.0" prefWidth="1018.0" style="-fx-background-color: lightblue;" visible="false">
         <ImageView fitHeight="334.0" fitWidth="462.0" layoutX="66.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../personalcardboard.png" />

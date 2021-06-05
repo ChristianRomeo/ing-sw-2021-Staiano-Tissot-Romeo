@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.controller.Events.BoughtCardEvent;
+import it.polimi.ingsw.model.DevelopmentCardBoard;
 import it.polimi.ingsw.model.PersonalCardBoard;
 import javafx.fxml.FXML;
 
@@ -14,8 +15,32 @@ import javafx.scene.layout.AnchorPane;
 
 public class BuyCardSceneController extends FXMLController {
 
-
     //pane1
+    @FXML
+    private ImageView developmentCardImage00;
+    @FXML
+    private ImageView developmentCardImage01;
+    @FXML
+    private ImageView developmentCardImage02;
+    @FXML
+    private ImageView developmentCardImage03;
+    @FXML
+    private ImageView developmentCardImage10;
+    @FXML
+    private ImageView developmentCardImage11;
+    @FXML
+    private ImageView developmentCardImage12;
+    @FXML
+    private ImageView developmentCardImage13;
+    @FXML
+    private ImageView developmentCardImage20;
+    @FXML
+    private ImageView developmentCardImage21;
+    @FXML
+    private ImageView developmentCardImage22;
+    @FXML
+    private ImageView developmentCardImage23;
+
     @FXML
     private ChoiceBox<Integer> buyCardRowChoiceBox;
     @FXML
@@ -49,6 +74,21 @@ public class BuyCardSceneController extends FXMLController {
     }
 
     public void updateScene(){
+        DevelopmentCardBoard developmentCardBoard = clientModel.getDevelopmentCardBoard();
+
+        developmentCardImage00.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(0,0)));
+        developmentCardImage01.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(0,1)));
+        developmentCardImage02.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(0,2)));
+        developmentCardImage03.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(0,3)));
+        developmentCardImage10.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(1,0)));
+        developmentCardImage11.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(1,1)));
+        developmentCardImage12.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(1,2)));
+        developmentCardImage13.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(1,3)));
+        developmentCardImage20.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(2,0)));
+        developmentCardImage21.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(2,1)));
+        developmentCardImage22.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(2,2)));
+        developmentCardImage23.setImage(GuiView.getDevelopmentCardImage(developmentCardBoard.getCard(2,3)));
+
         PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
         if(myPersonalCardBoard.getUpperCard(0)!=null){
             choosePersonalCardBoardPileImage1.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(0)));
