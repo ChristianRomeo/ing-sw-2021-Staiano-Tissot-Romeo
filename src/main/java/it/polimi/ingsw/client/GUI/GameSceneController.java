@@ -33,6 +33,11 @@ public class GameSceneController extends FXMLController {
     private Button activateProductionButton;
     @FXML
     private Button useMarketButton;
+    @FXML
+    private Button showMarketButton;
+    @FXML
+    private Button showDevelopmentCardBoardButton;
+
 /*
     //----- cose per pane azione leader -----
     @FXML
@@ -202,7 +207,22 @@ public class GameSceneController extends FXMLController {
 
     @Override
     public void updateScene(){ //todo: da fare
-        leaderActionButton.setVisible(clientModel.isCurrentPlayer());
+
+        if(clientModel.isCurrentPlayer()){
+            leaderActionButton.setVisible(true);
+            buyCardButton.setVisible(true);
+            activateProductionButton.setVisible(true);
+            useMarketButton.setVisible(true);
+            endTurnButton.setVisible(true);
+        }else{
+            leaderActionButton.setVisible(false);
+            buyCardButton.setVisible(false);
+            activateProductionButton.setVisible(false);
+            useMarketButton.setVisible(false);
+            endTurnButton.setVisible(false);
+        }
+
+
     }
 
     @Override
@@ -256,6 +276,17 @@ public class GameSceneController extends FXMLController {
         //marketPane.setVisible(true);
         guiView.getSceneController("useMarketScene").updateScene();
         guiView.setCurrentScene("useMarketScene");
+    }
+    @FXML
+    public void showMarket(){
+        //marketPane.setVisible(true);
+        guiView.getSceneController("useMarketScene").updateScene();
+        guiView.setCurrentScene("useMarketScene");
+    }
+    @FXML
+    public void showDevelopmentCardBoard(){
+        guiView.getSceneController("buyCardScene").updateScene();
+        guiView.setCurrentScene("buyCardScene");
     }
 /*
     //----- cose per pane azione leader -----

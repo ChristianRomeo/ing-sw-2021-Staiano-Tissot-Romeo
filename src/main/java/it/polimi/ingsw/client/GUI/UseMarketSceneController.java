@@ -31,9 +31,38 @@ public class UseMarketSceneController extends FXMLController{
 
     //pane con proprio il mercato
     @FXML
+    private ImageView marbleImage00;
+    @FXML
+    private ImageView marbleImage01;
+    @FXML
+    private ImageView marbleImage02;
+    @FXML
+    private ImageView marbleImage03;
+    @FXML
+    private ImageView marbleImage10;
+    @FXML
+    private ImageView marbleImage11;
+    @FXML
+    private ImageView marbleImage12;
+    @FXML
+    private ImageView marbleImage13;
+    @FXML
+    private ImageView marbleImage20;
+    @FXML
+    private ImageView marbleImage21;
+    @FXML
+    private ImageView marbleImage22;
+    @FXML
+    private ImageView marbleImage23;
+    @FXML
+    private ImageView slideMarbleImage;
+
+    @FXML
     private ToggleGroup toggleGroupMarket;
     @FXML
     private Button submitMarketButton;
+    @FXML
+    private Button exitButton;
 
     //pane per inserire/scartare risorse
     @FXML
@@ -147,7 +176,13 @@ public class UseMarketSceneController extends FXMLController{
     @FXML
     private Button removeLeaderResourceButton2;
 
-//todo: qua ci vorrà l' updateScene per le immagini ecc
+
+
+    @Override
+    public void updateScene(){
+        //todo: qui setto tutte le immagini delle biglie come il mercato nel client model
+        submitMarketButton.setDisable(!clientModel.isCurrentPlayer());
+    }
 
     //cose per il pane proprio del mercato
     @FXML
@@ -169,6 +204,12 @@ public class UseMarketSceneController extends FXMLController{
         //System.out.println(rowOrColumn+" "+ marketIndex); //debug
         System.out.println(boughtResources); //debug
         initializeInsertResourcesPane();
+    }
+
+    @FXML
+    public void exit(){
+        guiView.getSceneController("gameScene").updateScene();
+        guiView.setCurrentScene("gameScene");
     }
 
     //una volta che l'utente ha scelto riga/colonna allora si prendono le relative risorse, si chiedono all'utente eventuali

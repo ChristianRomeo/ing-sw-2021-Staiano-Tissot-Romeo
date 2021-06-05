@@ -47,6 +47,8 @@ public class BuyCardSceneController extends FXMLController {
     private ChoiceBox<Integer> buyCardColumnChoiceBox;
     @FXML
     private Button nextBuyCardButton;
+    @FXML
+    private Button exitButton;
     //pane2
     @FXML
     private ImageView choosePersonalCardBoardPileImage1;
@@ -99,7 +101,13 @@ public class BuyCardSceneController extends FXMLController {
         if(myPersonalCardBoard.getUpperCard(2)!=null){
             choosePersonalCardBoardPileImage3.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(2)));
         }
-       // buyCardPane1.setVisible(true);
+        nextBuyCardButton.setDisable(!clientModel.isCurrentPlayer());
+    }
+
+    @FXML
+    public void exit(){
+        guiView.getSceneController("gameScene").updateScene();
+        guiView.setCurrentScene("gameScene");
     }
 
     @FXML
