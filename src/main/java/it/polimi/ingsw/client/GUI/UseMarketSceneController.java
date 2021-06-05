@@ -46,6 +46,32 @@ public class UseMarketSceneController extends FXMLController{
     private ImageView boughtResourceImage4;
 
     @FXML
+    private ImageView warehouseResourceInsertImage11;
+    @FXML
+    private ImageView warehouseResourceInsertImage21;
+    @FXML
+    private ImageView warehouseResourceInsertImage22;
+    @FXML
+    private ImageView warehouseResourceInsertImage31;
+    @FXML
+    private ImageView warehouseResourceInsertImage32;
+    @FXML
+    private ImageView warehouseResourceInsertImage33;
+
+    @FXML
+    private ImageView leaderCardInsertImage1;
+    @FXML
+    private ImageView leaderCardInsertImage2;
+    @FXML
+    private ImageView leader1Slot1InsertImage;
+    @FXML
+    private ImageView leader1Slot2InsertImage;
+    @FXML
+    private ImageView leader2Slot1InsertImage;
+    @FXML
+    private ImageView leader2Slot2InsertImage;
+
+    @FXML
     private AnchorPane insertResourcesPane;
     @FXML
     private Label insertResourceLabel;
@@ -75,6 +101,32 @@ public class UseMarketSceneController extends FXMLController{
     private ImageView temporaryRemovedResourceImage3;
     @FXML
     private ImageView temporaryRemovedResourceImage4;
+
+    @FXML
+    private ImageView warehouseResourceEditImage11;
+    @FXML
+    private ImageView warehouseResourceEditImage21;
+    @FXML
+    private ImageView warehouseResourceEditImage22;
+    @FXML
+    private ImageView warehouseResourceEditImage31;
+    @FXML
+    private ImageView warehouseResourceEditImage32;
+    @FXML
+    private ImageView warehouseResourceEditImage33;
+
+    @FXML
+    private ImageView leaderCardEditImage1;
+    @FXML
+    private ImageView leaderCardEditImage2;
+    @FXML
+    private ImageView leader1Slot1EditImage;
+    @FXML
+    private ImageView leader1Slot2EditImage;
+    @FXML
+    private ImageView leader2Slot1EditImage;
+    @FXML
+    private ImageView leader2Slot2EditImage;
 
     @FXML
     private AnchorPane editWarehousePane;
@@ -175,10 +227,15 @@ public class UseMarketSceneController extends FXMLController{
         discardedResources = new HashMap<>();
         insertLeaderButton1.setVisible(fullLeaderSlots1 != null);
         insertLeaderButton2.setVisible(fullLeaderSlots2 != null);
+        if(fullLeaderSlots1!=null){
+            leaderCardInsertImage1.setImage(GuiView.getLeaderCardImage(leaderCards.get(0)));
+        }
+        if(fullLeaderSlots2!=null){
+            leaderCardInsertImage2.setImage(GuiView.getLeaderCardImage(leaderCards.get(1)));
+        }
         checkFinishedResources();
         if(boughtResources.size()>0){
             insertResourcesPane.setVisible(true);
-            //todo:qui devo mostrare le risorse comprate
             updateInsertResourcePane();
         }
     }
@@ -201,6 +258,34 @@ public class UseMarketSceneController extends FXMLController{
         }
         if(boughtResources.size()>3){
             boughtResourceImage4.setImage(GuiView.getResourceImage(boughtResources.get(3)));
+        }
+        //if the warehouse doesn't have a resource in that position, it returns null, so it will be setImage(null), so it won't set an image. Top.
+        warehouseResourceInsertImage11.setImage(GuiView.getResourceImage(newWarehouse.getResource(1,1)));
+        warehouseResourceInsertImage21.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,1)));
+        warehouseResourceInsertImage22.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,2)));
+        warehouseResourceInsertImage31.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,1)));
+        warehouseResourceInsertImage32.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,2)));
+        warehouseResourceInsertImage33.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,3)));
+
+        if(fullLeaderSlots1!=null){
+            leader1Slot1InsertImage.setImage(null);
+            leader1Slot2InsertImage.setImage(null);
+            if(fullLeaderSlots1>=1){
+                leader1Slot1InsertImage.setImage(GuiView.getResourceImage(leaderCardResource1));
+            }
+            if(fullLeaderSlots1>=2){
+                leader1Slot2InsertImage.setImage(GuiView.getResourceImage(leaderCardResource1));
+            }
+        }
+        if(fullLeaderSlots2!=null){
+            leader2Slot1InsertImage.setImage(null);
+            leader2Slot2InsertImage.setImage(null);
+            if(fullLeaderSlots2>=1){
+                leader2Slot1InsertImage.setImage(GuiView.getResourceImage(leaderCardResource2));
+            }
+            if(fullLeaderSlots2>=2){
+                leader2Slot2InsertImage.setImage(GuiView.getResourceImage(leaderCardResource2));
+            }
         }
     }
 
@@ -335,6 +420,13 @@ public class UseMarketSceneController extends FXMLController{
         reinsertLeaderResourceButton2.setVisible(fullLeaderSlots2 != null);
         removeLeaderResourceButton1.setVisible(fullLeaderSlots1 != null);
         removeLeaderResourceButton2.setVisible(fullLeaderSlots2 != null);
+        List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
+        if(fullLeaderSlots1!=null){
+            leaderCardEditImage1.setImage(GuiView.getLeaderCardImage(leaderCards.get(0)));
+        }
+        if(fullLeaderSlots2!=null){
+            leaderCardEditImage2.setImage(GuiView.getLeaderCardImage(leaderCards.get(1)));
+        }
 
         updateEditWarehousePane();
     }
@@ -359,6 +451,34 @@ public class UseMarketSceneController extends FXMLController{
         }
         if(temporaryRemovedResources.size()>3){
             temporaryRemovedResourceImage4.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(3)));
+        }
+
+        warehouseResourceEditImage11.setImage(GuiView.getResourceImage(newWarehouse.getResource(1,1)));
+        warehouseResourceEditImage21.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,1)));
+        warehouseResourceEditImage22.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,2)));
+        warehouseResourceEditImage31.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,1)));
+        warehouseResourceEditImage32.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,2)));
+        warehouseResourceEditImage33.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,3)));
+
+        if(fullLeaderSlots1!=null){
+            leader1Slot1EditImage.setImage(null);
+            leader1Slot2EditImage.setImage(null);
+            if(fullLeaderSlots1>=1){
+                leader1Slot1EditImage.setImage(GuiView.getResourceImage(leaderCardResource1));
+            }
+            if(fullLeaderSlots1>=2){
+                leader1Slot2EditImage.setImage(GuiView.getResourceImage(leaderCardResource1));
+            }
+        }
+        if(fullLeaderSlots2!=null){
+            leader2Slot1EditImage.setImage(null);
+            leader2Slot2EditImage.setImage(null);
+            if(fullLeaderSlots2>=1){
+                leader2Slot1EditImage.setImage(GuiView.getResourceImage(leaderCardResource2));
+            }
+            if(fullLeaderSlots2>=2){
+                leader2Slot2EditImage.setImage(GuiView.getResourceImage(leaderCardResource2));
+            }
         }
     }
 
