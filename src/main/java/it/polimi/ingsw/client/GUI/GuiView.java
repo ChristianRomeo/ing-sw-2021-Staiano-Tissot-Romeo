@@ -7,15 +7,20 @@ import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -74,8 +79,7 @@ public class GuiView extends Application implements View {
 
         currentFXMLController = getSceneController("initialScene");
 
-        //currentStage.minWidthProperty().bind(currentStage.getScene().heightProperty().multiply(1));
-        //currentStage.minHeightProperty().bind(currentStage.getScene().widthProperty().divide(1));
+
 
         currentStage.setResizable(false);
         currentStage.sizeToScene();
@@ -84,8 +88,17 @@ public class GuiView extends Application implements View {
 
         currentStage.show();
 
-        getCurrentSceneController().updateWidthConstraints(currentStage.getScene().getWidth());
-
+        currentStage.setOnCloseRequest(t -> {
+            Platform.exit();
+            System.exit(0);
+        });
+        currentStage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+            if (KeyCode.ESCAPE == event.getCode()){
+                stage.close();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
                 //System.out.println(askNumPlayers());
                 //currentScene.getStylesheets().add("/style.css");
     }
