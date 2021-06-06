@@ -18,7 +18,7 @@
     <ImageView fitHeight="213.0" fitWidth="255.0" layoutX="560.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../marketTray.png" />
     </ImageView>
-   <ImageView fitHeight="38.0" fitWidth="42.0" layoutX="766.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="slideMarbleImage" fitHeight="38.0" fitWidth="42.0" layoutX="766.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../blueMarble.png" />
       </image>
@@ -84,7 +84,6 @@
             <Image url="@../whiteMarble.png" />
          </image></ImageView>
     </GridPane>
-   <ImageView fx:id="slideMarbleImage" fitHeight="52.0" fitWidth="45.0" layoutX="773.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
     <RadioButton layoutX="788.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0">
         <toggleGroup>
             <ToggleGroup fx:id="toggleGroupMarket" />

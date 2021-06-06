@@ -187,10 +187,25 @@ public class UseMarketSceneController extends FXMLController{
 
     @Override
     public void updateScene(){
-        //todo: qui setto tutte le immagini delle biglie come il mercato nel client model
         submitMarketButton.setDisable(!clientModel.isCurrentPlayer());
+
+        Market market = clientModel.getMarket();
+        marbleImage00.setImage(GuiView.getMarbleImage(market.getColor(0,0)));
+        marbleImage01.setImage(GuiView.getMarbleImage(market.getColor(0,1)));
+        marbleImage02.setImage(GuiView.getMarbleImage(market.getColor(0,2)));
+        marbleImage03.setImage(GuiView.getMarbleImage(market.getColor(0,3)));
+        marbleImage10.setImage(GuiView.getMarbleImage(market.getColor(1,0)));
+        marbleImage11.setImage(GuiView.getMarbleImage(market.getColor(1,1)));
+        marbleImage12.setImage(GuiView.getMarbleImage(market.getColor(1,2)));
+        marbleImage13.setImage(GuiView.getMarbleImage(market.getColor(1,3)));
+        marbleImage20.setImage(GuiView.getMarbleImage(market.getColor(2,0)));
+        marbleImage21.setImage(GuiView.getMarbleImage(market.getColor(2,1)));
+        marbleImage22.setImage(GuiView.getMarbleImage(market.getColor(2,2)));
+        marbleImage23.setImage(GuiView.getMarbleImage(market.getColor(2,3)));
+        slideMarbleImage.setImage(GuiView.getMarbleImage(market.getSlideMarble()));
     }
 
+    @FXML
     public void initialize(){
         BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
         root.setBackground(new Background(backgroundFill));

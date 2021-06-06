@@ -248,6 +248,16 @@ public class GuiView extends Application implements View {
         }
     }
 
+    //ritorna l'immagine della biglia passata
+    public static Image getMarbleImage(MarbleColor marble){
+        if(marble!=null){
+            String marbleColorName = marble.toString().toLowerCase();
+            return new Image(String.valueOf(GuiView.class.getResource("/"+marbleColorName+"Marble.png")));
+        }else{
+            return null;
+        }
+    }
+
     public void launcher() {}
 
     public void stop(){
