@@ -156,90 +156,90 @@
                <Image url="@../medici.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="471.0" fitWidth="692.0" layoutX="327.0" layoutY="162.0" pickOnBounds="true" AnchorPane.leftAnchor="327.0" AnchorPane.rightAnchor="261.0">
+         <ImageView fitHeight="471.0" fitWidth="692.0" layoutX="232.0" layoutY="164.0" pickOnBounds="true" AnchorPane.leftAnchor="232.0" AnchorPane.rightAnchor="356.0">
             <Image url="@../boardgame.png" />
          </ImageView>
-         <ImageView fx:id="otherWarehouseImage11" fitHeight="22.0" fitWidth="26.0" layoutX="408.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherWarehouseImage11" fitHeight="22.0" fitWidth="26.0" layoutX="313.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../coinGr.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherWarehouseImage21" fitHeight="22.0" fitWidth="26.0" layoutX="393.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherWarehouseImage21" fitHeight="22.0" fitWidth="26.0" layoutX="298.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../coinGr.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherWarehouseImage22" fitHeight="22.0" fitWidth="26.0" layoutX="421.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherWarehouseImage22" fitHeight="22.0" fitWidth="26.0" layoutX="326.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../coinGr.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherWarehouseImage32" fitHeight="22.0" fitWidth="26.0" layoutX="403.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherWarehouseImage32" fitHeight="22.0" fitWidth="26.0" layoutX="308.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../coinGr.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherWarehouseImage31" fitHeight="22.0" fitWidth="26.0" layoutX="373.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherWarehouseImage31" fitHeight="22.0" fitWidth="26.0" layoutX="278.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../coinGr.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherWarehouseImage33" fitHeight="22.0" fitWidth="26.0" layoutX="434.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherWarehouseImage33" fitHeight="22.0" fitWidth="26.0" layoutX="339.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../coinGr.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage00" fitHeight="154.0" fitWidth="109.0" layoutX="607.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage00" fitHeight="154.0" fitWidth="109.0" layoutX="512.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage01" fitHeight="155.0" fitWidth="102.0" layoutX="606.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage01" fitHeight="155.0" fitWidth="102.0" layoutX="511.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage02" fitHeight="151.0" fitWidth="109.0" layoutX="607.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage02" fitHeight="151.0" fitWidth="109.0" layoutX="512.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="42.0" fitWidth="47.0" layoutX="354.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="42.0" fitWidth="47.0" layoutX="259.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../coinGr.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="42.0" fitWidth="38.0" layoutX="360.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="42.0" fitWidth="38.0" layoutX="265.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../shieldGr.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="409.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="314.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../stoneGr.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="409.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="314.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../servantGr.png" />
             </image>
          </ImageView>
-         <Label fx:id="otherStrongboxShieldLabel" layoutX="368.0" layoutY="561.0" style="-fx-font-weight: BOLD;" text="x1">
+         <Label fx:id="otherStrongboxShieldLabel" layoutX="273.0" layoutY="563.0" style="-fx-font-weight: BOLD;" text="x1">
             <font>
                <Font size="18.0" />
             </font>
          </Label>
-         <Label fx:id="otherStrongboxStoneLabel" layoutX="417.0" layoutY="562.0" style="-fx-font-weight: BOLD;" text="x1">
+         <Label fx:id="otherStrongboxStoneLabel" layoutX="322.0" layoutY="564.0" style="-fx-font-weight: BOLD;" text="x1">
             <font>
                <Font size="18.0" />
             </font>
          </Label>
-         <Label fx:id="otherStrongboxServantLabel" layoutX="417.0" layoutY="521.0" style="-fx-font-weight: BOLD;" text="x1" textFill="WHITE">
+         <Label fx:id="otherStrongboxServantLabel" layoutX="322.0" layoutY="523.0" style="-fx-font-weight: BOLD;" text="x1" textFill="WHITE">
             <font>
                <Font size="18.0" />
             </font>
          </Label>
-         <Label fx:id="otherStrongboxCoinLabel" layoutX="368.0" layoutY="513.0" style="-fx-font-weight: BOLD;" text="x1">
+         <Label fx:id="otherStrongboxCoinLabel" layoutX="273.0" layoutY="515.0" style="-fx-font-weight: BOLD;" text="x1">
             <font>
                <Font size="18.0" />
             </font>
@@ -249,59 +249,74 @@
                <Font size="24.0" />
             </font>
          </Label>
-         <ImageView fx:id="otherDevCardImage10" fitHeight="154.0" fitWidth="109.0" layoutX="738.0" layoutY="395.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage10" fitHeight="154.0" fitWidth="109.0" layoutX="643.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage11" fitHeight="155.0" fitWidth="102.0" layoutX="737.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage11" fitHeight="155.0" fitWidth="102.0" layoutX="642.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage12" fitHeight="151.0" fitWidth="109.0" layoutX="738.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage12" fitHeight="151.0" fitWidth="109.0" layoutX="643.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage20" fitHeight="154.0" fitWidth="109.0" layoutX="875.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage20" fitHeight="154.0" fitWidth="109.0" layoutX="780.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage21" fitHeight="155.0" fitWidth="102.0" layoutX="874.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage21" fitHeight="155.0" fitWidth="102.0" layoutX="779.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage22" fitHeight="151.0" fitWidth="109.0" layoutX="875.0" layoutY="341.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherDevCardImage22" fitHeight="151.0" fitWidth="109.0" layoutX="780.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <Button fx:id="exitOtherBoardButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="1067.0" layoutY="113.0" mnemonicParsing="false" onAction="#exitOtherBoard" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
+         <Button fx:id="exitOtherBoardButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="1091.0" layoutY="87.0" mnemonicParsing="false" onAction="#exitOtherBoard" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
             <font>
                <Font size="24.0" />
             </font>
          </Button>
-         <ImageView fitHeight="69.0" fitWidth="52.0" layoutX="495.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="69.0" fitWidth="52.0" layoutX="400.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../papale2.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="52.0" fitWidth="48.0" layoutX="667.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="52.0" fitWidth="48.0" layoutX="572.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../papale3.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="46.0" fitWidth="47.0" layoutX="871.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="46.0" fitWidth="47.0" layoutX="776.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../papale4.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="76.0" fitWidth="26.0" layoutX="341.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="76.0" fitWidth="26.0" layoutX="246.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../blackcross.png" />
+            </image>
+         </ImageView>
+         <Label layoutX="997.0" layoutY="164.0" text="Chris' Leader Cards" textFill="WHITE">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <ImageView fitHeight="186.0" fitWidth="128.0" layoutX="993.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/backleader.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="186.0" fitWidth="128.0" layoutX="993.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/backleader.png" />
             </image>
          </ImageView>
       </children>
