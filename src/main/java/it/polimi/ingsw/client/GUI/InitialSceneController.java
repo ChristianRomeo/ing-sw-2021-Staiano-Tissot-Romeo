@@ -20,6 +20,8 @@ import java.util.Objects;
 public class InitialSceneController extends FXMLController {
 
     @FXML
+    private ImageView curtain;
+    @FXML
     private Label credits;
     @FXML
     private AnchorPane root;
@@ -42,7 +44,7 @@ public class InitialSceneController extends FXMLController {
         credits.setFont(Font.font("System", FontWeight.EXTRA_BOLD, 14));
 
     }
-    public  void updateWidthConstraints(double width) {
+    /*public  void updateWidthConstraints(double width) {
 
         AnchorPane.setRightAnchor(submitNickButton, width * 0.35 + 55);
         AnchorPane.setLeftAnchor(submitNickButton, width * 0.35 + 55);
@@ -62,7 +64,7 @@ public class InitialSceneController extends FXMLController {
         AnchorPane.setTopAnchor(messageLabel,height  * 0.40);
         AnchorPane.setTopAnchor(credits,height  * 0.02);
 
-    }
+    }*/
 
     @FXML
     public void submitNick(){
@@ -85,6 +87,7 @@ public class InitialSceneController extends FXMLController {
             };
             (new Thread(task)).start();*/
             messageLabel.setVisible(true);
+            curtain.setVisible(true);
             serverHandler.setUpConnection();
 
 

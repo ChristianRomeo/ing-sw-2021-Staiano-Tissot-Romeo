@@ -95,7 +95,7 @@ public class PregameSceneController extends FXMLController{
     @FXML
     public void choseFirstCard(){
         DropShadow d= new DropShadow();
-        d.setRadius(60);
+        d.setRadius(70);
         d.setColor(Color.web("#7e0608"));
 
         leaderCardImage1.setEffect(d);
@@ -117,7 +117,7 @@ public class PregameSceneController extends FXMLController{
     @FXML
     public void choseSecondCard(){
         DropShadow d= new DropShadow();
-        d.setRadius(60);
+        d.setRadius(70);
 
         d.setColor(Color.web("#7e0608"));
 
@@ -140,7 +140,7 @@ public class PregameSceneController extends FXMLController{
     @FXML
     public void choseThirdCard(){
         DropShadow d= new DropShadow();
-        d.setRadius(60);
+        d.setRadius(70);
 
         d.setColor(Color.web("#7e0608"));
 
@@ -162,7 +162,7 @@ public class PregameSceneController extends FXMLController{
     @FXML
     public void choseFourthCard(){
         DropShadow d= new DropShadow();
-        d.setRadius(60);
+        d.setRadius(70);
 
         d.setColor(Color.web("#7e0608"));
 

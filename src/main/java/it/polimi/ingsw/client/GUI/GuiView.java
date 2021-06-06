@@ -11,17 +11,18 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
+import javafx.stage.*;
 
 import java.awt.*;
 import java.io.IOException;
@@ -183,6 +184,12 @@ public class GuiView extends Application implements View {
     public int askNumPlayers() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Seleziona il numero di giocatori.");
+
+        //DialogPane dialogPane = alert.getDialogPane();
+        //StackPane stackPane = new StackPane(new ImageView(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png")))));
+        //stackPane.setAlignment(Pos.CENTER);
+        //dialogPane.setGraphic(stackPane);
+
         ButtonType buttonTypeOne = new ButtonType("One");
         ButtonType buttonTypeTwo = new ButtonType("Two");
         ButtonType buttonTypeThree = new ButtonType("Three");
