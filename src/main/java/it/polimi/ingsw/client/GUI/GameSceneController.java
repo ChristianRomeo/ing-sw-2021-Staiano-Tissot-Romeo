@@ -37,6 +37,51 @@ public class GameSceneController extends FXMLController {
     private Button showMarketButton;
     @FXML
     private Button showDevelopmentCardBoardButton;
+    @FXML
+    private Button showOtherPlayerBoardButton1;
+    @FXML
+    private Button showOtherPlayerBoardButton2;
+    @FXML
+    private Button showOtherPlayerBoardButton3;
+
+    @FXML
+    private ImageView myWarehouseImage11;
+    @FXML
+    private ImageView myWarehouseImage21;
+    @FXML
+    private ImageView myWarehouseImage22;
+    @FXML
+    private ImageView myWarehouseImage31;
+    @FXML
+    private ImageView myWarehouseImage32;
+    @FXML
+    private ImageView myWarehouseImage33;
+    @FXML
+    private ImageView myDevCardImage00;
+    @FXML
+    private ImageView myDevCardImage01;
+    @FXML
+    private ImageView myDevCardImage02;
+    @FXML
+    private ImageView myDevCardImage10;
+    @FXML
+    private ImageView myDevCardImage11;
+    @FXML
+    private ImageView myDevCardImage12;
+    @FXML
+    private ImageView myDevCardImage20;
+    @FXML
+    private ImageView myDevCardImage21;
+    @FXML
+    private ImageView myDevCardImage22;
+    @FXML
+    private Label strongboxNumberCoinsLabel;
+    @FXML
+    private Label strongboxNumberShieldsLabel;
+    @FXML
+    private Label strongboxNumberServantsLabel;
+    @FXML
+    private Label strongboxNumberStonesLabel;
 
 /*
     //----- cose per pane azione leader -----
@@ -208,6 +253,19 @@ public class GameSceneController extends FXMLController {
     @Override
     public void updateScene(){ //todo: da fare
 
+        showOtherPlayerBoardButton1.setVisible(false);
+        showOtherPlayerBoardButton2.setVisible(false);
+        showOtherPlayerBoardButton3.setVisible(false);
+        if(clientModel.getNumPlayers()>1){
+            showOtherPlayerBoardButton1.setVisible(true);
+        }
+        if(clientModel.getNumPlayers()>2){
+            showOtherPlayerBoardButton2.setVisible(true);
+        }
+        if(clientModel.getNumPlayers()>3){
+            showOtherPlayerBoardButton3.setVisible(true);
+        }
+
         if(clientModel.isCurrentPlayer()){
             leaderActionButton.setVisible(true);
             buyCardButton.setVisible(true);
@@ -221,8 +279,42 @@ public class GameSceneController extends FXMLController {
             useMarketButton.setVisible(false);
             endTurnButton.setVisible(false);
         }
+        PlayerWarehouse myWarehouse = clientModel.getPlayersWarehouses().get(clientModel.getMyIndex());
+        PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
+        Map<Resource,Integer> myStrongbox = clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex());
+        myWarehouseImage11.setImage(GuiView.getResourceImage(myWarehouse.getResource(1,1)));
+        myWarehouseImage21.setImage(GuiView.getResourceImage(myWarehouse.getResource(2,1)));
+        myWarehouseImage22.setImage(GuiView.getResourceImage(myWarehouse.getResource(2,2)));
+        myWarehouseImage31.setImage(GuiView.getResourceImage(myWarehouse.getResource(3,1)));
+        myWarehouseImage32.setImage(GuiView.getResourceImage(myWarehouse.getResource(3,2)));
+        myWarehouseImage33.setImage(GuiView.getResourceImage(myWarehouse.getResource(3,3)));
 
+        myDevCardImage00.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(0,0)));
+        myDevCardImage01.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(0,1)));
+        myDevCardImage02.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(0,2)));
+        myDevCardImage10.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(1,0)));
+        myDevCardImage11.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(1,1)));
+        myDevCardImage12.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(1,2)));
+        myDevCardImage20.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(2,0)));
+        myDevCardImage21.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(2,1)));
+        myDevCardImage22.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(2,2)));
 
+        strongboxNumberCoinsLabel.setText("x0");
+        strongboxNumberShieldsLabel.setText("x0");
+        strongboxNumberServantsLabel.setText("x0");
+        strongboxNumberStonesLabel.setText("x0");
+        if(myStrongbox.containsKey(Resource.COIN)){
+            strongboxNumberCoinsLabel.setText("x"+myStrongbox.get(Resource.COIN));
+        }
+        if(myStrongbox.containsKey(Resource.SERVANT)){
+            strongboxNumberServantsLabel.setText("x"+myStrongbox.get(Resource.SERVANT));
+        }
+        if(myStrongbox.containsKey(Resource.SHIELD)){
+            strongboxNumberShieldsLabel.setText("x"+myStrongbox.get(Resource.SHIELD));
+        }
+        if(myStrongbox.containsKey(Resource.STONE)){
+            strongboxNumberStonesLabel.setText("x"+myStrongbox.get(Resource.STONE));
+        }
     }
 
     @Override
@@ -234,15 +326,7 @@ public class GameSceneController extends FXMLController {
     public void initialize(){
         BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
         root.setBackground(new Background(backgroundFill));
-        /*
-        buyCardRowChoiceBox.getItems().removeAll();
-        buyCardRowChoiceBox.getItems().addAll(0,1,2);
-        buyCardRowChoiceBox.setValue(0);
 
-        buyCardColumnChoiceBox.getItems().removeAll();
-        buyCardColumnChoiceBox.getItems().addAll(0,1,2,3);
-        buyCardColumnChoiceBox.setValue(0);
-*/
 
     }
 
@@ -287,6 +371,52 @@ public class GameSceneController extends FXMLController {
     public void showDevelopmentCardBoard(){
         guiView.getSceneController("buyCardScene").updateScene();
         guiView.setCurrentScene("buyCardScene");
+    }
+    @FXML
+    public void showOtherPlayerBoard1(){
+        for(int i=0; i<clientModel.getNumPlayers(); i++){
+            if(i!= clientModel.getMyIndex()){
+                updateOtherBoardPane(i);
+                break;
+            }
+        }
+        //setVisible il pane other board
+    }
+    @FXML
+    public void showOtherPlayerBoard2(){
+        int j=0;
+        for(int i=0; i<clientModel.getNumPlayers(); i++){
+            if(i!= clientModel.getMyIndex()){
+                if(j==1){
+                    updateOtherBoardPane(i);
+                    break;
+                }else{
+                    j++;
+                }
+            }
+        }
+        //setVisible il pane other board
+    }
+    @FXML
+    public void showOtherPlayerBoard3(){
+        int j=0;
+        for(int i=0; i<clientModel.getNumPlayers(); i++){
+            if(i!= clientModel.getMyIndex()){
+                if(j==2){
+                    updateOtherBoardPane(i);
+                    break;
+                }else{
+                    j++;
+                }
+            }
+        }
+        //setVisible il pane other board
+    }
+
+    //sto metodo fa l'update della board dell'altro giocatore, gli devi passare l'indice del giocatore
+    //di cui vuoi mostrare la board
+    public void updateOtherBoardPane(int playerIndex){
+
     }
 /*
     //----- cose per pane azione leader -----
