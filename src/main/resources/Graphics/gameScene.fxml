@@ -55,17 +55,17 @@
          <Image url="@../coinGr.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="55.0" fitWidth="52.0" layoutX="420.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="myPopeTileImage1" fitHeight="55.0" fitWidth="52.0" layoutX="420.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../papale2.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="55.0" fitWidth="52.0" layoutX="639.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="myPopeTileImage2" fitHeight="55.0" fitWidth="52.0" layoutX="639.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../papale3.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="55.0" fitWidth="52.0" layoutX="894.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="myPopeTileImage3" fitHeight="55.0" fitWidth="52.0" layoutX="894.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../papale4.png" />
       </image>
@@ -334,17 +334,17 @@
                <Font size="24.0" />
             </font>
          </Button>
-         <ImageView fitHeight="69.0" fitWidth="52.0" layoutX="400.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherPopeTileImage1" fitHeight="69.0" fitWidth="52.0" layoutX="400.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../papale2.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="52.0" fitWidth="48.0" layoutX="572.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherPopeTileImage2" fitHeight="52.0" fitWidth="48.0" layoutX="572.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../papale3.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="46.0" fitWidth="47.0" layoutX="776.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherPopeTileImage3" fitHeight="46.0" fitWidth="47.0" layoutX="776.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../papale4.png" />
             </image>

@@ -96,6 +96,12 @@ public class GameSceneController extends FXMLController {
     private ImageView myLeaderSlotImage21;
     @FXML
     private ImageView myLeaderSlotImage22;
+    @FXML
+    private ImageView myPopeTileImage1;
+    @FXML
+    private ImageView myPopeTileImage2;
+    @FXML
+    private ImageView myPopeTileImage3;
 
 
     @FXML
@@ -154,6 +160,12 @@ public class GameSceneController extends FXMLController {
     private ImageView otherLeaderSlotImage21;
     @FXML
     private ImageView otherLeaderSlotImage22;
+    @FXML
+    private ImageView otherPopeTileImage1;
+    @FXML
+    private ImageView otherPopeTileImage2;
+    @FXML
+    private ImageView otherPopeTileImage3;
 
 
 
@@ -355,16 +367,26 @@ public class GameSceneController extends FXMLController {
         }
 
         setFaithTrackPosition();
+        updateMyWarehouse();
+        updateMyPersonalCardBoard();
+        updateMyStrongbox();
+        updateMyLeaderCards();
+        updateMyPopeTiles();
+    }
 
+    private void updateMyWarehouse(){
         PlayerWarehouse myWarehouse = clientModel.getPlayersWarehouses().get(clientModel.getMyIndex());
-        PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
-        Map<Resource,Integer> myStrongbox = clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex());
+
         myWarehouseImage11.setImage(GuiView.getResourceImage(myWarehouse.getResource(1,1)));
         myWarehouseImage21.setImage(GuiView.getResourceImage(myWarehouse.getResource(2,1)));
         myWarehouseImage22.setImage(GuiView.getResourceImage(myWarehouse.getResource(2,2)));
         myWarehouseImage31.setImage(GuiView.getResourceImage(myWarehouse.getResource(3,1)));
         myWarehouseImage32.setImage(GuiView.getResourceImage(myWarehouse.getResource(3,2)));
         myWarehouseImage33.setImage(GuiView.getResourceImage(myWarehouse.getResource(3,3)));
+    }
+
+    private void updateMyPersonalCardBoard(){
+        PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
 
         myDevCardImage00.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(0,0)));
         myDevCardImage01.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(0,1)));
@@ -375,6 +397,11 @@ public class GameSceneController extends FXMLController {
         myDevCardImage20.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(2,0)));
         myDevCardImage21.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(2,1)));
         myDevCardImage22.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getCard(2,2)));
+
+    }
+
+    private void updateMyStrongbox(){
+        Map<Resource,Integer> myStrongbox = clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex());
 
         strongboxNumberCoinsLabel.setText("x0");
         strongboxNumberShieldsLabel.setText("x0");
@@ -393,6 +420,9 @@ public class GameSceneController extends FXMLController {
             strongboxNumberStonesLabel.setText("x"+myStrongbox.get(Resource.STONE));
         }
 
+    }
+
+    private void updateMyLeaderCards(){
         List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         if(myLeaderCards.get(0).isDiscarded()){
             myLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
@@ -426,6 +456,13 @@ public class GameSceneController extends FXMLController {
                 myLeaderSlotImage22.setImage(GuiView.getResourceImage(myLeaderCards.get(1).getAbilityResource()));
             }
         }
+    }
+
+    private void updateMyPopeTiles(){
+        SameTypeTriple<PopeFavorTileStatus> myPopeTiles = clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex());
+        myPopeTileImage1.setImage(GuiView.getPopeTileImage(myPopeTiles.get(1),1));
+        myPopeTileImage2.setImage(GuiView.getPopeTileImage(myPopeTiles.get(2),2));
+        myPopeTileImage3.setImage(GuiView.getPopeTileImage(myPopeTiles.get(3),3));
     }
 
     private void setFaithTrackPosition(){
@@ -690,6 +727,11 @@ public class GameSceneController extends FXMLController {
                 otherLeaderSlotImage22.setImage(GuiView.getResourceImage(otherLeaderCards.get(1).getAbilityResource()));
             }
         }
+
+        SameTypeTriple<PopeFavorTileStatus> otherPopeTiles = clientModel.getPlayersPopeTiles().get(playerIndex);
+        otherPopeTileImage1.setImage(GuiView.getPopeTileImage(otherPopeTiles.get(1),1));
+        otherPopeTileImage2.setImage(GuiView.getPopeTileImage(otherPopeTiles.get(2),2));
+        otherPopeTileImage3.setImage(GuiView.getPopeTileImage(otherPopeTiles.get(3),3));
     }
 
     @FXML
@@ -955,7 +997,7 @@ public class GameSceneController extends FXMLController {
         checkFinishedResources();
         if(boughtResources.size()>0){
             insertResourcesPane.setVisible(true);
-            //todo:qui devo mostrare le risorse comprate
+
         }
     }
 

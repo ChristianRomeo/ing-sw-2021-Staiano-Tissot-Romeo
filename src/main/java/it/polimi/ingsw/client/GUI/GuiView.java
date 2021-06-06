@@ -265,6 +265,30 @@ public class GuiView extends Application implements View {
         }
     }
 
+    //ritorna l'immagine della pope tile passata, la 0,1 o 2 a seconda dell'index passato
+
+    /**
+     *  It returns the image of the pope tile passed.
+     * @param popeTile the status of the pope tile
+     * @param popeTileIndex the index (1,2,3) of the pope tile
+     * @return the image
+     */
+    public static Image getPopeTileImage(PopeFavorTileStatus popeTile, int popeTileIndex){
+        popeTileIndex= popeTileIndex+1; //perchè nel nome delle immagini sta 2,3,4
+        if(popeTile!=null){
+            if(popeTile == PopeFavorTileStatus.INACTIVE){
+                return new Image(String.valueOf(GuiView.class.getResource("/papale"+popeTileIndex+".png")));
+            }
+            if(popeTile == PopeFavorTileStatus.ACTIVE){
+                return new Image(String.valueOf(GuiView.class.getResource("/papale"+popeTileIndex+"ON.png")));
+            }
+            if(popeTile == PopeFavorTileStatus.DISCARDED){
+                return null; // non devi settare un'immagine quindi tutto ok
+            }
+        }
+        return null;
+    }
+
     public void launcher() {}
 
     public void stop(){
