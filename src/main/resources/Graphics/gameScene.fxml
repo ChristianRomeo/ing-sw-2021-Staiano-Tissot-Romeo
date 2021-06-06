@@ -8,20 +8,15 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.GameSceneController">
-    <ImageView fitHeight="506.0" fitWidth="1108.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../medici.png" />
-    </ImageView>
+<AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.GameSceneController">
     <ImageView fitHeight="720.0" fitWidth="706.0" layoutX="1034.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <Image url="@../black.png" />
     </ImageView>
     <ImageView fitHeight="506.0" fitWidth="706.0" layoutX="590.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="216.0">
         <Image url="@../boardgame.png" />
     </ImageView>
-   <ImageView fitHeight="216.0" fitWidth="426.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <Image url="@../soloproduzione.png" />
-   </ImageView>
    <ImageView fitHeight="216.0" fitWidth="426.0" layoutX="427.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="426.0" AnchorPane.rightAnchor="426.0" AnchorPane.topAnchor="0.0">
       <Image url="@../soloproduzione.png" />
    </ImageView>
@@ -77,45 +72,13 @@
          <Image url="@../coinGr.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="167.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Cards/dev1.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="167.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Cards/dev1.png" />
-      </image>
-   </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="167.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png" />
-    </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="251.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png" />
-    </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="251.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png" />
-    </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="251.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png" />
-    </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="333.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png" />
-    </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="333.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png" />
-    </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="333.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png" />
-    </ImageView>
    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="595.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../Cards/dev1.png" />
       </image>
    </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="595.0" layoutY="59.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="@../Cards/dev1.png"/>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="595.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../Cards/dev1.png" />
     </ImageView>
     <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="595.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev1.png" />
@@ -129,17 +92,14 @@
     <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="679.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev1.png" />
     </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="77.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="@../Cards/dev1.png"/>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../Cards/dev1.png" />
     </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="59.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="@../Cards/dev1.png"/>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../Cards/dev1.png" />
     </ImageView>
-    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="39.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="@../Cards/dev1.png"/>
+    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="761.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../Cards/dev1.png" />
     </ImageView>
    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="1022.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -184,36 +144,6 @@
    <ImageView fitHeight="102.0" fitWidth="68.0" layoutX="1188.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../Cards/dev1.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="45.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../coinGr.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="36.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../coinGr.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="54.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../coinGr.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="27.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../coinGr.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="45.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../coinGr.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="63.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../coinGr.png" />
       </image>
    </ImageView>
    <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="464.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
@@ -336,5 +266,161 @@
          </ImageView>
       </children>
    </GridPane>
-   <AnchorPane maxHeight="720.0" maxWidth="1080.0" minHeight="720.0" minWidth="1080.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <AnchorPane disable="true" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0">
+      <children>
+         <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.72" pickOnBounds="true">
+            <image>
+               <Image url="@../black.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="112.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../medici.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="381.0" fitWidth="706.0" layoutX="287.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="287.0" AnchorPane.topAnchor="183.0">
+            <Image url="@../soloproduzione.png" />
+         </ImageView>
+         <ImageView fitHeight="22.0" fitWidth="26.0" layoutX="365.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../coinGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="22.0" fitWidth="26.0" layoutX="350.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../coinGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="22.0" fitWidth="26.0" layoutX="378.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../coinGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="22.0" fitWidth="26.0" layoutX="360.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../coinGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="22.0" fitWidth="26.0" layoutX="330.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../coinGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="22.0" fitWidth="26.0" layoutX="391.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../coinGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="841.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="841.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+          <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="841.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@../Cards/dev1.png" />
+          </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="702.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="702.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="702.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="568.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="568.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="164.0" fitWidth="115.0" layoutX="568.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Cards/dev1.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="42.0" fitWidth="47.0" layoutX="317.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../coinGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="42.0" fitWidth="38.0" layoutX="317.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../shieldGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="361.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../stoneGr.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="372.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../servantGr.png" />
+            </image>
+         </ImageView>
+         <Label layoutX="325.0" layoutY="457.0" style="-fx-font-weight: BOLD;" text="x1">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="369.0" layoutY="457.0" style="-fx-font-weight: BOLD;" text="x1">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="380.0" layoutY="417.0" style="-fx-font-weight: BOLD;" text="x1" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="331.0" layoutY="409.0" style="-fx-font-weight: BOLD;" text="x1">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="112.0" style="-fx-font-weight: BOLD;" text="Chris' Board" textFill="WHITE">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1088.0" layoutY="87.0" mnemonicParsing="false" style="-fx-font-weight: BOLD;" text="X" textFill="WHITE">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Button>
+      </children>
+   </AnchorPane>
+   <AnchorPane maxHeight="720.0" maxWidth="1080.0" minHeight="720.0" minWidth="1080.0" prefHeight="720.0" prefWidth="1080.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.72" pickOnBounds="true">
+            <image>
+               <Image url="@../black.png" />
+            </image>
+         </ImageView>
+          <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@../medici.png" />
+          </ImageView>
+         <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="OK BOOMEr" />
+         <Label layoutX="592.0" layoutY="131.0" prefHeight="26.0" prefWidth="509.0" text="YOU ENCOUNTERED A WILD ERROR MESSAGE" textFill="WHITE">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+      </children></AnchorPane>
 </AnchorPane>

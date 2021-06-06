@@ -8,11 +8,16 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import javafx.fxml.FXML;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.ImagePattern;
 
 import java.util.*;
 
@@ -175,6 +180,8 @@ public class UseMarketSceneController extends FXMLController{
     private Button removeLeaderResourceButton1;
     @FXML
     private Button removeLeaderResourceButton2;
+    @FXML
+    private AnchorPane root;
 
 
 
@@ -182,6 +189,11 @@ public class UseMarketSceneController extends FXMLController{
     public void updateScene(){
         //todo: qui setto tutte le immagini delle biglie come il mercato nel client model
         submitMarketButton.setDisable(!clientModel.isCurrentPlayer());
+    }
+
+    public void initialize(){
+        BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
+        root.setBackground(new Background(backgroundFill));
     }
 
     //cose per il pane proprio del mercato

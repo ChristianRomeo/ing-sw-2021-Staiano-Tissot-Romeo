@@ -232,7 +232,7 @@ public class GameSceneController extends FXMLController {
 
     @FXML //sto metodo inizializza la scena solo quando viene caricata la prima volta, in automaticao
     public void initialize(){
-        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("medici.png")))), CornerRadii.EMPTY, Insets.EMPTY);
+        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
         //root.setBackground(new Background(backgroundFill));
         /*
         buyCardRowChoiceBox.getItems().removeAll();
