@@ -207,8 +207,8 @@ public class UseMarketSceneController extends FXMLController{
 
     @FXML
     public void initialize(){
-        BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
-        root.setBackground(new Background(backgroundFill));
+        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
+        //root.setBackground(new Background(backgroundFill));
     }
 
     //cose per il pane proprio del mercato
