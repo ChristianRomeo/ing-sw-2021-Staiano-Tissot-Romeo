@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.GUI;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.util.List;
@@ -34,6 +35,9 @@ public class EndGameSceneController extends FXMLController {
     private Label isWinnerLabel3;
     @FXML
     private Label isWinnerLabel4;
+
+    @FXML
+    private Button exitLadderBoardButton;
 
     @Override
     public void updateScene(){
@@ -80,6 +84,11 @@ public class EndGameSceneController extends FXMLController {
             }
         }
 
+    }
+
+    @FXML
+    public void exitLadderBoard(){
+        System.exit(0);
     }
 
 }

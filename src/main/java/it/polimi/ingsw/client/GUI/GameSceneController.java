@@ -82,6 +82,19 @@ public class GameSceneController extends FXMLController {
     private Label strongboxNumberServantsLabel;
     @FXML
     private Label strongboxNumberStonesLabel;
+    @FXML
+    private ImageView myLeaderCardImage1;
+    @FXML
+    private ImageView myLeaderCardImage2;
+    @FXML
+    private ImageView myLeaderSlotImage11;
+    @FXML
+    private ImageView myLeaderSlotImage12;
+    @FXML
+    private ImageView myLeaderSlotImage21;
+    @FXML
+    private ImageView myLeaderSlotImage22;
+
 
     @FXML
     private AnchorPane otherBoardPane;
@@ -127,6 +140,19 @@ public class GameSceneController extends FXMLController {
     private Label otherStrongboxServantLabel;
     @FXML
     private Label otherStrongboxStoneLabel;
+    @FXML
+    private ImageView otherLeaderCardImage1;
+    @FXML
+    private ImageView otherLeaderCardImage2;
+    @FXML
+    private ImageView otherLeaderSlotImage11;
+    @FXML
+    private ImageView otherLeaderSlotImage12;
+    @FXML
+    private ImageView otherLeaderSlotImage21;
+    @FXML
+    private ImageView otherLeaderSlotImage22;
+
 
 
 /*
@@ -297,7 +323,7 @@ public class GameSceneController extends FXMLController {
     //---- cose per la schermata principale---
 
     @Override
-    public void updateScene(){ //todo: da fare
+    public void updateScene(){ //todo: da fare, magari dividilo in sottometodi
 
         showOtherPlayerBoardButton1.setVisible(false);
         showOtherPlayerBoardButton2.setVisible(false);
@@ -360,6 +386,40 @@ public class GameSceneController extends FXMLController {
         }
         if(myStrongbox.containsKey(Resource.STONE)){
             strongboxNumberStonesLabel.setText("x"+myStrongbox.get(Resource.STONE));
+        }
+
+        List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
+        if(myLeaderCards.get(0).isDiscarded()){
+            myLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
+        }else{
+            myLeaderCardImage1.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(0)));
+            //todo: se è attiva mettere qualcosa
+        }
+        if(myLeaderCards.get(1).isDiscarded()){
+            myLeaderCardImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
+        }else{
+            myLeaderCardImage2.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(1)));
+            //todo: se è attiva mettere qualcosa
+        }
+        myLeaderSlotImage11.setImage(null);
+        myLeaderSlotImage12.setImage(null);
+        myLeaderSlotImage21.setImage(null);
+        myLeaderSlotImage22.setImage(null);
+        if(myLeaderCards.get(0).getFullSlotsNumber()!=null){
+            if(myLeaderCards.get(0).getFullSlotsNumber()>0){
+                myLeaderSlotImage11.setImage(GuiView.getResourceImage(myLeaderCards.get(0).getAbilityResource()));
+            }
+            if(myLeaderCards.get(0).getFullSlotsNumber()>1){
+                myLeaderSlotImage12.setImage(GuiView.getResourceImage(myLeaderCards.get(0).getAbilityResource()));
+            }
+        }
+        if(myLeaderCards.get(1).getFullSlotsNumber()!=null){
+            if(myLeaderCards.get(1).getFullSlotsNumber()>0){
+                myLeaderSlotImage21.setImage(GuiView.getResourceImage(myLeaderCards.get(1).getAbilityResource()));
+            }
+            if(myLeaderCards.get(1).getFullSlotsNumber()>1){
+                myLeaderSlotImage22.setImage(GuiView.getResourceImage(myLeaderCards.get(1).getAbilityResource()));
+            }
         }
     }
 
@@ -483,6 +543,38 @@ public class GameSceneController extends FXMLController {
         }
         if(playerStrongbox.containsKey(Resource.STONE)){
             otherStrongboxStoneLabel.setText("x"+playerStrongbox.get(Resource.STONE));
+        }
+
+        List<LeaderCard> otherLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getNicknames().get(playerIndex));
+        if(!otherLeaderCards.get(0).isActivated()){
+            otherLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
+        }else{
+            otherLeaderCardImage1.setImage(GuiView.getLeaderCardImage(otherLeaderCards.get(0)));
+        }
+        if(!otherLeaderCards.get(1).isActivated()){
+            otherLeaderCardImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
+        }else{
+            otherLeaderCardImage2.setImage(GuiView.getLeaderCardImage(otherLeaderCards.get(1)));
+        }
+        otherLeaderSlotImage11.setImage(null);
+        otherLeaderSlotImage12.setImage(null);
+        otherLeaderSlotImage21.setImage(null);
+        otherLeaderSlotImage22.setImage(null);
+        if(otherLeaderCards.get(0).getFullSlotsNumber()!=null){
+            if(otherLeaderCards.get(0).getFullSlotsNumber()>0){
+                otherLeaderSlotImage11.setImage(GuiView.getResourceImage(otherLeaderCards.get(0).getAbilityResource()));
+            }
+            if(otherLeaderCards.get(0).getFullSlotsNumber()>1){
+                otherLeaderSlotImage12.setImage(GuiView.getResourceImage(otherLeaderCards.get(0).getAbilityResource()));
+            }
+        }
+        if(otherLeaderCards.get(1).getFullSlotsNumber()!=null){
+            if(otherLeaderCards.get(1).getFullSlotsNumber()>0){
+                otherLeaderSlotImage21.setImage(GuiView.getResourceImage(otherLeaderCards.get(1).getAbilityResource()));
+            }
+            if(otherLeaderCards.get(1).getFullSlotsNumber()>1){
+                otherLeaderSlotImage22.setImage(GuiView.getResourceImage(otherLeaderCards.get(1).getAbilityResource()));
+            }
         }
     }
 
