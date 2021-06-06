@@ -89,7 +89,7 @@
             <Image url="@../whiteMarble.png" />
          </image></ImageView>
     </GridPane>
-    <RadioButton layoutX="788.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0">
+    <RadioButton layoutX="788.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" selected="true">
         <toggleGroup>
             <ToggleGroup fx:id="toggleGroupMarket" />
         </toggleGroup>

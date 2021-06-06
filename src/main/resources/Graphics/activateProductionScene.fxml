@@ -53,6 +53,66 @@
         <Label layoutX="241.0" layoutY="230.0" prefHeight="17.0" prefWidth="255.0" text="Select the second resource you want to use:" />
         <Label layoutX="237.0" layoutY="317.0" prefHeight="17.0" prefWidth="245.0" text="Select the resource you want to produce:" />
         <Button fx:id="submitBaseProductionButton" layoutX="410.0" layoutY="408.0" mnemonicParsing="false" onAction="#submitBaseProduction" text="Done!" />
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="237.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../coinPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="313.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../stonePicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="411.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../servantPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="528.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../shieldPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="237.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../coinPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="313.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../stonePicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="424.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../servantPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="536.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../shieldPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="237.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../coinPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="313.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../stonePicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="424.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../servantPicc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="536.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../shieldPicc.png" />
+         </image>
+      </ImageView>
     </AnchorPane>
 
     <AnchorPane fx:id="leaderProductionPane" layoutX="192.0" layoutY="39.0" prefHeight="626.0" prefWidth="945.0" style="-fx-background-color: lightblue;" visible="false">
