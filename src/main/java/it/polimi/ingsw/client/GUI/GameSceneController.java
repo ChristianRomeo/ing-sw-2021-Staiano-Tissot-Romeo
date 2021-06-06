@@ -83,6 +83,52 @@ public class GameSceneController extends FXMLController {
     @FXML
     private Label strongboxNumberStonesLabel;
 
+    @FXML
+    private AnchorPane otherBoardPane;
+    @FXML
+    private Button exitOtherBoardButton;
+    @FXML
+    private Label otherBoardNameLabel;
+    @FXML
+    private ImageView otherWarehouseImage11;
+    @FXML
+    private ImageView otherWarehouseImage21;
+    @FXML
+    private ImageView otherWarehouseImage22;
+    @FXML
+    private ImageView otherWarehouseImage31;
+    @FXML
+    private ImageView otherWarehouseImage32;
+    @FXML
+    private ImageView otherWarehouseImage33;
+    @FXML
+    private ImageView otherDevCardImage00;
+    @FXML
+    private ImageView otherDevCardImage01;
+    @FXML
+    private ImageView otherDevCardImage02;
+    @FXML
+    private ImageView otherDevCardImage10;
+    @FXML
+    private ImageView otherDevCardImage11;
+    @FXML
+    private ImageView otherDevCardImage12;
+    @FXML
+    private ImageView otherDevCardImage20;
+    @FXML
+    private ImageView otherDevCardImage21;
+    @FXML
+    private ImageView otherDevCardImage22;
+    @FXML
+    private Label otherStrongboxCoinLabel;
+    @FXML
+    private Label otherStrongboxShieldLabel;
+    @FXML
+    private Label otherStrongboxServantLabel;
+    @FXML
+    private Label otherStrongboxStoneLabel;
+
+
 /*
     //----- cose per pane azione leader -----
     @FXML
@@ -374,49 +420,75 @@ public class GameSceneController extends FXMLController {
     }
     @FXML
     public void showOtherPlayerBoard1(){
-        for(int i=0; i<clientModel.getNumPlayers(); i++){
-            if(i!= clientModel.getMyIndex()){
-                updateOtherBoardPane(i);
-                break;
-            }
+        if(clientModel.getMyIndex()==0){
+            updateOtherBoardPane(1);
+        }else{
+            updateOtherBoardPane(0);
         }
-        //setVisible il pane other board
+        otherBoardPane.setVisible(true);
     }
     @FXML
     public void showOtherPlayerBoard2(){
-        int j=0;
-        for(int i=0; i<clientModel.getNumPlayers(); i++){
-            if(i!= clientModel.getMyIndex()){
-                if(j==1){
-                    updateOtherBoardPane(i);
-                    break;
-                }else{
-                    j++;
-                }
-            }
+        switch (clientModel.getMyIndex()) {
+            case 0, 1 -> updateOtherBoardPane(2);
+            case 2 -> updateOtherBoardPane(1);
         }
-        //setVisible il pane other board
+        otherBoardPane.setVisible(true);
     }
     @FXML
     public void showOtherPlayerBoard3(){
-        int j=0;
-        for(int i=0; i<clientModel.getNumPlayers(); i++){
-            if(i!= clientModel.getMyIndex()){
-                if(j==2){
-                    updateOtherBoardPane(i);
-                    break;
-                }else{
-                    j++;
-                }
-            }
+        switch (clientModel.getMyIndex()) {
+            case 0, 1, 2 -> updateOtherBoardPane(3);
+            case 3 -> updateOtherBoardPane(2);
         }
-        //setVisible il pane other board
+        otherBoardPane.setVisible(true);
     }
 
     //sto metodo fa l'update della board dell'altro giocatore, gli devi passare l'indice del giocatore
     //di cui vuoi mostrare la board
     public void updateOtherBoardPane(int playerIndex){
+        otherBoardNameLabel.setText(clientModel.getNicknames().get(playerIndex)+"'s Board");
+        PlayerWarehouse playerWarehouse = clientModel.getPlayersWarehouses().get(playerIndex);
+        PersonalCardBoard playerPersonalCardBoard = clientModel.getPlayersCardBoards().get(playerIndex);
+        Map<Resource,Integer> playerStrongbox = clientModel.getPlayersStrongboxes().get(playerIndex);
+        otherWarehouseImage11.setImage(GuiView.getResourceImage(playerWarehouse.getResource(1,1)));
+        otherWarehouseImage21.setImage(GuiView.getResourceImage(playerWarehouse.getResource(2,1)));
+        otherWarehouseImage22.setImage(GuiView.getResourceImage(playerWarehouse.getResource(2,2)));
+        otherWarehouseImage31.setImage(GuiView.getResourceImage(playerWarehouse.getResource(3,1)));
+        otherWarehouseImage32.setImage(GuiView.getResourceImage(playerWarehouse.getResource(3,2)));
+        otherWarehouseImage33.setImage(GuiView.getResourceImage(playerWarehouse.getResource(3,3)));
 
+        otherDevCardImage00.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(0,0)));
+        otherDevCardImage01.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(0,1)));
+        otherDevCardImage02.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(0,2)));
+        otherDevCardImage10.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(1,0)));
+        otherDevCardImage11.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(1,1)));
+        otherDevCardImage12.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(1,2)));
+        otherDevCardImage20.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(2,0)));
+        otherDevCardImage21.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(2,1)));
+        otherDevCardImage22.setImage(GuiView.getDevelopmentCardImage(playerPersonalCardBoard.getCard(2,2)));
+
+        otherStrongboxCoinLabel.setText("x0");
+        otherStrongboxShieldLabel.setText("x0");
+        otherStrongboxServantLabel.setText("x0");
+        otherStrongboxStoneLabel.setText("x0");
+        if(playerStrongbox.containsKey(Resource.COIN)){
+            otherStrongboxCoinLabel.setText("x"+playerStrongbox.get(Resource.COIN));
+        }
+        if(playerStrongbox.containsKey(Resource.SERVANT)){
+            otherStrongboxServantLabel.setText("x"+playerStrongbox.get(Resource.SERVANT));
+        }
+        if(playerStrongbox.containsKey(Resource.SHIELD)){
+            otherStrongboxShieldLabel.setText("x"+playerStrongbox.get(Resource.SHIELD));
+        }
+        if(playerStrongbox.containsKey(Resource.STONE)){
+            otherStrongboxStoneLabel.setText("x"+playerStrongbox.get(Resource.STONE));
+        }
+    }
+
+    @FXML
+    public void exitOtherBoard(){
+        otherBoardPane.setVisible(false);
     }
 /*
     //----- cose per pane azione leader -----
