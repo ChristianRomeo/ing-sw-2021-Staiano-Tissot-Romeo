@@ -10,12 +10,18 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.UseMarketSceneController">
+   <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../loader.png" />
+      </image>
+   </ImageView>
     <ImageView fitHeight="484.0" fitWidth="397.0" layoutX="495.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="110.0">
         <Image url="@../market.png" />
     </ImageView>
-    <ImageView fitHeight="213.0" fitWidth="255.0" layoutX="560.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="215.0" fitWidth="256.0" layoutX="560.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../marketTray.png" />
     </ImageView>
    <ImageView fx:id="slideMarbleImage" fitHeight="38.0" fitWidth="42.0" layoutX="766.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
@@ -100,9 +106,10 @@
     <RadioButton layoutX="659.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
     <RadioButton layoutX="701.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
     <RadioButton layoutX="745.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
-    <Label layoutX="609.0" layoutY="49.0" prefHeight="17.0" prefWidth="184.0" text="Choose a row or a column" />
-    <Button fx:id="submitMarketButton" layoutX="1054.0" layoutY="214.0" mnemonicParsing="false" onAction="#submitMarket" text="Done!" />
-   <Button fx:id="exitButton" layoutX="1052.0" layoutY="430.0" mnemonicParsing="false" onAction="#exit" text="Return" />
+    <Button fx:id="submitMarketButton" layoutX="1028.0" layoutY="285.0" mnemonicParsing="false" onAction="#submitMarket" style="-fx-background-color: transparent; -fx-border-color: black;" text="Done!">
+      <font>
+         <Font size="36.0" />
+      </font></Button>
 
     <AnchorPane fx:id="insertResourcesPane" layoutX="163.0" layoutY="48.0" prefHeight="625.0" prefWidth="939.0" style="-fx-background-color: lightblue;" visible="false">
         <ImageView fitHeight="229.0" fitWidth="285.0" layoutX="124.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
@@ -184,4 +191,9 @@
       <ImageView fx:id="leader2Slot1EditImage" fitHeight="38.0" fitWidth="42.0" layoutX="405.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader2Slot2EditImage" fitHeight="38.0" fitWidth="42.0" layoutX="448.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" />
     </AnchorPane>
+   <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1113.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent;" text="&lt;- Return">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Button>
 </AnchorPane>
