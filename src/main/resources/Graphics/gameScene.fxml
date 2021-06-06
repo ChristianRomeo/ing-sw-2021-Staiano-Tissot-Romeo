@@ -70,7 +70,7 @@
          <Image url="@../papale4.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="32.0" fitWidth="26.0" layoutX="221.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="myFaithTrackPositionImage" fitHeight="32.0" fitWidth="26.0" layoutX="237.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../blackcross.png" />
       </image>
@@ -349,7 +349,7 @@
                <Image url="@../papale4.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="76.0" fitWidth="26.0" layoutX="246.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="otherFaithPositionImage" fitHeight="76.0" fitWidth="26.0" layoutX="261.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../blackcross.png" />
             </image>

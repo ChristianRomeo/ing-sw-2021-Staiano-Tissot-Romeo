@@ -22,6 +22,8 @@ public class GameSceneController extends FXMLController {
     private AnchorPane root;
     //---- cose per la schermata principale---
     @FXML
+    private ImageView myFaithTrackPositionImage;
+    @FXML
     private Label messageLabel;
     @FXML
     private Button leaderActionButton;
@@ -351,6 +353,9 @@ public class GameSceneController extends FXMLController {
             useMarketButton.setVisible(false);
             endTurnButton.setVisible(false);
         }
+
+        setFaithTrackPosition();
+
         PlayerWarehouse myWarehouse = clientModel.getPlayersWarehouses().get(clientModel.getMyIndex());
         PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
         Map<Resource,Integer> myStrongbox = clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex());
@@ -421,6 +426,115 @@ public class GameSceneController extends FXMLController {
                 myLeaderSlotImage22.setImage(GuiView.getResourceImage(myLeaderCards.get(1).getAbilityResource()));
             }
         }
+    }
+
+    private void setFaithTrackPosition(){
+        int myPosition = clientModel.getPlayersFTPositions().get(clientModel.getMyIndex());
+        int x=0, y=0;
+        switch (myPosition) {
+            case 0 -> {
+                x = 237;
+                y = 220;
+            }
+            case 1 -> {
+                x = 281;
+                y = 220;
+            }
+            case 2 -> {
+                x = 325;
+                y = 220;
+            }
+            case 3 -> {
+                x = 325;
+                y = 178;
+            }
+            case 4 -> {
+                x = 325;
+                y = 126;
+            }
+            case 5 -> {
+                x = 365;
+                y = 126;
+            }
+            case 6 -> {
+                x = 406;
+                y = 126;
+            }
+            case 7 -> {
+                x = 458;
+                y = 126;
+            }
+            case 8 -> {
+                x = 493;
+                y = 126;
+            }
+            case 9 -> {
+                x = 539;
+                y = 126;
+            }
+            case 10 -> {
+                x = 539;
+                y = 168;
+            }
+            case 11 -> {
+                x = 539;
+                y = 221;
+            }
+            case 12 -> {
+                x = 588;
+                y = 221;
+            }
+            case 13 -> {
+                x = 626;
+                y = 221;
+            }
+            case 14 -> {
+                x = 665;
+                y = 221;
+            }
+            case 15 -> {
+                x = 710;
+                y = 221;
+            }
+            case 16 -> {
+                x = 759;
+                y = 221;
+            }
+            case 17 -> {
+                x = 759;
+                y = 169;
+            }
+            case 18 -> {
+                x = 759;
+                y = 127;
+            }
+            case 19 -> {
+                x = 794;
+                y = 127;
+            }
+            case 20 -> {
+                x = 840;
+                y = 127;
+            }
+            case 21 -> {
+                x = 881;
+                y = 127;
+            }
+            case 22 -> {
+                x = 920;
+                y = 127;
+            }
+            case 23 -> {
+                x = 965;
+                y = 127;
+            }
+            case 24 -> {
+                x = 1010;
+                y = 127;
+            }
+        }
+        myFaithTrackPositionImage.setLayoutX(x);
+        myFaithTrackPositionImage.setLayoutY(y);
     }
 
     @Override
