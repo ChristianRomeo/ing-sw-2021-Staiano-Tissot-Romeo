@@ -6,12 +6,14 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
 import java.util.*;
@@ -423,17 +425,26 @@ public class GameSceneController extends FXMLController {
     }
 
     private void updateMyLeaderCards(){
+        DropShadow d= new DropShadow();
+        d.setRadius(80);
+
+        d.setColor(Color.web("#7e0608"));
         List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         if(myLeaderCards.get(0).isDiscarded()){
             myLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
         }else{
             myLeaderCardImage1.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(0)));
+            if (myLeaderCards.get(0).isActivated())
+            myLeaderCardImage1.setEffect(d);
             //todo: se è attiva mettere qualcosa
         }
         if(myLeaderCards.get(1).isDiscarded()){
             myLeaderCardImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
         }else{
             myLeaderCardImage2.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(1)));
+            if (myLeaderCards.get(1).isActivated())
+                myLeaderCardImage2.setEffect(d);
+
             //todo: se è attiva mettere qualcosa
         }
         myLeaderSlotImage11.setImage(null);

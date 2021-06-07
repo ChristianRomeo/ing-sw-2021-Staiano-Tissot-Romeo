@@ -13,27 +13,21 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.UseMarketSceneController">
-   <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../loader.png" />
-      </image>
-   </ImageView>
+    <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../loader.png" />
+    </ImageView>
     <ImageView fitHeight="484.0" fitWidth="397.0" layoutX="495.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="110.0">
         <Image url="@../market.png" />
     </ImageView>
     <ImageView fitHeight="215.0" fitWidth="256.0" layoutX="560.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../marketTray.png" />
     </ImageView>
-   <ImageView fx:id="slideMarbleImage" fitHeight="38.0" fitWidth="42.0" layoutX="766.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../blueMarble.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="270.0" fitWidth="271.0" layoutX="156.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../boy.png" />
-      </image>
-   </ImageView>
+    <ImageView fx:id="slideMarbleImage" fitHeight="38.0" fitWidth="42.0" layoutX="766.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../blueMarble.png" />
+    </ImageView>
+    <ImageView fitHeight="270.0" fitWidth="271.0" layoutX="156.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../boy.png" />
+    </ImageView>
     <GridPane gridLinesVisible="true" layoutX="604.0" layoutY="219.0" prefHeight="129.0" prefWidth="171.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -47,17 +41,16 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
         <ImageView fx:id="marbleImage00" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../greyMarble.png" />
-         </image></ImageView>
-        <ImageView fx:id="marbleImage01" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-         <image>
-            <Image url="@../greyMarble.png" />
-         </image></ImageView>
-        <ImageView fx:id="marbleImage02" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-         <image>
-            <Image url="@../blueMarble.png" />
-         </image></ImageView>
+            <Image url="@../greyMarble.png"/>
+        </ImageView>
+        <ImageView fx:id="marbleImage01" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                   GridPane.columnIndex="1">
+            <Image url="@../greyMarble.png"/>
+        </ImageView>
+        <ImageView fx:id="marbleImage02" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                   GridPane.columnIndex="2">
+            <Image url="@../blueMarble.png"/>
+        </ImageView>
         <ImageView fx:id="marbleImage03" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
          <image>
             <Image url="@../purpleMarble.png" />
@@ -106,7 +99,7 @@
     <RadioButton layoutX="659.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
     <RadioButton layoutX="701.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
     <RadioButton layoutX="745.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" toggleGroup="$toggleGroupMarket" />
-    <Button fx:id="submitMarketButton" layoutX="1028.0" layoutY="285.0" mnemonicParsing="false" onAction="#submitMarket" style="-fx-background-color: transparent; -fx-border-color: black;" text="Done!">
+    <Button fx:id="submitMarketButton" layoutX="1028.0" layoutY="285.0" mnemonicParsing="false" onAction="#submitMarket" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 3;" text="Done!">
       <font>
          <Font size="36.0" />
       </font></Button>
@@ -191,9 +184,35 @@
       <ImageView fx:id="leader2Slot1EditImage" fitHeight="38.0" fitWidth="42.0" layoutX="405.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader2Slot2EditImage" fitHeight="38.0" fitWidth="42.0" layoutX="448.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" />
     </AnchorPane>
-   <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1113.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent;" text="&lt;- Return">
+   <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1113.0" layoutY="20.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return">
       <font>
          <Font size="24.0" />
       </font>
    </Button>
+    <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0"
+                prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.75" pickOnBounds="true">
+            <Image url="@../black.png"/>
+        </ImageView>
+        <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../medici.png"/>
+        </ImageView>
+        <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false"
+                text="return to start (esce solo se connection lost)"/>
+        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" mnemonicParsing="false"
+                prefHeight="62.0" prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;"
+                text="X" textFill="WHITE">
+           <font>
+               <Font size="24.0"/>
+           </font>
+        </Button>
+        <Label layoutX="558.0" layoutY="131.0" prefHeight="26.0" prefWidth="509.0"
+               text="YOU ENCOUNTERED A WILD ERROR MESSAGE" textFill="WHITE">
+           <font>
+               <Font size="24.0"/>
+           </font>
+        </Label>
+    </AnchorPane>
 </AnchorPane>

@@ -2,16 +2,76 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.LeaderActionSceneController">
-    <Button fx:id="firstLeaderCardButton" alignment="CENTER" layoutX="527.0" layoutY="280.0" mnemonicParsing="false" onAction="#selectFirstLeaderCard" style="-fx-background-color: white;" text="Select" />
-    <Label alignment="CENTER" layoutX="559.0" layoutY="56.0" prefHeight="17.0" prefWidth="239.0" text="Select the card you want to discard/activate" />
-    <Button fx:id="secondLeaderCardButton" layoutX="700.0" layoutY="280.0" mnemonicParsing="false" onAction="#selectSecondLeaderCard" style="-fx-background-color: white;" text="Select" />
-    <Label layoutX="487.0" layoutY="319.0" prefHeight="17.0" prefWidth="245.0" text="Do you want to activate or discard the card?" />
-    <Button fx:id="activateLeaderButton" layoutX="535.0" layoutY="364.0" mnemonicParsing="false" onAction="#activateLeaderCard" text="Activate" />
-    <Button fx:id="discardLeaderButton" layoutX="680.0" layoutY="366.0" mnemonicParsing="false" onAction="#discardLeaderCard" text="Discard" />
-    <ImageView fx:id="chooseLeaderCardImage1" fitHeight="178.0" fitWidth="138.0" layoutX="485.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="chooseLeaderCardImage2" fitHeight="174.0" fitWidth="150.0" layoutX="672.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fitHeight="720.0" fitWidth="1280.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Image url="@../loader.png" />
+    </ImageView>
+   <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.3" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <image>
+         <Image url="@../black.png" />
+      </image>
+   </ImageView>
+   <Button layoutX="1123.0" layoutY="30.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Button>
+    <ImageView fitHeight="270.0" fitWidth="271.0" layoutX="166.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../boy.png" />
+    </ImageView>
+    <GridPane layoutX="454.0" layoutY="166.0" prefHeight="387.0" prefWidth="450.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="285.0" minHeight="10.0" prefHeight="256.66664632161456" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.33331298828125" minHeight="10.0" prefHeight="72.66666666666669" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <ImageView fx:id="chooseLeaderCardImage1" fitHeight="255.0" fitWidth="238.0" onMouseClicked="#selectFirstLeaderCard" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Image url="@../Cards/lead7.png" />
+        </ImageView>
+        <ImageView fx:id="chooseLeaderCardImage2" fitHeight="255.0" fitWidth="238.0" onMouseClicked="#selectSecondLeaderCard" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Image url="@../Cards/lead5.png" />
+        </ImageView>
+        <Button fx:id="activateLeaderButton" mnemonicParsing="false" onAction="#activateLeaderCard" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Activate" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+        <Button fx:id="discardLeaderButton" mnemonicParsing="false" onAction="#discardLeaderCard" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Discard" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+    </GridPane>
+    <Label layoutX="500.0" layoutY="470.0" prefHeight="27.0" prefWidth="384.0" style="-fx-font-weight: BOLD;" text="Do you want to activate or discard the card?" textFill="WHITE">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+    <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.75" pickOnBounds="true">
+            <Image url="@../black.png" />
+        </ImageView>
+        <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../medici.png" />
+        </ImageView>
+        <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="return to start (esce solo se connecton lost)" />
+        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
+           <font>
+               <Font size="24.0" />
+           </font>
+        </Button>
+        <Label layoutX="558.0" layoutY="131.0" prefHeight="26.0" prefWidth="509.0" text="YOU ENCOUNTERED A WILD ERROR MESSAGE" textFill="WHITE">
+           <font>
+               <Font size="24.0" />
+           </font>
+        </Label>
+    </AnchorPane>
 </AnchorPane>

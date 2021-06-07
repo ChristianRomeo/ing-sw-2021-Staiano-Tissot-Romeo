@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.controller.Events.BoughtCardEvent;
 import it.polimi.ingsw.model.DevelopmentCardBoard;
 import it.polimi.ingsw.model.PersonalCardBoard;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -125,5 +126,9 @@ public class BuyCardSceneController extends FXMLController {
         //System.out.println(row + " "+ column+ " "+ pile +" ");//debug
         guiView.getSceneController("gameScene").updateScene();
         guiView.setCurrentScene("gameScene");
+    }
+
+    public void closePane() {
+        buyCardPane2.setVisible(false);
     }
 }

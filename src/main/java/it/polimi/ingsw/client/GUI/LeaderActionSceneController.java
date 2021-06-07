@@ -4,17 +4,19 @@ import it.polimi.ingsw.controller.Events.LeaderCardActionEvent;
 import it.polimi.ingsw.model.LeaderCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 
 public class LeaderActionSceneController extends FXMLController{
 
-    @FXML
-    private Button firstLeaderCardButton;
-    @FXML
-    private Button secondLeaderCardButton;
+    //@FXML
+    //private Button firstLeaderCardButton;
+    //@FXML
+    //private Button secondLeaderCardButton;
     @FXML
     private Button activateLeaderButton;
     @FXML
@@ -28,41 +30,82 @@ public class LeaderActionSceneController extends FXMLController{
 
     public void updateScene(){
         selectedLeaderCard=-1;
-        firstLeaderCardButton.setDisable(false);
-        secondLeaderCardButton.setDisable(false);
-        firstLeaderCardButton.setStyle("-fx-background-color: white;");
-        secondLeaderCardButton.setStyle("-fx-background-color: white;");
+        chooseLeaderCardImage1.setDisable(false);
+        chooseLeaderCardImage2.setDisable(false);
+
+        if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).isDiscarded())
+            chooseLeaderCardImage1.setDisable(true);
+        if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).isDiscarded())
+            chooseLeaderCardImage2.setDisable(true);
+
+
+        //firstLeaderCardButton.setDisable(false);
+        //secondLeaderCardButton.setDisable(false);
+
+
+        //firstLeaderCardButton.setStyle("-fx-background-color: white;");
+        //secondLeaderCardButton.setStyle("-fx-background-color: white;");
         List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
-        if(myLeaderCards.get(0).isActivated()||myLeaderCards.get(0).isDiscarded()){
+        if(myLeaderCards.get(0).isActivated()||myLeaderCards.get(0).isDiscarded())
             chooseLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
-        }else{
+        else
             chooseLeaderCardImage1.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(0)));
-        }
-        if(myLeaderCards.get(1).isActivated()||myLeaderCards.get(1).isDiscarded()){
+
+        if(myLeaderCards.get(1).isActivated()||myLeaderCards.get(1).isDiscarded())
             chooseLeaderCardImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
-        }else{
+        else
             chooseLeaderCardImage2.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(1)));
-        }
+
     }
     @FXML
     public void selectFirstLeaderCard(){
         selectedLeaderCard=0;
-        firstLeaderCardButton.setDisable(true);
-        secondLeaderCardButton.setDisable(true);
-        firstLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
+        chooseLeaderCardImage1.setDisable(true);
+        chooseLeaderCardImage2.setDisable(true);
+        DropShadow d= new DropShadow();
+        d.setRadius(80);
+
+        d.setColor(Color.web("#7e0608"));
+
+        chooseLeaderCardImage1.setEffect(d);
+        //firstLeaderCardButton.setDisable(true);
+        //secondLeaderCardButton.setDisable(true);
+        //firstLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
     }
     @FXML
     public void selectSecondLeaderCard(){
         selectedLeaderCard=1;
-        firstLeaderCardButton.setDisable(true);
-        secondLeaderCardButton.setDisable(true);
-        secondLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
+        DropShadow d= new DropShadow();
+        d.setRadius(80);
+
+        d.setColor(Color.web("#7e0608"));
+
+        chooseLeaderCardImage2.setEffect(d);
+
+        chooseLeaderCardImage1.setDisable(true);
+        chooseLeaderCardImage2.setDisable(true);
+        //firstLeaderCardButton.setDisable(true);
+        //secondLeaderCardButton.setDisable(true);
+        //secondLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
+
     }
     @FXML
     public void activateLeaderCard(){
         if(selectedLeaderCard!=-1){
             serverHandler.send(new LeaderCardActionEvent('a',selectedLeaderCard));
             //leaderActionPane.setVisible(false);
+            chooseLeaderCardImage1.setEffect(null);
+            chooseLeaderCardImage2.setEffect(null);
+            DropShadow d= new DropShadow();
+            d.setRadius(80);
+
+            d.setColor(Color.web("#7e0608"));
+            if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).isActivated())
+                chooseLeaderCardImage1.setEffect(d);
+            if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).isActivated())
+                chooseLeaderCardImage2.setEffect(d);
+
+
             guiView.getSceneController("gameScene").updateScene();
             guiView.setCurrentScene("gameScene");
         }
@@ -72,8 +115,15 @@ public class LeaderActionSceneController extends FXMLController{
         if(selectedLeaderCard!=-1){
             serverHandler.send(new LeaderCardActionEvent('d',selectedLeaderCard));
             //leaderActionPane.setVisible(false);
+            chooseLeaderCardImage1.setEffect(null);
+            chooseLeaderCardImage2.setEffect(null);
             guiView.getSceneController("gameScene").updateScene();
             guiView.setCurrentScene("gameScene");
         }
+    }
+    @FXML
+    public void exit(){
+        guiView.getSceneController("gameScene").updateScene();
+        guiView.setCurrentScene("gameScene");
     }
 }

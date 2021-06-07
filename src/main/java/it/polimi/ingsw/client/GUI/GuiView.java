@@ -126,7 +126,7 @@ public class GuiView extends Application implements View {
             loadScene("endGameScene");
 
         }catch (IOException e){
-            logger.warning("Errore nel caricare file fxml");
+            logger.warning("Errore nel caricare file fxml"+e);
         }
 
     }

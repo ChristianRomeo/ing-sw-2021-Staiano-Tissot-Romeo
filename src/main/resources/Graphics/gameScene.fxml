@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.GameSceneController">
+<AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.GameSceneController">
    <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../loader.png" />
@@ -324,10 +324,9 @@
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage22" fitHeight="151.0" fitWidth="109.0" layoutX="780.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../Cards/dev1.png" />
-            </image>
+         <ImageView fx:id="otherDevCardImage22" fitHeight="151.0" fitWidth="109.0" layoutX="780.0" layoutY="343.0"
+                    pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Cards/dev1.png"/>
          </ImageView>
          <Button fx:id="exitOtherBoardButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="1091.0" layoutY="87.0" mnemonicParsing="false" onAction="#exitOtherBoard" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
             <font>
@@ -335,24 +334,16 @@
             </font>
          </Button>
          <ImageView fx:id="otherPopeTileImage1" fitHeight="69.0" fitWidth="52.0" layoutX="400.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../papale2.png" />
-            </image>
+            <Image url="@../papale2.png" />
          </ImageView>
          <ImageView fx:id="otherPopeTileImage2" fitHeight="52.0" fitWidth="48.0" layoutX="572.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../papale3.png" />
-            </image>
+            <Image url="@../papale3.png" />
          </ImageView>
          <ImageView fx:id="otherPopeTileImage3" fitHeight="46.0" fitWidth="47.0" layoutX="776.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../papale4.png" />
-            </image>
+            <Image url="@../papale4.png" />
          </ImageView>
          <ImageView fx:id="otherFaithPositionImage" fitHeight="76.0" fitWidth="26.0" layoutX="261.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../blackcross.png" />
-            </image>
+            <Image url="@../blackcross.png" />
          </ImageView>
          <GridPane layoutX="955.0" layoutY="181.0" prefHeight="437.0" prefWidth="171.0">
            <columnConstraints>
@@ -449,7 +440,7 @@
          </Label>
       </children>
    </AnchorPane>
-   <AnchorPane maxHeight="720.0" maxWidth="1080.0" minHeight="720.0" minWidth="1080.0" prefHeight="720.0" prefWidth="1080.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.75" pickOnBounds="true">
             <image>
@@ -459,7 +450,7 @@
           <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
               <Image url="@../medici.png" />
           </ImageView>
-         <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="return to start (esce solo se connectopn lost)" />
+         <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="return to start (esce solo se connecton lost)" />
          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
             <font>
                <Font size="24.0" />

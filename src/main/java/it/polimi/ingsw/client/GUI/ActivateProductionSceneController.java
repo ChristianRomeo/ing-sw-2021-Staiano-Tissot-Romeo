@@ -6,15 +6,18 @@ import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.LeaderCardProduction;
 import it.polimi.ingsw.model.PersonalCardBoard;
 import it.polimi.ingsw.model.Resource;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,16 +160,43 @@ public class ActivateProductionSceneController extends FXMLController{
     public void activeLeaderProduction1(){
         leaderProductionResource1 = Resource.values()[toggleGroupLeaderResource.getToggles().indexOf(toggleGroupLeaderResource.getSelectedToggle())];
         activeLeaderProductionButton1.setDisable(true);
+        DropShadow d= new DropShadow();
+        d.setRadius(80);
+
+        d.setColor(Color.web("#7e0608"));
+        leaderCardProductionImage1.setEffect(d);
+        leaderCardProductionImage1.setDisable(true);
     }
     @FXML
     public void activeLeaderProduction2(){
         leaderProductionResource2 = Resource.values()[toggleGroupLeaderResource.getToggles().indexOf(toggleGroupLeaderResource.getSelectedToggle())];
         activeLeaderProductionButton2.setDisable(true);
+        DropShadow d= new DropShadow();
+        d.setRadius(80);
+
+        d.setColor(Color.web("#7e0608"));
+        leaderCardProductionImage2.setEffect(d);
+        leaderCardProductionImage2.setDisable(true);
     }
     @FXML
     public void submitLeaderProduction(){
         serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResource1,leaderProductionResource2));
         leaderProductionPane.setVisible(false);
+        guiView.getSceneController("gameScene").updateScene();
+        guiView.setCurrentScene("gameScene");
+    }
+
+    public void closeBaseProd() {
+        baseProductionPane.setVisible(false);
+        //baseProductionPane.setDisable(true);
+    }
+    public void closeLeadProd() {
+        leaderProductionPane.setVisible(false);
+        //baseProductionPane.setDisable(true);
+    }
+
+    @FXML
+    public void exit(){
         guiView.getSceneController("gameScene").updateScene();
         guiView.setCurrentScene("gameScene");
     }
