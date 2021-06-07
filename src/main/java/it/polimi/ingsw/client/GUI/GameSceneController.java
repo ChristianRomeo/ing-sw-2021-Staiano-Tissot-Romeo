@@ -30,7 +30,7 @@ public class GameSceneController extends FXMLController {
     @FXML
     private ImageView soloActionImage;
     @FXML
-    private Label messageLabel;
+    private Label turnLabel;
     @FXML
     private Button leaderActionButton;
     @FXML
@@ -174,6 +174,13 @@ public class GameSceneController extends FXMLController {
     private ImageView otherPopeTileImage2;
     @FXML
     private ImageView otherPopeTileImage3;
+
+    @FXML
+    private AnchorPane messagePane;
+    @FXML
+    private Label messagePaneLabel;
+    @FXML
+    private Button exitMessagePaneButton;
 
 
 
@@ -367,12 +374,16 @@ public class GameSceneController extends FXMLController {
             activateProductionButton.setVisible(true);
             useMarketButton.setVisible(true);
             endTurnButton.setVisible(true);
+            turnLabel.setText("It's your turn!");
+            turnLabel.setTextFill(Color.LIGHTGREEN);
         }else{
             leaderActionButton.setVisible(false);
             buyCardButton.setVisible(false);
             activateProductionButton.setVisible(false);
             useMarketButton.setVisible(false);
             endTurnButton.setVisible(false);
+            turnLabel.setText("It's his turn: "+ clientModel.getCurrentPlayerNick());
+            turnLabel.setTextFill(Color.RED);
         }
 
         setFaithTrackPosition(clientModel.getMyIndex(),false);
@@ -667,7 +678,23 @@ public class GameSceneController extends FXMLController {
 
     @Override
     public void showMessage(String message){
-        messageLabel.setText(message);
+        switch (message) {
+            case "CannotActivateProduction" -> messagePaneLabel.setText("You can't activate the production this way!");
+            case "CannotBuyCard" -> messagePaneLabel.setText("You can't buy this card or you can't put it in that position!");
+            case "IllegalMarketUse" -> messagePaneLabel.setText("You can't use the market this way!");
+            case "IllegalLeaderAction" -> messagePaneLabel.setText("You can't do this leader action!");
+            case "AlreadyDoneAction" -> messagePaneLabel.setText("You have already made a main action! You can't do another!");
+            case "EndTurnWithoutAction" -> messagePaneLabel.setText("You have to do a main action before you end your turn!");
+            case "IllegalAction" -> messagePaneLabel.setText("Illegal Action!");
+            default -> messagePaneLabel.setText("Strange Message");
+        }
+
+        messagePane.setVisible(true);
+    }
+
+    @FXML
+    public void exitMessagePane(){
+        messagePane.setVisible(false);
     }
 
     @FXML //sto metodo inizializza la scena solo quando viene caricata la prima volta, in automaticao

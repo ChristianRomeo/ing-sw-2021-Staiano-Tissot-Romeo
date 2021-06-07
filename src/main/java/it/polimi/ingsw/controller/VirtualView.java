@@ -131,7 +131,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         if(controller.getGame().hasDoneAction()){
             controller.getGame().nextTurn();
         }else{ //the player has to do a main action before he can end his turn
-            controller.getGame().addIllegalAction(new IllegalAction(controller.getGame().getCurrentPlayer(),"IllegalAction"));
+            controller.getGame().addIllegalAction(new IllegalAction(controller.getGame().getCurrentPlayer(),"EndTurnWithoutAction"));
         }
     }
 

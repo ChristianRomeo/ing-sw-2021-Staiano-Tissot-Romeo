@@ -129,7 +129,7 @@
          <Button fx:id="showDevelopmentCardBoardButton" mnemonicParsing="false" onAction="#showDevelopmentCardBoard" text="SHOW CARD BOARD" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
          <Button fx:id="showMarketButton" mnemonicParsing="false" onAction="#showMarket" text="SHOW MARKET" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
          <Button fx:id="buyCardButton" mnemonicParsing="false" onAction="#buyCard" prefHeight="25.0" prefWidth="107.0" text="BUY CARD" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-         <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="174.0" text="Chris' turn" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+         <Label fx:id="turnLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="174.0" text="Chris' turn" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
             <font>
                <Font size="18.0" />
             </font>
@@ -454,7 +454,7 @@
          </Label>
       </children>
    </AnchorPane>
-   <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <AnchorPane fx:id="messagePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.75" pickOnBounds="true">
             <image>
@@ -464,13 +464,13 @@
           <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
               <Image url="@../medici.png" />
           </ImageView>
-         <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="return to start (esce solo se connecton lost)" />
-         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
+         <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="return to start (esce solo se connecton lost)" visible="false" />
+         <Button fx:id="exitMessagePaneButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" mnemonicParsing="false" onAction="#exitMessagePane" prefHeight="62.0" prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
             <font>
                <Font size="24.0" />
             </font>
          </Button>
-         <Label layoutX="558.0" layoutY="131.0" prefHeight="26.0" prefWidth="509.0" text="YOU ENCOUNTERED A WILD ERROR MESSAGE" textFill="WHITE">
+         <Label fx:id="messagePaneLabel" layoutX="558.0" layoutY="131.0" prefHeight="129.0" prefWidth="555.0" text="YOU ENCOUNTERED A WILD ERROR MESSAGE" textFill="WHITE" wrapText="true">
             <font>
                <Font size="24.0" />
             </font>

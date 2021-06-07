@@ -29,7 +29,7 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(LeaderCardActionEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-            guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has activated/discarded a leader card");
+           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has activated/discarded a leader card");
         });
     }
 
@@ -37,7 +37,7 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(BoughtCardEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-            guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
+           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
         });
     }
 
@@ -45,7 +45,7 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(ActivatedProductionEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-            guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
+           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
         });
     }
 
@@ -53,7 +53,7 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(IncrementPositionEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-            guiView.getCurrentSceneController().showMessage(event.getPlayerNickname()+ " has proceeded in the faith track");
+           // guiView.getCurrentSceneController().showMessage(event.getPlayerNickname()+ " has proceeded in the faith track");
         });
     }
 
@@ -61,7 +61,7 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(VaticanReportEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-            guiView.getCurrentSceneController().showMessage("A vatican report has been activated");
+           // guiView.getCurrentSceneController().showMessage("A vatican report has been activated");
         });
     }
 
@@ -69,7 +69,7 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(UseMarketEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-            guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
+           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
         });
     }
 
@@ -81,18 +81,13 @@ public class EventsHandlerGUI implements ServerEventObserver {
             }
             if(clientModel.hasGameStarted()){
                 guiView.getSceneController("gameScene").updateScene();
-                if(clientModel.isCurrentPlayer()){
-                    guiView.getCurrentSceneController().showMessage("E' il tuo turno! ");
-                }else{
-                    guiView.getCurrentSceneController().showMessage("E' il turno di: "+ clientModel.getCurrentPlayerNick());
-                }
             }
         });
     }
 
     @Override
     public void handleEvent(IllegalActionEventS2C event) {
-        Platform.runLater(() -> guiView.getCurrentSceneController().showMessage("Illegal action: "+event.getIllegalAction().getDescription()));
+        Platform.runLater(() -> guiView.getCurrentSceneController().showMessage(event.getIllegalAction().getDescription()));
     }
 
     @Override
@@ -122,11 +117,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
         Platform.runLater(() -> {
             guiView.setCurrentScene("gameScene");
             guiView.getCurrentSceneController().updateScene();
-            if(clientModel.isCurrentPlayer()){
-                guiView.getCurrentSceneController().showMessage("E' il tuo turno! ");
-            }else{
-                guiView.getCurrentSceneController().showMessage("E' il turno di: "+ clientModel.getCurrentPlayerNick());
-            }
         });
     }
 
