@@ -206,7 +206,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         //invia evento ai dovuti client
         logger.info("Game ended");
         sendToEveryone(event);
-        //todo: qua forse dobbiamo chiudere i client handler di sta partita.
+        closeAll();
     }
 
     @Override

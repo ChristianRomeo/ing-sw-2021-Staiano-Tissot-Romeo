@@ -115,7 +115,7 @@ public class ClientHandler implements Runnable {
             send(newConnectionEventS2C);
         }
 
-        if (isConnected){
+        if (isConnected()){
             logger.info("fine clientHandler-connectionSetUp, starting ping..."); // debug
             startPing();
             try {
@@ -132,8 +132,12 @@ public class ClientHandler implements Runnable {
      * getter status of the client
      * @return check status
      */
-    public boolean isConnected() {
+    public synchronized boolean isConnected() {
         return isConnected;
+    }
+
+    private synchronized void setIsConnected(boolean isConnected){
+        this.isConnected = isConnected;
     }
 
     public void setDisconnected() {
@@ -148,8 +152,10 @@ public class ClientHandler implements Runnable {
      */
     public void closeSocket() {
         try {
+            input.close();
+            output.close();
             this.socket.close();
-            this.isConnected=false;
+            setIsConnected(false);
         } catch (IOException ignored) {}
     }
 
@@ -159,14 +165,14 @@ public class ClientHandler implements Runnable {
      */
      public synchronized void send(ServerEvent message) {
 
-         if (isConnected) //todo: se quando non è più connesso si chiude tutto forse, quindi questo if che serve?
+         if (isConnected()) //todo: se quando non è più connesso si chiude tutto forse, quindi questo if che serve?
             try {
                     output.writeUnshared(message);
                     output.flush();
                     output.reset();
 
             } catch (IOException e) {
-                if (isConnected) {  // This player has disconnected
+                if (isConnected()) {  // This player has disconnected
                     logger.warning(nickname + " has disconnected in send");
                     setDisconnected();
                 } else{// Another player has disconnected
@@ -205,7 +211,7 @@ public class ClientHandler implements Runnable {
                     }
             }
             catch (IOException | ClassNotFoundException e) {
-                if (isConnected) {  // This player has disconnected
+                if (isConnected()) {  // This player has disconnected
                     logger.warning(nickname + " has disconnected in receive");
                     setDisconnected();
                 } else{// Another player has disconnected
@@ -220,7 +226,7 @@ public class ClientHandler implements Runnable {
 
     public void startPing(){
         (new Thread(() -> {
-            while(isConnected){
+            while(isConnected()){
                 try {
                     Thread.sleep(5000);
                     send(new PingEventS2C());
