@@ -24,7 +24,7 @@
     <ImageView fitHeight="628.0" fitWidth="894.0" layoutX="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
         <Image url="@../boardgame.png" />
     </ImageView>
-   <Label layoutX="217.0" layoutY="96.0" prefHeight="22.0" prefWidth="81.0" style="-fx-font-weight: BOLD;" text="SoloAction:" visible="false">
+   <Label fx:id="soloActionLabel" layoutX="209.0" layoutY="94.0" prefHeight="22.0" prefWidth="102.0" style="-fx-font-weight: BOLD;" text="Last SoloAction:" visible="false">
       <font>
          <Font size="13.0" />
       </font>
@@ -32,11 +32,7 @@
     <ImageView fx:id="myDevCardImage00" fitHeight="186.0" fitWidth="128.0" layoutX="552.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev1.png" />
     </ImageView>
-   <ImageView fx:id="soloActionImage" fitHeight="62.0" fitWidth="71.0" layoutX="217.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-         <Image url="@../discard2blue.png" />
-      </image>
-   </ImageView>
+   <ImageView fx:id="soloActionImage" fitHeight="62.0" fitWidth="71.0" layoutX="217.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
     <ImageView fx:id="myDevCardImage01" fitHeight="186.0" fitWidth="128.0" layoutX="552.0" layoutY="379.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev1.png" />
     </ImageView>
