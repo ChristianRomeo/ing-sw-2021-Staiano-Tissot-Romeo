@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.GUI;
 
-import it.polimi.ingsw.MastersOfRenaissance;
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.controller.Configs;
@@ -9,26 +8,19 @@ import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.*;
+import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
-import java.util.List;
 import java.util.logging.Logger;
 
 //to change game font
@@ -88,6 +80,10 @@ public class GuiView extends Application implements View {
         currentStage.sizeToScene();
 
         currentStage.getIcons().add(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png"))));
+
+
+        new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("music.mp3")).toExternalForm()).play();
+
 
         currentStage.show();
 
