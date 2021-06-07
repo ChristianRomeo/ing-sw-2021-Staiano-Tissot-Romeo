@@ -24,6 +24,7 @@ import java.util.Objects;
 
 
 public class PregameSceneController extends FXMLController{
+    public ImageView black;
     private int removedLeaderCard1=-1;
     private int removedLeaderCard2=-1;
     private Resource resource1=null;
@@ -83,21 +84,20 @@ public class PregameSceneController extends FXMLController{
             leaderCardImage4.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(3)));
             //System.out.println("id:"+ myLeaderCards.get(0).getId()); //debug
         }else{
-            upperLabel.setText("E' il turno di " + clientModel.getCurrentPlayerNick()+ ", attendi...");
+            upperLabel.setText( clientModel.getCurrentPlayerNick()+ " sta scegliendo, attendi...");
         }
     }
 
     public void initialize(){
-        BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("backboardgame.png")))), CornerRadii.EMPTY, Insets.EMPTY);
-        root.setBackground(new Background(backgroundFill));
+        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("backboardgame.png")))), CornerRadii.EMPTY, Insets.EMPTY);
+        //root.setBackground(new Background(backgroundFill));
     }
 
     @FXML
     public void choseFirstCard(){
         DropShadow d= new DropShadow();
-        d.setRadius(70);
+        d.setRadius(80);
         d.setColor(Color.web("#7e0608"));
-
         leaderCardImage1.setEffect(d);
         leaderCardImage1.setDisable(true);
 
@@ -117,8 +117,7 @@ public class PregameSceneController extends FXMLController{
     @FXML
     public void choseSecondCard(){
         DropShadow d= new DropShadow();
-        d.setRadius(70);
-
+        d.setRadius(80);
         d.setColor(Color.web("#7e0608"));
 
         leaderCardImage2.setEffect(d);
@@ -191,7 +190,7 @@ public class PregameSceneController extends FXMLController{
         //qui dentro rendo visibile la parte per scegliere le risorse, poi lui fa click di altri bottoni e succedono altre cose
         if(clientModel.getMyIndex()==1 || clientModel.getMyIndex()==2){
             chooseInitialResourcesPane.setVisible(true);
-
+            black.setOpacity(0.8);
             chooseSecondInitialResLabel.setVisible(false);
             for(Toggle toggle: toggleGroupInitialResource2.getToggles()){
                 ((Node) toggle).setVisible(false);
