@@ -102,7 +102,7 @@
         <RadioButton layoutX="734.0" layoutY="477.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="48.0" toggleGroup="$toggleGroupSelectPile" />
         <RadioButton layoutX="865.0" layoutY="477.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="48.0" toggleGroup="$toggleGroupSelectPile" />
         <Button fx:id="submitBuyCardButton" layoutX="698.0" layoutY="516.0" mnemonicParsing="false" onAction="#submitBuyCard" prefHeight="35.0" prefWidth="71.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Done!" textFill="WHITE" />
-      <Button layoutX="1108.0" layoutY="29.0" mnemonicParsing="false" onAction="#closePane" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
+      <Button layoutX="1108.0" layoutY="29.0" mnemonicParsing="false" onAction="#closePane" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE" visible="false">
          <font>
             <Font size="24.0" />
          </font>

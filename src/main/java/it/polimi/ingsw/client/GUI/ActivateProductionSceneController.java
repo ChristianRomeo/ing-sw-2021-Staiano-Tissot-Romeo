@@ -92,20 +92,13 @@ public class ActivateProductionSceneController extends FXMLController{
         leaderProductionResource2=null;
 
         PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
-        if(myPersonalCardBoard.getUpperCard(0)!=null){
-            cardProductionImage1.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(0)));
-        }
-        if(myPersonalCardBoard.getUpperCard(1)!=null){
-            cardProductionImage2.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(1)));
-        }
-        if(myPersonalCardBoard.getUpperCard(2)!=null){
-            cardProductionImage3.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(2)));
-        }
-        //cardProductionImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
-        //cardProductionImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
-        //cardProductionImage3.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/dev1.png")))); //prova, da togliere
+        cardProductionImage1.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(0)));
+        cardProductionImage2.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(1)));
+        cardProductionImage3.setImage(GuiView.getDevelopmentCardImage(myPersonalCardBoard.getUpperCard(2)));
 
         List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
+        leaderCardProductionImage1.setImage(null);
+        leaderCardProductionImage2.setImage(null);
         if(leaderCards.get(0).isActivated() &&(leaderCards.get(0) instanceof LeaderCardProduction)){
             activeLeaderProductionButton1.setVisible(true);
             activeLeaderProductionButton1.setDisable(false);
