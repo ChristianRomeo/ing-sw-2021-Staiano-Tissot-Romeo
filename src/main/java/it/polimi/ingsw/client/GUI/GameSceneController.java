@@ -113,6 +113,8 @@ public class GameSceneController extends FXMLController {
     @FXML
     private Label otherBoardNameLabel;
     @FXML
+    private ImageView otherFaithPositionImage;
+    @FXML
     private ImageView otherWarehouseImage11;
     @FXML
     private ImageView otherWarehouseImage21;
@@ -368,7 +370,7 @@ public class GameSceneController extends FXMLController {
             endTurnButton.setVisible(false);
         }
 
-        setFaithTrackPosition();
+        setFaithTrackPosition(clientModel.getMyIndex());
         updateMyWarehouse();
         updateMyPersonalCardBoard();
         updateMyStrongbox();
@@ -476,113 +478,171 @@ public class GameSceneController extends FXMLController {
         myPopeTileImage3.setImage(GuiView.getPopeTileImage(myPopeTiles.get(3),3));
     }
 
-    private void setFaithTrackPosition(){
-        int myPosition = clientModel.getPlayersFTPositions().get(clientModel.getMyIndex());
-        int x=0, y=0;
-        switch (myPosition) {
+    //uso sto metodo sia per il mio faith track che per l'other board
+    private void setFaithTrackPosition(int playerIndex){
+        //int myPosition = clientModel.getPlayersFTPositions().get(clientModel.getMyIndex());
+        int position = clientModel.getPlayersFTPositions().get(playerIndex);
+        int myX=0, myY=0;
+        int otherX= 0, otherY=0;
+        switch (position) {
             case 0 -> {
-                x = 237;
-                y = 220;
+                myX = 237;
+                myY = 220;
+                otherX=261;
+                otherY=257;
             }
             case 1 -> {
-                x = 281;
-                y = 220;
+                myX = 281;
+                myY = 220;
+                otherX=295;
+                otherY=257;
             }
             case 2 -> {
-                x = 325;
-                y = 220;
+                myX = 325;
+                myY = 220;
+                otherX=326;
+                otherY=257;
             }
             case 3 -> {
-                x = 325;
-                y = 178;
+                myX = 325;
+                myY = 178;
+                otherX=326;
+                otherY=221;
             }
             case 4 -> {
-                x = 325;
-                y = 126;
+                myX = 325;
+                myY = 126;
+                otherX=326;
+                otherY=189;
             }
             case 5 -> {
-                x = 365;
-                y = 126;
+                myX = 365;
+                myY = 126;
+                otherX=365;
+                otherY=189;
             }
             case 6 -> {
-                x = 406;
-                y = 126;
+                myX = 406;
+                myY = 126;
+                otherX=400;
+                otherY=189;
             }
             case 7 -> {
-                x = 458;
-                y = 126;
+                myX = 458;
+                myY = 126;
+                otherX=435;
+                otherY=189;
             }
             case 8 -> {
-                x = 493;
-                y = 126;
+                myX = 493;
+                myY = 126;
+                otherX=475;
+                otherY=189;
             }
             case 9 -> {
-                x = 539;
-                y = 126;
+                myX = 539;
+                myY = 126;
+                otherX=495;
+                otherY=189;
             }
             case 10 -> {
-                x = 539;
-                y = 168;
+                myX = 539;
+                myY = 168;
+                otherX=495;
+                otherY=221;
             }
             case 11 -> {
-                x = 539;
-                y = 221;
+                myX = 539;
+                myY = 221;
+                otherX=495;
+                otherY=258;
             }
             case 12 -> {
-                x = 588;
-                y = 221;
+                myX = 588;
+                myY = 221;
+                otherX=536;
+                otherY=258;
             }
             case 13 -> {
-                x = 626;
-                y = 221;
+                myX = 626;
+                myY = 221;
+                otherX=565;
+                otherY=258;
             }
             case 14 -> {
-                x = 665;
-                y = 221;
+                myX = 665;
+                myY = 221;
+                otherX=599;
+                otherY=258;
             }
             case 15 -> {
-                x = 710;
-                y = 221;
+                myX = 710;
+                myY = 221;
+                otherX=639;
+                otherY=258;
             }
             case 16 -> {
-                x = 759;
-                y = 221;
+                myX = 759;
+                myY = 221;
+                otherX=667;
+                otherY=258;
             }
             case 17 -> {
-                x = 759;
-                y = 169;
+                myX = 759;
+                myY = 169;
+                otherX=667;
+                otherY=221;
             }
             case 18 -> {
-                x = 759;
-                y = 127;
+                myX = 759;
+                myY = 127;
+                otherX=667;
+                otherY=189;
             }
             case 19 -> {
-                x = 794;
-                y = 127;
+                myX = 794;
+                myY = 127;
+                otherX=701;
+                otherY=189;
             }
             case 20 -> {
-                x = 840;
-                y = 127;
+                myX = 840;
+                myY = 127;
+                otherX=732;
+                otherY=189;
             }
             case 21 -> {
-                x = 881;
-                y = 127;
+                myX = 881;
+                myY = 127;
+                otherX=767;
+                otherY=189;
             }
             case 22 -> {
-                x = 920;
-                y = 127;
+                myX = 920;
+                myY = 127;
+                otherX=799;
+                otherY=189;
             }
             case 23 -> {
-                x = 965;
-                y = 127;
+                myX = 965;
+                myY = 127;
+                otherX=838;
+                otherY=189;
             }
             case 24 -> {
-                x = 1010;
-                y = 127;
+                myX = 1010;
+                myY = 127;
+                otherX=867;
+                otherY=189;
             }
         }
-        myFaithTrackPositionImage.setLayoutX(x);
-        myFaithTrackPositionImage.setLayoutY(y);
+        if(playerIndex== clientModel.getMyIndex()){
+            myFaithTrackPositionImage.setLayoutX(myX);
+            myFaithTrackPositionImage.setLayoutY(myY);
+        }else{
+            otherFaithPositionImage.setLayoutX(otherX);
+            otherFaithPositionImage.setLayoutY(otherY);
+        }
     }
 
     @Override
@@ -670,6 +730,9 @@ public class GameSceneController extends FXMLController {
     //di cui vuoi mostrare la board
     public void updateOtherBoardPane(int playerIndex){
         otherBoardNameLabel.setText(clientModel.getNicknames().get(playerIndex)+"'s Board");
+
+        setFaithTrackPosition(playerIndex);
+
         PlayerWarehouse playerWarehouse = clientModel.getPlayersWarehouses().get(playerIndex);
         PersonalCardBoard playerPersonalCardBoard = clientModel.getPlayersCardBoards().get(playerIndex);
         Map<Resource,Integer> playerStrongbox = clientModel.getPlayersStrongboxes().get(playerIndex);
@@ -749,6 +812,8 @@ public class GameSceneController extends FXMLController {
     public void exitOtherBoard(){
         otherBoardPane.setVisible(false);
     }
+
+
 /*
     //----- cose per pane azione leader -----
 
