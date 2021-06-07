@@ -40,7 +40,7 @@ public class InitialSceneController extends FXMLController {
         root.setBackground(new Background(backgroundFill));
         textField.setFocusTraversable(false);
         //submitNumButton.setVisible(false);
-        credits.setText("Powered by CG24 \nE.Staiano T.Tissot C.Romeo");
+        //credits.setText("Powered by CG24 \nE.Staiano T.Tissot C.Romeo");
         credits.setFont(Font.font("System", FontWeight.EXTRA_BOLD, 14));
 
     }

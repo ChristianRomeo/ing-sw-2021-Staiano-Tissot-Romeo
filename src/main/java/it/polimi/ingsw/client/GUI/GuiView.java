@@ -324,13 +324,17 @@ public class GuiView extends Application implements View {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("Connection Error! The application will be closed.");
             ButtonType buttonTypeOne = new ButtonType("Exit");
+            ButtonType buttonTypeTwo = new ButtonType("Play Again");
 
-            alert.getButtonTypes().setAll(buttonTypeOne);
+            alert.getButtonTypes().setAll(buttonTypeOne,buttonTypeTwo);
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.get()==buttonTypeOne){
                 System.exit(0);
+                Platform.exit();
             }else{
+                currentStage.close();
+                start( new Stage());
                 //dovrebbe essere impossibile;
             }
         });

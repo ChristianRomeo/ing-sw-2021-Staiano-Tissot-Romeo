@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="550.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.InitialSceneController">
-   <Label fx:id="credits" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" maxHeight="85.0" maxWidth="200.0" minHeight="85.0" minWidth="200.0" textAlignment="CENTER">
+   <Label fx:id="credits" alignment="CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="185.0" maxHeight="85.0" maxWidth="321.0" minHeight="26.0" minWidth="200.0" prefHeight="26.0" prefWidth="321.0" text="Powered by CG24 E.Staiano T.Tissot C.Romeo" textAlignment="CENTER">
       <font>
          <Font size="14.0" />
       </font>
@@ -17,12 +17,13 @@
 
         <TextField fx:id="textField" alignment="CENTER" layoutX="200.0" layoutY="212.0" maxHeight="25.0" maxWidth="151.0" minHeight="25.0" minWidth="151.0" onAction="#submitNick" promptText="Nickname" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
         </TextField>
-        <Button fx:id="submitNickButton" alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="275.0" maxHeight="25.0" maxWidth="50.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" onAction="#submitNick" text="Play!" textAlignment="CENTER" textFill="#807c21" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
-   <ImageView fx:id="curtain" fitHeight="550.0" fitWidth="552.0" opacity="0.7" pickOnBounds="true" visible="false">
-      <image>
-         <Image url="@../black.png" />
-      </image>
-   </ImageView>
+        <Button fx:id="submitNickButton" alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="275.0" maxHeight="25.0" maxWidth="50.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" onAction="#submitNick" style="-fx-border-color: cyan;" text="Play!" textAlignment="CENTER" textFill="#807c21" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+    <ImageView fx:id="curtain" fitHeight="550.0" fitWidth="552.0" opacity="0.7" pickOnBounds="true" visible="false">
+        <Image url="@../black.png" />
+    </ImageView>
         <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="205.0" maxHeight="71.0" maxWidth="252.0" minHeight="35.0" minWidth="252.0" prefHeight="37.0" prefWidth="252.0" text="waiting others players..." textFill="WHITE" visible="false" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
       <font>
          <Font size="24.0" />

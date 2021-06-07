@@ -19,7 +19,6 @@ public class ActionHandler {
     private final ClientModel clientModel;
     private final CliView cliView;
     private final ServerHandler serverHandler;
-    private boolean done;
     private boolean newGame= false;
 
     /**
@@ -110,10 +109,6 @@ public class ActionHandler {
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
-        if (done){
-            cliView.showErrorMessage("You've already done an action");
-            return;
-        }
 
         Pair<Character, Integer> marketChoice = cliView.askMarketUse();
         char rowOrColumn = marketChoice.getVal1();
@@ -153,7 +148,6 @@ public class ActionHandler {
 
         serverHandler.send(new UseMarketEvent(rowOrColumn,index,newWarehouse,discardedResources,fullLeaderSlots.getVal1(),fullLeaderSlots.getVal2(),whiteMarbleChoices ));
 
-        done=true;
     }
 
     /**
@@ -232,7 +226,6 @@ public class ActionHandler {
             return;
         }
         serverHandler.send(new EndTurnEvent());
-        done=false;
     }
 
     /**
@@ -241,10 +234,6 @@ public class ActionHandler {
     public void buyDevelopmentCard(){
 
         Styler.cls();
-        if (done){
-            cliView.showErrorMessage("You've already done an action");
-            return;
-        }
 
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
@@ -252,9 +241,8 @@ public class ActionHandler {
         }
 
         SameTypePair<Integer> position = cliView.askDevelopmentCard();
-
         serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.askCardPile()));
-        done=true;
+
     }
 
     /**
@@ -263,10 +251,6 @@ public class ActionHandler {
     public void activateProduction(){
 
         Styler.cls();
-        if (done){
-            cliView.showErrorMessage("You've already done an action");
-            return;
-        }
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -291,7 +275,6 @@ public class ActionHandler {
         SameTypePair<Resource> leaderProductionResources = cliView.askLeaderProductions();
 
         serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResources.getVal1(),leaderProductionResources.getVal2()));
-        done=true;
     }
 
 }
