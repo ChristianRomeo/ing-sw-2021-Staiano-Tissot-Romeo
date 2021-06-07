@@ -12,10 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
@@ -24,7 +21,15 @@ import java.util.Objects;
 
 
 public class PregameSceneController extends FXMLController{
-    public ImageView black;
+    @FXML
+    private GridPane grid1;
+    @FXML
+    private GridPane grid2;
+    @FXML
+    private ImageView black;
+    @FXML
+    private Label textlabel;
+
     private int removedLeaderCard1=-1;
     private int removedLeaderCard2=-1;
     private Resource resource1=null;
@@ -33,17 +38,7 @@ public class PregameSceneController extends FXMLController{
     private SameTypePair<Integer> position2=null;
 
     @FXML
-    private AnchorPane root;
-    @FXML
     private Label upperLabel;
-    @FXML
-    private Button firstCardButton;
-    @FXML
-    private Button secondCardButton;
-    @FXML
-    private Button thirdCardButton;
-    @FXML
-    private Button fourthCardButton;
     @FXML
     private ImageView leaderCardImage1;
     @FXML
@@ -63,13 +58,12 @@ public class PregameSceneController extends FXMLController{
     @FXML
     private Button submitInitialResourceButton1;
     @FXML
-    private Label chooseSecondInitialResLabel;
-    @FXML
     private ToggleGroup toggleGroupInitialResPos2;
     @FXML
     private ToggleGroup toggleGroupInitialResource2;
     @FXML
     private Button submitInitialResourceButton2;
+
 
     @Override
     public void updateScene(){
@@ -188,22 +182,10 @@ public class PregameSceneController extends FXMLController{
         }
 
         //qui dentro rendo visibile la parte per scegliere le risorse, poi lui fa click di altri bottoni e succedono altre cose
-        if(clientModel.getMyIndex()==1 || clientModel.getMyIndex()==2){
+        //if(clientModel.getMyIndex()==1 || clientModel.getMyIndex()==2) {
             chooseInitialResourcesPane.setVisible(true);
             black.setOpacity(0.8);
-            chooseSecondInitialResLabel.setVisible(false);
-            for(Toggle toggle: toggleGroupInitialResource2.getToggles()){
-                ((Node) toggle).setVisible(false);
-            }
-            for(Toggle toggle: toggleGroupInitialResPos2.getToggles()){
-                ((Node) toggle).setVisible(false);
-            }
-            submitInitialResourceButton2.setVisible(false);
-        }
-        if(clientModel.getMyIndex()==3){
-            chooseInitialResourcesPane.setVisible(true);
-            submitInitialResourceButton2.setDisable(true);
-        }
+        //}
     }
 
     @FXML
@@ -217,12 +199,36 @@ public class PregameSceneController extends FXMLController{
         }
         resource1 = Resource.values()[toggleGroupInitialResource1.getToggles().indexOf(toggleGroupInitialResource1.getSelectedToggle())];
         position1 = getCellFromToggleGroup(toggleGroupInitialResPos1);
+
         if(clientModel.getMyIndex()<3){
             serverHandler.send(new InitialChoiceEvent(removedLeaderCard1,removedLeaderCard2,resource1,resource2,position1,position2));
             chooseInitialResourcesPane.setVisible(false);
+            black.setOpacity(0.4);
         }else{
+            textlabel.setText("Choose your second resource and position");
+            submitInitialResourceButton1.setVisible(false);
+            submitInitialResourceButton2.setVisible(true);
             submitInitialResourceButton2.setDisable(false);
+            grid1.setVisible(false);
+            grid2.setVisible(true);
+
+            for(Toggle toggle: toggleGroupInitialResource1.getToggles()){
+                ((Node) toggle).setVisible(false);
+            }
+            for(Toggle toggle: toggleGroupInitialResPos1.getToggles()){
+                ((Node) toggle).setVisible(false);
+            }
+            for(Toggle toggle: toggleGroupInitialResource2.getToggles()){
+                ((Node) toggle).setVisible(true);
+            }
+            for(Toggle toggle: toggleGroupInitialResPos2.getToggles()){
+                ((Node) toggle).setVisible(true);
+            }
+
+            //chooseInitialResourcesPane.setVisible(true);
+            //submitInitialResourceButton2.setDisable(true);
         }
+
     }
     @FXML
     public void submitInitialResource2(){
@@ -232,7 +238,7 @@ public class PregameSceneController extends FXMLController{
             serverHandler.send(new InitialChoiceEvent(removedLeaderCard1,removedLeaderCard2,resource1,resource2,position1,position2));
             chooseInitialResourcesPane.setVisible(false);
         }else{
-            chooseSecondInitialResLabel.setText("Invalid choice! Try again to choose the second resource and its position.");
+            textlabel.setText("Invalid choice! Try again to choose the second resource and its position.");
         }
     }
 

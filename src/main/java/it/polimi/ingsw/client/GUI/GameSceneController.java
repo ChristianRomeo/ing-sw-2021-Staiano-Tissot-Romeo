@@ -458,7 +458,6 @@ public class GameSceneController extends FXMLController {
             myLeaderCardImage1.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(0)));
             if (myLeaderCards.get(0).isActivated())
             myLeaderCardImage1.setEffect(d);
-            //todo: se è attiva mettere qualcosa
         }
         if(myLeaderCards.get(1).isDiscarded()){
             myLeaderCardImage2.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
@@ -467,7 +466,6 @@ public class GameSceneController extends FXMLController {
             if (myLeaderCards.get(1).isActivated())
                 myLeaderCardImage2.setEffect(d);
 
-            //todo: se è attiva mettere qualcosa
         }
         myLeaderSlotImage11.setImage(null);
         myLeaderSlotImage12.setImage(null);
