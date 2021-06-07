@@ -70,6 +70,11 @@
          <Image url="@../papale4.png" />
       </image>
    </ImageView>
+   <ImageView fx:id="blackCrossPositionImage" fitHeight="32.0" fitWidth="28.0" layoutX="246.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../lorenzoTile.png" />
+      </image>
+   </ImageView>
    <ImageView fx:id="myFaithTrackPositionImage" fitHeight="32.0" fitWidth="26.0" layoutX="237.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../blackcross.png" />
@@ -324,9 +329,8 @@
                <Image url="@../Cards/dev1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="otherDevCardImage22" fitHeight="151.0" fitWidth="109.0" layoutX="780.0" layoutY="343.0"
-                    pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Cards/dev1.png"/>
+         <ImageView fx:id="otherDevCardImage22" fitHeight="151.0" fitWidth="109.0" layoutX="780.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Cards/dev1.png" />
          </ImageView>
          <Button fx:id="exitOtherBoardButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="1091.0" layoutY="87.0" mnemonicParsing="false" onAction="#exitOtherBoard" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
             <font>

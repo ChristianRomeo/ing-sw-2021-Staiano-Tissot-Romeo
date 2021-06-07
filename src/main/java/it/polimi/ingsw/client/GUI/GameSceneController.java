@@ -26,6 +26,8 @@ public class GameSceneController extends FXMLController {
     @FXML
     private ImageView myFaithTrackPositionImage;
     @FXML
+    private ImageView blackCrossPositionImage;
+    @FXML
     private Label messageLabel;
     @FXML
     private Button leaderActionButton;
@@ -348,6 +350,7 @@ public class GameSceneController extends FXMLController {
         showOtherPlayerBoardButton3.setVisible(false);
         if(clientModel.getNumPlayers()>1){
             showOtherPlayerBoardButton1.setVisible(true);
+            blackCrossPositionImage.setImage(null);
         }
         if(clientModel.getNumPlayers()>2){
             showOtherPlayerBoardButton2.setVisible(true);
@@ -370,7 +373,10 @@ public class GameSceneController extends FXMLController {
             endTurnButton.setVisible(false);
         }
 
-        setFaithTrackPosition(clientModel.getMyIndex());
+        setFaithTrackPosition(clientModel.getMyIndex(),false);
+        if(clientModel.getNumPlayers()==1){
+            setFaithTrackPosition(0,true);
+        }
         updateMyWarehouse();
         updateMyPersonalCardBoard();
         updateMyStrongbox();
@@ -478,10 +484,16 @@ public class GameSceneController extends FXMLController {
         myPopeTileImage3.setImage(GuiView.getPopeTileImage(myPopeTiles.get(3),3));
     }
 
-    //uso sto metodo sia per il mio faith track che per l'other board
-    private void setFaithTrackPosition(int playerIndex){
+    //uso sto metodo sia per il mio faith track che per l'other board, sia per la black cross
+    private void setFaithTrackPosition(int playerIndex, boolean setBlackCross){
         //int myPosition = clientModel.getPlayersFTPositions().get(clientModel.getMyIndex());
-        int position = clientModel.getPlayersFTPositions().get(playerIndex);
+        int position;
+        if(!setBlackCross){
+            position = clientModel.getPlayersFTPositions().get(playerIndex);
+        }else{
+            position = clientModel.getBlackCrossPosition();
+            System.out.println("black cross postion "+ position); //debug
+        }
         int myX=0, myY=0;
         int otherX= 0, otherY=0;
         switch (position) {
@@ -636,12 +648,18 @@ public class GameSceneController extends FXMLController {
                 otherY=189;
             }
         }
-        if(playerIndex== clientModel.getMyIndex()){
-            myFaithTrackPositionImage.setLayoutX(myX);
-            myFaithTrackPositionImage.setLayoutY(myY);
-        }else{
-            otherFaithPositionImage.setLayoutX(otherX);
-            otherFaithPositionImage.setLayoutY(otherY);
+        if(!setBlackCross){
+            if(playerIndex== clientModel.getMyIndex()){
+                myFaithTrackPositionImage.setLayoutX(myX);
+                myFaithTrackPositionImage.setLayoutY(myY);
+            }else{
+                otherFaithPositionImage.setLayoutX(otherX);
+                otherFaithPositionImage.setLayoutY(otherY);
+            }
+        }
+        else{
+            blackCrossPositionImage.setLayoutX(myX);
+            blackCrossPositionImage.setLayoutY(myY);
         }
     }
 
@@ -731,7 +749,7 @@ public class GameSceneController extends FXMLController {
     public void updateOtherBoardPane(int playerIndex){
         otherBoardNameLabel.setText(clientModel.getNicknames().get(playerIndex)+"'s Board");
 
-        setFaithTrackPosition(playerIndex);
+        setFaithTrackPosition(playerIndex,false);
 
         PlayerWarehouse playerWarehouse = clientModel.getPlayersWarehouses().get(playerIndex);
         PersonalCardBoard playerPersonalCardBoard = clientModel.getPlayersCardBoards().get(playerIndex);
