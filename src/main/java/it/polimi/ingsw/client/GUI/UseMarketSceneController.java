@@ -6,6 +6,7 @@ import it.polimi.ingsw.controller.Events.UseMarketEvent;
 import it.polimi.ingsw.model.PersonalCardBoard;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.geometry.Insets;
@@ -647,5 +648,13 @@ public class UseMarketSceneController extends FXMLController{
             reinsertLeaderResourceButton2.setDisable(false);
             exitEditWarehouseButton.setDisable(true);
         }
+    }
+
+    public void closeInsertResourcePane() {
+        insertResourcesPane.setVisible(false);
+    }
+
+    public void closeEditWarehousePane() {
+        editWarehousePane.setVisible(false);
     }
 }
