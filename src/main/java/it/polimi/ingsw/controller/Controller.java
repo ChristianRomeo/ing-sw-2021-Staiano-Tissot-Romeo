@@ -358,7 +358,9 @@ public class Controller extends ServerObservable {
         currentPlayer.getStatusPlayer().getLeaderCard(1).setFullSlotsNumber(leaderCardSlots2);
 
         for(int i=0; i<Resource.resourcesNum(discardedRes);++i){
-            game.incrementOthersFpByDiscarding();
+            if(game.getPlayersNumber()>1){
+                game.incrementOthersFpByDiscarding();
+            }
             if(game.getPlayersNumber()==1)
                 game.incrementFaithTrackPosition(game.getBoard().getLorenzo());
         }

@@ -301,6 +301,9 @@ public class Game extends ServerObservable { //game is observed by the virtual v
             for(int i=0; i< getPlayersNumber(); ++i){
                 getPlayerByIndex(i).getStatusPlayer().vaticanReportHandler(e.getReportId());
             }
+
+            board.getLorenzo().getStatusPlayer().vaticanReportHandler(e.getReportId());
+
             notifyAllObservers(eventCreator.createVaticanReportEvent());
             if(e.getReportId()==3){
                 //a player is arrived in the last cell of the track, so the game is

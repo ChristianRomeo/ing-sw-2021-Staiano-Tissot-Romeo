@@ -178,7 +178,6 @@ public class EventsHandler implements ServerEventObserver {
 
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
-//todo: da vedere nella gui
         clientModel.setDevelopmentCardBoard(event.getNewBoard());
         clientModel.setLastSoloActionUsed(event.getActivatedSoloAction());
 
