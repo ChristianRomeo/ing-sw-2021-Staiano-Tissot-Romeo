@@ -32,11 +32,11 @@ public class ClientModel {
 
    private int blackCrossPosition;
 
+   private SoloAction lastSoloActionUsed = null;
+
    private List<SameTypeTriple<PopeFavorTileStatus>> playersPopeTiles;
 
    private List<List<LeaderCard>> playersLeaderCards;
-
-   // private List<Integer> playersVP; credo non serve
 
    private List<String> winners; //list of the winners of the match
 
@@ -354,12 +354,26 @@ public class ClientModel {
       playersFTPositions.set(playersNicknames.indexOf(player),position);
    }
    /**
-    * sets the player's black cross position to a specific position
-    * (no need to take the player's nickname as a parameter since this method will be called only in single player mode)
+    * sets the Lorenzo's black cross position to a specific position
+    * (this method will be called only in single player mode)
     * @param blackCrossPosition is the player's black cross position to be set
     */
    public synchronized void setBlackCrossPosition(int blackCrossPosition){
       this.blackCrossPosition = blackCrossPosition;
+   }
+   /**
+    * sets the last solo action used by Lorenzo.
+    * @param soloAction the last solo action used.
+    */
+   public synchronized void setLastSoloActionUsed(SoloAction soloAction){
+      this.lastSoloActionUsed = soloAction;
+   }
+   /**
+    * @return the last solo action used by Lorenzo.
+    *
+    */
+   public synchronized SoloAction getLastSoloActionUsed(){
+      return lastSoloActionUsed;
    }
 
    /**

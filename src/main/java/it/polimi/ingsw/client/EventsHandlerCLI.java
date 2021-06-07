@@ -86,7 +86,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
 
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
-
+        cliView.showLorenzoTurn(event.getActivatedSoloAction());
     }
 
     @Override

@@ -32,7 +32,7 @@
     <ImageView fx:id="myDevCardImage00" fitHeight="186.0" fitWidth="128.0" layoutX="552.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev1.png" />
     </ImageView>
-   <ImageView fitHeight="62.0" fitWidth="71.0" layoutX="217.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="soloActionImage" fitHeight="62.0" fitWidth="71.0" layoutX="217.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../discard2blue.png" />
       </image>

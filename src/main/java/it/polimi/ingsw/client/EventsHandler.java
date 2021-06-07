@@ -173,8 +173,6 @@ public class EventsHandler implements ServerEventObserver {
         //view.showMessage("Write 'exit' to continue.");
 
         event.notifyHandler(eventHandlerView); //ciò poi si occupa di mostrare le cose (in base a che view è)
-
-//todo: da vedere nella gui
         //è finito il gioco
     }
 
@@ -182,7 +180,11 @@ public class EventsHandler implements ServerEventObserver {
     public void handleEvent(LorenzoTurnEventS2C event) {
 //todo: da vedere nella gui
         clientModel.setDevelopmentCardBoard(event.getNewBoard());
-        view.showLorenzoTurn(event.getActivatedSoloAction());
+        clientModel.setLastSoloActionUsed(event.getActivatedSoloAction());
+
+        event.notifyHandler(eventHandlerView); //ciò poi si occupa di mostrare le cose (in base a che view è)
+
+        //view.showLorenzoTurn(event.getActivatedSoloAction());
     }
 
     @Override
@@ -201,7 +203,7 @@ public class EventsHandler implements ServerEventObserver {
     }
 
 
-    //todo questo non si dovrà implementare qui
+    //questo non si dovrà implementare qui
     @Override
     public void handleEvent(NewConnectionEventS2C event) {
 

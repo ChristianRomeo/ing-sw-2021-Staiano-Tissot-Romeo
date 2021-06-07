@@ -28,6 +28,8 @@ public class GameSceneController extends FXMLController {
     @FXML
     private ImageView blackCrossPositionImage;
     @FXML
+    private ImageView soloActionImage;
+    @FXML
     private Label messageLabel;
     @FXML
     private Button leaderActionButton;
@@ -376,6 +378,7 @@ public class GameSceneController extends FXMLController {
         setFaithTrackPosition(clientModel.getMyIndex(),false);
         if(clientModel.getNumPlayers()==1){
             setFaithTrackPosition(0,true);
+            soloActionImage.setImage(GuiView.getSoloActionImage(clientModel.getLastSoloActionUsed()));
         }
         updateMyWarehouse();
         updateMyPersonalCardBoard();
@@ -492,7 +495,6 @@ public class GameSceneController extends FXMLController {
             position = clientModel.getPlayersFTPositions().get(playerIndex);
         }else{
             position = clientModel.getBlackCrossPosition();
-            System.out.println("black cross postion "+ position); //debug
         }
         int myX=0, myY=0;
         int otherX= 0, otherY=0;

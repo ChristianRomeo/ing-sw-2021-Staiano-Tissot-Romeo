@@ -112,7 +112,9 @@ public class EventsHandlerGUI implements ServerEventObserver {
 
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
-
+        Platform.runLater(() -> {
+            guiView.getSceneController("gameScene").updateScene();
+        });
     }
 
     @Override

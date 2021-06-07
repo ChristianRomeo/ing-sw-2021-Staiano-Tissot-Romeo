@@ -289,6 +289,23 @@ public class GuiView extends Application implements View {
         return null;
     }
 
+    //ritorna l'immagine del solo action passato
+    public static Image getSoloActionImage(SoloAction soloAction){
+        if(soloAction!=null){
+            if(soloAction.getType() == SoloActionType.MOVEONEANDSHUFFLE){
+                return new Image(String.valueOf(GuiView.class.getResource("/moveoneandshuffle.png")));
+            }
+            if(soloAction.getType() == SoloActionType.MOVETWO){
+                return new Image(String.valueOf(GuiView.class.getResource("/movetwo.png")));
+            }
+            if(soloAction.getType() == SoloActionType.DISCARDTWOCARDS){
+                String cardTypeName = soloAction.getDiscardedCardsType().toString().toLowerCase();
+                return new Image(String.valueOf(GuiView.class.getResource("/discard2"+cardTypeName+".png")));
+            }
+        }
+        return null;
+    }
+
     public void launcher() {}
 
     public void stop(){
