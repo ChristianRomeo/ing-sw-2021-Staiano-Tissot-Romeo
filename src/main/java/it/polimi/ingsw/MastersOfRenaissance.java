@@ -7,7 +7,11 @@ import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.controller.Server;
 import it.polimi.ingsw.controller.View;
-import java.io.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
@@ -48,7 +52,8 @@ public class MastersOfRenaissance {
                 switch (args[0].toUpperCase()) {
                     case "CLI" -> launchCli(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
                     case "SERVER" -> launchServer(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
-                    default -> launchGui(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
+                    case "GUI" -> launchGui(Configs.class.getClassLoader().getResourceAsStream("configs.json"));
+                    default -> launchGui(new FileInputStream(Objects.requireNonNull(args[0].toLowerCase())));
                 }
 
     }
