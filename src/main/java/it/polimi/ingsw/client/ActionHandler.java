@@ -19,6 +19,7 @@ public class ActionHandler {
     private final ClientModel clientModel;
     private final CliView cliView;
     private final ServerHandler serverHandler;
+    public static boolean done;
     private boolean newGame= false;
 
     /**
@@ -71,7 +72,7 @@ public class ActionHandler {
             if (choice.equalsIgnoreCase("y")) {
                 try {
                     if (MastersOfRenaissance.getSave()==null)
-                    MastersOfRenaissance.main("cli ".split(" "));
+                        MastersOfRenaissance.main("cli ".split(" "));
                     else
                         MastersOfRenaissance.main("cli save ".split(" "));
                 } catch (IOException | URISyntaxException e) {
@@ -99,7 +100,7 @@ public class ActionHandler {
         if(!clientModel.hasGameEnded())
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
 
-            //cliView.askNewGame();
+        //cliView.askNewGame();
     }
 
     public void useMarket() {
@@ -107,6 +108,10 @@ public class ActionHandler {
         Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
+            return;
+        }
+        if (done){
+            cliView.showErrorMessage("You've already done an action");
             return;
         }
 
@@ -121,7 +126,7 @@ public class ActionHandler {
             takenMarbles = clientModel.getMarket().getRowColors(index);
         else
             takenMarbles = clientModel.getMarket().getColumnColors(index);
-        
+
         List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null && leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null) {
             //allora l'utente ha 2 carte leader white marble attive
@@ -148,6 +153,7 @@ public class ActionHandler {
 
         serverHandler.send(new UseMarketEvent(rowOrColumn,index,newWarehouse,discardedResources,fullLeaderSlots.getVal1(),fullLeaderSlots.getVal2(),whiteMarbleChoices ));
 
+        done=true;
     }
 
     /**
@@ -226,6 +232,7 @@ public class ActionHandler {
             return;
         }
         serverHandler.send(new EndTurnEvent());
+        done=false;
     }
 
     /**
@@ -234,6 +241,10 @@ public class ActionHandler {
     public void buyDevelopmentCard(){
 
         Styler.cls();
+        if (done){
+            cliView.showErrorMessage("You've already done an action");
+            return;
+        }
 
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
@@ -241,8 +252,9 @@ public class ActionHandler {
         }
 
         SameTypePair<Integer> position = cliView.askDevelopmentCard();
-        serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.askCardPile()));
 
+        serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.askCardPile()));
+        done=true;
     }
 
     /**
@@ -251,6 +263,10 @@ public class ActionHandler {
     public void activateProduction(){
 
         Styler.cls();
+        if (done){
+            cliView.showErrorMessage("You've already done an action");
+            return;
+        }
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -275,6 +291,7 @@ public class ActionHandler {
         SameTypePair<Resource> leaderProductionResources = cliView.askLeaderProductions();
 
         serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResources.getVal1(),leaderProductionResources.getVal2()));
+        done=true;
     }
 
 }

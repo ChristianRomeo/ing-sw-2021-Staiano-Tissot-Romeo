@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
@@ -593,7 +594,7 @@ public class CliView implements View {
                 if(clientModel.getMarket().getColor(i,j)== MarbleColor.RED)
                     System.out.print("RED\t\t");
                 else
-                    System.out.print(clientModel.getMarket().getColor(i,j).toString() + "\t\t");
+                    System.out.print(clientModel.getMarket().getColor(i,j).toString() + "\t");
             }
             System.out.print("\n");
         }

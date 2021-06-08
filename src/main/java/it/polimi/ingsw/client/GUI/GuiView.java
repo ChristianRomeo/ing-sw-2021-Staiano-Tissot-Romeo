@@ -3,7 +3,6 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
 import it.polimi.ingsw.controller.Configs;
-import it.polimi.ingsw.controller.Events.EndGameEventS2C;
 import it.polimi.ingsw.controller.View;
 import it.polimi.ingsw.model.*;
 import javafx.application.Application;
@@ -16,11 +15,13 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 //to change game font
@@ -44,7 +45,6 @@ public class GuiView extends Application implements View {
     private FXMLController currentFXMLController;
 
     //per riprodurre musica in background
-    private MediaPlayer mediaPlayer;
     private final static Logger logger = Logger.getLogger(GuiView.class.getName());
     private static Configs conf;
 
@@ -81,21 +81,16 @@ public class GuiView extends Application implements View {
 
         currentStage.getIcons().add(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png"))));
 
-
-        new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("music.mp3")).toExternalForm()).play();
+        new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("song.mp3")).toExternalForm()).play();
 
 
         currentStage.show();
 
-        currentStage.setOnCloseRequest(t -> {
-            Platform.exit();
-            System.exit(0);
-        });
+        currentStage.setOnCloseRequest(t -> stop());
         currentStage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
             if (KeyCode.ESCAPE == event.getCode()){
                 stage.close();
-                Platform.exit();
-                System.exit(0);
+                stop();
             }
         });
                 //System.out.println(askNumPlayers());
@@ -180,6 +175,8 @@ public class GuiView extends Application implements View {
     public int askNumPlayers() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Seleziona il numero di giocatori.");
+
+        ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("gameicon.png"));
 
         //DialogPane dialogPane = alert.getDialogPane();
         //StackPane stackPane = new StackPane(new ImageView(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png")))));
@@ -291,6 +288,8 @@ public class GuiView extends Application implements View {
     public void launcher() {}
 
     public void stop(){
+        Platform.exit();
+        System.exit(0);
     }
 
     /**
