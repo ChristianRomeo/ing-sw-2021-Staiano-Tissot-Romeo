@@ -143,7 +143,7 @@ public class EventsHandler implements ServerEventObserver {
     public void handleEvent(IllegalActionEventS2C event) {
 
         event.notifyHandler(eventHandlerView);
-        ActionHandler.done=false;
+        clientModel.setDone(false);
     }
 
 

@@ -2,10 +2,8 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Class ClientModel is a simplified model which the client sees
@@ -17,6 +15,17 @@ public class ClientModel {
    //e poi facciamo una sola lista di ClientPlayer (ma non per forza)
 
    private DevelopmentCardBoard developmentCardBoard;
+
+   //FYI http://tutorials.jenkov.com/java-concurrency/volatile.html#:~:text=The%20Java%20volatile%20keyword%20guarantees%20visibility%20of%20changes%20to%20variables%20across%20threads.
+   private volatile AtomicBoolean done= new AtomicBoolean(false);
+
+   public AtomicBoolean getDone() {
+      return done;
+   }
+
+   public void setDone(Boolean done) {
+      this.done.set(done);
+   }
 
    private Market market;
 
@@ -417,7 +426,7 @@ public class ClientModel {
             case WHITE -> {
                if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
                   if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
-                     boughtResources.add(leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());
+                     boughtResources.add(leaderCards.get(Objects.requireNonNull(whiteMarbleChoices1).remove(0)).getWhiteMarbleResource());
                   }else{
                      boughtResources.add(leaderCards.get(0).getWhiteMarbleResource());
                   }

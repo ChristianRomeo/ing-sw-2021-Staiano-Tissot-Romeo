@@ -19,7 +19,6 @@ public class ActionHandler {
     private final ClientModel clientModel;
     private final CliView cliView;
     private final ServerHandler serverHandler;
-    public static boolean done;
     private boolean newGame= false;
 
     /**
@@ -110,7 +109,7 @@ public class ActionHandler {
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
         }
-        if (done){
+        if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
             return;
         }
@@ -153,7 +152,7 @@ public class ActionHandler {
 
         serverHandler.send(new UseMarketEvent(rowOrColumn,index,newWarehouse,discardedResources,fullLeaderSlots.getVal1(),fullLeaderSlots.getVal2(),whiteMarbleChoices ));
 
-        done=true;
+        clientModel.setDone(true);
     }
 
     /**
@@ -232,7 +231,8 @@ public class ActionHandler {
             return;
         }
         serverHandler.send(new EndTurnEvent());
-        done=false;
+        clientModel.setDone(false);
+
     }
 
     /**
@@ -241,7 +241,7 @@ public class ActionHandler {
     public void buyDevelopmentCard(){
 
         Styler.cls();
-        if (done){
+        if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
             return;
         }
@@ -254,7 +254,7 @@ public class ActionHandler {
         SameTypePair<Integer> position = cliView.askDevelopmentCard();
 
         serverHandler.send(new BoughtCardEvent(position.getVal1(),position.getVal2(),cliView.askCardPile()));
-        done=true;
+        clientModel.setDone(true);
     }
 
     /**
@@ -263,7 +263,7 @@ public class ActionHandler {
     public void activateProduction(){
 
         Styler.cls();
-        if (done){
+        if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
             return;
         }
@@ -291,7 +291,8 @@ public class ActionHandler {
         SameTypePair<Resource> leaderProductionResources = cliView.askLeaderProductions();
 
         serverHandler.send(new ActivatedProductionEvent(cardProductions,activateBaseProduction,requestedResBP1,requestedResBP2,producedResBP,leaderProductionResources.getVal1(),leaderProductionResources.getVal2()));
-        done=true;
+        clientModel.setDone(true);
+
     }
 
 }
