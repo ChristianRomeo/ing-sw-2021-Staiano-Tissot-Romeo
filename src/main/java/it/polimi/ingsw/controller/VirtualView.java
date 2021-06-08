@@ -57,6 +57,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
             }
     }
 
+    /*
     //per la disconnessione , DEPRECATED
     public synchronized void setDisconnected(ClientHandler client){
         //notify controller that player has been disconnected
@@ -68,15 +69,7 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     public synchronized List<String> getDisconnectedClients() {
         return new ArrayList<>(disconnectedClients);
     }
-
-    public boolean checkGameStatus() {
-        /* try {
-            status = controller.isRunning();
-        } catch (DisconnectionException e) {
-            status = false;
-        }*/
-        return true;
-    }
+*/
 
     public synchronized void closeAll() {
         for (ClientHandler clientHandler : clientHandlers)

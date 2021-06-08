@@ -176,8 +176,13 @@ public class StatusPlayer {
          */
         public void removeTwoLeaderCards(int index1,int index2){
                 List<LeaderCard> newList = new ArrayList<>();
-                newList.add(leaderCards.get(index1));
-                newList.add(leaderCards.get(index2));
+                for(int i=0; i<4;i++){
+                        if(i!=index1 && i!= index2){
+                                newList.add(leaderCards.get(i));
+                        }
+                }
+                //newList.add(leaderCards.get(index1));
+                //newList.add(leaderCards.get(index2));
                 leaderCards.clear();
                 leaderCards.addAll(newList);
         }

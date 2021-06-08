@@ -45,7 +45,6 @@ public class CliView implements View {
         askActions();
     }
 
-    @Override
     public void askActions(){
         while(!clientModel.hasGameEnded()){
             scanner.reset();
@@ -71,7 +70,7 @@ public class CliView implements View {
 
     // ------ ASK METHODS -----
 
-    @Override
+
     public String askNickname(){
 
         Styler.header();
@@ -92,7 +91,7 @@ public class CliView implements View {
     public int askNumPlayers(){
         Styler.cls();
         showMessage("Choose how many players will play: ");
-        /*String numPlayer = scanner.nextLine();                          //todo: ASKNUMBER() ?
+        /*String numPlayer = scanner.nextLine();
         while (checkNumber(numPlayer,1,4)==null){
             showErrorMessage("Invalid choice! Try again: ");
             numPlayer = scanner.nextLine();
@@ -108,7 +107,6 @@ public class CliView implements View {
      * Asks the game cards in the initial choice
      * @return the set of the indexes of the chosen cards
      */
-    @Override
     public SameTypePair<Integer> askChoiceLeaderCards() {
 
         List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
@@ -133,7 +131,6 @@ public class CliView implements View {
      * And then what card
      * @return [0]=the action [1]=the card index.
      */
-    @Override
     public List<Integer> askLeaderCard(){
 
         List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
@@ -181,7 +178,6 @@ public class CliView implements View {
      * This method asks the user a position of a development card in the development card board
      * @return the position (row,col)
      */
-    @Override
     public SameTypePair<Integer> askDevelopmentCard(){
         //todo:riguardare il modo di chiedere
         showDevelopmentCardBoard();
@@ -209,7 +205,6 @@ public class CliView implements View {
      * asks in what pile of production should the bought card be inserted
      * @return the pile number
      */
-    @Override
     public int askCardPile(){
         showMessage("This is your card board: ");
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
@@ -571,7 +566,6 @@ public class CliView implements View {
 
     //                  ------ SHOW METHODS -----   //da testare
 
-    @Override
     public void showDevelopmentCardBoard(){
         showMessage("");
         for (int i=0;i<3;++i)
@@ -590,7 +584,6 @@ public class CliView implements View {
     /**
      * It shows the market in the client model.
      */
-    @Override
     public void showMarket(){
 
         showMessage(Styler.color('y',"#\t0\t\t1\t\t2\t\t3"));
@@ -608,7 +601,6 @@ public class CliView implements View {
 
     }
 
-    @Override
     public void showLeaderCard(LeaderCard card){
 
         showMessage(Styler.format('i',switch(card.getAbilityResource().toString()){
@@ -642,7 +634,6 @@ public class CliView implements View {
         showMessage("--------------------");
     }
 
-    @Override
     public void showCard(DevelopmentCard card) {
 
         showMessage(Styler.format('b', "Card Cost: "));
@@ -691,7 +682,6 @@ public class CliView implements View {
      * @param faithTrackPosition is the player's faith track position
      * @param showLorenzoFT is used to check if the method has to show Lorenzo's Faith Track position or not
      */
-    @Override
     public void showFaithTrack(int faithTrackPosition, boolean showLorenzoFT){
         //if single player mode then show Lorenzo's faith track position
         if(clientModel.getNicknames().size() == 1)
@@ -721,7 +711,6 @@ public class CliView implements View {
     /**
      * Shows Players faith tracks
      */
-    @Override
     public void showFaithTracks() {
         int numPlayer;
         Styler.cls();
@@ -745,7 +734,6 @@ public class CliView implements View {
     /**
      * Shows other player cards
      */
-    @Override
     public void showPlayersBoard(){
         Styler.cls();
         showMessage(" " + Styler.format('b', "CardBoards:"));
@@ -783,7 +771,6 @@ public class CliView implements View {
     /**
      * Shows other players LeaderCards, if activated
      */
-    @Override
     public void showPlayersLeaderCards(){ // da capire
         Styler.cls();
         if(clientModel.getNicknames().size() == 1)
@@ -831,7 +818,6 @@ public class CliView implements View {
      * Shows a player's overall state(Warehouse, Strongbox, CardBoard, LeaderCards, Faith Track position)
      *
      */
-    @Override
     public void showMyState(){
         Styler.cls();
         showMessage(Styler.format('b', "\n\nWarehouse:\n"));
@@ -859,7 +845,6 @@ public class CliView implements View {
      * Shows all players overall state(Warehouse, Strongbox, CardBoard, LeaderCards, Faith Track position)
      * except for the player who called it
      */
-    @Override
     public void showOthersState(){
         Styler.cls();
         if(clientModel.getNicknames().size() == 1)
@@ -910,7 +895,6 @@ public class CliView implements View {
     /**
      * Print the map received in input with the ladder
      */
-    @Override
     public void showLadderBoard(EndGameEventS2C endGameEvent){
         Styler.cls();
         if(endGameEvent.getWinners().contains(clientModel.getMyNickname()))
@@ -931,7 +915,6 @@ public class CliView implements View {
     /**
      * Print the received warehouse.
      */
-    @Override
     public void showWarehouse(PlayerWarehouse warehouse){
 
         if (warehouse.getResource(1,1)!=null)
@@ -976,7 +959,6 @@ public class CliView implements View {
     /**
      * Print the received strongbox.
      */
-    @Override
     public void showStrongbox(Map<Resource,Integer> strongbox){
 
         strongbox.entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x)));     //stampa tipo "-> key:value"
@@ -1009,13 +991,11 @@ public class CliView implements View {
      *
      * @param currentNickname The nickname of whom taking the turn
      */
-    @Override
     public void showTurn(String currentNickname) {
         showMessage("It's " + currentNickname + "'s turn.");
     }   //todo:da usare
 
 
-    @Override
     public void showLorenzoTurn(SoloAction soloAction){
         showMessage("Lorenzo has made his action! \nThe activated solo action was: ");
         System.out.println("Type: "+ soloAction.getType());

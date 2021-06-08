@@ -59,13 +59,6 @@ public class Controller extends ServerObservable {
     public void gameStarter() throws FileNotFoundException {
         preGameStarted=true;
 
-        //in teoria non serve, c'è già il controllo prima di chiamarlo
-        /*synchronized (this) {
-            while (!gameIsReady() && isRunning()) {
-                this.wait();
-            }
-        }*/
-
         game.shufflePlayers();
         logger.info("Starting the game");
         List<Player> players = game.getPlayers();
@@ -92,7 +85,6 @@ public class Controller extends ServerObservable {
 
         game.setCurrentPlayer(game.getPlayerByIndex(0));
         notifyAllObservers(eventCreator.createNewTurnEvent(getGame().getCurrentPlayer()));
-        //game() ??
     }
 
     public void initialChoiceHandler(InitialChoiceEvent event){
@@ -144,46 +136,7 @@ public class Controller extends ServerObservable {
         }
     }
 
-    /*private void game() {
-        while (!game.hasWinner()) {
-                if (!game.hasDoneAction()){
-                    actionDispatch();   //bisogna passargli l'azione scelta
-                    //sendToEveryone mossa
-                }
-                else{
-                    //cambia turno
-                }
-
-            //if currentplayer turn hasEnded
-            //currentplayer = nextTurnPlayer
-            //else
-            //scelta mossa giocatore; synch this ; wait;
-
-        }
-
-             manageWin();
-    }
-
-    private void manageWin() {
-
-        logger.info("Game ended: " + game.getCurrentPlayer().getNickname() + " has won");
-        for (Player p : game.getPlayers()) {
-            //virtualView.getClientHandlerByNickname sendTo winner EndMessage
-        }
-    }
-
-    private void manageLose(){
-        //che succede ai giocatori che perdono?
-        //removePlayer(currentPlayer);
-        //facciamo una classifica?
-    }
-
-    public void actionDispatch(){
-        //riceve l'azione dall'utente e chiama il metodo adeguato
-        notifyController();
-    }
-    */
-
+    /*
     public void setDisconnected(String nickname) {
         if (game.getPlayerByNickname(nickname) != null && game.hasWinner()) {
             game.getPlayerByNickname(nickname).setConnected(false);
@@ -196,19 +149,7 @@ public class Controller extends ServerObservable {
         notifyController();
         //wakeUpServerLauncher();   //synchronized (game) game.notifyAll();   //PER PARTITE MULTIPLE DOVREBBE STARE SEMPRE SVEGLIO RIGHT?
     }
-
-    public boolean isRunning() throws DisconnectionException {
-        if (!game.isActive())
-            throw new DisconnectionException();
-
-        return true;
-    }
-
-    public void notifyController() { //????
-        synchronized (this) {
-            this.notifyAll();
-        }
-    }
+*/
 
     /**
      * Method activateProduction allows the player to activate the production of one or more cards.
@@ -245,7 +186,7 @@ public class Controller extends ServerObservable {
             return;
         }
         //the player wants to activate the base production too
-        if(baseProd ){  //todo:DA METTERE IN PERSONAL CARD BOARD??
+        if(baseProd ){
             requiredResources = Resource.addOneResource(requiredResources,baseRes.getVal1());
             requiredResources = Resource.addOneResource(requiredResources,baseRes.getVal2());
             producedResources = Resource.addOneResource(producedResources,baseRes.getVal3());
@@ -464,7 +405,6 @@ public class Controller extends ServerObservable {
                 game.addIllegalAction(new IllegalAction(game.getCurrentPlayer(),"IllegalLeaderAction"));
 
         }
-        //notifyController(); //??
     }
 
     /**
@@ -537,69 +477,3 @@ public class Controller extends ServerObservable {
     }
 
 }
-
- /*
-    //METODI EDIT E INSERT WAREHOUSE DA NON USARE, FORSE ANDRANNO NELLA VIEW
-    //METODI EDIT E INSERT WAREHOUSE DOVRANNO CONSIDERARE ANCHE I DEPOSITI LEADER
-    // Method editWarehouse allows the player to change the position of the resources in the warehouse
-    private void editWarehouse(){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
-        //the player says what resources in he warehouse he wants to move, so these resources
-        //are temporary removed from the warehouse and stored in a list. Than the player
-        //can reinsert these resources where he wants (or he can again temporary remove some resources).
-        //When he wants, the player can stop the edit of the warehouse, but only if he has
-        //inserted every temporary removed resource.
-
-        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
-        List<Resource> temporaryRemovedResources = new ArrayList<>();
-        int i=0,j=0,k=0;
-        while(true){ //la condizione di stop sarà detta da utente
-            //i valori di i, j e k devono essere detti dall'utente, interazione con la view
-
-            if(true) //player wants to temporary remove a resource
-                if(warehouse.getResource(i,j)!=null)
-                    temporaryRemovedResources.add(warehouse.removeResource(i,j));
-
-
-            if(true )//player wants to reinsert one of the temporary removed resources
-                if(k>=0 && k< temporaryRemovedResources.size()){
-                    try{
-                        warehouse.insertResource(temporaryRemovedResources.get(k),i,j);
-                    }catch(InvalidWarehouseInsertionException e){
-                        //signal to the user, invalid insertion in the warehouse
-                    }
-                }
-
-            if(true)//the player wants to end the Warehouse edit
-                if(temporaryRemovedResources.size()==0){
-                    break;
-                }else{
-                    //signal the player that he has to insert every temporary removed resource
-                }
-
-        }
-    }
-    // Method insertBoughtResources allows the player to insert/discard the new
-    //resources bought at the market, in the warehouse
-    private void insertBoughtResources(List<Resource> boughtResources){//METODO DA CAMBIARE CAUSA INTERAZIONE UTENTE
-
-        int i=0,j=0;
-        PlayerWarehouse warehouse = game.getCurrentPlayer().getStatusPlayer().getPlayerWarehouse();
-        //i, j sono dati dall'utente per ogni risorsa
-        for(Resource r: boughtResources){
-            if(true )//the player wants to insert the resource
-                try{
-                    warehouse.insertResource(r,i,j);
-                }catch (InvalidWarehouseInsertionException e){
-                    //signal to the user, invalid inseriment in the warehouse
-                }
-
-            if(true ){  //the player wants to discard the resource
-                boughtResources.remove(r);
-                for(int k=0; k< game.getPlayersNumber(); k++)
-                    if (game.getCurrentPlayerId()!=k)
-                        incrementFaithTrackPosition(game.getPlayerByIndex(k));
-
-            }
-        }
-    }
-*/
