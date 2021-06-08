@@ -108,6 +108,7 @@ public class PlayerTest {
         assert(player.getVictoryPoints() == player.getStatusPlayer().getLeaderCard(0).getVictoryPoints());
     }
 
+    /*
     @Test //test successful
     public void isConnectedTest() {
         Player player = new Player("tom");
@@ -115,7 +116,7 @@ public class PlayerTest {
         player.setConnected(true);
         assert(player.isConnected());
     }
-
+*/
     @Test //test successful
     public void isWinnerTest() {
         Player player = new Player("tom");

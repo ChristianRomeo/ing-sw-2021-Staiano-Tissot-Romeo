@@ -15,15 +15,6 @@ public class Player {
     private int victoryPoints;
     private final StatusPlayer statusPlayer;
     private boolean isWinner;
-    private boolean isConnected;
-
-    public boolean isConnected() {
-        return isConnected;
-    }
-
-    public void setConnected(boolean connected) {
-        isConnected = connected;
-    }
 
     public String getNickname() {
         return nickname;

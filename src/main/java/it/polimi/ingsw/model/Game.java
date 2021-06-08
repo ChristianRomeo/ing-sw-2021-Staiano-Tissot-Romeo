@@ -53,19 +53,19 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         this.eventCreator = eventCreator;
     }
 
-    public boolean isActive() {
+    public synchronized boolean isActive() {
         return isActive;
     }
 
-    public void setInactive() {
+    public synchronized void setInactive() {
         isActive = false;
     }
 
-    public int getWantedNumPlayers() {
+    public synchronized int getWantedNumPlayers() {
         return wantedNumPlayers;
     }
 
-    public void setWantedNumPlayers(int numPlayers) {
+    public synchronized void setWantedNumPlayers(int numPlayers) {
         this.wantedNumPlayers = numPlayers;
     }
 
@@ -73,9 +73,6 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         return new ArrayList<>(players);
     }
 
-    /*public boolean gameReady() {  //viene già fatto nel server il check
-        return players.size() == wantedNumPlayers;
-    }*/
 
     /**
      * Method getBoard returns the board of this Game object.
@@ -227,14 +224,6 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         notifyAllObservers(eventCreator.createEndGameEvent());
     }
 
-    public boolean hasWinner() {
-        for (Player player : players)
-            if (player.isWinner())
-                return true;
-
-        return false;
-    }
-
     /**
      * Adds an illegal action to the list.
      */
@@ -255,8 +244,6 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         hasDoneAction=true;
     }
 
-
-    //METTO INCREMENT FAITH TRACK POSITION QUI IN GAME, NON PIU NEL CONTROLLER
 
     //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
     public void incrementOthersFpByDiscarding(){
