@@ -44,7 +44,9 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         hasDoneAction=false;
     }
 
-    //mette lista giocatori in ordine casuale
+    /**
+     *shuffles the player's list
+     */
     public void shufflePlayers(){
         Collections.shuffle(players);
     }
@@ -53,23 +55,38 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         this.eventCreator = eventCreator;
     }
 
+    /**
+     * @return true if the player is active, otherwise false
+     */
     public synchronized boolean isActive() {
         return isActive;
     }
 
+    /**
+     * sets a player's status to inactive
+     */
     public synchronized void setInactive() {
         isActive = false;
     }
 
+    /**
+     * @return the number of wanted players
+     */
     public synchronized int getWantedNumPlayers() {
         return wantedNumPlayers;
     }
 
+    /**
+     * sets the number of wanted players
+     * @param numPlayers is the number of wanted players to be set
+     */
     public synchronized void setWantedNumPlayers(int numPlayers) {
         this.wantedNumPlayers = numPlayers;
     }
-
-    public List<Player> getPlayers(){   //questi sono tutti, connessi e disconnessi eventuali, se servono sono quelli connessi fare altro metodo
+    /**
+     * @return a list containing all the players (both connected and disconnected ones)
+     */
+    public List<Player> getPlayers(){
         return new ArrayList<>(players);
     }
 
@@ -183,16 +200,20 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     }
 
     /**
-     * Method setLastTurnsTrue set the flag lastTurns=true.
+     * Method setLastTurnsTrue set the flag lastTurns to true.
      */
     public void setLastTurnsTrue(){
         lastTurns=true;
     }
-
-    public boolean getLastTurns(){
-        return lastTurns;
-    }
-
+    /**
+     * end the game and checks for the winner.
+     * If Solo mode, it checks if no column of the Development card board is empty
+     * and if Lorenzo's Faith Track position is less than 24.
+     * In that case, the player has won.
+     * If not solo mode, it checks which player has the highest Victory points;
+     * if some players have the same Victory points, it checks which one of them has the
+     * highest number of resources: this player is the winner.
+     */
     private void endGame(){
         for(Player p: players)
             p.calculateAndSetVictoryPoints();
@@ -202,7 +223,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
                 players.get(0).setIsWinner();
             }
         }
-        else{// questa parte può essere refactorizzata
+        else{
             List<Player> bestPlayers = new ArrayList<>(players);
             for(Player p: bestPlayers)
                 for(Player p1: bestPlayers){
@@ -231,21 +252,29 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         illegalActions.add(illegalAction);
         notifyAllObservers(new IllegalActionEventS2C(illegalAction));
     }
-
+    /**
+     * @return a list containing all the illegal actions
+     */
     public List<IllegalAction> getIllegalActions(){
         return new ArrayList<>(illegalActions);
     }
 
+    /**
+     * @return true if the player has done an action, otherwise false
+     */
     public boolean hasDoneAction() {
         return hasDoneAction;
     }
-
+    /**
+     * sets the variable hasDoneAction to true
+     */
     public void setHasDoneAction() {
         hasDoneAction=true;
     }
 
-
-    //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
+    /**
+     * increases the Faith Track position by 1 for all the players, except the current one, which is discarding resources
+     */
     public void incrementOthersFpByDiscarding(){
         for(int k=0; k<getPlayersNumber(); k++){
             if (getCurrentPlayerId()!=k){
