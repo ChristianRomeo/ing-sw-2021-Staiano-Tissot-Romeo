@@ -239,7 +239,7 @@ public class CliView implements View {
                 positions.add(i-1);
         }
 
-        return  positions;
+        return positions;
     }
 
     /**
@@ -729,7 +729,7 @@ public class CliView implements View {
             showMessage("--------------------");
         }
         //show list of actions
-
+        printActions();
     }
 
     /**
@@ -752,7 +752,7 @@ public class CliView implements View {
             }
         });
         //show list of actions
-
+        printActions();
     }
 
     /**
@@ -800,10 +800,22 @@ public class CliView implements View {
                         showLeaderCard(clientModel.getPlayerLeaderCards(x).get(0));
                         numOfActivatedLeaderCards.getAndIncrement();
                     }
+                    else
+                    {
+
+                        if(clientModel.getCurrentPlayerNick().equals(x))
+                            showLeaderCard(clientModel.getPlayerLeaderCards(x).get(0));
+                    }
+
                     if (clientModel.getPlayerLeaderCards(x).get(1).isActivated()) {
                         showMessage(Styler.format('b', " has Leader Card 2 active "));
                         showLeaderCard(clientModel.getPlayerLeaderCards(x).get(1));
                         numOfActivatedLeaderCards.getAndIncrement();
+                    }
+                    else
+                    {
+                        if(clientModel.getCurrentPlayerNick().equals(x))
+                            showLeaderCard(clientModel.getPlayerLeaderCards(x).get(1));
                     }
                 }
                 if(numOfActivatedLeaderCards.get()== 0)
@@ -812,6 +824,9 @@ public class CliView implements View {
                 numOfActivatedLeaderCards.set(0);
             });
         }
+
+        showMessage("--------------------");
+        printActions();
 
     }
 
@@ -840,6 +855,7 @@ public class CliView implements View {
         System.out.println("\n");
         showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()), false);
         showMessage("--------------------");
+        printActions();
     }
 
     /**
@@ -891,6 +907,7 @@ public class CliView implements View {
         }
 
        showMessage("--------------------");
+       printActions();
     }
 
     /**
@@ -985,6 +1002,8 @@ public class CliView implements View {
      */
     public void showErrorMessage(String errorMessage) {     //invalid action
         showMessage(Styler.color('r',"That's unfortunate: "+errorMessage));
+        //if(clientModel.hasGameStarted() && !clientModel.getDone().get())
+            //printActions();
     }
 
     /**
@@ -1067,5 +1086,15 @@ public class CliView implements View {
             return null;
         }
         return (num <= highLimit && num >= lowLimit)? num : null;
+    }
+
+    public void printActions() {
+        if(clientModel.isCurrentPlayer())
+            showMessage("\nChoose an action between\n" +
+                    "▷ LEADERACTION\n▷ PRODUCTION\n▷ BUYCARD\n▷ MARKET\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
+        else
+            showMessage("\nChoose an action between\n"+
+                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+
     }
 }

@@ -128,6 +128,7 @@ public class EventsHandler implements ServerEventObserver {
 
         event.notifyHandler(eventHandlerView);
 
+
         //qui magari mostro le cose che sono cambiate
     }
 

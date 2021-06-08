@@ -15,11 +15,16 @@ public class IllegalAction implements Serializable {
         this.playerNickname=player.getNickname();
         this.description=description;
     }
-
+    /**
+     * @return the nickname of the Player who did an illegal action
+     */
     public String getPlayerNickname() {
         return playerNickname;
     }
 
+    /**
+     * @return the description of the illegal action
+     */
     public String getDescription() {
         return description;
     }

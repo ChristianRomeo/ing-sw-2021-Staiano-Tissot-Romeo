@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * type of solo action tiles
+ * type of Solo action tiles
  */
 public enum SoloActionType {
     MOVETWO,

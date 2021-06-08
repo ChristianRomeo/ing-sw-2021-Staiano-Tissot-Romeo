@@ -80,7 +80,7 @@ public class Board {
     }
 
     /**
-     * <p>Clears the list and repopulates it, once done it shuffles it </p>
+     * Clears the list and repopulates it, once done it shuffles it
      * To be called during the init and when picked MOVEONEANDSHUFFLE
      */
     public void shuffleSoloActionPile() {

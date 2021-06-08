@@ -15,7 +15,9 @@ import java.util.Map;
 public class PersonalCardBoard implements Serializable {
     private int numberOfCards;
     private final List<List<DevelopmentCard>> ownedCards;     //final?
-
+    /**
+     * constructor
+     */
     public PersonalCardBoard(){
         ownedCards = new ArrayList<>();
         ownedCards.add(new ArrayList<>());
@@ -23,31 +25,16 @@ public class PersonalCardBoard implements Serializable {
         ownedCards.add(new ArrayList<>());
         numberOfCards = 0;
     }
-
+    /**
+     * @return the number of cards in the personal card board
+     */
     public int getNumberOfCards() {
         return numberOfCards;
     }
 
-
-
-    /* //METODO VECCHIO  DA TOGLIERE
-        this method tells you if you can buy a card of level "level" or not (because there is no space)
-        level must be between 1 and 3
-
-    public boolean canBuyCardOfLevel(int level){
-        for(int i=0; i<=2; i++)
-            if(ownedCards.get(i).size() == level-1)
-                return true;
-
-        return false;
-    }
-    */
-
-
     /**
-     *   this method tells you if you can insert a card of level "level" or not (because there is no space),
-     *   in the pile selected. level must be between 1 and 3 and pile between 0 and 2.
-     *
+     *tells you if you can insert a card of level "level" or not (because there is no space),
+     *in the pile selected. level must be between 1 and 3 and pile between 0 and 2.
      */
     public boolean canInsertCardOfLevel(int level, int pile){
         return level==(ownedCards.get(pile).size()+1);

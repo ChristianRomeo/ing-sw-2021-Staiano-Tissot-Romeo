@@ -17,44 +17,68 @@ public abstract class LeaderCard implements Serializable {
     protected boolean isDiscarded=false;
     protected boolean isActivated=false;
 
+    /**
+     * @return a Map containing the required cards of a Leader card
+     */
     public Map<CardType, Integer> getRequiredCards(){
         return requiredCards;
     }
 
+    /**
+     * @return a Map containing the required resources of a Leader card
+     */
     public Map<Resource, Integer> getRequiredResources(){
         return requiredResources;
     }
 
+    /**
+     * @return a Leader Card's ID
+     */
     public int getId(){ return id; }
 
     public Resource getAbilityResource(){ return  abilityResource; }
 
+    /**
+     * @return a Leader card's Victory Points
+     */
     public int getVictoryPoints() {
         return victoryPoints;
     }
 
+    /**
+     * @return true if the Leader Card has been discarded, false otherwise
+     */
     public boolean isDiscarded() {
         return isDiscarded;
     }
 
+    /**
+     * @return true if the Leader Card has been activated, false otherwise
+     */
     public boolean isActivated() {
         return isActivated;
     }
 
+    /**
+     * sets a Leader Card's status to discarded
+     */
     public void discard() {
         this.isDiscarded=true;
     }
 
+    /**
+     * sets a Leader Card's status to activated
+     */
     public void activate() {
         this.isActivated=true;
     }
 
+    /**
+     * @return the LeaderCardType, to see which special ability the Leader Card has
+     */
     public LeaderCardType getAbility(){
         return ability;
     }
-
-    //this method is the discounted cost card ability, it's redefined in that type of card,
-    //in the other types of cards it doesn't do anything but returns the original cost.
 
     /**
      * this method is for the discounted cost card ability, it's redefined in that type of card,

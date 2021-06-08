@@ -21,12 +21,12 @@ public class Market implements Serializable {
         initMarket();
     }
 
-    //NB: the first row of the market from above is the row 0 of the matrix,
-    // the second row of the market from above is the row 1 of the matrix ecc.
 
     /**
      * Method initMarket is an helper private method called by the constructor.
-     * It initialize the Market board.
+     * It initializes the Market board.
+     * NB: keep in mind that the first row of the market from above is the row 0 of the matrix,
+     * the second row of the market from above is the row 1 of the matrix, and so on
      */
     private void initMarket(){
         List<MarbleColor> colors = new ArrayList<>();
@@ -63,6 +63,7 @@ public class Market implements Serializable {
      * @param column of the marble you want to get
      * @return the marble in that position of the market
      */
+
     public MarbleColor getColor(int row, int column) {
         return marbles[row][column];
     }
@@ -70,6 +71,7 @@ public class Market implements Serializable {
      * Method getSlideMarble is the getter of the slide marble
      * @return the slide marble
      */
+
     public MarbleColor getSlideMarble() {
         return slideMarble;
     }
@@ -126,7 +128,9 @@ public class Market implements Serializable {
         return takenMarbles;
     }
 
-    //this method doesn't activate the market, it just returns the colors of a row
+    /**
+     * @return a list containing all the colours in a specific row
+     */
     public List<MarbleColor> getRowColors(int row){
         List<MarbleColor> rowMarbles = new ArrayList<>();
         rowMarbles.add(marbles[row][0]);
@@ -136,7 +140,9 @@ public class Market implements Serializable {
         return rowMarbles;
     }
 
-    //this method doesn't activate the market, it just returns the colors of a column
+    /**
+     * @return a list containing all the colours in a specific column
+     */
     public List<MarbleColor> getColumnColors(int column){
         List<MarbleColor> columnMarbles = new ArrayList<>();
         columnMarbles.add(marbles[0][column]);

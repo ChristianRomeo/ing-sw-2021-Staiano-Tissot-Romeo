@@ -45,25 +45,6 @@ public class PlayerWarehouse implements Serializable {
              }
          }
     }
-
-    /**
-     * the following 3 methods are getter too, if you prefer you can use them,
-     * but I recommend to use getResource. #Utils
-     * @return Resource - type
-     */
-    /*
-    public Resource getUpperRowResource(){
-        return upperRow;
-    }
-    public Resource getMiddleRowResource(int col){
-        return middleRow.get(col);
-    }
-    public Resource getLowerRowResource(int col){
-        return lowerRow.get(col);
-    }
-
-     */
-
     /**
      *  this method returns all the resources in the warehouse
      * @return A Map of all the resources owned by a player
@@ -81,8 +62,6 @@ public class PlayerWarehouse implements Serializable {
                     else
                         resources.put(r,resources.get(r)+1);
             }
-
-
         return resources;
     }
 
@@ -173,7 +152,6 @@ public class PlayerWarehouse implements Serializable {
         }
     }
 
-    //STI METODI POSSONO ESSERE CAMBIATI USANDO CHECK WAREHOUSE CREDO
     /**
      *     helper private methods
      */

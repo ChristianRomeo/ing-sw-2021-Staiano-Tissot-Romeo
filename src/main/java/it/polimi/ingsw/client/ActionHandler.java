@@ -46,17 +46,17 @@ public class ActionHandler {
 
         //todo: bisogna aggiungere le azioni di show
         switch (action.toUpperCase()) {
-            case "SCEGLI" -> initialChoice();
-            case "AZIONELEADER" -> leaderAction();
-            case "PRODUZIONE" -> activateProduction();
-            case "FINETURNO" -> endTurn();
-            case "COMPRACARTA" -> buyDevelopmentCard();
-            case "MERCATO" -> useMarket();
-            case "MOSTRAFT" -> cliView.showFaithTracks();
-            case "MOSTRALEADERS" -> cliView.showPlayersLeaderCards();
-            case "MOSTRABOARDS" -> cliView.showPlayersBoard();
-            case "MOSTRAMIOSTATO" -> cliView.showMyState();
-            case "MOSTRASTATOALTRI" -> cliView.showOthersState();
+            case "CHOOSE" -> initialChoice();
+            case "LEADERACTION" -> leaderAction();
+            case "PRODUCTION" -> activateProduction();
+            case "ENDTURN" -> endTurn();
+            case "BUYCARD" -> buyDevelopmentCard();
+            case "MARKET" -> useMarket();
+            case "SHOWFT" -> cliView.showFaithTracks();
+            case "SHOWLEADERS" -> cliView.showPlayersLeaderCards();
+            case "SHOWABOARDS" -> cliView.showPlayersBoard();
+            case "SHOWMYSTATUS" -> cliView.showMyState();
+            case "SHOWOTHERSSTATUS" -> cliView.showOthersState();
             case "EXIT" -> exit();
             case "Y" -> getNewGame("y");
             case "N" -> getNewGame("N");
@@ -97,7 +97,11 @@ public class ActionHandler {
 
         Styler.cls();
         if(!clientModel.hasGameEnded())
+        {
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
+        }
+
+
 
         //cliView.askNewGame();
     }
@@ -111,6 +115,7 @@ public class ActionHandler {
         }
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
+            cliView.showMessage("\nChoose an action between\n"+ "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
             return;
         }
 
@@ -156,7 +161,7 @@ public class ActionHandler {
     }
 
     /**
-     * Guides the player throught the initial choice of leaderCards and resources
+     * Guides the player through the initial choice of Leader cards and resources
      */
     public void initialChoice(){
         Styler.cls();
@@ -207,7 +212,6 @@ public class ActionHandler {
      * Activate/discard leaderCards
      */
     public void leaderAction(){
-
         Styler.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
@@ -243,6 +247,8 @@ public class ActionHandler {
         Styler.cls();
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
+            cliView.showMessage("\nChoose an action between\n"+
+                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
             return;
         }
 
@@ -265,6 +271,8 @@ public class ActionHandler {
         Styler.cls();
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
+            cliView.showMessage("\nChoose an action between\n"+
+                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
             return;
         }
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){

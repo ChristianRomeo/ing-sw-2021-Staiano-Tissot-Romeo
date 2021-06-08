@@ -20,7 +20,6 @@ public class StatusPlayer {
         private final PersonalCardBoard personalCardBoard;
         private final List<LeaderCard> leaderCards;
 
-
         /**
          * Constructor
          */
@@ -36,8 +35,7 @@ public class StatusPlayer {
         }
 
         /**
-         * Getter faithTrackPosition
-         * @return faithTrackPosition
+         * @return the faithTrackPosition
          */
         public int getFaithTrackPosition() {
             return faithTrackPosition;
@@ -70,8 +68,12 @@ public class StatusPlayer {
                 if(faithTrackPosition<24)
                         faithTrackPosition++;
         }
+        /**
+         * throws an exception if a certain Faith Track position has been reached without activating a Vatican report
+         * (e.g. if a player's Faith Track position is greater than 8, the player's first Pope Favor tile status must be
+         * active
+         */
 
-        //ti controlla se si deve attivare un vatican report, in caso tira un'eccezione
         public void checkVaticanReport() throws VaticanReportException{
                 if(faithTrackPosition>= 8 && popeFavorTiles.get(1)==PopeFavorTileStatus.INACTIVE)
                         throw new VaticanReportException(1);
@@ -133,10 +135,16 @@ public class StatusPlayer {
                 strongboxResources = Resource.sumResourcesMap(strongboxResources,resources);
         }
 
+        /**
+         *@return a player's warehouse
+         */
         public PlayerWarehouse getPlayerWarehouse(){
                 return playerWarehouse;
         }
 
+        /**
+         *@return a player's personal card board
+         */
         public PersonalCardBoard getPersonalCardBoard(){
                 return personalCardBoard;
         }
@@ -181,8 +189,6 @@ public class StatusPlayer {
                                 newList.add(leaderCards.get(i));
                         }
                 }
-                //newList.add(leaderCards.get(index1));
-                //newList.add(leaderCards.get(index2));
                 leaderCards.clear();
                 leaderCards.addAll(newList);
         }
