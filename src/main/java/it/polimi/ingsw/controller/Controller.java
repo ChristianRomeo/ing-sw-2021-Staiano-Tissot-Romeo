@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import com.google.gson.JsonIOException;
 import it.polimi.ingsw.controller.Events.InitialChoiceEvent;
 import it.polimi.ingsw.controller.Events.ServerEventCreator;
 import it.polimi.ingsw.controller.Events.ServerObservable;
@@ -7,7 +8,6 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -52,9 +52,9 @@ public class Controller extends ServerObservable {
     /**
      * By now the connection should be already set with all the players, the game should already initialized
      * initializing now clients LC and eventually resources and fp before starting the match
-     * @throws FileNotFoundException for the leaderCards
+     * @throws JsonIOException for the leaderCards
      */
-    public void gameStarter() throws FileNotFoundException {
+    public void gameStarter() throws JsonIOException {
         preGameStarted=true;
 
         game.shufflePlayers();
@@ -257,7 +257,7 @@ public class Controller extends ServerObservable {
         try {
             statusCurrentPlayer.getPersonalCardBoard().addCard(card,pile);
         } catch (InvalidCardInsertionException e) {
-            logger.warning("error adding a card"); //todo: remove, this shouldn't happen, because earlier the method does a check.
+            logger.warning("error adding a card"); //this shouldn't happen, because earlier the method does a check.
         }
 
         //a player has bought 7 cards, so we enter the last phase of the game
@@ -448,7 +448,7 @@ public class Controller extends ServerObservable {
         Map<Resource,Integer> boughtResources = new HashMap<>();
         for(MarbleColor m: marbles)
             switch (m) {
-                case WHITE -> { //todo: la parte isActivated credo è inutile, sta già controllo nella carta
+                case WHITE -> {
                     if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
                         if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
                             boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(Objects.requireNonNull(whiteMarbleChoices1).remove(0)).getWhiteMarbleResource());  //nullpointerexception?

@@ -41,13 +41,6 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
                 clientHandler.send(serverEvent);
     }
 
-    //gli dai il nickname di chi non deve ricevere il messaggio, quando dobbiamo mandare informazioni a tutti gli altri tranne il giocatore corrente che in teoria l'ha già, per risparmiare
-    public void sendToEveryoneExcept(ServerEvent serverEvent, String nickname){
-        for (ClientHandler clientHandler : clientHandlers)
-            if(clientHandler.isConnected() && !clientHandler.getNickname().equals(nickname))
-                clientHandler.send(serverEvent);
-    }
-
     //invia evento a solo un client
     public void sendTo(ServerEvent serverEvent, String nickname){
         for (ClientHandler clientHandler : clientHandlers)

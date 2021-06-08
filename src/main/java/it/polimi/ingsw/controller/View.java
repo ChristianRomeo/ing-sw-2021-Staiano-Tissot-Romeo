@@ -28,14 +28,6 @@ public interface View {
      */
     void askNewGame();
 
-    /*
-     * Asks nickname and if it's a new game the number of players for the game and notify the information to the serverHandler
-     *
-     * @param newGame True if the it is a new game, otherwise false
-     */
-    //void setUpGame(boolean newGame);
-
-
     /**
      * Notify all that a player has been disconnected (and the game has ended ?FA)
      * @param disconnected The nickname of the disconnected player

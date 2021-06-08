@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import com.google.gson.JsonIOException;
 import it.polimi.ingsw.controller.Events.*;
 
 import java.io.FileNotFoundException;
@@ -196,7 +197,7 @@ public class ClientHandler implements Runnable {
             if(!virtualView.getController().isPreGameStarted() && virtualView.getController().getGame().getWantedNumPlayers() == virtualView.getController().getGame().getPlayersNumber())
                 try {
                     virtualView.getController().gameStarter();
-                } catch (FileNotFoundException ignored) {}                                                               //IT SHOULD NOT HAPPEN IN JAR
+                } catch (JsonIOException ignored) {}                                                               //IT SHOULD NOT HAPPEN IN JAR
 
         }
 
