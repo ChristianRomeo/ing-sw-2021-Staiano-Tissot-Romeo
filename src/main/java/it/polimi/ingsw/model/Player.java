@@ -15,32 +15,7 @@ public class Player {
     private int victoryPoints;
     private final StatusPlayer statusPlayer;
     private boolean isWinner;
-    private boolean isConnected;
 
-    public Player(String nickname){
-        //costruttore creato a caso solo per fare testing
-        statusPlayer = new StatusPlayer();
-        isWinner=false;
-        this.nickname=nickname;
-    }
-
-    /**
-     * @return true if the Player is connected, false otherwise
-     */
-    public boolean isConnected() {
-        return isConnected;
-    }
-
-    /**
-     * @param connected is a boolean containing the value to be set to the "isConnected" variable
-     */
-    public void setConnected(boolean connected) {
-        isConnected = connected;
-    }
-
-    /**
-     * @return the player's nickname
-     */
     public String getNickname() {
         return nickname;
     }
@@ -51,6 +26,17 @@ public class Player {
      */
     public int getVictoryPoints() {
         return victoryPoints;
+    }
+
+    /**
+     * Constructor
+     * @param nickname il nickname
+     */
+    public Player(String nickname){
+        //costruttore creato a caso solo per fare testing
+        statusPlayer = new StatusPlayer();
+        isWinner=false;
+        this.nickname=nickname;
     }
 
     /**
@@ -71,22 +57,13 @@ public class Player {
     }
 
     /**
-     * Calculate victory points, an overall sum is calculated:
-     * Firstly it calculates victory points obtained with the Faith Track position.
-     * Then, it calculates victory points obtained with Leader cards
-     * (only activated Leader cards points are being added).
-     * Then, it calculates victory points obtained with Development Cards
-     * Then, it considers the Pop favor tiles
-     * (the number of points given are fixed, and specifically the minimum number of victory points assigned
-     * (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.)
-     * Last but not least, it calculates victory points based on the number of owned resources
-     * (every 5 resources rounded down equals 1 victory point)
-     *Finally, it calculates the overall sum.
+     * Calculate VP
      */
     public void calculateAndSetVictoryPoints() {
         int sum = 0, popFavorTileMinNumOfVP = 2;//minimum number of victory points given, if any
         double totalNumOfResources;
-        //starts calculating VP based on Faith Track position
+
+        //calculate victory points based on faith track position.
         if (isBetween(statusPlayer.getFaithTrackPosition(), 3, 5))
             sum += 1;
         else if (isBetween(statusPlayer.getFaithTrackPosition(), 6, 8))
@@ -103,23 +80,30 @@ public class Player {
             sum += 16;
         else if (statusPlayer.getFaithTrackPosition() == 24)
             sum += 20;
-        //starts calculating VP based on Leader cards
+        /*
+        calculate victory points based on Leader cards.
+        Only activated Leader cards points are being added.
+        2 is the amount of Leader cards per player.
+         */
         for (int i = 0; i < statusPlayer.getPlayerLeaderCards().size(); ++i)
             if (statusPlayer.getLeaderCard(i).isActivated())
                 sum += statusPlayer.getLeaderCard(i).getVictoryPoints();
 
-        //starts calculating VP based on Development cards
+        //calculate victory points based on Development cards
         for (int i = 0; i < 3; ++i)
             for (int j = 0; j < 3; ++j)
                 if (statusPlayer.getPersonalCardBoard().getCard(i, j) != null)
                     sum += statusPlayer.getPersonalCardBoard().getCard(i, j).getVictoryPoints();
-        //starts calculating VP based on Pope Favor tiles
+
+        /*increase sum based on Pop Favor Tiles.
+        The number of points given are fixed, and specifically the minimum number of Victory Points assigned
+        (if any) is 2 (see PopFavorTileMinNumOfVP), while the maximum number is 4.*/
        for(int i = 1; i <= 3; ++i) {
             if (statusPlayer.getPopeFavorTile(i)==PopeFavorTileStatus.ACTIVE)
                 sum += popFavorTileMinNumOfVP;
             ++popFavorTileMinNumOfVP;
         }
-        //starts calculating VP based on the number of owned resources
+        //calculate victory points based on number of owned resources
         totalNumOfResources = statusPlayer.getResourcesNumber();
         sum += Math.floor(totalNumOfResources / 5);
 
@@ -127,16 +111,10 @@ public class Player {
         victoryPoints = sum;
     }
 
-    /**
-     *sets the variable "isWinner" to true if the considered player is the winner of the game
-     */
     public void setIsWinner(){
         this.isWinner=true;
     }
 
-    /**
-     * @return true if the player is the winner of the game, false otherwise
-     */
     public boolean isWinner() { return isWinner; }
 
 }

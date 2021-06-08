@@ -18,6 +18,7 @@ import java.util.List;
 
 public class Game extends ServerObservable { //game is observed by the virtual view
     private static final int MAXPLAYERS = 4; //todo:controllare che non viene superato
+    //private boolean gameStarted_Ended;
     private final Board board;
     private final List<Player> players;
     private Player currentPlayer;
@@ -43,9 +44,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         hasDoneAction=false;
     }
 
-    /**
-     * shuffles the players' list
-     */
+    //mette lista giocatori in ordine casuale
     public void shufflePlayers(){
         Collections.shuffle(players);
     }
@@ -54,40 +53,26 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         this.eventCreator = eventCreator;
     }
 
-    /**
-     * @return the game status: true if it is active, false otherwise
-     */
-    public boolean isActive() {
+    public synchronized boolean isActive() {
         return isActive;
     }
 
-    /**
-     * sets the game status to inactive
-     */
-    public void setInactive() {
+    public synchronized void setInactive() {
         isActive = false;
     }
 
-    /**
-     * @return the wanted number of players for the match
-     */
-    public int getWantedNumPlayers() {
+    public synchronized int getWantedNumPlayers() {
         return wantedNumPlayers;
     }
 
-    /**
-     * sets the wanted number of players for the match
-     */
-    public void setWantedNumPlayers(int numPlayers) {
+    public synchronized void setWantedNumPlayers(int numPlayers) {
         this.wantedNumPlayers = numPlayers;
     }
 
-    /**
-     * @return a list containing all the match's players
-     */
     public List<Player> getPlayers(){   //questi sono tutti, connessi e disconnessi eventuali, se servono sono quelli connessi fare altro metodo
         return new ArrayList<>(players);
     }
+
 
     /**
      * Method getBoard returns the board of this Game object.
@@ -204,16 +189,10 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         lastTurns=true;
     }
 
+    public boolean getLastTurns(){
+        return lastTurns;
+    }
 
-    /**
-     * compares all the points obtained by the players:
-     * If solo mode, it checks whether you Lorenzo's Faith Track position has reached 24 or if there's an empty column
-     * from the Development Card Board. In these cases, Lorenzo wins. Otherwise, you win.
-     * If not Solo mode, it checks which player has the highest Victory Points;
-     * if some players have the same Victory Points, it compares their amount of resources, and the winner is the one who has
-     * more resources.
-     * If they have the same Victory Points and the same amount of resources, they'll be winners together.
-     */
     private void endGame(){
         for(Player p: players)
             p.calculateAndSetVictoryPoints();
@@ -245,7 +224,6 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         notifyAllObservers(eventCreator.createEndGameEvent());
     }
 
-
     /**
      * Adds an illegal action to the list.
      */
@@ -267,12 +245,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     }
 
 
-    /**
-     * Increases all players Faith Track position by 1, except for the current player (who is discarding resources)
-     * If a vatican report is activated, it calls the handlers of the players.
-     * * It also checks if the match is ending (a player has come to the last cell)
-     */
-
+    //incrementa la faith track position di 1 per tutti i giocatori, tranne che per il current (sta scartando le risorse)
     public void incrementOthersFpByDiscarding(){
         for(int k=0; k<getPlayersNumber(); k++){
             if (getCurrentPlayerId()!=k){
@@ -292,8 +265,8 @@ public class Game extends ServerObservable { //game is observed by the virtual v
             }
             notifyAllObservers(eventCreator.createVaticanReportEvent());
             if(e.getReportId()==3){
-                //a player has come to the last cell of the track, so the game is in the final phase
-
+                //a player is arrived in the last cell of the track, so the game is
+                //in the final phase
                 setLastTurnsTrue();
             }
         }
@@ -302,7 +275,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     /**
      * Method incrementFaithTrackPosition is used to increment the faith track position of a
      * player you choose. If a vatican report is activated, it calls the handlers of the players.
-     * It also checks if the match is ending (a player has come to the last cell)
+     * It also checks if the match is ending (a player arrives in the last cell)
      *
      * @param player is the chosen player
      */
@@ -320,7 +293,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
 
             notifyAllObservers(eventCreator.createVaticanReportEvent());
             if(e.getReportId()==3){
-                //a player has come to the last cell of the track, so the game is
+                //a player is arrived in the last cell of the track, so the game is
                 //in the final phase
                 setLastTurnsTrue();
             }
