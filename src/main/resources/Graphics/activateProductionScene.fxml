@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.ActivateProductionSceneController">
-    <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT"
-               pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Image url="@../loader.png"/>
+    <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Image url="@../loader.png" />
     </ImageView>
     <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.3" pickOnBounds="true">
-        <Image url="@../black.png"/>
+        <Image url="@../black.png" />
     </ImageView>
-    <ImageView fitHeight="270.0" fitWidth="271.0" layoutX="71.0" layoutY="225.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="@../boy.png"/>
+    <ImageView fitHeight="270.0" fitWidth="271.0" layoutX="71.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../boy.png" />
     </ImageView>
-    <ImageView fitHeight="417.0" fitWidth="609.0" layoutX="410.0" layoutY="147.0" pickOnBounds="true"
-               preserveRatio="true" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="336.0">
-        <Image url="@../personalcardboard.png"/>
+    <ImageView fitHeight="417.0" fitWidth="609.0" layoutX="410.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="336.0">
+        <Image url="@../personalcardboard.png" />
     </ImageView>
-    <ImageView fx:id="cardProductionImage1" fitHeight="198.0" fitWidth="131.0" layoutX="459.0" layoutY="202.0"
-               pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev1.png"/>
+    <ImageView fx:id="cardProductionImage1" fitHeight="198.0" fitWidth="131.0" layoutX="459.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../Cards/dev1.png" />
     </ImageView>
-    <ImageView fx:id="cardProductionImage2" fitHeight="198.0" fitWidth="131.0" layoutX="614.0" layoutY="202.0"
-               pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev2.png"/>
+    <ImageView fx:id="cardProductionImage2" fitHeight="198.0" fitWidth="131.0" layoutX="614.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../Cards/dev2.png" />
     </ImageView>
-    <ImageView fx:id="cardProductionImage3" fitHeight="204.0" fitWidth="131.0" layoutX="776.0" layoutY="202.0"
-               pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Cards/dev3.png"/>
+    <ImageView fx:id="cardProductionImage3" fitHeight="204.0" fitWidth="131.0" layoutX="776.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../Cards/dev3.png" />
     </ImageView>
     <Button fx:id="submitProductionButton" layoutX="1111.0" layoutY="331.0" mnemonicParsing="false" onAction="#submitProduction" prefHeight="50.0" prefWidth="108.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 3;" text="Done!" textFill="WHITE">
       <font>
@@ -49,14 +50,11 @@
    </Button>
     
     <AnchorPane fx:id="baseProductionPane" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-187.0" opacity="0.8" pickOnBounds="true"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.topAnchor="0.0">
-            <Image url="@../black.png"/>
+        <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-187.0" opacity="0.8" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Image url="@../black.png" />
         </ImageView>
-        <ImageView fitHeight="446.0" fitWidth="741.0" layoutX="269.0" layoutY="144.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../medici.png"/>
+        <ImageView fitHeight="446.0" fitWidth="741.0" layoutX="269.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../medici.png" />
         </ImageView>
         <RadioButton layoutX="607.0" layoutY="281.0" mnemonicParsing="false" selected="true" text="Coin" textFill="WHITE">
             <toggleGroup>
@@ -89,100 +87,102 @@
         <Button fx:id="submitBaseProductionButton" layoutX="740.0" layoutY="514.0" mnemonicParsing="false" onAction="#submitBaseProduction" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Done!" textFill="WHITE" />
         <GridPane layoutX="570.0" layoutY="233.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../coinPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../coinPicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../stonePicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../stonePicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../servantPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../servantPicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../shieldPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../shieldPicc.png" />
             </ImageView>
         </GridPane>
         <GridPane layoutX="578.0" layoutY="337.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../coinPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../coinPicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../stonePicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../stonePicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../servantPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../servantPicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../shieldPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../shieldPicc.png" />
             </ImageView>
         </GridPane>
         <GridPane layoutX="576.0" layoutY="432.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../coinPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../coinPicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../stonePicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../stonePicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../servantPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../servantPicc.png" />
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../shieldPicc.png"/>
+            <ImageView fitHeight="40.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../shieldPicc.png" />
             </ImageView>
         </GridPane>
-      <Button layoutX="1111.0" layoutY="29.0" mnemonicParsing="false" onAction="#closeBaseProd" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
     </AnchorPane>
 
     <AnchorPane fx:id="leaderProductionPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false">
         <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.8" pickOnBounds="true">
-            <Image url="@../black.png"/>
+            <Image url="@../black.png" />
         </ImageView>
-        <ImageView fitHeight="446.0" fitWidth="741.0" layoutX="270.0" layoutY="127.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../medici.png"/>
+        <ImageView fitHeight="446.0" fitWidth="741.0" layoutX="270.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../medici.png" />
         </ImageView>
+        <GridPane layoutX="615.0" layoutY="237.0" prefHeight="245.0" prefWidth="333.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <ImageView fx:id="leaderCardProductionImage1" fitHeight="193.0" fitWidth="157.0" onMouseClicked="#activeLeaderProduction1" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Image url="@../Cards/lead1.png" />
+            </ImageView>
+            <ImageView fx:id="leaderCardProductionImage2" fitHeight="193.0" fitWidth="157.0" onMouseClicked="#activeLeaderProduction2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <GridPane.margin>
+                    <Insets />
+                </GridPane.margin>
+                <Image url="@../Cards/lead1.png" />
+            </ImageView>
+        </GridPane>
+        <Label layoutX="596.0" layoutY="157.0" prefHeight="42.0" prefWidth="314.0" text="Select the resource you want to use and than click active if you want to activate that production. " textFill="WHITE" wrapText="true" />
+        <Label layoutX="726.0" layoutY="141.0" prefHeight="17.0" prefWidth="131.0" text="Leader Card Production" textFill="WHITE" />
         <Button fx:id="activeLeaderProductionButton1" layoutX="615.0" layoutY="496.0" mnemonicParsing="false" onAction="#activeLeaderProduction1" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Active" textFill="WHITE" />
         <Button fx:id="activeLeaderProductionButton2" layoutX="910.0" layoutY="496.0" mnemonicParsing="false" onAction="#activeLeaderProduction2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Active" textFill="WHITE" />
         <RadioButton layoutX="674.0" layoutY="212.0" mnemonicParsing="false" selected="true" text="Coin" textFill="WHITE">
@@ -194,60 +194,23 @@
         <RadioButton layoutX="790.0" layoutY="212.0" mnemonicParsing="false" text="Servant" textFill="WHITE" toggleGroup="$toggleGroupLeaderResource" />
         <RadioButton layoutX="859.0" layoutY="212.0" mnemonicParsing="false" text="Shield" textFill="WHITE" toggleGroup="$toggleGroupLeaderResource" />
         <Button fx:id="submitLeaderProductionButton" layoutX="766.0" layoutY="490.0" mnemonicParsing="false" onAction="#submitLeaderProduction" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Done!" textFill="WHITE" />
-        <Label layoutX="596.0" layoutY="157.0" prefHeight="42.0" prefWidth="314.0" text="Select the resource you want to use and than click active if you want to activate that production. " textFill="WHITE" wrapText="true" />
-        <Label layoutX="726.0" layoutY="141.0" prefHeight="17.0" prefWidth="131.0" text="Leader Card Production" textFill="WHITE" />
-        <GridPane layoutX="615.0" layoutY="237.0" prefHeight="245.0" prefWidth="333.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <ImageView fx:id="leaderCardProductionImage1" fitHeight="193.0" fitWidth="157.0"
-                       onMouseClicked="#activeLeaderProduction1" pickOnBounds="true" preserveRatio="true"
-                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Image url="@../Cards/lead1.png"/>
-            </ImageView>
-            <ImageView fx:id="leaderCardProductionImage2" fitHeight="193.0" fitWidth="157.0"
-                       onMouseClicked="#activeLeaderProduction2" pickOnBounds="true" preserveRatio="true"
-                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <GridPane.margin>
-                    <Insets/>
-                </GridPane.margin>
-                <Image url="@../Cards/lead1.png"/>
-            </ImageView>
-        </GridPane>
-      <Button layoutX="1110.0" layoutY="30.0" mnemonicParsing="false" onAction="#closeLeadProd" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
     </AnchorPane>
-    <AnchorPane layoutX="20.0" layoutY="20.0" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0"
-                prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0"
-                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane layoutX="20.0" layoutY="20.0" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.75" pickOnBounds="true">
-            <Image url="@../black.png"/>
+            <Image url="@../black.png" />
         </ImageView>
-        <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../medici.png"/>
+        <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../medici.png" />
         </ImageView>
-        <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false"
-                text="return to start (esce solo se connecton lost)"/>
-        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" maxHeight="62.0"
-                maxWidth="62.0" minHeight="62.0" minWidth="62.0" mnemonicParsing="false" prefHeight="62.0"
-                prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X"
-                textFill="WHITE">
+        <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="return to start (esce solo se connecton lost)" />
+        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" maxHeight="62.0" maxWidth="62.0" minHeight="62.0" minWidth="62.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">
            <font>
-               <Font size="24.0"/>
+               <Font size="24.0" />
            </font>
         </Button>
-        <Label layoutX="558.0" layoutY="131.0" prefHeight="26.0" prefWidth="509.0"
-               text="YOU ENCOUNTERED A WILD ERROR MESSAGE" textFill="WHITE">
+        <Label layoutX="558.0" layoutY="131.0" prefHeight="26.0" prefWidth="509.0" text="YOU ENCOUNTERED A WILD ERROR MESSAGE" textFill="WHITE">
            <font>
-               <Font size="24.0"/>
+               <Font size="24.0" />
            </font>
         </Label>
     </AnchorPane>

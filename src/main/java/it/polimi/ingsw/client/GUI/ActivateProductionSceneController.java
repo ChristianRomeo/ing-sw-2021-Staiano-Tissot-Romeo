@@ -174,15 +174,6 @@ public class ActivateProductionSceneController extends FXMLController{
         guiView.setCurrentScene("gameScene");
     }
 
-    public void closeBaseProd() {
-        baseProductionPane.setVisible(false);
-        //baseProductionPane.setDisable(true);
-    }
-    public void closeLeadProd() {
-        leaderProductionPane.setVisible(false);
-        //baseProductionPane.setDisable(true);
-    }
-
     @FXML
     public void exit(){
         guiView.getSceneController("gameScene").updateScene();
