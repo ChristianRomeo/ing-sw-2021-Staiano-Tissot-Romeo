@@ -23,13 +23,13 @@ import java.util.List;
 public class EventsHandler implements ServerEventObserver {
 
     private final ClientModel clientModel;
-    private final View view;            //non so se dobbiamo dividere tra cliview e guiview
+    //private final View view;            //non so se dobbiamo dividere tra cliview e guiview
 
     private final ServerEventObserver eventHandlerView; //questo gestisce gli eventi dal server per quanto riguarda la view
 
     public EventsHandler(ClientModel clientModel, View view){
         this.clientModel =clientModel;
-        this.view=view;
+        //this.view=view;
         if(view instanceof CliView){
             eventHandlerView = new EventsHandlerCLI(clientModel,(CliView) view);
         }else{
@@ -140,12 +140,12 @@ public class EventsHandler implements ServerEventObserver {
     }
 
     @Override
-    public void handleEvent(IllegalActionEventS2C event) { //si potrà fare meglio
+    public void handleEvent(IllegalActionEventS2C event) {
 
         event.notifyHandler(eventHandlerView);
     }
 
-    //todo pregame da riguardare
+
     @Override
     public void handleEvent(GameStarterEventS2C event) {
 

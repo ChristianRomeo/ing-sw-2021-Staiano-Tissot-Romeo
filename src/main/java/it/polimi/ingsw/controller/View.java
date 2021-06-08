@@ -44,19 +44,6 @@ public interface View {
 
 
     /**
-     * shows a message to the user.
-     * @param message showed
-     */
-    void showMessage(String message);
-
-    /**
-     * Shows an error message
-     * @param errorMessage The message to be shown
-     */
-    void showErrorMessage(String errorMessage);
-
-
-    /**
      * Notify all that a player has been disconnected (and the game has ended ?FA)
      * @param disconnected The nickname of the disconnected player
      */

@@ -48,7 +48,8 @@ public class ServerHandler implements Runnable{
 
             } catch (ClassNotFoundException | IOException e) {
                 if (isConnected)
-                    System.out.println("Server down, closing");
+                    logger.warning("Server down, closing");
+                    //System.out.println("Server down, closing");
                 closeConnection();
                 view.askNewGame();
             }
@@ -64,7 +65,8 @@ public class ServerHandler implements Runnable{
 
             isConnected=true;
         }catch (IOException e){
-            view.showErrorMessage("error during setUpConnection (cause: server down or config file)\nTrying to fall back to 127.0.0.1:9876 ...");
+            logger.warning("error during setUpConnection (cause: server down or config file)\nTrying to fall back to 127.0.0.1:9876 ...");
+            //view.showErrorMessage("error during setUpConnection (cause: server down or config file)\nTrying to fall back to 127.0.0.1:9876 ...");
             if (socket==null)
                 try {
                     socket = new Socket("127.0.0.1", 9876);
@@ -88,13 +90,15 @@ public class ServerHandler implements Runnable{
                 view.getClientModel().setMyNickname(serverAnswer.getNickname());                            //si imposta il nick ricevuto
 
                 if (!Objects.equals(view.getClientModel().getMyNickname(), old))
-                    view.showMessage(Styler.color('g',"Your new username is " + view.getClientModel().getMyNickname()));
+                    logger.info("Your new username is " + view.getClientModel().getMyNickname());
+                    //view.showMessage(Styler.color('g',"Your new username is " + view.getClientModel().getMyNickname()));
 
                 if(serverAnswer.isFirstPlayer()){
                     int wantedNumPlayers = view.askNumPlayers();                                             //qui si chiede il numero di giocatori voluto all'utente
                     send(new NumPlayerEvent(wantedNumPlayers));
                     if (wantedNumPlayers!=1)
-                        view.showMessage("Now please wait for others players...");
+                        logger.info("Now please wait for others players...");
+                        //view.showMessage("Now please wait for others players...");
                 }
             } catch (IOException | ClassNotFoundException e) {
                 logger.warning("Server down during setup reading "+e);

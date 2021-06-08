@@ -208,23 +208,7 @@ public class GuiView extends Application implements View {
         }else{
             return -1; //dovrebbe essere impossibile
         }
-        /* //cosi non va
-        InitialSceneController initialSceneController = (InitialSceneController) currentFXMLController;
-        Platform.runLater(new Runnable() {
-                              @Override public void run() {
-                                    initialSceneController.askNumPlayers();
-                              }
-        });
-        synchronized (initialSceneController){
-            while (initialSceneController.getNumPlayers()==0){
-                try {
-                    initialSceneController.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return initialSceneController.getNumPlayers();*/
+
     }
 
     //tu gli dai una leader card e questo metodo ti ritorna la sua immagine
@@ -265,7 +249,6 @@ public class GuiView extends Application implements View {
     }
 
     //ritorna l'immagine della pope tile passata, la 0,1 o 2 a seconda dell'index passato
-
     /**
      *  It returns the image of the pope tile passed.
      * @param popeTile the status of the pope tile
@@ -334,27 +317,6 @@ public class GuiView extends Application implements View {
                 //dovrebbe essere impossibile;
             }
         });
-    }
-
-
-    /**
-     * shows a message to the user.
-     *
-     * @param message showed
-     */
-    @Override
-    public void showMessage(String message) {
-
-    }
-
-    /**
-     * Shows an error message
-     *
-     * @param errorMessage The message to be shown
-     */
-    @Override
-    public void showErrorMessage(String errorMessage) {
-
     }
 
     /**

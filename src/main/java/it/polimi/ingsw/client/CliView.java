@@ -993,7 +993,7 @@ public class CliView implements View {
      */
     public void showTurn(String currentNickname) {
         showMessage("It's " + currentNickname + "'s turn.");
-    }   //todo:da usare
+    }   //todo:da usare o da togliere
 
 
     public void showLorenzoTurn(SoloAction soloAction){
