@@ -220,14 +220,14 @@
                 <RowConstraints maxHeight="223.19996337890626" minHeight="10.0" prefHeight="199.19997558593747" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="70.39999999999998" minHeight="10.0" prefHeight="37.39998779296877" vgrow="SOMETIMES" />
             </rowConstraints>
-            <Button fx:id="insertLeaderButton1" mnemonicParsing="false" onAction="#insertLeader1" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Insert Leader 1" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button fx:id="insertLeaderButton2" mnemonicParsing="false" onAction="#insertLeader2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Insert Leader 2" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <ImageView fx:id="leaderCardInsertImage1" fitHeight="172.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                 <Image url="@../Cards/lead5.png" />
             </ImageView>
             <ImageView fx:id="leaderCardInsertImage2" fitHeight="172.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                 <Image url="@../Cards/lead5.png" />
             </ImageView>
+            <Button fx:id="insertLeaderButton1" mnemonicParsing="false" onAction="#insertLeader1" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Insert Leader 1" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="insertLeaderButton2" mnemonicParsing="false" onAction="#insertLeader2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Insert Leader 2" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
         </GridPane>
       <ImageView fx:id="leader1Slot1InsertImage" fitHeight="35.0" fitWidth="27.0" layoutX="576.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -245,11 +245,6 @@
          <image>
             <Image url="@../stoneGr.png" />
          </image></ImageView>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1113.0" layoutY="20.0" mnemonicParsing="false" onAction="#closeInsertResourcePane" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="#f2f2f2">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
     </AnchorPane>
 
     <AnchorPane fx:id="editWarehousePane" layoutX="173.0" layoutY="58.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -336,10 +331,6 @@
         <RadioButton layoutX="834.0" layoutY="475.0" mnemonicParsing="false" toggleGroup="$toggleGroupEditWarehouse" />
         <Label layoutX="727.0" layoutY="126.0" prefHeight="42.0" prefWidth="271.0" text="You can temporary remove a resource from the selected position or re-insert a removed resource" textFill="WHITE" wrapText="true" />
         <Label layoutX="661.0" layoutY="207.0" prefHeight="77.0" prefWidth="138.0" text="Considered Resource" textFill="WHITE" wrapText="true" />
-        <Button fx:id="reinsertLeaderResourceButton1" layoutX="470.0" layoutY="340.0" mnemonicParsing="false" onAction="#reinsertLeaderResource1" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Re-Insert Leader 1" textFill="WHITE" />
-        <Button fx:id="reinsertLeaderResourceButton2" layoutX="470.0" layoutY="561.0" mnemonicParsing="false" onAction="#reinsertLeaderResource2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Re-Insert Leader 2" textFill="WHITE" />
-        <Button fx:id="removeLeaderResourceButton1" layoutX="600.0" layoutY="340.0" mnemonicParsing="false" onAction="#removeLeaderResource1" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Remove Leader1" textFill="WHITE" />
-        <Button fx:id="removeLeaderResourceButton2" layoutX="600.0" layoutY="561.0" mnemonicParsing="false" onAction="#removeLeaderResource2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Remove Leader2" textFill="WHITE" />
       <GridPane layoutX="507.0" layoutY="130.0" prefHeight="445.0" prefWidth="171.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -369,35 +360,26 @@
          <image>
             <Image url="@../stonePicc.png" />
          </image></ImageView>
-        <ImageView fx:id="leader2Slot1EditImage" fitHeight="25.0" fitWidth="27.0" layoutX="558.0" layoutY="515.0"
-                   pickOnBounds="true" preserveRatio="true">
-            <Image url="@../stonePicc.png"/>
+        <ImageView fx:id="leader2Slot1EditImage" fitHeight="25.0" fitWidth="27.0" layoutX="558.0" layoutY="515.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../stonePicc.png" />
         </ImageView>
-        <ImageView fx:id="leader2Slot2EditImage" fitHeight="25.0" fitWidth="27.0" layoutX="603.0" layoutY="515.0"
-                   pickOnBounds="true" preserveRatio="true">
-            <Image url="@../stonePicc.png"/>
+        <ImageView fx:id="leader2Slot2EditImage" fitHeight="25.0" fitWidth="27.0" layoutX="603.0" layoutY="515.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../stonePicc.png" />
         </ImageView>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1113.0" layoutY="20.0" mnemonicParsing="false" onAction="#closeEditWarehousePane" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
+        <Button fx:id="reinsertLeaderResourceButton1" layoutX="470.0" layoutY="340.0" mnemonicParsing="false" onAction="#reinsertLeaderResource1" prefHeight="28.0" prefWidth="124.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Re-Insert Leader 1" textFill="WHITE" />
+        <Button fx:id="reinsertLeaderResourceButton2" layoutX="470.0" layoutY="561.0" mnemonicParsing="false" onAction="#reinsertLeaderResource2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Re-Insert Leader 2" textFill="WHITE" />
+        <Button fx:id="removeLeaderResourceButton1" layoutX="600.0" layoutY="340.0" mnemonicParsing="false" onAction="#removeLeaderResource1" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Remove Leader1" textFill="WHITE" />
+        <Button fx:id="removeLeaderResourceButton2" layoutX="600.0" layoutY="561.0" mnemonicParsing="false" onAction="#removeLeaderResource2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Remove Leader2" textFill="WHITE" />
         <GridPane layoutX="964.0" layoutY="266.0" prefHeight="99.0" prefWidth="114.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <Button fx:id="reinsertResourceButton" mnemonicParsing="false" onAction="#reinsertResource"
-                    prefHeight="26.0" prefWidth="115.0"
-                    style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;"
-                    text="Re-insert resource" textFill="WHITE" GridPane.halignment="CENTER"/>
-            <Button fx:id="temporaryRemoveResourceButton" mnemonicParsing="false" onAction="#temporaryRemoveResource"
-                    prefHeight="26.0" prefWidth="115.0"
-                    style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;"
-                    text="Remove resource" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
+            <Button fx:id="reinsertResourceButton" mnemonicParsing="false" onAction="#reinsertResource" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Re-insert resource" textFill="WHITE" GridPane.halignment="CENTER" />
+            <Button fx:id="temporaryRemoveResourceButton" mnemonicParsing="false" onAction="#temporaryRemoveResource" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Remove resource" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         </GridPane>
     </AnchorPane>
     <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

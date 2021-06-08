@@ -69,7 +69,7 @@ public class Board {
                 }
                 for (int i = 0; i < MAXCARDSLEVEL; ++i) {
                     while (discardedCards<2 && getDevelopmentCardBoard().getPileSize(i,selectedColumn)>0){
-                        getDevelopmentCardBoard().removeCard(i,GREENCOLUMN);
+                        getDevelopmentCardBoard().removeCard(i,selectedColumn);
                         discardedCards++;
                     }
                     if (discardedCards == 2)

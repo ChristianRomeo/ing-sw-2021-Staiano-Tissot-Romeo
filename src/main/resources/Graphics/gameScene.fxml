@@ -86,7 +86,6 @@
          <Image url="@../blackcross.png" />
       </image>
    </ImageView>
-   <Button fx:id="endTurnButton" layoutX="1141.0" layoutY="651.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="25.0" prefWidth="93.0" stylesheets="@style.css" text="END TURN" />
    <ImageView fx:id="myDevCardImage10" fitHeight="186.0" fitWidth="128.0" layoutX="723.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@../Cards/dev1.png" />
    </ImageView>
@@ -225,6 +224,7 @@
          </ImageView>
       </children>
    </GridPane>
+   <Button fx:id="endTurnButton" layoutX="1141.0" layoutY="651.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="25.0" prefWidth="93.0" stylesheets="@style.css" text="END TURN" />
    <Label fx:id="strongboxNumberCoinsLabel" layoutX="239.0" layoutY="565.0" style="-fx-font-weight: BOLD;" text="x0">
       <font>
          <Font size="18.0" />
