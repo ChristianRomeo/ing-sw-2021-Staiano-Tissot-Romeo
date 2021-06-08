@@ -1,7 +1,8 @@
 package it.polimi.ingswModelTests;
-import it.polimi.ingsw.controller.*;
-import it.polimi.ingsw.model.*;
 
+import it.polimi.ingsw.model.CardType;
+import it.polimi.ingsw.model.SoloAction;
+import it.polimi.ingsw.model.SoloActionType;
 import org.junit.jupiter.api.Test;
 
 /**

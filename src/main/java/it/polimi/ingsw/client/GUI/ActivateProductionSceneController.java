@@ -1,20 +1,15 @@
 package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.controller.Events.ActivatedProductionEvent;
-import it.polimi.ingsw.controller.Events.BoughtCardEvent;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.LeaderCardProduction;
 import it.polimi.ingsw.model.PersonalCardBoard;
 import it.polimi.ingsw.model.Resource;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;

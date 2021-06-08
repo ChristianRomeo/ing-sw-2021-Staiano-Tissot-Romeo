@@ -3,9 +3,9 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.controller.Events.InitialChoiceEvent;
 import it.polimi.ingsw.controller.Events.ServerEventCreator;
 import it.polimi.ingsw.controller.Events.ServerObservable;
-import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.modelExceptions.*;
+import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
+import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -18,7 +18,6 @@ import java.util.logging.Logger;
  */
 public class Controller extends ServerObservable {
     private final Game game;
-    private VirtualView virtualView;    //serve?
     private final static Logger logger = Logger.getLogger(Server.class.getName());
     private final ServerEventCreator eventCreator;
     private boolean preGameStarted;
@@ -46,7 +45,6 @@ public class Controller extends ServerObservable {
     }
 
     public void setVirtualView(VirtualView virtualView) {
-        this.virtualView = virtualView;
         addObserver(virtualView);       //così la virtual view riceverà i server events inviati dal controller
         game.addObserver(virtualView); //cosi la virtual view riceve anche i server events inviati dal game
     }
@@ -453,7 +451,7 @@ public class Controller extends ServerObservable {
                 case WHITE -> { //todo: la parte isActivated credo è inutile, sta già controllo nella carta
                     if (leaderCards.get(0).isActivated() && leaderCards.get(0).getWhiteMarbleResource() != null){
                         if(leaderCards.get(1).isActivated() && leaderCards.get(1).getWhiteMarbleResource() != null){
-                            boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(whiteMarbleChoices1.remove(0)).getWhiteMarbleResource());  //nullpointerexception?
+                            boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(Objects.requireNonNull(whiteMarbleChoices1).remove(0)).getWhiteMarbleResource());  //nullpointerexception?
                         }else{
                             boughtResources =Resource.addOneResource(boughtResources,leaderCards.get(0).getWhiteMarbleResource());
                         }

@@ -5,19 +5,18 @@ import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.SameTypePair;
 import javafx.fxml.FXML;
-
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.effect.*;
-import javafx.scene.image.Image;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class PregameSceneController extends FXMLController{

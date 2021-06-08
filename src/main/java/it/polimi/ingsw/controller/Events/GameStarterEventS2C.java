@@ -1,8 +1,9 @@
 package it.polimi.ingsw.controller.Events;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.DevelopmentCardBoard;
+import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.Market;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class GameStarterEventS2C extends ServerEvent{

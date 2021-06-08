@@ -24,7 +24,7 @@ public class CliView implements View {
     public CliView() {
         int cookie=1; //todo DOBBIAMO FARLO ARRIVARE DAL SERVER PER POTER RICONNETTERE IL PLAYER
         this.scanner = new Scanner(System.in);
-        clientModel = new ClientModel(cookie);
+        clientModel = new ClientModel();
     }
 
     public ClientModel getClientModel() {

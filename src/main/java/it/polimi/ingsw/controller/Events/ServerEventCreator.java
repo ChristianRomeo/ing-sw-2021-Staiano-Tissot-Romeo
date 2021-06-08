@@ -3,16 +3,13 @@ package it.polimi.ingsw.controller.Events;
 //sta classe crea gli eventi che poi mandiamo al client
 //è una classe ausiliaria per non mettere tutto nel controller
 
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.controller.Events.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.model.DevelopmentCardBoard;
-import it.polimi.ingsw.model.PersonalCardBoard;
 
 public class ServerEventCreator{
     Controller controller;

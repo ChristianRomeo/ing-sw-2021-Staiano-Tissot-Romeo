@@ -1,11 +1,11 @@
 package it.polimi.ingsw.client.GUI;
-import it.polimi.ingsw.controller.Events.*;
+
+import it.polimi.ingsw.controller.Events.EndTurnEvent;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +16,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class GameSceneController extends FXMLController {
 

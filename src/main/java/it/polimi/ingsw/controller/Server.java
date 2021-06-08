@@ -33,10 +33,7 @@ public class Server {
         server.launch(in);
     }
 
-    /**
-     *
-     * @see {$link} https://stackoverflow.com/questions/4684727/java-serversocket-why-is-the-ip-address-0-0-0-0-yet-i-can-still-connect-remote/4684806
-     */
+    // https://stackoverflow.com/questions/4684727/java-serversocket-why-is-the-ip-address-0-0-0-0-yet-i-can-still-connect-remote/4684806
     public void launch(Configs in) {   //eccezione per il file di configurazione della porta e ip
 
         try {

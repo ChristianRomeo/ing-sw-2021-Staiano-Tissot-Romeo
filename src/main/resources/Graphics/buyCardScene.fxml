@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.BuyCardSceneController">
-   <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <image>
-         <Image url="@../loader.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" opacity="0.3" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <image>
-         <Image url="@../black.png" />
-      </image>
-   </ImageView>
+    <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT"
+               pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Image url="@../loader.png"/>
+    </ImageView>
+    <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" opacity="0.3" pickOnBounds="true"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+        <Image url="@../black.png"/>
+    </ImageView>
     <ChoiceBox fx:id="buyCardRowChoiceBox" layoutX="474.0" layoutY="653.0" prefHeight="25.0" prefWidth="131.0" />
     <ChoiceBox fx:id="buyCardColumnChoiceBox" layoutX="775.0" layoutY="654.0" prefHeight="25.0" prefWidth="123.0" />
     <Label layoutX="431.0" layoutY="657.0" prefHeight="17.0" prefWidth="36.0" text="Row" />
@@ -39,33 +30,56 @@
    <Label layoutX="567.0" layoutY="628.0" text="1" />
    <Label layoutX="711.0" layoutY="628.0" text="2" />
    <Label layoutX="838.0" layoutY="628.0" text="3" />
-   <GridPane gridLinesVisible="true" layoutX="406.0" layoutY="70.0" prefHeight="554.0" prefWidth="554.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="70.0">
-     <columnConstraints>
-       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-     </rowConstraints>
-      <children>
-         <ImageView fx:id="developmentCardImage20" fitHeight="169.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage21" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage22" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage23" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage10" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage11" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage12" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage13" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage00" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage01" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage02" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-         <ImageView fx:id="developmentCardImage03" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      </children>
-   </GridPane>
+    <GridPane gridLinesVisible="true" layoutX="406.0" layoutY="70.0" prefHeight="554.0" prefWidth="554.0"
+              AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="360.0"
+              AnchorPane.topAnchor="70.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <ImageView fx:id="developmentCardImage20" fitHeight="169.0" fitWidth="131.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage21" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage22" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage23" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage10" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage11" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage12" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage13" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage00" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage01" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage02" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                   GridPane.valignment="CENTER"/>
+        <ImageView fx:id="developmentCardImage03" fitHeight="133.0" fitWidth="104.0" pickOnBounds="true"
+                   preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                   GridPane.valignment="CENTER"/>
+    </GridPane>
     <ImageView fitHeight="270.0" fitWidth="271.0" layoutX="55.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../boy.png" />
     </ImageView>
@@ -76,20 +90,17 @@
    </Button>
    
     <AnchorPane fx:id="buyCardPane2" layoutX="174.0" layoutY="17.0" prefHeight="663.0" prefWidth="1018.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.8" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../black.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="446.0" fitWidth="741.0" layoutX="270.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../medici.png" />
-         </image>
-      </ImageView>
-        <ImageView fitHeight="334.0" fitWidth="462.0" layoutX="498.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../personalcardboard.png" />
-            </image>
+        <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.8" pickOnBounds="true" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Image url="@../black.png"/>
+        </ImageView>
+        <ImageView fitHeight="446.0" fitWidth="741.0" layoutX="270.0" layoutY="140.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../medici.png"/>
+        </ImageView>
+        <ImageView fitHeight="334.0" fitWidth="462.0" layoutX="498.0" layoutY="172.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../personalcardboard.png"/>
         </ImageView>
         <ImageView fx:id="choosePersonalCardBoardPileImage1" fitHeight="156.0" fitWidth="104.0" layoutX="591.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="choosePersonalCardBoardPileImage2" fitHeight="156.0" fitWidth="104.0" layoutX="706.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true" />
@@ -111,14 +122,11 @@
     </AnchorPane>
     <AnchorPane layoutX="20.0" layoutY="20.0" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.75" pickOnBounds="true">
-           <image>
-               <Image url="@../black.png" />
-           </image>
+            <Image url="@../black.png"/>
         </ImageView>
-        <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
-           <image>
-               <Image url="@../medici.png" />
-           </image>
+        <ImageView fitHeight="606.0" fitWidth="1055.0" layoutX="113.0" layoutY="63.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../medici.png"/>
         </ImageView>
         <Button layoutX="821.0" layoutY="360.0" mnemonicParsing="false" text="return to start (esce solo se connecton lost)" />
         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1082.0" layoutY="78.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="62.0" style="-fx-font-weight: BOLD; -fx-background-color: transparent;" text="X" textFill="WHITE">

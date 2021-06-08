@@ -18,7 +18,7 @@ public class StatusPlayer {
         private Map<Resource,Integer> strongboxResources;
         private final SameTypeTriple<PopeFavorTileStatus> popeFavorTiles;
         private final PersonalCardBoard personalCardBoard;
-        private List<LeaderCard> leaderCards;
+        private final List<LeaderCard> leaderCards;
 
 
         /**

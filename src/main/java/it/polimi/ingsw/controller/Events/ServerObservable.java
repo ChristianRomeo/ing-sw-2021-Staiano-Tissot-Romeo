@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class ServerObservable {
 
-    private List<ServerEventObserver> observers = new ArrayList<>();
+    private final List<ServerEventObserver> observers = new ArrayList<>();
 
     public void addObserver(ServerEventObserver observer){
         observers.add(observer);

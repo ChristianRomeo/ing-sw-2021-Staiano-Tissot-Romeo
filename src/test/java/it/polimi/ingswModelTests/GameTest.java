@@ -1,8 +1,7 @@
 package it.polimi.ingswModelTests;
-import it.polimi.ingsw.controller.*;
-import it.polimi.ingsw.model.*;
 
-
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

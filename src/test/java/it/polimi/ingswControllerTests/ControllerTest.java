@@ -1,15 +1,14 @@
 package it.polimi.ingswControllerTests;
 
-import it.polimi.ingsw.controller.*;
+import it.polimi.ingsw.controller.Configs;
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Unit tests.
@@ -178,7 +177,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void readerLeaderCardTest () throws IOException {
+    public void readerLeaderCardTest () {
 
         List<LeaderCard> leaderCardsList = Configs.getLeaderCards();
         leaderCardsList.forEach(System.out::println);
@@ -238,7 +237,7 @@ public class ControllerTest {
     }
 
     @Test //test superato
-    public void activateLeaderCardByDevelopmentCardsTest() throws IOException, InvalidWarehouseInsertionException, InvalidCardInsertionException {
+    public void activateLeaderCardByDevelopmentCardsTest() throws IOException, InvalidCardInsertionException {
         Game game = new Game();
         Controller controller = new Controller(game);
         Player player = new Player("nickname");
@@ -276,7 +275,7 @@ public class ControllerTest {
 
         for(DevelopmentCard card : Configs.getDevelopmentCards())
         {
-            if(card.getLevel() == 2 && card.getType().equals(addedCard.getType())) {
+            if(card.getLevel() == 2 && card.getType().equals(Objects.requireNonNull(addedCard).getType())) {
                 player.getStatusPlayer().getPersonalCardBoard().addCard(card, 0);
                 break;
             }

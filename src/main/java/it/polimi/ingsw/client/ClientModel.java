@@ -51,8 +51,6 @@ public class ClientModel {
 
    private Map<String,Integer> victoryPoints; //map of nickname->pv of that player
 
-   private int serverCookie;
-
    private int numPlayers;
 
    private int myIndex; //index del giocatore (se tipo è primo o secondo ecc)
@@ -69,10 +67,9 @@ public class ClientModel {
 
    /**
     * constructor of the ClientModel class
-    * @param serverCookie is the server cookie to be set
     */
-   public ClientModel(int serverCookie) {
-      this.serverCookie = serverCookie;
+   public ClientModel() {
+
    }
 
    /**
@@ -117,10 +114,6 @@ public class ClientModel {
 
    public synchronized List<List<LeaderCard>> getPlayersLeaderCards() {
       return playersLeaderCards;
-   }
-
-   public synchronized int getServerCookie() {
-      return serverCookie;
    }
 
    public synchronized int getNumPlayers(){

@@ -2,13 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
-import it.polimi.ingsw.controller.Events.EndGameEventS2C;
-import it.polimi.ingsw.model.*;
-
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
 
 public interface View {
 

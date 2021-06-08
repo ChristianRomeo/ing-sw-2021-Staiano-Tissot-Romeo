@@ -2,9 +2,10 @@ package it.polimi.ingswClientTests;
 
 import it.polimi.ingsw.client.CliView;
 import it.polimi.ingsw.client.Styler;
-import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.controller.VirtualView;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.MarbleColor;
+import it.polimi.ingsw.model.Market;
+import it.polimi.ingsw.model.PlayerWarehouse;
+import it.polimi.ingsw.model.Resource;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class ClientTest {
 
 
     @Test
-    public void printMarketTest() throws Exception {
+    public void printMarketTest() {
         CliView cliView = new CliView();
         Market market = new Market();
         cliView.showMessage(Styler.color('b',"#\t1\t\t2\t\t3\t\t4"));

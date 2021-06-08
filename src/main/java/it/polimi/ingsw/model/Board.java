@@ -59,14 +59,12 @@ public class Board {
                     shuffleSoloActionPile();   //DRY
             case DISCARDTWOCARDS -> {
                 int discardedCards=0;
-                int selectedColumn=0;
-
-                switch (removedSoloAction.getDiscardedCardsType()) {
-                    case GREEN -> selectedColumn = GREENCOLUMN;
-                    case BLUE -> selectedColumn = BLUECOLUMN;
-                    case YELLOW -> selectedColumn = YELLOWCOLUMN;
-                    case PURPLE -> selectedColumn = PURPLECOLUMN;
-                }
+                int selectedColumn = switch (removedSoloAction.getDiscardedCardsType()) {
+                    case GREEN -> GREENCOLUMN;
+                    case BLUE -> BLUECOLUMN;
+                    case YELLOW -> YELLOWCOLUMN;
+                    case PURPLE -> PURPLECOLUMN;
+                };
                 for (int i = 0; i < MAXCARDSLEVEL; ++i) {
                     while (discardedCards<2 && getDevelopmentCardBoard().getPileSize(i,selectedColumn)>0){
                         getDevelopmentCardBoard().removeCard(i,selectedColumn);

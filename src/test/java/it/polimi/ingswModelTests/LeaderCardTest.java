@@ -2,8 +2,6 @@ package it.polimi.ingswModelTests;
 
 import it.polimi.ingsw.controller.Configs;
 import it.polimi.ingsw.model.LeaderCard;
-import it.polimi.ingsw.model.LeaderCardWhiteMarble;
-import it.polimi.ingsw.model.Player;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

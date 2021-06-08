@@ -49,7 +49,7 @@ public class GuiView extends Application implements View {
     private static Configs conf;
 
     public GuiView(){
-        clientModel = new ClientModel(1);
+        clientModel = new ClientModel();
     }
 
     public static void main(Configs args) {

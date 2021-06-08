@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.GUI.GuiView;
 import it.polimi.ingsw.controller.Events.*;
 
 //questo dovrebbe solo mostrare le cose alla cli , in base a che eventi arrivano

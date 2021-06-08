@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
-import it.polimi.ingsw.model.modelExceptions.VaticanReportException;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -23,7 +22,7 @@ import java.util.Map;
 public class PlayerTest {
 
     @Test // test successful
-    public void isBetweenTest() throws VaticanReportException {
+    public void isBetweenTest() {
         StatusPlayer statusPlayer = new StatusPlayer();
         Player player = new Player("");
         for(int i = 0; i < 3; i++)
@@ -34,7 +33,7 @@ public class PlayerTest {
     }
 
     @Test //test successful
-    public void calculateAndSetVictoryPointsTestBasedOnFaithTrackTest() throws VaticanReportException {
+    public void calculateAndSetVictoryPointsTestBasedOnFaithTrackTest() {
         Player player = new Player("");
         for(int i = 0; i < 3; i++)
             player.getStatusPlayer().incrementFaithTrackPosition();
@@ -68,7 +67,7 @@ public class PlayerTest {
     }
 
     @Test //test successfull
-    public void calculateAndSetVictoryPointsBasedOnPopeFavorTilesTest() throws VaticanReportException {
+    public void calculateAndSetVictoryPointsBasedOnPopeFavorTilesTest() {
         Player player = new Player("");
         for(int i = 0; i < 5; i++)
         player.getStatusPlayer().incrementFaithTrackPosition();
@@ -81,7 +80,7 @@ public class PlayerTest {
     }
 
     @Test //test successful
-    public void calculateAndSetVictoryPointsBasedOnDevelopmentCardsTest() throws InvalidWarehouseInsertionException, IOException, InvalidCardInsertionException, VaticanReportException {
+    public void calculateAndSetVictoryPointsBasedOnDevelopmentCardsTest() throws IOException, InvalidCardInsertionException {
         Player player = new Player("");
         DevelopmentCardBoard developmentCardBoard = new DevelopmentCardBoard();
         //let's add a GREEN card to the player personal card board and calculate his victory points

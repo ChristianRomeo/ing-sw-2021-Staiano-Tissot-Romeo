@@ -1,11 +1,12 @@
 package it.polimi.ingswModelTests;
-import it.polimi.ingsw.controller.*;
-import it.polimi.ingsw.model.*;
 
-import it.polimi.ingsw.model.modelExceptions.CannotBuyCardException;
+import it.polimi.ingsw.model.DevelopmentCard;
+import it.polimi.ingsw.model.DevelopmentCardBoard;
+import it.polimi.ingsw.model.PersonalCardBoard;
 import it.polimi.ingsw.model.modelExceptions.InvalidCardInsertionException;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests.

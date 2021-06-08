@@ -1,24 +1,14 @@
 package it.polimi.ingsw.client.GUI;
 
 
-import it.polimi.ingsw.controller.Events.BoughtCardEvent;
 import it.polimi.ingsw.controller.Events.UseMarketEvent;
-import it.polimi.ingsw.model.PersonalCardBoard;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.ImagePattern;
 
 import java.util.*;
 

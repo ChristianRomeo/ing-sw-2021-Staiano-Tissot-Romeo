@@ -5,12 +5,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.LeaderCardDiscount;
-import it.polimi.ingsw.model.LeaderCardSlots;
-import it.polimi.ingsw.model.LeaderCardWhiteMarble;
-import it.polimi.ingsw.model.LeaderCard;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

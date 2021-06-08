@@ -3,13 +3,10 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.controller.Events.BoughtCardEvent;
 import it.polimi.ingsw.model.DevelopmentCardBoard;
 import it.polimi.ingsw.model.PersonalCardBoard;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
