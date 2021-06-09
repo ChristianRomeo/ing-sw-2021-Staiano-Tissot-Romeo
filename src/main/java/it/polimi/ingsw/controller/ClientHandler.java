@@ -22,7 +22,6 @@ public class ClientHandler implements Runnable {
     private final ObjectOutputStream output;    //invia messaggi al client
     private final ObjectInputStream input;      //riceve messaggi dal client
     private final boolean isFirstPlayer;        //clue per fargli scegliere le carte
-    private final Object lock = new Object();
     private boolean isConnected;                //modificato nel ping e basta?
     private final static Logger logger = Logger.getLogger(Server.class.getName());
 
@@ -173,13 +172,8 @@ public class ClientHandler implements Runnable {
                     output.reset();
 
             } catch (IOException e) {
-                if (isConnected()) {  // This player has disconnected
-                    logger.warning(nickname + " has disconnected in send");
-                    setDisconnected();
-                } else{// Another player has disconnected
-                    logger.warning(nickname + " was disconnected due to shutdown in send");
-                    closeSocket();                  //?? IDK in "teoria" è da chiudere il socket del player disconnesso, non quello attuale che scrive a tutti
-                }
+                logger.warning(nickname + " has disconnected in send");
+                setDisconnected();
             }
 
     }
@@ -212,15 +206,8 @@ public class ClientHandler implements Runnable {
                     }
             }
             catch (IOException | ClassNotFoundException e) {
-                if (isConnected()) {  // This player has disconnected
-                    logger.warning(nickname + " has disconnected in receive");
-                    setDisconnected();
-                } else{// Another player has disconnected
-                    logger.warning(nickname + " was disconnected due to shutdown in receive");
-                    closeSocket();
-                }
-
-
+                logger.warning(nickname + " has disconnected in receive");
+                setDisconnected();
             }
 
     }

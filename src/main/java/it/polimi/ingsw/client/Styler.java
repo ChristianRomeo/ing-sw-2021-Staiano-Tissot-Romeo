@@ -56,10 +56,6 @@ public enum Styler {
         } + t + ANSI_RESET;
     }
 
-    public static String format(char f1, char f2, String t){
-        return format(f1, format(f2,t));
-    }
-
     public static void header(){
         System.out.println(color('y', """
                                 

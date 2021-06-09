@@ -28,7 +28,7 @@ public class Server {
         this.addedPlayers = 0;
     }
 
-    public static void main(Configs in) throws IOException {
+    public static void main(Configs in) {
         Server server = new Server();
         server.launch(in);
     }
@@ -82,7 +82,7 @@ public class Server {
         }
 
         //only then we can check whether the number chosen has been reached
-        if (++addedPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive()) //todo: synch?? forse non serve
+        if (++addedPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive())
             clearLobby();
 
     }
