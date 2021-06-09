@@ -48,6 +48,7 @@ public class Server {
 
         logger.info("Server started successfully on port "+ serverSocket.getLocalSocketAddress());
 
+        //noinspection InfiniteLoopStatement
         while(true){
             try {
                 initClient();
@@ -55,7 +56,7 @@ public class Server {
                 logger.warning("Connection Error: Could not accept the connection." + e);   //client catch
                 if(serverSocket != null && !serverSocket.isClosed())
                     try {
-                        serverSocket.close();   //giusto?
+                        serverSocket.close();
                     } catch (IOException ignored) {}
             }
         }

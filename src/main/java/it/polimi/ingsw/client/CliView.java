@@ -594,7 +594,7 @@ public class CliView implements View {
                 if(clientModel.getMarket().getColor(i,j)== MarbleColor.RED)
                     System.out.print("RED\t\t");
                 else
-                    System.out.print(clientModel.getMarket().getColor(i,j).toString() + "\t");
+                    System.out.print(clientModel.getMarket().getColor(i,j).toString() + "\t\t");
             }
             System.out.print("\n");
         }
@@ -1001,7 +1001,7 @@ public class CliView implements View {
      * @param errorMessage The message to be shown
      */
     public void showErrorMessage(String errorMessage) {     //invalid action
-        showMessage(Styler.color('r',"That's unfortunate: "+errorMessage));
+        showMessage(Styler.color('r',Styler.ANSI_INVALID+"That's unfortunate: "+errorMessage));
         //if(clientModel.hasGameStarted() && !clientModel.getDone().get())
             //printActions();
     }
@@ -1090,11 +1090,32 @@ public class CliView implements View {
 
     public void printActions() {
         if(clientModel.isCurrentPlayer())
-            showMessage("\nChoose an action between\n" +
-                    "▷ LEADERACTION\n▷ PRODUCTION\n▷ BUYCARD\n▷ MARKET\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
+            showMessage("""
+
+                    Choose an action between
+                    ▷ LEADERACTION
+                    ▷ PRODUCTION
+                    ▷ BUYCARD
+                    ▷ MARKET
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ ENDTURN
+                    ▷ EXIT
+                    """);
         else
-            showMessage("\nChoose an action between\n"+
-                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+            showMessage("""
+
+                    Choose an action between
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ EXIT
+                    """);
 
     }
 }

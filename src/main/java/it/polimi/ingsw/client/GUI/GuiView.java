@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 public class GuiView extends Application implements View {
     private final ClientModel clientModel;
     private static ServerHandler serverHandler;
+    private AudioClip sound = new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("song.mp3")).toExternalForm());
 
     //qui ci vanno tutte le varie scene del gioco ed i relativi controller ( home, menu, caricamento, fine...)
     private final Map<String, Scene> scenes = new HashMap<>();
@@ -81,8 +82,7 @@ public class GuiView extends Application implements View {
 
         currentStage.getIcons().add(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png"))));
 
-        new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("song.mp3")).toExternalForm()).play();
-
+        sound.play();
 
         currentStage.show();
 
@@ -313,6 +313,8 @@ public class GuiView extends Application implements View {
             }else{
                 currentStage.close();
                 start( new Stage());
+                sound.stop();
+                sound.play();
                 //dovrebbe essere impossibile;
             }
         });

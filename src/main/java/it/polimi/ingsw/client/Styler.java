@@ -15,7 +15,6 @@ public enum Styler {
     ANSI_RESET("\u001B[0m"),
     ANSI_LOST("☠️"),
     ANSI_TALK("\uD83D\uDCAC"),
-    ANSI_WAIT("💤"),
     ANSI_HELLO("\uD83D\uDC4B"),
     ANSI_INVALID("✋"),
     ANSI_VICTORY("\uD83C\uDFC6"),
@@ -26,9 +25,7 @@ public enum Styler {
     ANSI_PURPLECARD("\uD83D\uDFEA"),
     ANSI_GREENCARD("\uD83D\uDFE9"),
     ANSI_BLUECARD("\uD83D\uDFE6"),
-    ANSI_YELLOWCARD("\uD83D\uDFE8"),
-    ANSI_TOGIVE("\uD83E\uDCA4"),
-    ANSI_TOHAVE("🢥");
+    ANSI_YELLOWCARD("\uD83D\uDFE8");
 
     private final String escape;
     Styler(String escape) {
