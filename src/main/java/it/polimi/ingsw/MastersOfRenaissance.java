@@ -75,13 +75,8 @@ public class MastersOfRenaissance {
     }
 
     private static void launchServer(InputStream in) {
-        try{
-            Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
-            Server.main(config);
-        } catch (IOException e){
-            System.out.println("Error initializing server "+ e);
-            System.exit(1);
-        }
+        Configs config = new Gson().fromJson(new InputStreamReader(in), Configs.class);
+        Server.main(config);
     }
 
     public static FileInputStream getSave() {
