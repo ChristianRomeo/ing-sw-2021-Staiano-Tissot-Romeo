@@ -35,7 +35,7 @@ import java.util.logging.Logger;
 public class GuiView extends Application implements View {
     private final ClientModel clientModel;
     private static ServerHandler serverHandler;
-    private AudioClip sound = new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("song.mp3")).toExternalForm());
+    private final AudioClip sound = new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("song.mp3")).toExternalForm());
 
     //qui ci vanno tutte le varie scene del gioco ed i relativi controller ( home, menu, caricamento, fine...)
     private final Map<String, Scene> scenes = new HashMap<>();
@@ -64,7 +64,8 @@ public class GuiView extends Application implements View {
      */
     @Override
     public void start(Stage stage) {
-
+        sound.setCycleCount(AudioClip.INDEFINITE);
+        sound.play();
         serverHandler = new ServerHandler(this, conf);
 
         loadScenes();
@@ -75,14 +76,10 @@ public class GuiView extends Application implements View {
 
         currentFXMLController = getSceneController("initialScene");
 
-
-
         currentStage.setResizable(false);
         currentStage.sizeToScene();
 
         currentStage.getIcons().add(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png"))));
-
-        sound.play();
 
         currentStage.show();
 
@@ -308,14 +305,13 @@ public class GuiView extends Application implements View {
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.get()==buttonTypeOne){
+                sound.stop();
                 System.exit(0);
                 Platform.exit();
             }else{
                 currentStage.close();
-                start( new Stage());
                 sound.stop();
-                sound.play();
-                //dovrebbe essere impossibile;
+                start( new Stage());
             }
         });
     }
