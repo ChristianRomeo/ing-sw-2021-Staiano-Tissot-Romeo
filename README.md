@@ -1,24 +1,32 @@
-## ing-sw-2021-Staiano-Tissot-Romeo
-Progetto Ing. Sw.
-![Masters-of-Renaissance](http://www.craniocreations.it/wp-content/uploads/2019/06/Masters-of-Renaissance_box3D_ombra.png)
+## Masters of Renaissance Board Game
+<img src="http://www.craniocreations.it/wp-content/uploads/2019/06/Masters-of-Renaissance_box3D_ombra.png" width=300px height=300px align="right"/>
 
-Welcome to the ing-sw-2021-Staiano-Tissot-Romeo Masters of Renaissance JAVA edition!<br />
-Prova Finale di Ingegneria Del Software<br />
-Anno Accademico 2020-2021<br />
-Requisiti<br />
+Masters of Renaissance JAVA edition is the final test of **Software Engineering** course of **"Computer Science Engineering"** held at Politecnico di Milano (2020/2021).<br />
+**Teacher** Gianpaolo Cugola.<br />
 
-1 Introduzione<br />
-2 Requisiti di Progetto<br />
-2.1 Requisiti Game-specific<br />
-2.2 Requisiti Game-agnostic<br />
-2.2.1 Server<br />
-2.2.2 Client<br />
-2.3 Funzionalità Avanzate<br />
-3 Valutazione<br />
+**Final Score**:  <br />
 
-1 Introduzione<br />
-Il progetto consiste nello sviluppo di una versione software del gioco da tavolo Maestri del Rinascimento.<br />
-Il progetto finale dovrà includere:<br />
+## The Students Team
+###  Christian Romeo ([@ChristianRomeo](https://github.com/ChristianRomeo))<br>christian1.romeo@mail.polimi.it
+###  Enrico Staiano ([@enricostaiano](https://github.com/enricostaiano))<br>enrico.staiano@mail.polimi.it
+###  Tommaso Tissot ([@tommasotissot](https://github.com/tommasotissot))<br>tommaso.tissot@mail.polimi.it
+
+## Implemented features
+
+| Functionality | State |
+| ------- | ----------- |
+| Complete Rules | :heavy_check_mark: |
+| CLI | :heavy_check_mark: |
+| GUI | :heavy_check_mark: |
+| Socket | :heavy_check_mark: |
+| Multiple Games | :heavy_check_mark: |
+| Reconnection | :x: |
+
+## The Game
+Masters of Renaissance Board Game, by CranioCreations. <br />
+Here the [full specifications](http://www.craniocreations.it/wp-content/uploads/2021/04/Lorenzo_Cardgame_Rules_ITA_small-3.pdf)
+ <br />
+This projects includes: <br />
 • diagramma UML iniziale dell’applicazione (ad alto livello);<br />
 • diagrammi UML finali che mostrino come è stato progettato il software, i diagrammi potranno essere generati a partire dal codice sorgente del progetto utilizzando tool automatici;<br />
 • implementazione funzionante del gioco conforme alle regole del gioco e alle specifiche presenti in questo documento;<br />
