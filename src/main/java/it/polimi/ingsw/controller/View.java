@@ -17,14 +17,19 @@ public interface View {
      */
     void launcher(); //throws FileNotFoundException; provo senza sta eccez
 
-    //getter del client model
+    /**
+     * @return the whole Client Model
+     */
     ClientModel getClientModel();
 
-    //chide il numero di giocatori voluto
+    /**
+     * asks for wanted number of players
+     * @return the wanted num of players
+     */
     int askNumPlayers();
 
     /**
-     * chiede se vuole fare una nuova partita
+     * asks for a new game to start
      */
     void askNewGame();
 

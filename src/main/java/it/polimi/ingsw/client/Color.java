@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 import java.io.PrintWriter;
 
-public enum Styler {
+public enum Color {
     ANSI_RED("\u001B[31m"),
     ANSI_GREEN("\u001B[32m"),
     ANSI_YELLOW("\u001B[33m"),
@@ -28,7 +28,7 @@ public enum Styler {
     ANSI_YELLOWCARD("\uD83D\uDFE8");
 
     private final String escape;
-    Styler(String escape) {
+    Color(String escape) {
         this.escape = escape;
     }
 

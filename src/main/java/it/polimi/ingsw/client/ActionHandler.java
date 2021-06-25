@@ -95,7 +95,7 @@ public class ActionHandler {
 
     public void exit(){
 
-        Styler.cls();
+        Color.cls();
         if(!clientModel.hasGameEnded())
         {
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
@@ -108,7 +108,7 @@ public class ActionHandler {
 
     public void useMarket() {
 
-        Styler.cls();
+        Color.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -164,7 +164,7 @@ public class ActionHandler {
      * Guides the player through the initial choice of Leader cards and resources
      */
     public void initialChoice(){
-        Styler.cls();
+        Color.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.isPregame() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -212,7 +212,7 @@ public class ActionHandler {
      * Activate/discard leaderCards
      */
     public void leaderAction(){
-        Styler.cls();
+        Color.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -229,7 +229,7 @@ public class ActionHandler {
      */
     public void endTurn(){
 
-        Styler.cls();
+        Color.cls();
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
             return;
@@ -244,7 +244,7 @@ public class ActionHandler {
      */
     public void buyDevelopmentCard(){
 
-        Styler.cls();
+        Color.cls();
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
             cliView.showMessage("\nChoose an action between\n"+
@@ -268,7 +268,7 @@ public class ActionHandler {
      */
     public void activateProduction(){
 
-        Styler.cls();
+        Color.cls();
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
             cliView.showMessage("\nChoose an action between\n"+

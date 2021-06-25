@@ -30,6 +30,10 @@ public class ServerHandler implements Runnable{
         this.in=in;
     }
 
+    /**
+     *receuves messages from the server and sends it to their handlers
+     * (which is gonna be the event handler, who will handle them)
+     */
     @Override
     public void run() { // qua vengono ricevuti i messaggi da server e mandati a chi li gestisce
 
@@ -90,7 +94,7 @@ public class ServerHandler implements Runnable{
 
                 if (!Objects.equals(view.getClientModel().getMyNickname(), old))
                     logger.info("Your new username is " + view.getClientModel().getMyNickname());
-                    //view.showMessage(Styler.color('g',"Your new username is " + view.getClientModel().getMyNickname()));
+                    //view.showMessage(Color.color('g',"Your new username is " + view.getClientModel().getMyNickname()));
 
                 if(serverAnswer.isFirstPlayer()){
                     int wantedNumPlayers = view.askNumPlayers();                                             //qui si chiede il numero di giocatori voluto all'utente

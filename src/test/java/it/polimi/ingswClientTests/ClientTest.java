@@ -1,7 +1,7 @@
 package it.polimi.ingswClientTests;
 
 import it.polimi.ingsw.client.CliView;
-import it.polimi.ingsw.client.Styler;
+import it.polimi.ingsw.client.Color;
 import it.polimi.ingsw.model.MarbleColor;
 import it.polimi.ingsw.model.Market;
 import it.polimi.ingsw.model.PlayerWarehouse;
@@ -19,7 +19,7 @@ public class ClientTest {
     public void printMarketTest() {
         CliView cliView = new CliView();
         Market market = new Market();
-        cliView.showMessage(Styler.color('b',"#\t1\t\t2\t\t3\t\t4"));
+        cliView.showMessage(Color.color('b',"#\t1\t\t2\t\t3\t\t4"));
         for (int i = 0; i< Market.MAXROWS; ++i){
             System.out.print(i+1 + "\t");
             for (int j=0;j<Market.MAXCOLUMNS;++j){

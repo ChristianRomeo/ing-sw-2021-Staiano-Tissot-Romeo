@@ -36,9 +36,6 @@ public class Controller extends ServerObservable {
         return preGameStarted;
     }
 
-    public void setPreGameStarted(Boolean set){
-        this.preGameStarted=set;
-    }
 
     public Game getGame(){
         return game;
@@ -423,7 +420,6 @@ public class Controller extends ServerObservable {
         }
     }
 
-    // STO METODO ANDREBBE MEGLIO COME STATICO IN MARBLE COLOR O RESOURCE ENUM (aggiungi parametro current player) O PROPRIO IN MARKET
     /**
      * Method fromMarblesToResources transforms a list of marbles in the corresponding list of resources,
      * (the red marbles are transformed in increments of the faith track position)

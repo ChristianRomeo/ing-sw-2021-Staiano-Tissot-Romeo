@@ -12,7 +12,7 @@ import javafx.application.Platform;
 
 /**
  * Handles Server incoming Events and dispatch actions, it uses VISITOR PATTERN.
- * This handler is used for the gui.
+ * This handler is used for the GUI.
  *
  */
 public class EventsHandlerGUI implements ServerEventObserver {
@@ -20,11 +20,18 @@ public class EventsHandlerGUI implements ServerEventObserver {
     private final ClientModel clientModel;
     private final GuiView guiView;
 
+    /**
+     * constructor
+     */
     public EventsHandlerGUI(ClientModel clientModel, GuiView guiView){
         this.clientModel =clientModel;
         this.guiView=guiView;
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
         Platform.runLater(() -> {
@@ -33,6 +40,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
         Platform.runLater(() -> {
@@ -41,6 +52,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(ActivatedProductionEventS2C event) {
         Platform.runLater(() -> {
@@ -49,6 +64,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
         Platform.runLater(() -> {
@@ -57,6 +76,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(VaticanReportEventS2C event) {
         Platform.runLater(() -> {
@@ -65,6 +88,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(UseMarketEventS2C event) {
         Platform.runLater(() -> {
@@ -73,6 +100,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(NewTurnEventS2C event) {
         Platform.runLater(() -> {
@@ -85,11 +116,19 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(IllegalActionEventS2C event) {
         Platform.runLater(() -> guiView.getCurrentSceneController().showMessage(event.getIllegalAction().getDescription()));
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(GameStarterEventS2C event) {
 
@@ -97,6 +136,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
 
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(EndGameEventS2C event) {
         Platform.runLater(() -> {
@@ -105,11 +148,19 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
         Platform.runLater(() -> guiView.getSceneController("gameScene").updateScene());
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
         Platform.runLater(() -> {
@@ -118,6 +169,10 @@ public class EventsHandlerGUI implements ServerEventObserver {
         });
     }
 
+    /**
+     * receives an event and updates the scene based on the event type
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(NewConnectionEventS2C event) {
 

@@ -16,12 +16,14 @@ public class Player {
     private final StatusPlayer statusPlayer;
     private boolean isWinner;
 
+    /**
+     * @return the player's nickname
+     */
     public String getNickname() {
         return nickname;
     }
 
     /**
-     *
      * @return victory points of the player
      */
     public int getVictoryPoints() {
@@ -116,10 +118,16 @@ public class Player {
         victoryPoints = sum;
     }
 
+    /**
+     * sets the boolean variable isWinner to true.
+     */
     public void setIsWinner(){
         this.isWinner=true;
     }
 
+    /**
+     * @return true if the player is a winner, false otherwise
+     */
     public boolean isWinner() { return isWinner; }
 
 }

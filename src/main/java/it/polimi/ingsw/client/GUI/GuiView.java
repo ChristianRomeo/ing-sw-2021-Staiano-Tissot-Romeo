@@ -130,25 +130,37 @@ public class GuiView extends Application implements View {
         controllers.put(sceneName,sceneController);
     }
 
+    /**
+     * getter of the scene
+     * @param sceneName is the name of the scene to be get
+     * @return the scene
+     */
     public Scene getScene(String sceneName){
         return scenes.get(sceneName);
     }
 
+    /**
+     * getter of the scene controller
+     * @param sceneName is the name of the scene to get the its controller
+     * @return the controller of the scene
+     */
     public FXMLController getSceneController(String sceneName){
         return controllers.get(sceneName);
     }
 
-    //setta la scena di cui da il nome come la corrente (cioè quella mostrata)
+    /**
+     * Sets the serverHandler
+     * @param sceneName is the name of the scene to be set to current one
+     */
     public void setCurrentScene(String sceneName){
         currentStage.setScene(getScene(sceneName));
         currentScene = getScene(sceneName);
         currentFXMLController = getSceneController(sceneName);
     }
 
-    public Scene getCurrentScene(){
-        return currentScene;
-    }
-
+    /**
+     * @return the current scene controller
+     */
     public FXMLController getCurrentSceneController(){
         return currentFXMLController;
     }
@@ -163,11 +175,18 @@ public class GuiView extends Application implements View {
         GuiView.serverHandler = serverHandler;
     }
 
+    /**
+     * @return the client model
+     */
     @Override
     public ClientModel getClientModel() {
         return clientModel;
     }
 
+    /**
+     * asks the wantee number of players for the game
+     * @return the entered number of players
+     */
     @Override
     public int askNumPlayers() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -205,7 +224,11 @@ public class GuiView extends Application implements View {
 
     }
 
-    //tu gli dai una leader card e questo metodo ti ritorna la sua immagine
+    /**
+     * getter of a Leader card image
+     * @param leaderCard is the Leader card to be get
+     * @return the Leader card image
+     */
     public static Image getLeaderCardImage(LeaderCard leaderCard){
         if(leaderCard!=null){
             return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "lead" + leaderCard.getId() +  ".png")));
@@ -213,7 +236,11 @@ public class GuiView extends Application implements View {
         return null;
     }
 
-    //tu gli dai una development card e questo metodo ti ritorna la sua immagine
+    /**
+     * getter of a Development card image
+     * @param developmentCard is the development card to be get
+     * @return the Development card image
+     */
     public static Image getDevelopmentCardImage(DevelopmentCard developmentCard){
         if(developmentCard!=null){
             return new Image(String.valueOf(GuiView.class.getResource("/Cards/" + "dev" + developmentCard.getId() +  ".png")));
@@ -222,7 +249,11 @@ public class GuiView extends Application implements View {
         }
     }
 
-    //ritorna l'immagine (piccola) della risorsa passata
+    /**
+     * getter of a resource image
+     * @param resource is the resource to be get
+     * @return the resource image
+     */
     public static Image getResourceImage(Resource resource){
         if(resource!=null){
             String resourceName = resource.toString().toLowerCase();
@@ -232,7 +263,11 @@ public class GuiView extends Application implements View {
         }
     }
 
-    //ritorna l'immagine della biglia passata
+    /**
+     * getter of a marble image
+     * @param marble is the resource to be get
+     * @return the marble image
+     */
     public static Image getMarbleImage(MarbleColor marble){
         if(marble!=null){
             String marbleColorName = marble.toString().toLowerCase();
@@ -242,12 +277,11 @@ public class GuiView extends Application implements View {
         }
     }
 
-    //ritorna l'immagine della pope tile passata, la 0,1 o 2 a seconda dell'index passato
     /**
-     *  It returns the image of the pope tile passed.
-     * @param popeTile the status of the pope tile
-     * @param popeTileIndex the index (1,2,3) of the pope tile
-     * @return the image
+     *getter of a Pope tile's image
+     * @param popeTile the status of the Pope tile
+     * @param popeTileIndex the index (1,2,3) of the Pope tile
+     * @return the Pope tile image
      */
     public static Image getPopeTileImage(PopeFavorTileStatus popeTile, int popeTileIndex){
         popeTileIndex= popeTileIndex+1; //perchè nel nome delle immagini sta 2,3,4
@@ -265,7 +299,11 @@ public class GuiView extends Application implements View {
         return null;
     }
 
-    //ritorna l'immagine del solo action passato
+    /**
+     * getter of a Solo action image
+     * @param soloAction is the Solo action to be get
+     * @return the solo action image
+     */
     public static Image getSoloActionImage(SoloAction soloAction){
         if(soloAction!=null){
             if(soloAction.getType() == SoloActionType.MOVEONEANDSHUFFLE){
@@ -290,8 +328,8 @@ public class GuiView extends Application implements View {
     }
 
     /**
-     * chiede se vuole fare una nuova partita, ciò dovrebbe avvenire solo in caso di errori di connessione.
-     * se arriva alla fine della partita senza problemi lo chiede in altro modo.
+     * asks for a new game, only if some connection error happened
+     * if the game ends successfully, it will be asked in a different method
      */
     @Override
     public void askNewGame() {

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.Events;
 
- // Interface implemented by classes of the controller that will handle events sent by the client
+/**
+ * Interface implemented by classes of the controller that will handle events sent by the client
+ */
 
 public interface ClientEventHandler {
 

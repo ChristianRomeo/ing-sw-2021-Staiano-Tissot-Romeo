@@ -35,13 +35,21 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         logger.info("A new player joined: "+ clientHandler.getNickname());
     }
 
+    /**
+     * sends an event to every ClientHandler
+     * @param serverEvent is the event to be sent
+     */
     public void sendToEveryone(ServerEvent serverEvent){
         for (ClientHandler clientHandler : clientHandlers)
             if(clientHandler.isConnected())
                 clientHandler.send(serverEvent);
     }
 
-    //invia evento a solo un client
+    /**
+     * sends an event to a specific ClientHandler
+     * @param serverEvent is the event to be sent
+     * @param nickname is the player whose ClientHandler will receive the event
+     */
     public void sendTo(ServerEvent serverEvent, String nickname){
         for (ClientHandler clientHandler : clientHandlers)
             if(clientHandler.isConnected() && clientHandler.getNickname().equals(nickname)){
@@ -63,7 +71,9 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         return new ArrayList<>(disconnectedClients);
     }
 */
-
+    /**
+     * closes every connected socket
+     */
     public synchronized void closeAll() {
         for (ClientHandler clientHandler : clientHandlers)
             if (clientHandler.isConnected())

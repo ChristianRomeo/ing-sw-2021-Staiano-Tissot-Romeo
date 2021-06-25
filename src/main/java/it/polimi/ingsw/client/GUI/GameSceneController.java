@@ -221,7 +221,7 @@ public class GameSceneController extends FXMLController {
             useMarketButton.setVisible(false);
             endTurnButton.setVisible(false);
             turnLabel.setText("It's his turn: "+ clientModel.getCurrentPlayerNick());
-            turnLabel.setTextFill(Color.RED);
+            turnLabel.setTextFill(Color.web("#ff704d"));
         }
 
         setFaithTrackPosition(clientModel.getMyIndex(),false);

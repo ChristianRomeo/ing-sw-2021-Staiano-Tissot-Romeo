@@ -14,46 +14,47 @@ import java.util.logging.Logger;
 public class Server {
 
     private static ServerSocket serverSocket;
+    private int currentNumOfPlayers;
     private Game currentGame;
     private VirtualView currentVirtualView;
-    private int addedPlayers;
     private final static Logger logger = Logger.getLogger(Server.class.getName());
 
     /**
-     * Constructor: builds a Server
+     * Constructor
+     * It initializes the Server.
      */
     public Server() {
+        this.currentNumOfPlayers = 0;
         this.currentGame = null;
         this.currentVirtualView = null;
-        this.addedPlayers = 0;
     }
 
     public static void main(Configs in) {
         Server server = new Server();
-        server.launch(in);
+        server.start(in);
     }
 
     // https://stackoverflow.com/questions/4684727/java-serversocket-why-is-the-ip-address-0-0-0-0-yet-i-can-still-connect-remote/4684806
-    public void launch(Configs in) {   //eccezione per il file di configurazione della porta e ip
+    public void start(Configs in) {   //eccezione per il file di configurazione della porta e ip
 
         try {
             serverSocket = new ServerSocket(Configs.getServerPort(in));     //ascolto, una porta un server per tutti i clienti
         } catch (IOException e) {
-            logger.severe("Fatal error: Could not start the server.\n Conifg file isn't compatible, Cannot open server on port " + Configs.getServerPort(in) +"\nFalling back to port 9876..."); //server catch
+            logger.severe("An error has occurred while trying to start the server!\n Config file isn't compatible, Cannot open server on port " + Configs.getServerPort(in) +"\nFalling back to port 9876..."); //server catch
             try {
                 serverSocket = new ServerSocket(9876);
             } catch (IOException ignored) {}
 
         }
 
-        logger.info("Server started successfully on port "+ serverSocket.getLocalSocketAddress());
+        logger.info("The Server has been successfully started on port "+ serverSocket.getLocalSocketAddress());
 
         //noinspection InfiniteLoopStatement
-        while(true){
+        for(;;) {
             try {
-                initClient();
+                startClient();
             } catch (IOException | InterruptedException | DisconnectionException e) {
-                logger.warning("Connection Error: Could not accept the connection." + e);   //client catch
+                logger.warning("An error has occurred while trying to connect! The connection could not be accepted." + e);   //client catch
                 if(serverSocket != null && !serverSocket.isClosed())
                     try {
                         serverSocket.close();
@@ -62,15 +63,30 @@ public class Server {
         }
 
     }
-
-    public void initClient() throws IOException, InterruptedException, DisconnectionException {
+    /**
+     * Accepts one client per time.
+     * After that, it creates and initializes a new game instance
+     * (creates a game if it doesn't exist and adds the client to it).
+     * After that, it prepares the server side handling of the game.
+     * Following, it sleeps until the number of players of the game has been set by the first player.
+     * Only then, it checks whether the number chosen by the first player has been reached.
+     *
+     */
+    public void startClient() throws IOException, InterruptedException, DisconnectionException {
 
         Socket socket = serverSocket.accept();  //accetto un singolo cliente ogni volta
         logger.info( socket.getRemoteSocketAddress() + " has connected. This is: " +socket.getLocalSocketAddress());
 
-        // Creates a game if it doesn't exist and add the client to it
+        /* Now it creates and initializes a new game instance
+           (creates a game if it doesn't exist and adds the client to it)
+         */
         if (currentGame == null) {
-            initGame();
+            logger.info("A new game has been created.");
+            // Setup of the server side game management
+            currentGame = new Game();
+            Controller controller = new Controller(currentGame);
+            currentVirtualView = new VirtualView(controller);
+            controller.setVirtualView(currentVirtualView);
             new Thread(new ClientHandler(true, socket, currentVirtualView)).start();       //se era già connesso che succ?
         } else
             new Thread(new ClientHandler(false, socket, currentVirtualView)).start();
@@ -83,33 +99,19 @@ public class Server {
         }
 
         //only then we can check whether the number chosen has been reached
-        if (++addedPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive())
+        if (++currentNumOfPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive())
             clearLobby();
 
     }
 
     /**
-     * Clears the game room preparing it to welcome new users   PARTITE MULTIPLE
+     * MULTIPLE GAMES FA
+     * Clears the game room and prepares it in order to accept new players
      */
     private void clearLobby() {
-        logger.info("Status: Game room is full.");
+        logger.info("The game room is full.");
+        currentNumOfPlayers = 0;
         currentGame = null;
         currentVirtualView = null;
-        addedPlayers = 0;
     }
-
-    /**
-     * Creates and initializes a new game instance
-     */
-    private void initGame() throws IOException {
-        logger.info("Status: New game has been created.");
-
-        // Setup of the server side game management
-        currentGame = new Game();
-        Controller controller = new Controller(currentGame);
-        currentVirtualView = new VirtualView(controller);
-        controller.setVirtualView(currentVirtualView);
-
-    }
-
 }

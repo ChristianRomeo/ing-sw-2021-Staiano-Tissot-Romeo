@@ -212,6 +212,9 @@ public class ClientHandler implements Runnable {
 
     }
 
+    /**
+     * starts pinging its Client (every ClientHandler pings its own Client)
+     */
     public void startPing(){
         (new Thread(() -> {
             while(isConnected()){

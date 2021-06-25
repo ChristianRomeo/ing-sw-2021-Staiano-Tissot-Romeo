@@ -23,13 +23,14 @@ import java.util.List;
 public class EventsHandler implements ServerEventObserver {
 
     private final ClientModel clientModel;
-    //private final View view;            //non so se dobbiamo dividere tra cliview e guiview
 
     private final ServerEventObserver eventHandlerView; //questo gestisce gli eventi dal server per quanto riguarda la view
 
+    /**
+     *constructor
+     */
     public EventsHandler(ClientModel clientModel, View view){
         this.clientModel =clientModel;
-        //this.view=view;
         if(view instanceof CliView){
             eventHandlerView = new EventsHandlerCLI(clientModel,(CliView) view);
         }else{
@@ -37,6 +38,10 @@ public class EventsHandler implements ServerEventObserver {
         }
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
         List<LeaderCard> leaderCards = clientModel.getPlayerLeaderCards(clientModel.getCurrentPlayerNick());
@@ -58,6 +63,10 @@ public class EventsHandler implements ServerEventObserver {
         //qua magari mostro la sua nuova situazione delle sue carte leader
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
         clientModel.setDevelopmentCardBoard(event.getNewCardBoard());
@@ -76,6 +85,10 @@ public class EventsHandler implements ServerEventObserver {
         //qui magari mostro le cose che sono cambiate
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(ActivatedProductionEventS2C event) {
         clientModel.setWarehouse(clientModel.getCurrentPlayerNick(), event.getNewWarehouse());
@@ -91,6 +104,10 @@ public class EventsHandler implements ServerEventObserver {
         //qui magari mostro le cose che sono cambiate
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
         if(event.getPlayerNickname().equals("Lorenzo il Magnifico")){
@@ -104,6 +121,10 @@ public class EventsHandler implements ServerEventObserver {
         //qui volendo gli mostro qualcosa
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(VaticanReportEventS2C event) {
         for(String player: clientModel.getNicknames())
@@ -115,6 +136,10 @@ public class EventsHandler implements ServerEventObserver {
         //qui volendo gli mostro qualcosa
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(UseMarketEventS2C event) {
         clientModel.setMarket(event.getNewMarket());
@@ -132,6 +157,10 @@ public class EventsHandler implements ServerEventObserver {
         //qui magari mostro le cose che sono cambiate
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(NewTurnEventS2C event) {
         clientModel.setCurrentPlayer(event.getNickname());
@@ -140,6 +169,10 @@ public class EventsHandler implements ServerEventObserver {
         event.notifyHandler(eventHandlerView);
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(IllegalActionEventS2C event) {
 
@@ -147,7 +180,10 @@ public class EventsHandler implements ServerEventObserver {
         clientModel.setDone(false);
     }
 
-
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(GameStarterEventS2C event) {
 
@@ -158,12 +194,16 @@ public class EventsHandler implements ServerEventObserver {
 
         //ho messo al giocatore tutte le leader card tra cui può scegliere, cosi poi gli mostro direttamente
         //le sue leadercards
-        // view.showMessage(Styler.ANSI_TALK+" Please wait your turn..."); QUESTO MO STA NELL EVENTHANDLERVIEW
+        // view.showMessage(Color.ANSI_TALK+" Please wait your turn..."); QUESTO MO STA NELL EVENTHANDLERVIEW
         //gli devo mostrare le cose
 
         event.notifyHandler(eventHandlerView); //ciò poi si occupa di mostrare le cose (in base a che view è)
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(EndGameEventS2C event) {
 
@@ -178,6 +218,10 @@ public class EventsHandler implements ServerEventObserver {
         //è finito il gioco
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
         clientModel.setDevelopmentCardBoard(event.getNewBoard());
@@ -188,6 +232,10 @@ public class EventsHandler implements ServerEventObserver {
         //view.showLorenzoTurn(event.getActivatedSoloAction());
     }
 
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
         clientModel.setIsPregame(false);
@@ -203,7 +251,10 @@ public class EventsHandler implements ServerEventObserver {
         event.notifyHandler(eventHandlerView);
     }
 
-
+    /**
+     * receives an event and handles it
+     * @param event is the received event
+     */
     //questo non si dovrà implementare qui
     @Override
     public void handleEvent(NewConnectionEventS2C event) {

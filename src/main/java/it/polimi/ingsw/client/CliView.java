@@ -74,23 +74,23 @@ public class CliView implements View {
 
     public String askNickname(){
 
-        Styler.header();
+        Color.header();
         scanner.nextLine();
         scanner.reset();
-        showMessage(Styler.format('i', Styler.ANSI_HELLO + " Welcome!\nYou will join the first available game..."));
-        showMessage(Styler.ANSI_TALK +" Select your nickname: ");
+        showMessage(Color.format('i', Color.ANSI_HELLO + " Welcome!\nYou will join the first available game..."));
+        showMessage(Color.ANSI_TALK +" Select your nickname: ");
         String nickname = scanner.nextLine();
         while (!checkNickname(nickname)){
             showErrorMessage("Invalid choice! Try again: ");
             nickname = scanner.nextLine();
         }
-        showMessage(Styler.format('i', Styler.ANSI_TALK +" The game will start shortly, brace yourself!"));
+        showMessage(Color.format('i', Color.ANSI_TALK +" The game will start shortly, brace yourself!"));
         return nickname;
     }
 
     @Override
     public int askNumPlayers(){
-        Styler.cls();
+        Color.cls();
         showMessage("Choose how many players will play: ");
         /*String numPlayer = scanner.nextLine();
         while (checkNumber(numPlayer,1,4)==null){
@@ -113,10 +113,10 @@ public class CliView implements View {
         List<LeaderCard> leaderCard = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         showMessage("--------------------");
         leaderCard.forEach(this::showLeaderCard);
-        showMessage("Legend: Stones -"+Styler.ANSI_STONE+" Shields -"+Styler.ANSI_SHIELD+" Servants -"+Styler.ANSI_SERVANT+" Coins -"+Styler.ANSI_COIN+" Yellow/Green/Blue/Purple Cards -"+Styler.ANSI_YELLOWCARD+Styler.ANSI_GREENCARD+Styler.ANSI_BLUECARD+Styler.ANSI_PURPLECARD);
-        showMessage( Styler.format('b', "\n"+Styler.ANSI_TALK +" Choose the first card to discard (0,1,2,3) :"));
+        showMessage("Legend: Stones -"+ Color.ANSI_STONE+" Shields -"+ Color.ANSI_SHIELD+" Servants -"+ Color.ANSI_SERVANT+" Coins -"+ Color.ANSI_COIN+" Yellow/Green/Blue/Purple Cards -"+ Color.ANSI_YELLOWCARD+ Color.ANSI_GREENCARD+ Color.ANSI_BLUECARD+ Color.ANSI_PURPLECARD);
+        showMessage( Color.format('b', "\n"+ Color.ANSI_TALK +" Choose the first card to discard (0,1,2,3) :"));
         int index1= askNumber(0,3);
-        showMessage( Styler.format('b', Styler.ANSI_TALK +" Choose the second card to discard (0,1,2,3) :"));
+        showMessage( Color.format('b', Color.ANSI_TALK +" Choose the second card to discard (0,1,2,3) :"));
         int index2 = askNumber(0,3);
 
         while(index1 == index2){
@@ -138,7 +138,7 @@ public class CliView implements View {
         showMessage("--------------------");
         leaderCard.forEach(this::showLeaderCard);
 
-        showMessage(Styler.ANSI_TALK + Styler.format('b', " Choose action:  [activation - 0 / discard - 1] :"));
+        showMessage(Color.ANSI_TALK + Color.format('b', " Choose action:  [activation - 0 / discard - 1] :"));
         /*
         String string =scanner.nextLine();
         if (actionHandler.newGame)
@@ -153,7 +153,7 @@ public class CliView implements View {
         int choice = askNumber(0,1);
 
         //todo:controllare se carta già attiva o scartata
-        showMessage(Styler.ANSI_TALK + Styler.format('b', " Choose which card:"));
+        showMessage(Color.ANSI_TALK + Color.format('b', " Choose which card:"));
         /*
         String chosenCard = scanner.nextLine();
         if (actionHandler.newGame)
@@ -248,16 +248,16 @@ public class CliView implements View {
      */
     public SameTypeTriple<Resource> askBaseProduction(){
         SameTypeTriple<Resource> baseProductionResources = new SameTypeTriple<>();
-        showMessage(Styler.ANSI_TALK+" Do you want to activate the base production? y/n");
+        showMessage(Color.ANSI_TALK+" Do you want to activate the base production? y/n");
         String choice = askChoice();
 
         if(choice.equalsIgnoreCase("n"))
             return null;
 
-        showMessage(Styler.ANSI_TALK+" Now please choose two resources you want to use for the production: ");
+        showMessage(Color.ANSI_TALK+" Now please choose two resources you want to use for the production: ");
         baseProductionResources.setVal1(askResource());
         baseProductionResources.setVal2(askResource());
-        showMessage(Styler.ANSI_TALK+" You have to choose which resource you want to produce: ");
+        showMessage(Color.ANSI_TALK+" You have to choose which resource you want to produce: ");
         baseProductionResources.setVal3(askResource());
 
         return baseProductionResources;
@@ -276,7 +276,7 @@ public class CliView implements View {
             if(leaderCards.get(i).isActivated() &&(leaderCards.get(i) instanceof LeaderCardProduction)){
                 showMessage("--------------------");
                 showLeaderCard(leaderCards.get(i));
-                showMessage(Styler.ANSI_TALK+" Do you want to activate this card production? y/n");
+                showMessage(Color.ANSI_TALK+" Do you want to activate this card production? y/n");
                 choice = askChoice();
 
                 if(choice.equalsIgnoreCase("y")){
@@ -293,7 +293,7 @@ public class CliView implements View {
      * @return the resource chosen.
      */
     public Resource askResource(){
-        showMessage(Styler.ANSI_TALK+" Choose a resource to obtain (*Stone* -"+Styler.ANSI_STONE+" *Shield* -"+Styler.ANSI_SHIELD+" *Servant* -"+Styler.ANSI_SERVANT+" *Coin* -"+Styler.ANSI_COIN+"):");
+        showMessage(Color.ANSI_TALK+" Choose a resource to obtain (*Stone* -"+ Color.ANSI_STONE+" *Shield* -"+ Color.ANSI_SHIELD+" *Servant* -"+ Color.ANSI_SERVANT+" *Coin* -"+ Color.ANSI_COIN+"):");
         String choice = scanner.nextLine();
         if (actionHandler.isNewGame())
             actionHandler.getNewGame(choice);
@@ -311,7 +311,7 @@ public class CliView implements View {
         int index;
 
         showMarket();
-        showMessage(Styler.ANSI_TALK+" Do you want to select a row or a column? r/c");
+        showMessage(Color.ANSI_TALK+" Do you want to select a row or a column? r/c");
         String choice = scanner.nextLine();
         if (actionHandler.isNewGame())
             actionHandler.getNewGame(choice);
@@ -324,14 +324,14 @@ public class CliView implements View {
         rowOrColumn = choice.charAt(0);
 
         if(rowOrColumn=='r'){
-            showMessage(Styler.ANSI_TALK+" What row do you want to select? (0,1,2)");
+            showMessage(Color.ANSI_TALK+" What row do you want to select? (0,1,2)");
             index = askNumber(0,2);
 
         }else{
-            showMessage(Styler.ANSI_TALK+" What column do you want to select? (0,1,2,3)");
+            showMessage(Color.ANSI_TALK+" What column do you want to select? (0,1,2,3)");
             index = askNumber(0,3);
         }
-        Styler.cls();
+        Color.cls();
         return new Pair<>(rowOrColumn,index);
     }
 
@@ -344,7 +344,7 @@ public class CliView implements View {
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
 
-        showMessage(Styler.ANSI_TALK+" You have two white marble leader cards activated, which one do you want to use for this white marble? 0/1");
+        showMessage(Color.ANSI_TALK+" You have two white marble leader cards activated, which one do you want to use for this white marble? 0/1");
         return askNumber(0,1);
     }
 
@@ -447,7 +447,7 @@ public class CliView implements View {
             showWarehouse(warehouse);
             System.out.println("\nNow the considered resource is: "+ boughtResources.get(0));
 
-            showMessage(Styler.ANSI_TALK+" You can insert the resource (0), discard the resource (1) or edit your warehouse (2).");
+            showMessage(Color.ANSI_TALK+" You can insert the resource (0), discard the resource (1) or edit your warehouse (2).");
             if(fullLeaderSlots.getVal1()!=null){
                 System.out.println("This is your Slot Leader Card:  type: " + leaderCardResource1 + " number of full slots: " + fullLeaderSlots.getVal1());
                 showMessage("You can also insert the resource in this leader card (if it has the considered resource type) (3). ");
@@ -496,11 +496,11 @@ public class CliView implements View {
          * @return the coordinate of the cell.
          */
     public SameTypePair<Integer> askWarehouseCell(){
-        showMessage(Styler.ANSI_TALK+" Select your warehouse's row you want to use (1,2,3)");
+        showMessage(Color.ANSI_TALK+" Select your warehouse's row you want to use (1,2,3)");
         int row = askNumber(1,3);
         int col = 1;
         if (row!=1){
-            showMessage(Styler.ANSI_TALK+" Select your warehouse's column you want to use (1,2" + (row==3 ? ",3)" : ")") + ":");
+            showMessage(Color.ANSI_TALK+" Select your warehouse's column you want to use (1,2" + (row==3 ? ",3)" : ")") + ":");
              col = askNumber(1,3);
         }
         return new SameTypePair<>(row,col);
@@ -544,7 +544,7 @@ public class CliView implements View {
         public void askNewGame() {
 
         actionHandler.setNewGame(true);
-        showMessage("\n"+ Styler.ANSI_TALK + " Do you wish to play again? [y/n]: ");
+        showMessage("\n"+ Color.ANSI_TALK + " Do you wish to play again? [y/n]: ");
 
         //String choice = scanner.nextLine();
         /*while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
@@ -571,7 +571,7 @@ public class CliView implements View {
         showMessage("");
         for (int i=0;i<3;++i)
             for (int j=0;j<4;++j){
-                showMessage(Styler.format('r',Styler.color(switch (clientModel.getDevelopmentCardBoard().getCard(i,j).getType().toString()){
+                showMessage(Color.format('r', Color.color(switch (clientModel.getDevelopmentCardBoard().getCard(i,j).getType().toString()){
                     case "YELLOW" -> 'y';
                     case "BLUE"-> 'b';
                     case "GREEN"-> 'g';
@@ -587,9 +587,9 @@ public class CliView implements View {
      */
     public void showMarket(){
 
-        showMessage(Styler.color('y',"#\t0\t\t1\t\t2\t\t3"));
+        showMessage(Color.color('y',"#\t0\t\t1\t\t2\t\t3"));
         for (int i = 0; i< Market.MAXROWS; ++i){
-            System.out.print(Styler.color('y',i + "\t"));
+            System.out.print(Color.color('y',i + "\t"));
             for (int j=0;j<Market.MAXCOLUMNS;++j){
                 if(clientModel.getMarket().getColor(i,j)== MarbleColor.RED)
                     System.out.print("RED\t\t");
@@ -604,7 +604,7 @@ public class CliView implements View {
 
     public void showLeaderCard(LeaderCard card){
 
-        showMessage(Styler.format('i',switch(card.getAbilityResource().toString()){
+        showMessage(Color.format('i',switch(card.getAbilityResource().toString()){
             case "COIN"-> "COIN";
             case "STONE"-> "STONE";
             case "SERVANT"-> "SERVANT";
@@ -616,19 +616,19 @@ public class CliView implements View {
         showMessage("Activation Cost:");
        card.getRequiredResources().forEach((k, v) ->
                showMessage(switch(k.toString()){
-           case "COIN"-> Styler.ANSI_COIN;
-           case "STONE"-> Styler.ANSI_STONE;
-           case "SERVANT"-> Styler.ANSI_SERVANT;
-           case "SHIELD"-> Styler.ANSI_SHIELD;
+           case "COIN"-> Color.ANSI_COIN;
+           case "STONE"-> Color.ANSI_STONE;
+           case "SERVANT"-> Color.ANSI_SERVANT;
+           case "SHIELD"-> Color.ANSI_SHIELD;
            default -> "";
        }+" "+ v));
 
         card.getRequiredCards().forEach((k, v) ->
                showMessage(switch(k.toString()){
-           case "YELLOW"-> Styler.ANSI_YELLOWCARD;
-           case "BLUE"-> Styler.ANSI_BLUECARD;
-           case "GREEN"-> Styler.ANSI_GREENCARD;
-           case "PURPLE"-> Styler.ANSI_PURPLECARD;
+           case "YELLOW"-> Color.ANSI_YELLOWCARD;
+           case "BLUE"-> Color.ANSI_BLUECARD;
+           case "GREEN"-> Color.ANSI_GREENCARD;
+           case "PURPLE"-> Color.ANSI_PURPLECARD;
            default -> "";
        }+" "+ v));
 
@@ -637,37 +637,37 @@ public class CliView implements View {
 
     public void showCard(DevelopmentCard card) {
 
-        showMessage(Styler.format('b', "Card Cost: "));
+        showMessage(Color.format('b', "Card Cost: "));
         card.getCost().forEach((k, v) ->
                 showMessage( switch(k.toString()){
-                    case "COIN"-> Styler.ANSI_COIN;
-                    case "STONE"-> Styler.ANSI_STONE;
-                    case "SERVANT"-> Styler.ANSI_SERVANT;
-                    case "SHIELD"-> Styler.ANSI_SHIELD;
+                    case "COIN"-> Color.ANSI_COIN;
+                    case "STONE"-> Color.ANSI_STONE;
+                    case "SERVANT"-> Color.ANSI_SERVANT;
+                    case "SHIELD"-> Color.ANSI_SHIELD;
                     default -> "";
                 }+" "+ v));
 
         showMessage( "Card Level: " + card.getLevel());
         showMessage( "Victory Points: " + card.getVictoryPoints());
 
-        showMessage(Styler.format('b', "Activation Cost: "));
+        showMessage(Color.format('b', "Activation Cost: "));
         card.getRequiredResources().forEach((k, v) ->
                 showMessage( switch(k.toString()){
-                    case "COIN"-> Styler.ANSI_COIN;
-                    case "STONE"-> Styler.ANSI_STONE;
-                    case "SERVANT"-> Styler.ANSI_SERVANT;
-                    case "SHIELD"-> Styler.ANSI_SHIELD;
+                    case "COIN"-> Color.ANSI_COIN;
+                    case "STONE"-> Color.ANSI_STONE;
+                    case "SERVANT"-> Color.ANSI_SERVANT;
+                    case "SHIELD"-> Color.ANSI_SHIELD;
                     default -> "";
                 }+" "+ v ));
 
-        showMessage(Styler.format('b', "Activation earnings: "));
+        showMessage(Color.format('b', "Activation earnings: "));
         if(card.getProducedResources()!=null)
             card.getProducedResources().forEach((k, v) ->
                     showMessage(switch(k.toString()){
-                        case "COIN"-> Styler.ANSI_COIN;
-                        case "STONE"-> Styler.ANSI_STONE;
-                        case "SERVANT"-> Styler.ANSI_SERVANT;
-                        case "SHIELD"-> Styler.ANSI_SHIELD;
+                        case "COIN"-> Color.ANSI_COIN;
+                        case "STONE"-> Color.ANSI_STONE;
+                        case "SERVANT"-> Color.ANSI_SERVANT;
+                        case "SHIELD"-> Color.ANSI_SHIELD;
                         default -> "";
                     }+" "+ v ));
 
@@ -689,7 +689,7 @@ public class CliView implements View {
         {
             if(!showLorenzoFT)
             {
-                showMessage(Styler.format('b', "Your Faith Track position: " + faithTrackPosition));
+                showMessage(Color.format('b', "Your Faith Track position: " + faithTrackPosition));
                 showMessage("Your Pope Favor tile 1 (5-8) status is " + clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal1().toString());
                 showMessage("Your Pope Favor tile 2 (12-16) status is " + clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal2().toString());
                 showMessage("Your Pope Favor tile 3 (19-24) status is " + clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal3().toString());
@@ -699,7 +699,7 @@ public class CliView implements View {
         }
         else
         {
-            showMessage(Styler.format('b', "Faith Track Position: "+faithTrackPosition));
+            showMessage(Color.format('b', "Faith Track Position: "+faithTrackPosition));
             showMessage("Pope Favor tile 1 (5-8) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal1().toString());
             showMessage("Pope Favor tile 2 (12-16) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal2().toString());
             showMessage("Pope Favor tile 3 (19-24) status is "+clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex()).getVal3().toString());
@@ -714,8 +714,8 @@ public class CliView implements View {
      */
     public void showFaithTracks() {
         int numPlayer;
-        Styler.cls();
-        showMessage(Styler.format('b', "Faith Track player positions: \n"));
+        Color.cls();
+        showMessage(Color.format('b', "Faith Track player positions: \n"));
         if(clientModel.getNicknames().size() == 1)
             showFaithTrack(clientModel.getPlayersFTPositions().get(0), true);
         for(int i = 0; i < clientModel.getNicknames().size(); i++)
@@ -736,11 +736,11 @@ public class CliView implements View {
      * Shows other player cards
      */
     public void showPlayersBoard(){
-        Styler.cls();
-        showMessage(" " + Styler.format('b', "CardBoards:"));
+        Color.cls();
+        showMessage(" " + Color.format('b', "CardBoards:"));
         AtomicInteger i= new AtomicInteger();
         clientModel.getNicknames().forEach(x-> {
-            showMessage(Styler.format('b', " ▷ " + x + " has:"));
+            showMessage(Color.format('b', " ▷ " + x + " has:"));
             if (!clientModel.isPregame()){
                 if (clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(0)!=null)
                     showCard(clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(0));
@@ -773,30 +773,30 @@ public class CliView implements View {
      * Shows other players LeaderCards, if activated
      */
     public void showPlayersLeaderCards(){ // da capire
-        Styler.cls();
+        Color.cls();
         if(clientModel.getNicknames().size() == 1)
         {
             if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).isActivated())
-                showMessage(Styler.format('i', "You have Leader Card 1 active "));
+                showMessage(Color.format('i', "You have Leader Card 1 active "));
             else
-                showMessage(Styler.format('b', "Inactive Leader Card 1"));
+                showMessage(Color.format('b', "Inactive Leader Card 1"));
             showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
             if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).isActivated())
-                showMessage(Styler.format('i', "You have Leader Card 2 active "));
+                showMessage(Color.format('i', "You have Leader Card 2 active "));
             else
-                showMessage(Styler.format('b', "Inactive Leader Card 2"));
+                showMessage(Color.format('b', "Inactive Leader Card 2"));
             showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
         }
         else {
             AtomicInteger numOfActivatedLeaderCards = new AtomicInteger();
-            showMessage(" " + Styler.format('b', "Players' LeaderCards:"));
+            showMessage(" " + Color.format('b', "Players' LeaderCards:"));
 
             clientModel.getNicknames().forEach(x -> {
-                showMessage(Styler.format('b', " ▷ " + x));
+                showMessage(Color.format('b', " ▷ " + x));
                 if (!clientModel.isPregame() && clientModel.getPlayerLeaderCards(x) != null) {
                     showMessage("--------------------");
                     if (clientModel.getPlayerLeaderCards(x).get(0).isActivated()) {
-                        showMessage(Styler.format('b', " has Leader Card 1 active "));
+                        showMessage(Color.format('b', " has Leader Card 1 active "));
                         showLeaderCard(clientModel.getPlayerLeaderCards(x).get(0));
                         numOfActivatedLeaderCards.getAndIncrement();
                     }
@@ -808,7 +808,7 @@ public class CliView implements View {
                     }
 
                     if (clientModel.getPlayerLeaderCards(x).get(1).isActivated()) {
-                        showMessage(Styler.format('b', " has Leader Card 2 active "));
+                        showMessage(Color.format('b', " has Leader Card 2 active "));
                         showLeaderCard(clientModel.getPlayerLeaderCards(x).get(1));
                         numOfActivatedLeaderCards.getAndIncrement();
                     }
@@ -819,7 +819,7 @@ public class CliView implements View {
                     }
                 }
                 if(numOfActivatedLeaderCards.get()== 0)
-                    showMessage(Styler.format('b', x+" has no activated Leader Cards yet"));
+                    showMessage(Color.format('b', x+" has no activated Leader Cards yet"));
 
                 numOfActivatedLeaderCards.set(0);
             });
@@ -835,22 +835,22 @@ public class CliView implements View {
      *
      */
     public void showMyState(){
-        Styler.cls();
-        showMessage(Styler.format('b', "\n\nWarehouse:\n"));
+        Color.cls();
+        showMessage(Color.format('b', "\n\nWarehouse:\n"));
         showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
-        showMessage(Styler.format('b', "\n\nStrongbox:\n"));
+        showMessage(Color.format('b', "\n\nStrongbox:\n"));
         showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
-        showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
+        showMessage(Color.format('b', "\n\nPersonal Card Board:\n"));
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
         if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).isActivated())
-            showMessage(Styler.format('b', "\n\nYou have Leader Card 1 active"));
+            showMessage(Color.format('b', "\n\nYou have Leader Card 1 active"));
         else
-            showMessage(Styler.format('b', "\n\nInactive Leader Card 1"));
+            showMessage(Color.format('b', "\n\nInactive Leader Card 1"));
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0));
         if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).isActivated())
-            showMessage(Styler.format('b', "\n\nYou have Leader Card 2 active"));
+            showMessage(Color.format('b', "\n\nYou have Leader Card 2 active"));
         else
-            showMessage(Styler.format('b', "\n\nInactive Leader Card 2"));
+            showMessage(Color.format('b', "\n\nInactive Leader Card 2"));
         showLeaderCard(clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1));
         System.out.println("\n");
         showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()), false);
@@ -863,7 +863,7 @@ public class CliView implements View {
      * except for the player who called it
      */
     public void showOthersState(){
-        Styler.cls();
+        Color.cls();
         if(clientModel.getNicknames().size() == 1)
             showMessage("\n\nLorenzo's Faith Track position is "+clientModel.getBlackCrossPosition());
         else
@@ -879,29 +879,29 @@ public class CliView implements View {
 
             for (String s : nicknamesExcept) {
                 showMessage("Player" + " " + '"' + s + '"');
-                showMessage(Styler.format('b', "\n\nWarehouse:\n"));
-                showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
-                showMessage(Styler.format('b', "\n\nStrongbox:\n"));
-                showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex()));
-                showMessage(Styler.format('b', "\n\nPersonal Card Board:\n"));
-                showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
-                showMessage(Styler.format('b', "\n\nActivated Leader Cards:\n"));
+                showMessage(Color.format('b', "\n\nWarehouse:\n"));
+                showWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getPlayersNicknames().indexOf(s)));
+                showMessage(Color.format('b', "\n\nStrongbox:\n"));
+                showStrongbox(clientModel.getPlayersStrongboxes().get(clientModel.getPlayersNicknames().indexOf(s)));
+                showMessage(Color.format('b', "\n\nPersonal Card Board:\n"));
+                showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getPlayersNicknames().indexOf(s)));
+                showMessage(Color.format('b', "\n\nActivated Leader Cards:\n"));
                 if (clientModel.getPlayerLeaderCards(s).get(0).isActivated()) {
-                    showMessage(Styler.format('b', s+" has Leader Card 1 active"));
+                    showMessage(Color.format('b', s+" has Leader Card 1 active"));
                     showLeaderCard(clientModel.getPlayerLeaderCards(s).get(0));
                     numOfActivatedLeaderCards ++;
                 }
                 if (clientModel.getPlayerLeaderCards(s).get(0).isActivated()) {
-                    showMessage(Styler.format('b', s+" has Leader Card 2 active"));
+                    showMessage(Color.format('b', s+" has Leader Card 2 active"));
                     showLeaderCard(clientModel.getPlayerLeaderCards(s).get(1));
                     numOfActivatedLeaderCards ++;
                 }
                 if (numOfActivatedLeaderCards == 0)
-                    showMessage(Styler.format('i', s+" has no activated Leader Cards yet"));
+                    showMessage(Color.format('i', s+" has no activated Leader Cards yet"));
                 numOfActivatedLeaderCards = 0;
 
                 System.out.println("\n\n");
-                showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getMyIndex()), true);
+                showFaithTrack(clientModel.getPlayersFTPositions().get(clientModel.getPlayersNicknames().indexOf(s)), true);
             }
 
         }
@@ -914,16 +914,16 @@ public class CliView implements View {
      * Print the map received in input with the ladder
      */
     public void showLadderBoard(EndGameEventS2C endGameEvent){
-        Styler.cls();
+        Color.cls();
         if(endGameEvent.getWinners().contains(clientModel.getMyNickname()))
-            showMessage("You won!!!"+Styler.ANSI_VICTORY);
+            showMessage("You won!!!"+ Color.ANSI_VICTORY);
         else
-            showMessage("You lost!!!"+Styler.ANSI_LOST);
+            showMessage("You lost!!!"+ Color.ANSI_LOST);
 
-        showMessage(Styler.format('b',Styler.ANSI_TALK + " This is the LadderBoard of the game:"+ Styler.ANSI_VICTORY ));
+        showMessage(Color.format('b', Color.ANSI_TALK + " This is the LadderBoard of the game:"+ Color.ANSI_VICTORY ));
 
         for(String nickname : endGameEvent.getVictoryPoints().keySet())
-            showMessage(Styler.format('b', "Player ▷ " + nickname + " has victory points: " + endGameEvent.getVictoryPoints().get(nickname)));
+            showMessage(Color.format('b', "Player ▷ " + nickname + " has victory points: " + endGameEvent.getVictoryPoints().get(nickname)));
 
         for(String nickname: endGameEvent.getWinners())
             showMessage(nickname + " is a winner!");
@@ -936,41 +936,41 @@ public class CliView implements View {
     public void showWarehouse(PlayerWarehouse warehouse){
 
         if (warehouse.getResource(1,1)!=null)
-        showMessage(Styler.format('i', " (1.1)▷ " + warehouse.getResource(1,1)));
+        showMessage(Color.format('i', " (1.1)▷ " + warehouse.getResource(1,1)));
         else
-            showMessage(Styler.format('i'," (1.1)▷ --"));
+            showMessage(Color.format('i'," (1.1)▷ --"));
 
         if (warehouse.getResource(2,1)== null || warehouse.getResource(2,2)==null){
             if (warehouse.getResource(2,1)!= null)
-                showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) + " (2.2)▷ --"));
+                showMessage(Color.format('i', " (2.1)▷ " + warehouse.getResource(2,1) + " (2.2)▷ --"));
             else{
                 if(warehouse.getResource(2,2)!= null){
-                    showMessage(Styler.format('i', " (2.1)▷ -- "+ " (2.2)▷ " + warehouse.getResource(2,2)));
+                    showMessage(Color.format('i', " (2.1)▷ -- "+ " (2.2)▷ " + warehouse.getResource(2,2)));
                 }else{
-                    showMessage(Styler.format('i', " (2.1)▷ --"+ " (2.2)▷ --" ));
+                    showMessage(Color.format('i', " (2.1)▷ --"+ " (2.2)▷ --" ));
                 }
             }
         }else
-            showMessage(Styler.format('i', " (2.1)▷ " + warehouse.getResource(2,1) +" (2.2)▷ "+ warehouse.getResource(2,2)));
+            showMessage(Color.format('i', " (2.1)▷ " + warehouse.getResource(2,1) +" (2.2)▷ "+ warehouse.getResource(2,2)));
 
         if (warehouse.getResource(3,1)== null || warehouse.getResource(3,2)==null|| warehouse.getResource(3,3)==null){
             if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,2)!= null)
-                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ " + warehouse.getResource(3,2) + " (3.3)▷ --"));
+                showMessage(Color.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ " + warehouse.getResource(3,2) + " (3.3)▷ --"));
             if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,3)!= null)
-                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+ " (3.2)▷ --"+" (3.3)▷ " + warehouse.getResource(3,3)));
+                showMessage(Color.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+ " (3.2)▷ --"+" (3.3)▷ " + warehouse.getResource(3,3)));
             if (warehouse.getResource(3,2)!= null && warehouse.getResource(3,3)!= null)
-                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ " + warehouse.getResource(3,2)+" (3.3)▷ " + warehouse.getResource(3,3)));
+                showMessage(Color.format('i', " (3.1)▷ --"+" (3.2)▷ " + warehouse.getResource(3,2)+" (3.3)▷ " + warehouse.getResource(3,3)));
 
             if (warehouse.getResource(3,1)!= null && warehouse.getResource(3,2)==null && warehouse.getResource(3,3)==null)
-                showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ --" +" (3.3)▷ --"));
+                showMessage(Color.format('i', " (3.1)▷ " + warehouse.getResource(3,1)+" (3.2)▷ --" +" (3.3)▷ --"));
             if (warehouse.getResource(3,1)== null && warehouse.getResource(3,2)!=null && warehouse.getResource(3,3)==null)
-                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ " + warehouse.getResource(3,2)+ " (3.3)▷ --"));
+                showMessage(Color.format('i', " (3.1)▷ --"+" (3.2)▷ " + warehouse.getResource(3,2)+ " (3.3)▷ --"));
             if (warehouse.getResource(3,1)== null && warehouse.getResource(3,2)==null && warehouse.getResource(3,3)!=null)
-                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ --"+" (3.3)▷ " + warehouse.getResource(3,3)));
+                showMessage(Color.format('i', " (3.1)▷ --"+" (3.2)▷ --"+" (3.3)▷ " + warehouse.getResource(3,3)));
             if(warehouse.getResource(3,1)== null && warehouse.getResource(3,2)==null&& warehouse.getResource(3,3)==null)
-                showMessage(Styler.format('i', " (3.1)▷ --"+" (3.2)▷ --"+" (3.3)▷ --" ));
+                showMessage(Color.format('i', " (3.1)▷ --"+" (3.2)▷ --"+" (3.3)▷ --" ));
         }else
-            showMessage(Styler.format('i', " (3.1)▷ " + warehouse.getResource(3,1) +" (3.2)▷ "+ warehouse.getResource(3,2) + " (3.3)▷ "+ warehouse.getResource(3,3)));
+            showMessage(Color.format('i', " (3.1)▷ " + warehouse.getResource(3,1) +" (3.2)▷ "+ warehouse.getResource(3,2) + " (3.3)▷ "+ warehouse.getResource(3,3)));
 
     }
 
@@ -979,10 +979,10 @@ public class CliView implements View {
      */
     public void showStrongbox(Map<Resource,Integer> strongbox){
 
-        strongbox.entrySet().forEach(x-> showMessage(Styler.format('i', " ▷ " + x)));     //stampa tipo "-> key:value"
+        strongbox.entrySet().forEach(x-> showMessage(Color.format('i', " ▷ " + x)));     //stampa tipo "-> key:value"
         for(Resource r : Resource.values())
             if(!strongbox.containsKey(r))
-                showMessage(Styler.format('i', " ▷ " + r.toString()+"=0"));
+                showMessage(Color.format('i', " ▷ " + r.toString()+"=0"));
 
     }
 
@@ -992,7 +992,7 @@ public class CliView implements View {
      */
     @Override
     public void showDisconnectionMessage(String disconnected){
-        Styler.cls();
+        Color.cls();
         showMessage("GAME OVER: " + disconnected + " has disconnected.");   //oppure diverso in base alla FA
     }
 
@@ -1001,7 +1001,7 @@ public class CliView implements View {
      * @param errorMessage The message to be shown
      */
     public void showErrorMessage(String errorMessage) {     //invalid action
-        showMessage(Styler.color('r',Styler.ANSI_INVALID+"That's unfortunate: "+errorMessage));
+        showMessage(Color.color('r', Color.ANSI_INVALID+"That's unfortunate: "+errorMessage));
         //if(clientModel.hasGameStarted() && !clientModel.getDone().get())
             //printActions();
     }
@@ -1027,24 +1027,24 @@ public class CliView implements View {
     //todo to be changed
     /*public void printActions() {
         List<Integer> availableActions= new ArrayList<>();
-        showMessage("\n" + Styler.format('b', "Possible actions are: "));
+        showMessage("\n" + Color.format('b', "Possible actions are: "));
         int index=1;
         if (availableActions.get(0).equals(1))
-            showMessage(Styler.format('b', index++ +") Buy At Market"));
+            showMessage(Color.format('b', index++ +") Buy At Market"));
         if (availableActions.get(1).equals(1))
-            showMessage(Styler.format('b', index++ +") Activate Production"));
+            showMessage(Color.format('b', index++ +") Activate Production"));
         if (availableActions.get(2).equals(1))
-            showMessage(Styler.format('b', index++ +") Edit Warehouse"));
+            showMessage(Color.format('b', index++ +") Edit Warehouse"));
         if (availableActions.get(3).equals(1))
-            showMessage(Styler.format('b', index++ +") Show other players active LeaderCards"));
+            showMessage(Color.format('b', index++ +") Show other players active LeaderCards"));
         if (availableActions.get(4).equals(1))
-            showMessage(Styler.format('b', index++ +") Show faith track"));
+            showMessage(Color.format('b', index++ +") Show faith track"));
         if (availableActions.get(5).equals(1))
-            showMessage(Styler.format('b', index++ +") Show other players productions"));
+            showMessage(Color.format('b', index++ +") Show other players productions"));
 
         //PRINT OTHER USEFUL THINGS TO THE PLAYER
 
-        showMessage(Styler.format('b', Styler.ANSI_TALK + " Insert your action: "));
+        showMessage(Color.format('b', Color.ANSI_TALK + " Insert your action: "));
         String choice = scanner.nextLine();
 
         //todo:fix it
