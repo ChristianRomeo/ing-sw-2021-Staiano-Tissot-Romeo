@@ -99,19 +99,14 @@ public class Server {
         }
 
         //only then we can check whether the number chosen has been reached
-        if (++currentNumOfPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive())
-            clearLobby();
-
+        if (++currentNumOfPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive()) {
+            //MULTIPLE GAMES FA to clear the game room and prepare it in order to accept new players
+            //
+            logger.info("The game room is full.");
+            currentNumOfPlayers = 0;
+            currentGame = null;
+            currentVirtualView = null;
+        }
     }
 
-    /**
-     * MULTIPLE GAMES FA
-     * Clears the game room and prepares it in order to accept new players
-     */
-    private void clearLobby() {
-        logger.info("The game room is full.");
-        currentNumOfPlayers = 0;
-        currentGame = null;
-        currentVirtualView = null;
-    }
 }
