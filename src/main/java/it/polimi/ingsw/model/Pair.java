@@ -24,14 +24,14 @@ public class Pair <K,V>{
         this.val2 = val2;
     }
     /**
-     * @return the first value of the pair
+     * Return the first value of the pair
      */
     public K getVal1() {
         return val1;
     }
 
     /**
-     * @return the second value of the pair
+     * Return the second value of the pair
      */
     public void setVal1(K val1) {
         this.val1 = val1;

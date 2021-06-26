@@ -133,7 +133,7 @@ public class Controller extends ServerObservable {
 
     /**
      * Method activateProduction allows the player to activate the production of one or more cards.
-     * Also the base production and the leader card production can be activated.
+     * Also, the base production and the leader card production can be activated.
      * @param activatedProductions tells which card productions the player want to activate, it contains
      *                             numbers between 0 and 2, the indexes of the cards he wants to activate
      *                             in his personal card board.
@@ -206,9 +206,9 @@ public class Controller extends ServerObservable {
      * You have to give the position of the card you want to buy on the board and the pile of your
      * personal card board where you want to insert the bought card.
      *
-     * @param row is the row of the selected card, 0<=row<=2: level 1, level 2,or level 3
-     * @param col is the column of the selected card, 0<=col<=3, choosing the color
-     * @param pile is the number of the pile where you want to insert the bought card on the board, 0<=pile<=2
+     * @param row is the row of the selected card, row 0-2: level 1, level 2,or level 3
+     * @param col is the column of the selected card, col 0-3, choosing the color
+     * @param pile is the number of the pile where you want to insert the bought card on the board, pile 0-2
      */
     public void buyDevelopmentCard(int row, int col, int pile) throws IllegalArgumentException{
         DevelopmentCardBoard developmentCardBoard = game.getBoard().getDevelopmentCardBoard();

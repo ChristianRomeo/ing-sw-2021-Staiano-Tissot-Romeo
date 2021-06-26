@@ -20,7 +20,6 @@ public class Configs {
 
     private final String server_ip;
     private final int server_port;
-    private static boolean set;
 
     public Configs(String server_ip, int server_port) {
         this.server_ip = server_ip;

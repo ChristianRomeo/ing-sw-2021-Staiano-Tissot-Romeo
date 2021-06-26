@@ -3,7 +3,6 @@
 /target/
 /.idea/
 /.github/
-/Deliverables/Javadoc/
 
 # Compiled class file
 *.class

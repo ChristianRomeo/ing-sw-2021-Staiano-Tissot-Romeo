@@ -16,8 +16,8 @@ import java.util.*;
 public class ControllerTest {
     @Test
     public void controllerInit(){
-
     }
+
     @Test //test passed, test if you haven't enough resources to buy a card
     public void buyCardTest1() throws Exception{
 

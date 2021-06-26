@@ -198,12 +198,6 @@ public class UseMarketSceneController extends FXMLController{
         slideMarbleImage.setImage(GuiView.getMarbleImage(market.getSlideMarble()));
     }
 
-    @FXML
-    public void initialize(){
-        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
-        //root.setBackground(new Background(backgroundFill));
-    }
-
     //cose per il pane proprio del mercato
     @FXML
     public void submitMarket(){
@@ -220,9 +214,6 @@ public class UseMarketSceneController extends FXMLController{
             case 6 -> marketIndex = 3;
         }
         collectResource();
-        //marketPane.setVisible(false);
-        //System.out.println(rowOrColumn+" "+ marketIndex); //debug
-        //System.out.println(boughtResources); //debug
         initializeInsertResourcesPane();
     }
 
@@ -389,8 +380,7 @@ public class UseMarketSceneController extends FXMLController{
             boughtResources.remove(0);
             checkFinishedResources();
             updateInsertResourcePane();
-        } catch (InvalidWarehouseInsertionException e) {
-            //ignored
+        } catch (InvalidWarehouseInsertionException ignored) {
         }
     }
 

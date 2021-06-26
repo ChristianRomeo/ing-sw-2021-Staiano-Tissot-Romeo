@@ -28,20 +28,16 @@ import java.util.logging.Logger;
 
 /**
  * @see javafx.application.Application
- * GUIDE
- * @link http://tutorials.jenkov.com/javafx/index.html
- * @link https://www.javatpoint.com/media-with-javafx
  */
 public class GuiView extends Application implements View {
     private final ClientModel clientModel;
     private static ServerHandler serverHandler;
     private final AudioClip sound = new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource("song.mp3")).toExternalForm());
 
-    //qui ci vanno tutte le varie scene del gioco ed i relativi controller ( home, menu, caricamento, fine...)
+    //qui ci vanno tutte le varie scene del gioco e i relativi controller (home, menu, caricamento, fine...)
     private final Map<String, Scene> scenes = new HashMap<>();
     private final Map<String, FXMLController> controllers = new HashMap<>(); //qua dentro sta nomescena->controller
 
-    private static Scene currentScene;
     private static Stage currentStage;
     private FXMLController currentFXMLController;
 
@@ -90,7 +86,6 @@ public class GuiView extends Application implements View {
                 stop();
             }
         });
-                //System.out.println(askNumPlayers());
                 //currentScene.getStylesheets().add("/style.css");
     }
 
@@ -154,7 +149,7 @@ public class GuiView extends Application implements View {
      */
     public void setCurrentScene(String sceneName){
         currentStage.setScene(getScene(sceneName));
-        currentScene = getScene(sceneName);
+        Scene currentScene = getScene(sceneName);
         currentFXMLController = getSceneController(sceneName);
     }
 

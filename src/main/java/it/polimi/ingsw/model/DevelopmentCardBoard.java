@@ -1,11 +1,14 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.Configs;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.io.*;
 import java.util.stream.Collectors;
-import it.polimi.ingsw.controller.Configs;
 
 /**
  * DevelopmentCardBoard contains the Board's cards from where the player can pick his choice
@@ -26,6 +29,7 @@ public class DevelopmentCardBoard implements Serializable{
     /**
      *  cardBoard is the card's matrix, where every cell is a list up to 4 cards
      */
+    @SuppressWarnings("unchecked")
     private final List<DevelopmentCard>[][] cardBoard = new ArrayList[MAXROWS][MAXCOLUMNS];    //public? GETTER
 
     /**

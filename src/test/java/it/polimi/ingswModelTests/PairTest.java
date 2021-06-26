@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class PairTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getAndSetVal1Test() {
         Pair pair = new Pair();
@@ -17,6 +18,7 @@ public class PairTest {
         assert(check);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getAndSetVal2Test() {
         Pair pair = new Pair();

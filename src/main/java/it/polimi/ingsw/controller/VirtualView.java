@@ -5,13 +5,13 @@ import it.polimi.ingsw.model.IllegalAction;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.SameTypeTriple;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class VirtualView implements ClientEventHandler, ServerEventObserver {
     private final List<ClientHandler> clientHandlers;
-    private final List<String> disconnectedClients = new ArrayList<>();
     private final Controller controller;
     private final static Logger logger = Logger.getLogger(VirtualView.class.getName());
 
@@ -58,19 +58,6 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
             }
     }
 
-    /*
-    //per la disconnessione , DEPRECATED
-    public synchronized void setDisconnected(ClientHandler client){
-        //notify controller that player has been disconnected
-        disconnectedClients.add(client.getNickname());
-        clientHandlers.remove(client);
-    }
-
-    //per la disconnessione , DEPRECATED
-    public synchronized List<String> getDisconnectedClients() {
-        return new ArrayList<>(disconnectedClients);
-    }
-*/
     /**
      * closes every connected socket
      */

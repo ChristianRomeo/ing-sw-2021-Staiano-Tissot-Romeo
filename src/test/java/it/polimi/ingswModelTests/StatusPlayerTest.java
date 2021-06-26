@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class StatusPlayerTest {
     @Test
     public void calculateVP(){
-
     }
 
 

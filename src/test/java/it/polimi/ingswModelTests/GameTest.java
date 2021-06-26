@@ -12,7 +12,6 @@ import java.io.IOException;
 public class GameTest {
     @Test
     public void initGameTest(){
-
     }
 
     @Test

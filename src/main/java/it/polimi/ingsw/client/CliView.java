@@ -7,14 +7,12 @@ import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
 
 public class CliView implements View {
 
     private final Scanner scanner;
     private ServerHandler serverHandler;
-    private final static Logger logger = Logger.getLogger(CliView.class.getName());
     private ActionHandler actionHandler;
     private final ClientModel clientModel;
 
@@ -22,7 +20,6 @@ public class CliView implements View {
      * Constructor
      */
     public CliView() {
-        int cookie=1; //todo DOBBIAMO FARLO ARRIVARE DAL SERVER PER POTER RICONNETTERE IL PLAYER
         this.scanner = new Scanner(System.in);
         clientModel = new ClientModel();
     }
@@ -49,9 +46,6 @@ public class CliView implements View {
     public void askActions(){
         while(!clientModel.hasGameEnded()){
             scanner.reset();
-            //if (clientModel.hasGameStarted())   //bisogna scegliere se current o no, viene stampato "x ha usato il mercato" dopo questo show, non va bene, deve essere il contrario
-            //showMessage("Scegli l'azione tra AZIONELEADER PRODUZIONE FINETURNO COMPRACARTA MERCATO MOSTRAFT MOSTRALEADERS MOSTRABOARDS MOSTRAMIOSTATO MOSTRASTATOALTRI EXIT :");
-
             String newAction = scanner.nextLine();
 
             actionHandler.handleAction(newAction);
@@ -92,12 +86,6 @@ public class CliView implements View {
     public int askNumPlayers(){
         Color.cls();
         showMessage("Choose how many players will play: ");
-        /*String numPlayer = scanner.nextLine();
-        while (checkNumber(numPlayer,1,4)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            numPlayer = scanner.nextLine();
-        }
-        return checkNumber(numPlayer,1,4);*/
 
         return askNumber(1,4);
     }
@@ -139,32 +127,12 @@ public class CliView implements View {
         leaderCard.forEach(this::showLeaderCard);
 
         showMessage(Color.ANSI_TALK + Color.format('b', " Choose action:  [activation - 0 / discard - 1] :"));
-        /*
-        String string =scanner.nextLine();
-        if (actionHandler.newGame)
-            actionHandler.getNewGame(string);
-        else
-        while (checkNumber(string,0,1)==null) {
-            showErrorMessage("Invalid choice! Try again: ");
-            string =scanner.nextLine();
-            if (actionHandler.newGame)
-                actionHandler.getNewGame(string);
-        }*/
+
         int choice = askNumber(0,1);
 
         //todo:controllare se carta già attiva o scartata
         showMessage(Color.ANSI_TALK + Color.format('b', " Choose which card:"));
-        /*
-        String chosenCard = scanner.nextLine();
-        if (actionHandler.newGame)
-            actionHandler.getNewGame(string);
-        else
-        while (checkNumber(chosenCard,0,1)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            chosenCard = scanner.nextLine();
-            if (actionHandler.newGame)
-                actionHandler.getNewGame(string);
-        }*/
+
         int card = askNumber(0,1);
         List<Integer> ret = new ArrayList<>();
         //ret.add(checkNumber(string,0,1));
@@ -184,19 +152,8 @@ public class CliView implements View {
         showDevelopmentCardBoard();
         SameTypePair<Integer> position = new SameTypePair<>();
         showMessage("\nChoose the card position, select a row: ");
-        /*String string = scanner.nextLine();
-        while(checkNumber(string,0,2)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            string = scanner.nextLine();
-        }*/
         position.setVal1(askNumber(0,2));
         showMessage("Now select a column: ");
-
-        /*string = scanner.nextLine();
-        while(checkNumber(string,0,3)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            string = scanner.nextLine();
-        }*/
 
         position.setVal2(askNumber(0,3));
         return position;
@@ -211,12 +168,6 @@ public class CliView implements View {
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
         showMessage("Chose the pile where you want to insert your card (0,1,2): ");
 
-        /*String string = scanner.nextLine();
-        while(checkNumber(string,0,2)==null){
-            showErrorMessage("Invalid choice! Try again: ");
-            string = scanner.nextLine();
-        }
-        return checkNumber(string,0,2);*/
         return askNumber(0,2);
     }
 
@@ -507,7 +458,7 @@ public class CliView implements View {
     }
 
     /**
-     * Asks the user a number >=lowLimit , <=highLimit. It doesn't print anything (only error messages)
+     * Asks the user a number between lowLimit - highLimit. It doesn't print anything (only error messages)
      * @return the chosen number.
      */
     public int askNumber(int lowLimit, int highLimit){
@@ -545,22 +496,6 @@ public class CliView implements View {
 
         actionHandler.setNewGame(true);
         showMessage("\n"+ Color.ANSI_TALK + " Do you wish to play again? [y/n]: ");
-
-        //String choice = scanner.nextLine();
-        /*while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")){
-            showErrorMessage("Invalid choice! Try again: ");
-            choice = scanner.nextLine();
-        }
-
-        if (choice.equalsIgnoreCase("y")) {
-            try {
-                MastersOfRenaissance.main("cli ".split(" "));
-            } catch (FileNotFoundException e) {
-                System.out.println("Error while restarting the application.");
-            } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
 
@@ -1002,18 +937,7 @@ public class CliView implements View {
      */
     public void showErrorMessage(String errorMessage) {     //invalid action
         showMessage(Color.color('r', Color.ANSI_INVALID+"That's unfortunate: "+errorMessage));
-        //if(clientModel.hasGameStarted() && !clientModel.getDone().get())
-            //printActions();
     }
-
-    /**
-     * Notify whose turn is
-     *
-     * @param currentNickname The nickname of whom taking the turn
-     */
-    public void showTurn(String currentNickname) {
-        showMessage("It's " + currentNickname + "'s turn.");
-    }   //todo:da usare o da togliere
 
 
     public void showLorenzoTurn(SoloAction soloAction){
@@ -1023,40 +947,6 @@ public class CliView implements View {
             System.out.println("The discarded cards were of type: " + soloAction.getDiscardedCardsType());
 
     }
-
-    //todo to be changed
-    /*public void printActions() {
-        List<Integer> availableActions= new ArrayList<>();
-        showMessage("\n" + Color.format('b', "Possible actions are: "));
-        int index=1;
-        if (availableActions.get(0).equals(1))
-            showMessage(Color.format('b', index++ +") Buy At Market"));
-        if (availableActions.get(1).equals(1))
-            showMessage(Color.format('b', index++ +") Activate Production"));
-        if (availableActions.get(2).equals(1))
-            showMessage(Color.format('b', index++ +") Edit Warehouse"));
-        if (availableActions.get(3).equals(1))
-            showMessage(Color.format('b', index++ +") Show other players active LeaderCards"));
-        if (availableActions.get(4).equals(1))
-            showMessage(Color.format('b', index++ +") Show faith track"));
-        if (availableActions.get(5).equals(1))
-            showMessage(Color.format('b', index++ +") Show other players productions"));
-
-        //PRINT OTHER USEFUL THINGS TO THE PLAYER
-
-        showMessage(Color.format('b', Color.ANSI_TALK + " Insert your action: "));
-        String choice = scanner.nextLine();
-
-        //todo:fix it
-        while (true)//invalid choice
-        {
-            showErrorMessage("Invalid choice! Try again: ");
-            choice = scanner.nextLine();
-        }
-
-        //serverHandler.sendAction();
-    }*/
-
 
     //########################## CHECKS #########################
 
@@ -1074,8 +964,8 @@ public class CliView implements View {
     /**
      * This method checks if the number passed (in a string) is an integer between the two limits
      * @param number the string from the user
-     * @param lowLimit the number has to be >= than the lowLimit
-     * @param highLimit the number has to be <= than the highLimit
+     * @param lowLimit the number has to be bigger than the lowLimit
+     * @param highLimit the number has to be smaller than the highLimit
      * @return null if the check is false, otherwise the number
      */
     public Integer checkNumber(String number, int lowLimit, int highLimit){ //todo: se sto metodo funziona leviamo gli altri check dei numeri

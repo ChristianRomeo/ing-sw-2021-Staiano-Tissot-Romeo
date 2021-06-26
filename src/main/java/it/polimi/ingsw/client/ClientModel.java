@@ -17,6 +17,7 @@ public class ClientModel {
    private DevelopmentCardBoard developmentCardBoard;
 
    //FYI http://tutorials.jenkov.com/java-concurrency/volatile.html#:~:text=The%20Java%20volatile%20keyword%20guarantees%20visibility%20of%20changes%20to%20variables%20across%20threads.
+   @SuppressWarnings("FieldMayBeFinal")
    private volatile AtomicBoolean done= new AtomicBoolean(false);
 
    public AtomicBoolean getDone() {
@@ -112,10 +113,6 @@ public class ClientModel {
       return playersPopeTiles;
    }
 
-   public synchronized List<List<LeaderCard>> getPlayersLeaderCards() {
-      return playersLeaderCards;
-   }
-
    public synchronized int getNumPlayers(){
       return numPlayers;
    }
@@ -128,9 +125,7 @@ public class ClientModel {
       return developmentCardBoard;
    }
 
-   // public List<Integer> getPlayersVP() { credo non serve
-   //   return playersVP;
-   //}
+
    /**
     * checks if the game has ended
     * @return a boolean which says if the game has ended or not
@@ -277,11 +272,6 @@ public class ClientModel {
       this.market = market;
    }
 
-/* //metodo credo inutile
-   public void setPlayersNicknames(List<String> playersNicknames) {
-      this.playersNicknames = playersNicknames;
-   }
-*/
    /**
     * sets the index for the player who called it (might be first player, second player etc...)
     * @param myIndex is the index to be set for the player

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class SameTypeTripleTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getAndSetVal1Test() {
         SameTypeTriple sameTypeTriple = new SameTypeTriple();
@@ -15,6 +16,7 @@ public class SameTypeTripleTest {
         assert(sameTypeTriple.getVal1().equals(Resource.COIN));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getAndSetVal2Test() {
         SameTypeTriple sameTypeTriple = new SameTypeTriple();
@@ -25,6 +27,7 @@ public class SameTypeTripleTest {
         assert(sameTypeTriple.getVal2().equals(Resource.COIN));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getAndSetVal3Test() {
         SameTypeTriple sameTypeTriple = new SameTypeTriple();
