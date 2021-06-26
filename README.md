@@ -12,7 +12,6 @@
 ![Tests](https://img.shields.io/badge/Tests-✔%20100%25%20%7C%20✘%200%20%7C%20➟%200-red?style=for-the-badge&logo=codecov)
 
 
-
 <br />
 
 ##
@@ -48,8 +47,9 @@ This project includes:
 * Source code of unity tests.
 
 ## Test Coverage
-<img src="https://img.shields.io/badge/Model%20Coverage-85%25-brightgreen?style=for-the-badge" alt="85%"/>
-<img src="https://img.shields.io/badge/Build-passed-brightgreen?style=for-the-badge" alt"passed"/>
+Coverage criteria: Methods.
+![Codecov](https://img.shields.io/badge/Controller%20Coverage-73%25-brightgreen?style=for-the-badge&logo=codecov)
+![Codecov](https://img.shields.io/badge/Model%20Coverage-79%25-brightgreen?style=for-the-badge&logo=codecov)
 
 <img width="711" alt="model_coverage" src="https://user-images.githubusercontent.com/25418541/119738638-4bff1900-be81-11eb-9cdc-0a28892f93b6.png"><br /><br />
 <img width="711" alt="all_model_coverage" src="https://user-images.githubusercontent.com/25418541/119738652-515c6380-be81-11eb-8d4e-5b4ae20b3917.png"><br /><br /><br />
@@ -58,4 +58,4 @@ This project includes:
 
 * **[Full project specifications (ITA)](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/wiki/Specifications)**
 
-![Cranio-Creations](https://www.migliorigiochi.eu/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2018/07/cranio-creation-750x403.jpg.webp)
+![Cranio-Creations](https://www.justnerd.it/wp-content/uploads/2019/02/cranio-creations-cover-generica.jpg)
