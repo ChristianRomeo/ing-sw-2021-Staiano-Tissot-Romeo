@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model;
 
 
-import it.polimi.ingsw.controller.Events.*;
+import it.polimi.ingsw.controller.Events.IllegalActionEventS2C;
+import it.polimi.ingsw.controller.Events.LorenzoTurnEventS2C;
+import it.polimi.ingsw.controller.Events.ServerEventCreator;
+import it.polimi.ingsw.controller.Events.ServerObservable;
 import it.polimi.ingsw.model.modelExceptions.VaticanReportException;
 
 import java.io.IOException;
@@ -156,7 +159,6 @@ public class Game extends ServerObservable { //game is observed by the virtual v
      * @return Player that is the desired player.
      */
     public Player getPlayerByIndex(int playerIndex){
-        //todo playerIndex must not exceed getPlayersNumber()
         return players.get(playerIndex);
     }
 

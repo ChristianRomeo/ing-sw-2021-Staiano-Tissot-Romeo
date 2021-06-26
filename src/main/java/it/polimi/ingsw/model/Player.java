@@ -13,17 +13,6 @@ public class Player {
     private boolean isWinner;
 
     /**
-     * Constructor
-     * @param nickname il nickname
-     */
-    public Player(String nickname){
-        //costruttore creato a caso solo per fare testing
-        statusPlayer = new StatusPlayer();
-        isWinner=false;
-        this.nickname=nickname;
-    }
-
-    /**
      * @return the player's nickname
      */
     public String getNickname() {
@@ -35,6 +24,17 @@ public class Player {
      */
     public int getVictoryPoints() {
         return victoryPoints;
+    }
+
+    /**
+     * Constructor
+     * @param nickname il nickname
+     */
+    public Player(String nickname){
+        //costruttore creato a caso solo per fare testing
+        statusPlayer = new StatusPlayer();
+        isWinner=false;
+        this.nickname=nickname;
     }
 
     /**
