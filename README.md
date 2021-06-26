@@ -53,6 +53,8 @@ This project includes:
 
 <img width="711" alt="model_coverage" src="https://user-images.githubusercontent.com/25418541/119738638-4bff1900-be81-11eb-9cdc-0a28892f93b6.png"><br /><br />
 <img width="711" alt="all_model_coverage" src="https://user-images.githubusercontent.com/25418541/119738652-515c6380-be81-11eb-8d4e-5b4ae20b3917.png"><br /><br /><br />
+
+<img src="https://img.shields.io/badge/Controller%20Coverage-85%25-brightgreen?style=for-the-badge" alt="85%"/>
 <img width="711" alt="controller_coverage" src="https://user-images.githubusercontent.com/25418541/119738674-591c0800-be81-11eb-82dc-88eba3b9eda3.png"><br /><br />
 
 
