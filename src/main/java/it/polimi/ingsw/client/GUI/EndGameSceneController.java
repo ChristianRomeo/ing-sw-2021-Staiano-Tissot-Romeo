@@ -39,6 +39,10 @@ public class EndGameSceneController extends FXMLController {
     @FXML
     private Button exitLadderBoardButton;
 
+    /**
+     * updates the endGameScene
+     * it shows the winners and all the players victory points at the end of the match
+     */
     @Override
     public void updateScene(){
         List<String> winners = clientModel.getWinners();
@@ -94,6 +98,9 @@ public class EndGameSceneController extends FXMLController {
 
     }
 
+    /**
+     * exits from the ladderBoard
+     */
     @FXML
     public void exitLadderBoard(){
         System.exit(0);

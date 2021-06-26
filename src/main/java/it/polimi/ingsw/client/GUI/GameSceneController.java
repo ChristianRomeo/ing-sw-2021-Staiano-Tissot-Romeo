@@ -188,7 +188,12 @@ public class GameSceneController extends FXMLController {
 
 
     //---- cose per la schermata principale---
-
+    /**
+     * updates the gameScene
+     * it will show actions based on the number of the players
+     * (e.g. the current player will see Buy Card, Leader Action...while other players won't)
+     * and then it calls methods which will update Warehouse, PersonalCardBoard, Strongbox, LeaderCards, PopeTiles
+     */
     @Override
     public void updateScene(){
 
@@ -237,6 +242,9 @@ public class GameSceneController extends FXMLController {
         updateMyPopeTiles();
     }
 
+    /**
+     * updates the warehouse to show the current resources
+     */
     private void updateMyWarehouse(){
         PlayerWarehouse myWarehouse = clientModel.getPlayersWarehouses().get(clientModel.getMyIndex());
 
@@ -248,6 +256,9 @@ public class GameSceneController extends FXMLController {
         myWarehouseImage33.setImage(GuiView.getResourceImage(myWarehouse.getResource(3,3)));
     }
 
+    /**
+     * updates the personal card board to show the current Development cards
+     */
     private void updateMyPersonalCardBoard(){
         PersonalCardBoard myPersonalCardBoard = clientModel.getPlayersCardBoards().get(clientModel.getMyIndex());
 
@@ -263,6 +274,9 @@ public class GameSceneController extends FXMLController {
 
     }
 
+    /**
+     * updates the strongbox to show the current resources
+     */
     private void updateMyStrongbox(){
         Map<Resource,Integer> myStrongbox = clientModel.getPlayersStrongboxes().get(clientModel.getMyIndex());
 
@@ -285,6 +299,9 @@ public class GameSceneController extends FXMLController {
 
     }
 
+    /**
+     * updates the leader cards checking if they're activated or discarded
+     */
     private void updateMyLeaderCards(){
         DropShadow d= new DropShadow();
         d.setRadius(80);
@@ -328,6 +345,9 @@ public class GameSceneController extends FXMLController {
         }
     }
 
+    /**
+     * updates the Pope tiles to show their current statuses
+     */
     private void updateMyPopeTiles(){
         SameTypeTriple<PopeFavorTileStatus> myPopeTiles = clientModel.getPlayersPopeTiles().get(clientModel.getMyIndex());
         myPopeTileImage1.setImage(GuiView.getPopeTileImage(myPopeTiles.get(1),1));
@@ -335,6 +355,11 @@ public class GameSceneController extends FXMLController {
         myPopeTileImage3.setImage(GuiView.getPopeTileImage(myPopeTiles.get(3),3));
     }
 
+    /**
+     * updates the Faith track position
+     * @param playerIndex is the index of the player whom Faith track position will be updated
+     * @param setBlackCross is used to check whether the player is in Solo mode or not (used for the black cross)
+     */
     //uso sto metodo sia per il mio faith track che per l'other board, sia per la black cross
     private void setFaithTrackPosition(int playerIndex, boolean setBlackCross){
         //int myPosition = clientModel.getPlayersFTPositions().get(clientModel.getMyIndex());
@@ -542,6 +567,10 @@ public class GameSceneController extends FXMLController {
 
     }
 
+    /**
+     * calls updateScene() for the LeaderActionSceneController
+     * and sets the current scene to leaderActionScene.fxml
+     */
     @FXML
     public void leaderAction(){
        // initializeLeaderPanel();
@@ -549,6 +578,11 @@ public class GameSceneController extends FXMLController {
         guiView.getSceneController("leaderActionScene").updateScene();
         guiView.setCurrentScene("leaderActionScene");
     }
+
+    /**
+     * calls updateScene() for the BuyCardSceneController
+     * and sets the current scene to buyCardScene.fxml
+     */
     @FXML
     public void buyCard(){
         //initializeBuyCardPane();
@@ -560,6 +594,11 @@ public class GameSceneController extends FXMLController {
     public void endTurn(){
         serverHandler.send(new EndTurnEvent());
     }
+
+    /**
+     * calls updateScene() for the ActivateProductionSceneController
+     * and sets the current scene to activateProductionScene.fxml
+     */
     @FXML
     public void activateProduction(){
         //initializeProductionPane();
@@ -567,23 +606,42 @@ public class GameSceneController extends FXMLController {
         guiView.getSceneController("activateProductionScene").updateScene();
         guiView.setCurrentScene("activateProductionScene");
     }
+
+    /**
+     * calls updateScene() for the UseMarketSceneController
+     * and sets the current scene to useMarketScene.fxml
+     */
     @FXML
     public void useMarket(){
         //marketPane.setVisible(true);
         guiView.getSceneController("useMarketScene").updateScene();
         guiView.setCurrentScene("useMarketScene");
     }
+
+    /**
+     * calls updateScene() for the UseMarketSceneController
+     * and sets the current scene to useMarketScene.fxml
+     */
     @FXML
     public void showMarket(){
         //marketPane.setVisible(true);
         guiView.getSceneController("useMarketScene").updateScene();
         guiView.setCurrentScene("useMarketScene");
     }
+
+    /**
+     * calls updateScene() for the BuyCardSceneController
+     * and sets the current scene to buyCardScene.fxml
+     */
     @FXML
     public void showDevelopmentCardBoard(){
         guiView.getSceneController("buyCardScene").updateScene();
         guiView.setCurrentScene("buyCardScene");
     }
+
+    /**
+     * shows the first player's board
+     */
     @FXML
     public void showOtherPlayerBoard1(){
         if(clientModel.getMyIndex()==0){
@@ -593,6 +651,10 @@ public class GameSceneController extends FXMLController {
         }
         otherBoardPane.setVisible(true);
     }
+
+    /**
+     * shows the second player's board
+     */
     @FXML
     public void showOtherPlayerBoard2(){
         switch (clientModel.getMyIndex()) {
@@ -601,6 +663,10 @@ public class GameSceneController extends FXMLController {
         }
         otherBoardPane.setVisible(true);
     }
+
+    /**
+     * shows the third player's board
+     */
     @FXML
     public void showOtherPlayerBoard3(){
         switch (clientModel.getMyIndex()) {
@@ -610,6 +676,10 @@ public class GameSceneController extends FXMLController {
         otherBoardPane.setVisible(true);
     }
 
+    /**
+     * updates the board of a specific player
+     * @param playerIndex is the index of the player whose board will be updated
+     */
     //sto metodo fa l'update della board dell'altro giocatore, gli devi passare l'indice del giocatore
     //di cui vuoi mostrare la board
     public void updateOtherBoardPane(int playerIndex){
@@ -691,7 +761,9 @@ public class GameSceneController extends FXMLController {
         otherPopeTileImage2.setImage(GuiView.getPopeTileImage(otherPopeTiles.get(2),2));
         otherPopeTileImage3.setImage(GuiView.getPopeTileImage(otherPopeTiles.get(3),3));
     }
-
+    /**
+     * close the opened board of the other player
+     */
     @FXML
     public void exitOtherBoard(){
         otherBoardPane.setVisible(false);

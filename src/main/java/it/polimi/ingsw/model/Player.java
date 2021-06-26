@@ -5,16 +5,23 @@ package it.polimi.ingsw.model;
  */
 public class Player {
     /**
-     * The player's leader cards number, constant and common to all players
-     */
-    private static final int LEADER_CARDS_OWNED = 2;
-    /**
      * The name chosen by the physical player
      */
     private final String nickname;
     private int victoryPoints;
     private final StatusPlayer statusPlayer;
     private boolean isWinner;
+
+    /**
+     * Constructor
+     * @param nickname il nickname
+     */
+    public Player(String nickname){
+        //costruttore creato a caso solo per fare testing
+        statusPlayer = new StatusPlayer();
+        isWinner=false;
+        this.nickname=nickname;
+    }
 
     /**
      * @return the player's nickname
@@ -28,17 +35,6 @@ public class Player {
      */
     public int getVictoryPoints() {
         return victoryPoints;
-    }
-
-    /**
-     * Constructor
-     * @param nickname il nickname
-     */
-    public Player(String nickname){
-        //costruttore creato a caso solo per fare testing
-        statusPlayer = new StatusPlayer();
-        isWinner=false;
-        this.nickname=nickname;
     }
 
     /**

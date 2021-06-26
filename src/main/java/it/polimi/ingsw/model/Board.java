@@ -22,7 +22,6 @@ public class Board {
     private final Market market;
     private final List<SoloAction> soloActions = new ArrayList<>();
     private final DevelopmentCardBoard developmentCardBoard;
-
     private final Player lorenzo;
 
     /**

@@ -175,7 +175,9 @@ public class UseMarketSceneController extends FXMLController{
     private AnchorPane root;
 
 
-
+    /**
+     * updates the useMarketScene with the current market
+     */
     @Override
     public void updateScene(){
         submitMarketButton.setDisable(!clientModel.isCurrentPlayer());
@@ -224,6 +226,9 @@ public class UseMarketSceneController extends FXMLController{
         initializeInsertResourcesPane();
     }
 
+    /**
+     * exits from the useMarketScene and go back to gameScene
+     */
     @FXML
     public void exit(){
         guiView.getSceneController("gameScene").updateScene();
@@ -387,13 +392,12 @@ public class UseMarketSceneController extends FXMLController{
         } catch (InvalidWarehouseInsertionException e) {
             //ignored
         }
-        //System.out.println(boughtResources +" selected cell "+ selectedCell.getVal1() +" " +selectedCell.getVal2()); //debug
-       // System.out.println(newWarehouse.getResource(1,1)); //debug
-        //System.out.println(newWarehouse.getResource(2,1) +" "+ newWarehouse.getResource(2,2));
-        //System.out.println(newWarehouse.getResource(3,1) +" "+ newWarehouse.getResource(3,2)+" "+ newWarehouse.getResource(3,3));
     }
 
-    //questo metodo ti ritorna la cella del warehouse selezionata partendo dal toggle selezionato nel toggle group
+    /**
+     * @param toggleGroup is the group of toggles from which the player will choose a warehouse cell
+     * @return the selected warehouse cell from the selected toggle
+     */
     private SameTypePair<Integer> getCellFromToggleGroup(ToggleGroup toggleGroup){
         int  indexSelectedCellToggle= toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());
         int selectedRow=0, selectedCol=0;
@@ -431,7 +435,6 @@ public class UseMarketSceneController extends FXMLController{
         boughtResources.remove(0);
         updateInsertResourcePane();
         checkFinishedResources();
-        //System.out.println(boughtResources +" disc res: "+ discardedResources); //debug
     }
 
     //controlla se sono finite le risorse comprate, e se si invia l'evento
@@ -566,6 +569,9 @@ public class UseMarketSceneController extends FXMLController{
             //ignored
         }
     }
+    /**
+     * allows to temporary remove a resource in order to rearrange the warehouse
+     */
     @FXML
     public void temporaryRemoveResource(){
         SameTypePair<Integer> selectedCell = getCellFromToggleGroup(toggleGroupEditWarehouse);
@@ -580,6 +586,10 @@ public class UseMarketSceneController extends FXMLController{
             exitEditWarehouseButton.setDisable(true);
         }
     }
+
+    /**
+     * exits from the editWarehousePane
+     */
     @FXML
     public void exitEditWarehouse(){
         if(temporaryRemovedResources.size()==0){
@@ -587,9 +597,6 @@ public class UseMarketSceneController extends FXMLController{
             updateInsertResourcePane();
             insertResourcesPane.setVisible(true);
         }
-        //System.out.println(newWarehouse.getResource(1,1)); //debug
-        //System.out.println(newWarehouse.getResource(2,1) +" "+ newWarehouse.getResource(2,2));
-       // System.out.println(newWarehouse.getResource(3,1) +" "+ newWarehouse.getResource(3,2)+" "+ newWarehouse.getResource(3,3));
     }
     @FXML
     public void reinsertLeaderResource1(){

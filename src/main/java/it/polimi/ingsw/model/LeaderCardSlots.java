@@ -18,6 +18,19 @@ public class LeaderCardSlots extends LeaderCard{
     /**
      * this method is for the slots card ability, it's redefined in that type of card,
      * in the other types of cards it doesn't do anything.
+     * In the slots card type, it set to n the number of full slots in that card .
+     */
+    public void setFullSlotsNumber(int n){
+        if(isActivated){
+            if(n>=0 && n<=2){
+                fullSlotsNumber=n;
+            }
+        }
+    }
+
+    /**
+     * this method is for the slots card ability, it's redefined in that type of card,
+     * in the other types of cards it doesn't do anything.
      * In the slots card type, it adds (if there is space) a Resource in a slot.
      */
     public void addResource() {
@@ -41,16 +54,4 @@ public class LeaderCardSlots extends LeaderCard{
         }
     }
 
-    /**
-     * this method is for the slots card ability, it's redefined in that type of card,
-     * in the other types of cards it doesn't do anything.
-     * In the slots card type, it set to n the number of full slots in that card .
-     */
-    public void setFullSlotsNumber(int n){
-        if(isActivated){
-            if(n>=0 && n<=2){
-                fullSlotsNumber=n;
-            }
-        }
-    }
 }

@@ -17,13 +17,10 @@ import java.util.List;
  */
 
 public class Game extends ServerObservable { //game is observed by the virtual view
-    private static final int MAXPLAYERS = 4; //todo:controllare che non viene superato
-    //private boolean gameStarted_Ended;
     private final Board board;
     private final List<Player> players;
     private Player currentPlayer;
     private int currentPlayerId;
-    private final List<LeaderCard> leaderCards = new ArrayList<>();
     private boolean lastTurns;
     private int wantedNumPlayers=0; //lo 0 serve per un check in Server.java
     private boolean isActive;
@@ -137,7 +134,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     /**
      * Method getPlayerNumber returns the number of the players in this Game.
      *
-     * @return int that is the number (1 to MAXPLAYERS) of players of this Game Object.
+     * @return int that is the number (1 to 4) of players of this Game Object.
      */
     public int getPlayersNumber() {
         return players.size();

@@ -35,7 +35,8 @@ public class ActionHandler {
 
     /**
      * Main method to handle Player actions
-     * @param action the action string
+     * @param action the action string, read from the keyboard.
+     * Only the first word of the string will be taken
      */
     public void handleAction(String action){
 
@@ -93,6 +94,9 @@ public class ActionHandler {
         this.newGame = newGame;
     }
 
+    /**
+     * exit the game when the match ends
+     */
     public void exit(){
 
         Color.cls();
@@ -106,6 +110,9 @@ public class ActionHandler {
         //cliView.askNewGame();
     }
 
+    /**
+     * enables the player to use the market and select marbles to take
+     */
     public void useMarket() {
 
         Color.cls();

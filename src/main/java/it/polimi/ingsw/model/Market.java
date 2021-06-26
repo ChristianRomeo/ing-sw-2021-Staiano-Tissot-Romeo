@@ -12,7 +12,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Market implements Serializable {
     public static final int MAXROWS=3;
     public static final int MAXCOLUMNS=4;
-
     private final MarbleColor[][] marbles;
     private MarbleColor slideMarble;
 
@@ -20,7 +19,6 @@ public class Market implements Serializable {
         marbles = new MarbleColor[MAXROWS][MAXCOLUMNS];
         initMarket();
     }
-
 
     /**
      * Method initMarket is an helper private method called by the constructor.

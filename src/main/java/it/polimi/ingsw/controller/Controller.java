@@ -131,21 +131,6 @@ public class Controller extends ServerObservable {
         }
     }
 
-    /*
-    public void setDisconnected(String nickname) {
-        if (game.getPlayerByNickname(nickname) != null && game.hasWinner()) {
-            game.getPlayerByNickname(nickname).setConnected(false);
-            return;
-        }
-
-        //virtualView.sendToEveryone disconnection nickname
-        //virtualView.closeAll();
-        game.setInactive(); //if disconnection occur and want to close the game (to change if PERSISTENCE is made)
-        notifyController();
-        //wakeUpServerLauncher();   //synchronized (game) game.notifyAll();   //PER PARTITE MULTIPLE DOVREBBE STARE SEMPRE SVEGLIO RIGHT?
-    }
-*/
-
     /**
      * Method activateProduction allows the player to activate the production of one or more cards.
      * Also the base production and the leader card production can be activated.
