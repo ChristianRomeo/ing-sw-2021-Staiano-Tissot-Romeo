@@ -49,7 +49,7 @@ This project includes:
 
 ## Test Coverage
 <img src="https://img.shields.io/badge/Mode%20Coverage-85%25-brightgreen?style=for-the-badge" alt="85%"/>
-<img src="https://img.shields.io/badge/Build-passed-brightgreen?style=for-the-badge" alt"passed"/>
+<img src="https://img.shields.io/badge/Build-passed-brightgreen?style=for-the-badge" alt="passed"/>
 
 <img width="711" alt="model_coverage" src="https://user-images.githubusercontent.com/25418541/119738638-4bff1900-be81-11eb-9cdc-0a28892f93b6.png"><br /><br />
 <img width="711" alt="all_model_coverage" src="https://user-images.githubusercontent.com/25418541/119738652-515c6380-be81-11eb-8d4e-5b4ae20b3917.png"><br /><br /><br />

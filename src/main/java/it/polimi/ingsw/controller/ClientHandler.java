@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller;
 import com.google.gson.JsonIOException;
 import it.polimi.ingsw.controller.Events.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -215,6 +214,7 @@ public class ClientHandler implements Runnable {
     /**
      * starts pinging its Client (every ClientHandler pings its own Client)
      */
+    @SuppressWarnings("BusyWait")
     public void startPing(){
         (new Thread(() -> {
             while(isConnected()){

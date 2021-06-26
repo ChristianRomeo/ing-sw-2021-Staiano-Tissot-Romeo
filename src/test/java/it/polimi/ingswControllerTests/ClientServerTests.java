@@ -1,5 +1,7 @@
 package it.polimi.ingswControllerTests;
-import it.polimi.ingsw.controller.*;
+
+import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SonOfLeaderCard;
@@ -9,7 +11,6 @@ public class ClientServerTests {
 
     @Test
     public void initServer() {
-
     }
 
     @Test

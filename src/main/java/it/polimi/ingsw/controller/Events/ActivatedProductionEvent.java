@@ -24,17 +24,6 @@ public class ActivatedProductionEvent extends ClientEvent{
         this.producedResLC2 = producedResLC2;
     }
 
-    //if you create the event without the lead card resources, it means you don't want to activate leader card production
-    public ActivatedProductionEvent(List<Integer> activatedProduction, boolean activateBaseProduction, Resource requestedResBP1, Resource requestedResBP2, Resource producedResBP) {
-        this.activatedProduction = activatedProduction;
-        this.activateBaseProduction = activateBaseProduction;
-        this.requestedResBP1 = requestedResBP1;
-        this.requestedResBP2 = requestedResBP2;
-        this.producedResBP = producedResBP;
-        this.producedResLC1 = null;
-        this.producedResLC2 = null;
-    }
-
     public List<Integer> getActivatedProduction() {
         return activatedProduction;
     }

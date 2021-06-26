@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class SameTypePairTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getAndSetVal1Test() {
         SameTypePair sameTypePair = new SameTypePair();
@@ -15,6 +16,7 @@ public class SameTypePairTest {
         assert(sameTypePair.getVal1().equals(Resource.COIN));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void getAndSetVal2Test() {
         SameTypePair sameTypePair = new SameTypePair();

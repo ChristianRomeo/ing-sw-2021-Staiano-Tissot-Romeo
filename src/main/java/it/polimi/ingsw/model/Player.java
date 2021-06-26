@@ -7,7 +7,7 @@ public class Player {
     /**
      * The player's leader cards number, constant and common to all players
      */
-    private static final int LEADER_CARDS_OWNED = 2;
+    private static final int LEADER_CARDS_OWNED = 2;    //todo: va usato?
     /**
      * The name chosen by the physical player
      */

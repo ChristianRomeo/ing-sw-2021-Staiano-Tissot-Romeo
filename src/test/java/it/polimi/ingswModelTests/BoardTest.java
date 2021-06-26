@@ -1,7 +1,7 @@
 package it.polimi.ingswModelTests;
 
 /**
- * Unit tests.      NON FUNZIONANO GLI ASSERT wajù
+ * Unit tests.      NON FUNZIONANO GLI ASSERT
  */
 public class BoardTest {
     /*

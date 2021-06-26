@@ -544,15 +544,13 @@ public class GameSceneController extends FXMLController {
 
     @FXML
     public void leaderAction(){
-       // initializeLeaderPanel();
-        //leaderActionPane.setVisible(true);
+
         guiView.getSceneController("leaderActionScene").updateScene();
         guiView.setCurrentScene("leaderActionScene");
     }
     @FXML
     public void buyCard(){
-        //initializeBuyCardPane();
-        //buyCardPane1.setVisible(true);
+
         guiView.getSceneController("buyCardScene").updateScene();
         guiView.setCurrentScene("buyCardScene");
     }
@@ -562,20 +560,19 @@ public class GameSceneController extends FXMLController {
     }
     @FXML
     public void activateProduction(){
-        //initializeProductionPane();
-        //productionPane.setVisible(true);
+
         guiView.getSceneController("activateProductionScene").updateScene();
         guiView.setCurrentScene("activateProductionScene");
     }
     @FXML
     public void useMarket(){
-        //marketPane.setVisible(true);
+
         guiView.getSceneController("useMarketScene").updateScene();
         guiView.setCurrentScene("useMarketScene");
     }
     @FXML
     public void showMarket(){
-        //marketPane.setVisible(true);
+
         guiView.getSceneController("useMarketScene").updateScene();
         guiView.setCurrentScene("useMarketScene");
     }

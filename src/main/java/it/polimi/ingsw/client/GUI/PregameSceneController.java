@@ -75,15 +75,9 @@ public class PregameSceneController extends FXMLController{
             leaderCardImage2.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(1)));
             leaderCardImage3.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(2)));
             leaderCardImage4.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(3)));
-            //System.out.println("id:"+ myLeaderCards.get(0).getId()); //debug
         }else{
             upperLabel.setText( clientModel.getCurrentPlayerNick()+ " sta scegliendo, attendi...");
         }
-    }
-
-    public void initialize(){
-        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("backboardgame.png")))), CornerRadii.EMPTY, Insets.EMPTY);
-        //root.setBackground(new Background(backgroundFill));
     }
 
     @FXML
@@ -223,9 +217,6 @@ public class PregameSceneController extends FXMLController{
             for(Toggle toggle: toggleGroupInitialResPos2.getToggles()){
                 ((Node) toggle).setVisible(true);
             }
-
-            //chooseInitialResourcesPane.setVisible(true);
-            //submitInitialResourceButton2.setDisable(true);
         }
 
     }

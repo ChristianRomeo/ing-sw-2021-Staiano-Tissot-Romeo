@@ -26,8 +26,16 @@ public class EventsHandlerCLI implements ServerEventObserver {
     public void handleEvent(LeaderCardActionEventS2C event) {
         cliView.showMessage(clientModel.getCurrentPlayerNick() + " has activated/discarded a leader card");
         if(clientModel.isCurrentPlayer())
-            cliView.showMessage("\nChoose an action between\n"+
-                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ EXIT
+                    """);
     }
 
     /**
@@ -38,8 +46,18 @@ public class EventsHandlerCLI implements ServerEventObserver {
     public void handleEvent(BoughtCardEventS2C event) {
         cliView.showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
         if(clientModel.isCurrentPlayer())
-            cliView.showMessage("\nChoose an action between\n" +
-                    "▷ LEADERACTION\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ LEADERACTION
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ ENDTURN
+                    ▷ EXIT
+                    """);
     }
 
     /**
@@ -50,8 +68,18 @@ public class EventsHandlerCLI implements ServerEventObserver {
     public void handleEvent(ActivatedProductionEventS2C event) {
         cliView.showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
         if(clientModel.isCurrentPlayer())
-            cliView.showMessage("\nChoose an action between\n" +
-                    "▷ LEADERACTION\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ LEADERACTION
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ ENDTURN
+                    ▷ EXIT
+                    """);
     }
 
     /**
@@ -80,8 +108,18 @@ public class EventsHandlerCLI implements ServerEventObserver {
     public void handleEvent(UseMarketEventS2C event) {
         cliView.showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
         if(clientModel.isCurrentPlayer())
-            cliView.showMessage("\nChoose an action between\n" +
-                    "▷ LEADERACTION\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ LEADERACTION
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ ENDTURN
+                    ▷ EXIT
+                    """);
 
         //todo riguardare
 
@@ -102,12 +140,33 @@ public class EventsHandlerCLI implements ServerEventObserver {
                 cliView.showMessage("Write CHOOSE to start choosing");   //in automatico ActionHandler.initialchoice();
             else
             if(clientModel.hasGameStarted())
-                cliView.showMessage("\nChoose an action between\n" +
-                        "▷ LEADERACTION\n▷ PRODUCTION\n▷ BUYCARD\n▷ MARKET\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
+                cliView.showMessage("""
+
+                        Choose an action between
+                        ▷ LEADERACTION
+                        ▷ PRODUCTION
+                        ▷ BUYCARD
+                        ▷ MARKET
+                        ▷ SHOWFT
+                        ▷ SHOWLEADERS
+                        ▷ SHOWBOARDS
+                        ▷ SHOWMYSTATUS
+                        ▷ SHOWOTHERSSTATUS
+                        ▷ ENDTURN
+                        ▷ EXIT
+                        """);
         }else{
                 cliView.showMessage(Color.color('r', Color.ANSI_TALK+" It's "+event.getNickname()+"'s turn"));
-                cliView.showMessage("\nChoose an action between\n"+
-                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+                cliView.showMessage("""
+
+                        Choose an action between
+                        ▷ SHOWFT
+                        ▷ SHOWLEADERS
+                        ▷ SHOWBOARDS
+                        ▷ SHOWMYSTATUS
+                        ▷ SHOWOTHERSSTATUS
+                        ▷ EXIT
+                        """);
         }
     }
 
@@ -118,18 +177,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
     @Override
     public void handleEvent(IllegalActionEventS2C event) {
         cliView.showErrorMessage("Illegal action: "+event.getIllegalAction().getDescription());
-        //todo: show choices
-        /*if(!clientModel.isCurrentPlayer())
-            cliView. showMessage("\nChoose an action between\n" +
-                    "▷ LEADERACTION\n▷ PRODUCTION\n▷ BUYCARD\n▷ MARKET\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
-        else
-            cliView.showMessage("\nChoose an action between\n"+
-                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
-                    */
          cliView.printActions();
-
-
-
     }
 
     /**
@@ -139,8 +187,16 @@ public class EventsHandlerCLI implements ServerEventObserver {
     @Override
     public void handleEvent(GameStarterEventS2C event) {
         cliView.showMessage(Color.ANSI_TALK+" Please wait your turn..."); //da fare meglio
-        cliView.showMessage("\nChoose an action between\n"+
-                "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+        cliView.showMessage("""
+
+                Choose an action between
+                ▷ SHOWFT
+                ▷ SHOWLEADERS
+                ▷ SHOWBOARDS
+                ▷ SHOWMYSTATUS
+                ▷ SHOWOTHERSSTATUS
+                ▷ EXIT
+                """);
     }
 
     /**
@@ -175,14 +231,35 @@ public class EventsHandlerCLI implements ServerEventObserver {
         if(clientModel.getMyNickname().equals(clientModel.getNicknames().get(0))){
 
             cliView.showMessage(Color.color('g',"It's your turn!"));
-            cliView.showMessage("\nChoose an action between\n" +
-                    "▷ LEADERACTION\n▷ PRODUCTION\n▷ BUYCARD\n▷ MARKET\n▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ ENDTURN\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ LEADERACTION
+                    ▷ PRODUCTION
+                    ▷ BUYCARD
+                    ▷ MARKET
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ ENDTURN
+                    ▷ EXIT
+                    """);
         }
         else{
             //Color.cls();
             cliView.showMessage(Color.color('r', Color.ANSI_TALK+" It's "+ clientModel.getNicknames().get(0)+"'s turn."));
-            cliView.showMessage("\nChoose an action between\n"+
-                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ EXIT
+                    """);
         }
     }
 

@@ -50,7 +50,7 @@ public class Server {
         logger.info("The Server has been successfully started on port "+ serverSocket.getLocalSocketAddress());
 
         //noinspection InfiniteLoopStatement
-        for(;;) {
+        while(true)
             try {
                 startClient();
             } catch (IOException | InterruptedException | DisconnectionException e) {
@@ -60,9 +60,9 @@ public class Server {
                         serverSocket.close();
                     } catch (IOException ignored) {}
             }
-        }
 
     }
+
     /**
      * Accepts one client per time.
      * After that, it creates and initializes a new game instance
@@ -76,7 +76,6 @@ public class Server {
 
         Socket socket = serverSocket.accept();  //accetto un singolo cliente ogni volta
         logger.info( socket.getRemoteSocketAddress() + " has connected. This is: " +socket.getLocalSocketAddress());
-
         /* Now it creates and initializes a new game instance
            (creates a game if it doesn't exist and adds the client to it)
          */
@@ -87,12 +86,13 @@ public class Server {
             Controller controller = new Controller(currentGame);
             currentVirtualView = new VirtualView(controller);
             controller.setVirtualView(currentVirtualView);
-            new Thread(new ClientHandler(true, socket, currentVirtualView)).start();       //se era già connesso che succ?
+            new Thread(new ClientHandler(true, socket, currentVirtualView)).start();
         } else
             new Thread(new ClientHandler(false, socket, currentVirtualView)).start();
 
 
         //Sleep until the number of players of the game has been set by the first player (wakeupserver in controller)
+        //noinspection SynchronizeOnNonFinalField
         synchronized (currentGame) {
             while (currentGame.getWantedNumPlayers() == 0 && currentGame.isActive())
                 currentGame.wait();
@@ -101,7 +101,6 @@ public class Server {
         //only then we can check whether the number chosen has been reached
         if (++currentNumOfPlayers == currentGame.getWantedNumPlayers() || !currentGame.isActive()) {
             //MULTIPLE GAMES FA to clear the game room and prepare it in order to accept new players
-            //
             logger.info("The game room is full.");
             currentNumOfPlayers = 0;
             currentGame = null;

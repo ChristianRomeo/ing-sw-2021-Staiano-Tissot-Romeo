@@ -196,12 +196,6 @@ public class UseMarketSceneController extends FXMLController{
         slideMarbleImage.setImage(GuiView.getMarbleImage(market.getSlideMarble()));
     }
 
-    @FXML
-    public void initialize(){
-        //BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
-        //root.setBackground(new Background(backgroundFill));
-    }
-
     //cose per il pane proprio del mercato
     @FXML
     public void submitMarket(){
@@ -218,9 +212,6 @@ public class UseMarketSceneController extends FXMLController{
             case 6 -> marketIndex = 3;
         }
         collectResource();
-        //marketPane.setVisible(false);
-        //System.out.println(rowOrColumn+" "+ marketIndex); //debug
-        //System.out.println(boughtResources); //debug
         initializeInsertResourcesPane();
     }
 
@@ -384,13 +375,8 @@ public class UseMarketSceneController extends FXMLController{
             boughtResources.remove(0);
             checkFinishedResources();
             updateInsertResourcePane();
-        } catch (InvalidWarehouseInsertionException e) {
-            //ignored
+        } catch (InvalidWarehouseInsertionException ignored) {
         }
-        //System.out.println(boughtResources +" selected cell "+ selectedCell.getVal1() +" " +selectedCell.getVal2()); //debug
-       // System.out.println(newWarehouse.getResource(1,1)); //debug
-        //System.out.println(newWarehouse.getResource(2,1) +" "+ newWarehouse.getResource(2,2));
-        //System.out.println(newWarehouse.getResource(3,1) +" "+ newWarehouse.getResource(3,2)+" "+ newWarehouse.getResource(3,3));
     }
 
     //questo metodo ti ritorna la cella del warehouse selezionata partendo dal toggle selezionato nel toggle group
@@ -587,9 +573,6 @@ public class UseMarketSceneController extends FXMLController{
             updateInsertResourcePane();
             insertResourcesPane.setVisible(true);
         }
-        //System.out.println(newWarehouse.getResource(1,1)); //debug
-        //System.out.println(newWarehouse.getResource(2,1) +" "+ newWarehouse.getResource(2,2));
-       // System.out.println(newWarehouse.getResource(3,1) +" "+ newWarehouse.getResource(3,2)+" "+ newWarehouse.getResource(3,3));
     }
     @FXML
     public void reinsertLeaderResource1(){

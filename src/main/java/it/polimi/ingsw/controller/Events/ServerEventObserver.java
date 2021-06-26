@@ -30,8 +30,4 @@ public interface ServerEventObserver {
 
     void handleEvent(NewConnectionEventS2C event);
 
-
-
-
-
 }

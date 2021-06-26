@@ -3,7 +3,6 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.controller.Events.LeaderCardActionEvent;
 import it.polimi.ingsw.model.LeaderCard;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,14 +12,6 @@ import java.util.List;
 
 public class LeaderActionSceneController extends FXMLController{
 
-    //@FXML
-    //private Button firstLeaderCardButton;
-    //@FXML
-    //private Button secondLeaderCardButton;
-    @FXML
-    private Button activateLeaderButton;
-    @FXML
-    private Button discardLeaderButton;
     @FXML
     private ImageView chooseLeaderCardImage1;
     @FXML
@@ -38,13 +29,6 @@ public class LeaderActionSceneController extends FXMLController{
         if (clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).isDiscarded())
             chooseLeaderCardImage2.setDisable(true);
 
-
-        //firstLeaderCardButton.setDisable(false);
-        //secondLeaderCardButton.setDisable(false);
-
-
-        //firstLeaderCardButton.setStyle("-fx-background-color: white;");
-        //secondLeaderCardButton.setStyle("-fx-background-color: white;");
         List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
         if(myLeaderCards.get(0).isActivated()||myLeaderCards.get(0).isDiscarded())
             chooseLeaderCardImage1.setImage(new Image(String.valueOf(GuiView.class.getResource("/Cards/backleader.png"))));
@@ -68,9 +52,6 @@ public class LeaderActionSceneController extends FXMLController{
         d.setColor(Color.web("#7e0608"));
 
         chooseLeaderCardImage1.setEffect(d);
-        //firstLeaderCardButton.setDisable(true);
-        //secondLeaderCardButton.setDisable(true);
-        //firstLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
     }
     @FXML
     public void selectSecondLeaderCard(){
@@ -84,9 +65,6 @@ public class LeaderActionSceneController extends FXMLController{
 
         chooseLeaderCardImage1.setDisable(true);
         chooseLeaderCardImage2.setDisable(true);
-        //firstLeaderCardButton.setDisable(true);
-        //secondLeaderCardButton.setDisable(true);
-        //secondLeaderCardButton.setStyle("-fx-background-color: #ff0000; ");
 
     }
     @FXML

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 public class SoloActionTest {
     @Test
     public void pickOneTile(){
-
     }
 
     @Test

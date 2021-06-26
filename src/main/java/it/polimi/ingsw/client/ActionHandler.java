@@ -115,7 +115,16 @@ public class ActionHandler {
         }
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
-            cliView.showMessage("\nChoose an action between\n"+ "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ EXIT
+                    """);
             return;
         }
 
@@ -247,8 +256,16 @@ public class ActionHandler {
         Color.cls();
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
-            cliView.showMessage("\nChoose an action between\n"+
-                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ EXIT
+                    """);
             return;
         }
 
@@ -271,8 +288,16 @@ public class ActionHandler {
         Color.cls();
         if (clientModel.getDone().get()){
             cliView.showErrorMessage("You've already done an action");
-            cliView.showMessage("\nChoose an action between\n"+
-                    "▷ SHOWFT\n▷ SHOWLEADERS\n▷ SHOWBOARDS\n▷ SHOWMYSTATUS\n▷ SHOWOTHERSSTATUS\n▷ EXIT\n");
+            cliView.showMessage("""
+
+                    Choose an action between
+                    ▷ SHOWFT
+                    ▷ SHOWLEADERS
+                    ▷ SHOWBOARDS
+                    ▷ SHOWMYSTATUS
+                    ▷ SHOWOTHERSSTATUS
+                    ▷ EXIT
+                    """);
             return;
         }
         if(!clientModel.isCurrentPlayer() || !clientModel.hasGameStarted() ){
