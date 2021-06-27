@@ -99,6 +99,10 @@ public class LeaderActionSceneController extends FXMLController{
             guiView.setCurrentScene("gameScene");
         }
     }
+
+    /**
+     * exits from the leaderActionScene and go back to gameScene
+     */
     @FXML
     public void exit(){
         guiView.getSceneController("gameScene").updateScene();

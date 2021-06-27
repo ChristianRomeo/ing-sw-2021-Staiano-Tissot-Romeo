@@ -36,7 +36,11 @@ Masters of Renaissance JAVA edition is the final test of **Software Engineering*
 
 ## The Game
 *Masters of Renaissance Board Game*, by CranioCreations. <br />
-Here the [full specifications](http://www.craniocreations.it/wp-content/uploads/2021/04/Lorenzo_Cardgame_Rules_ITA_small-3.pdf)
+Here the full specifications: 
+ <br />
+[IT](http://www.craniocreations.it/wp-content/uploads/2021/04/Lorenzo_Cardgame_Rules_ITA_small-3.pdf)
+ <br />
+[ENG](https://craniointernational.com/2021/wp-content/uploads/2021/05/Masters-of-Renaissance_small.pdf)
  <br /><br />
 This project includes:
 * Initial UML diagram; 

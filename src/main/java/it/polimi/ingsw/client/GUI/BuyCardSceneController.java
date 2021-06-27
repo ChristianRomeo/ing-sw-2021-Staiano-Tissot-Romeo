@@ -73,6 +73,10 @@ public class BuyCardSceneController extends FXMLController {
         buyCardColumnChoiceBox.setValue(0);
     }
 
+    /**
+     * updates the buyCardScene
+     * it shows all the Development cards which can be chosen
+     */
     public void updateScene(){
         DevelopmentCardBoard developmentCardBoard = clientModel.getDevelopmentCardBoard();
 
@@ -102,6 +106,9 @@ public class BuyCardSceneController extends FXMLController {
         nextBuyCardButton.setDisable(!clientModel.isCurrentPlayer());
     }
 
+    /**
+     * exits from the leaderActionScene and go back to gameScene
+     */
     @FXML
     public void exit(){
         guiView.getSceneController("gameScene").updateScene();
@@ -110,9 +117,11 @@ public class BuyCardSceneController extends FXMLController {
 
     @FXML
     public void nextBuyCard(){
-        //buyCardPane1.setVisible(false);
         buyCardPane2.setVisible(true);
     }
+    /**
+     * sends a BoughtCard event with the bought card
+     */
     @FXML
     public void submitBuyCard(){
         int row = buyCardRowChoiceBox.getValue();
@@ -120,7 +129,6 @@ public class BuyCardSceneController extends FXMLController {
         int pile = toggleGroupSelectPile.getToggles().indexOf(toggleGroupSelectPile.getSelectedToggle());
         serverHandler.send(new BoughtCardEvent(row,column,pile));
         buyCardPane2.setVisible(false);
-        //System.out.println(row + " "+ column+ " "+ pile +" ");//debug
         guiView.getSceneController("gameScene").updateScene();
         guiView.setCurrentScene("gameScene");
     }

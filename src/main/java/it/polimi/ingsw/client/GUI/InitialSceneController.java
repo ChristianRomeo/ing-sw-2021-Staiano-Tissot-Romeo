@@ -32,18 +32,22 @@ public class InitialSceneController extends FXMLController {
     @FXML
     private Label messageLabel;
 
-
+    /**
+     * sets initialScene background and label with credits
+     */
     @FXML
     public void initialize(){
 
         BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("MoRWall.png")))), CornerRadii.EMPTY, Insets.EMPTY);
         root.setBackground(new Background(backgroundFill));
         textField.setFocusTraversable(false);
-
         credits.setFont(Font.font("System", FontWeight.EXTRA_BOLD, 14));
 
     }
 
+    /**
+     * allows the player to insert his nickname
+     */
     @FXML
     public void submitNick(){
 
@@ -53,7 +57,6 @@ public class InitialSceneController extends FXMLController {
             //devo far cambiare la scena e metterla tipo attendi
             textField.setVisible(false);
             submitNickButton.setVisible(false);
-
             messageLabel.setVisible(true);
             curtain.setVisible(true);
             serverHandler.setUpConnection();
@@ -62,7 +65,7 @@ public class InitialSceneController extends FXMLController {
         }
         else{
             textField.clear();
-            textField.setPromptText("Nickname invalido!!! ");
+            textField.setPromptText("Invalid nickname! Please try again");
             textField.setEditable(true);
         }
 

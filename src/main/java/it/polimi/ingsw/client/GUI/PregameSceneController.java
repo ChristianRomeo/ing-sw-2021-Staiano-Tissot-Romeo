@@ -63,11 +63,14 @@ public class PregameSceneController extends FXMLController{
     @FXML
     private Button submitInitialResourceButton2;
 
-
+    /**
+     * shows the Leader card choice
+     * (the player will choose 2 Leader cards to discard, out of 4)
+     */
     @Override
     public void updateScene(){
         if(clientModel.isCurrentPlayer()){
-            upperLabel.setText("E' il tuo turno, scegli le carte che vuoi scartare: ");
+            upperLabel.setText("It's your turn, choose which cards you want to discard: ");
 
             List<LeaderCard> myLeaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());
 
@@ -76,7 +79,7 @@ public class PregameSceneController extends FXMLController{
             leaderCardImage3.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(2)));
             leaderCardImage4.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(3)));
         }else{
-            upperLabel.setText( clientModel.getCurrentPlayerNick()+ " sta scegliendo, attendi...");
+            upperLabel.setText( clientModel.getCurrentPlayerNick()+ " is choosing, please wait...");
         }
     }
 

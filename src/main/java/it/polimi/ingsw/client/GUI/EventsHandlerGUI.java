@@ -4,12 +4,6 @@ import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.controller.Events.*;
 import javafx.application.Platform;
 
-//per ora li tengo separati gli events handler di gui e cli, se no è un casino, però sarebbe meglio
-//tenere la parte in cui si settano le cose nel client model in una sola classe, quindi potrei fare
-//un events handler apposito
-
-//questo dovrebbe solo mostrare le cose alla gui , in base a che eventi arrivano
-
 /**
  * Handles Server incoming Events and dispatch actions, it uses VISITOR PATTERN.
  * This handler is used for the GUI.

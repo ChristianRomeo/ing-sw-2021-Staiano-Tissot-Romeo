@@ -18,9 +18,7 @@ import java.util.List;
  * GameBoard section which contains the faith track and
  *
  */
-
 public class Game extends ServerObservable { //game is observed by the virtual view
-    private static final int MAXPLAYERS = 4;    //todo:va usato?
     private final Board board;
     private final List<Player> players;
     private Player currentPlayer;
@@ -138,7 +136,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     /**
      * Method getPlayerNumber returns the number of the players in this Game.
      *
-     * @return int that is the number (1 to MAXPLAYERS) of players of this Game Object.
+     * @return int that is the number (1 to 4) of players of this Game Object.
      */
     public int getPlayersNumber() {
         return players.size();

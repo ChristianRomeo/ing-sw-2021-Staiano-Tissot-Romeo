@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.PregameSceneController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.PregameSceneController" stylesheets="@pregameScene.css">
    <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Image url="@../backboardgame.png" />
    </ImageView>
    <ImageView fx:id="black" fitHeight="720.0" fitWidth="1280.0" opacity="0.4" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Image url="@../black.png" />
    </ImageView>
-   <Label fx:id="upperLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="50.0" prefHeight="35.0" prefWidth="582.0" style="-fx-font-weight: BOLD;" text="Sei nel pregame, attendi..." textAlignment="CENTER" textFill="#3b2424">
+   <Label fx:id="upperLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="50.0" prefHeight="35.0" prefWidth="582.0" style="-fx-font-weight: BOLD;" text="You're on pregame, please wait..." textAlignment="CENTER" textFill="#ffffff">
       <font>
          <Font size="24.0" />
       </font></Label>

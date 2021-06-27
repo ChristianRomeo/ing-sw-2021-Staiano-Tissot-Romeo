@@ -1,0 +1,9 @@
+#submitNickButton {
+    -fx-background-color: #0066ff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+#submitNickButton:hover {
+  -fx-background-color: #0052cc;
+}

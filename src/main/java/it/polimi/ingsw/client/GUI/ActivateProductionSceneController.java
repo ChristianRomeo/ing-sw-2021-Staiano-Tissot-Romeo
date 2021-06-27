@@ -73,6 +73,9 @@ public class ActivateProductionSceneController extends FXMLController{
     @FXML
     private Button submitLeaderProductionButton;
 
+    /**
+     * updates the activateProductionScene for Leader cards with production ability
+     */
     public void updateScene(){
         cardProductions = new ArrayList<>();
         activateBaseProduction=false;
@@ -107,7 +110,9 @@ public class ActivateProductionSceneController extends FXMLController{
             leaderCardProductionImage2.setImage(GuiView.getLeaderCardImage(leaderCards.get(1)));
         }
     }
-
+    /**
+     * shows baseProduction
+     */
     @FXML
     public void baseProduction(){
         baseProductionPane.setVisible(true);
@@ -174,6 +179,9 @@ public class ActivateProductionSceneController extends FXMLController{
         guiView.setCurrentScene("gameScene");
     }
 
+    /**
+     * exits from the activateProductionScene and go back to gameScene
+     */
     @FXML
     public void exit(){
         guiView.getSceneController("gameScene").updateScene();

@@ -51,9 +51,6 @@
         <ImageView fx:id="developmentCardImage02" fitHeight="171.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
         <ImageView fx:id="developmentCardImage03" fitHeight="171.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
     </GridPane>
-    <ImageView fitHeight="270.0" fitWidth="271.0" layoutX="55.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../boy.png" />
-    </ImageView>
    <Button fx:id="exitButton" layoutX="1108.0" layoutY="29.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
       <font>
          <Font size="24.0" />

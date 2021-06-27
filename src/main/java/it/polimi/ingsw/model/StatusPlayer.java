@@ -180,7 +180,8 @@ public class StatusPlayer {
         /**
          * It removes two leader cards from the leader card list, you have to pass the indexes of the
          * card you want to remove.
-         *
+         * @param index1 is the index of the first Leader card to be removed
+         * @param index2 is the index of the second Leader card to be removed
          */
         public void removeTwoLeaderCards(int index1,int index2){
                 List<LeaderCard> newList = new ArrayList<>();
