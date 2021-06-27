@@ -1,18 +1,17 @@
 ## Masters of Renaissance Board Game
 
-<img src="http://www.craniocreations.it/wp-content/uploads/2019/06/Masters-of-Renaissance_box3D_ombra.png" width=300px height=300px align="right"/></img>
+<img src="http://www.craniocreations.it/wp-content/uploads/2019/06/Masters-of-Renaissance_box3D_ombra.png" width=300px height=300px align="right"/>
 
 ![Last Commit](https://img.shields.io/badge/last%20commit-June-orange?style=for-the-badge&logo=github)
 ![Intellijidea](https://img.shields.io/badge/Ide-Intellijidea%20Ultimate-blue?style=for-the-badge&logo=intellijidea)
+![JavaFx](https://img.shields.io/badge/GUI-JavaFx-red?style=for-the-badge&logo=java)
+![Build](https://img.shields.io/badge/Build-Maven-red?style=for-the-badge&logo=apachemaven)
+![Parsing](https://img.shields.io/badge/Parser-gson-blue?style=for-the-badge&logo=google)
 ![Sonarqube](https://img.shields.io/badge/Code%20Analysis-SonarQube-yellow?style=for-the-badge&logo=sonarqube)
 ![UML](https://img.shields.io/badge/Uml-UmLet-red?style=for-the-badge)
 ![Release](https://img.shields.io/badge/Release-v1.0-green?style=for-the-badge)
-![Build](https://img.shields.io/badge/Build-passed-brightgreen?style=for-the-badge)
 ![Codecov](https://img.shields.io/badge/Code%20Coverage-85%25-brightgreen?style=for-the-badge&logo=codecov)
 ![Tests](https://img.shields.io/badge/Tests-✔%20100%25%20%7C%20✘%200%20%7C%20➟%200-red?style=for-the-badge&logo=codecov)
-
-
-<br />
 
 ##
 Masters of Renaissance JAVA edition is the final test of **Software Engineering** course of **"Computer Science Engineering"** held at Politecnico di Milano (2020/2021).<br /><br />
@@ -50,8 +49,60 @@ This project includes:
 * Source code of the implementation;
 * Source code of unity tests.
 
+## Setup
+**Requirements**
+* Java SE SDK 15 (or newer) [for running]
+* Maven framework 3.8 (or newer) [for building]
+#
+In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/tree/main/deliverables) folder there is a multi-platfor jar file, that can be used both for Server and Clients.
+* The Server can be runned with the following command, as defaults it runs on port 9876:
+```shell
+    > java -jar Masters.jar server [ip.json]
+```
+
+* The clients can be runned with the following command:
+  * CLI
+  ```shell
+    > java -jar GC24.jar cli [ip.json]
+  ```
+  * GUI
+  ```shell
+    > java -jar Masters.jar [gui] [ip.json]
+  ```
+ This commands can be followed by:
+ - **ip.json** that is the configuration file, where it can be choosen the server port and server ip for clients
+  ```
+  {
+  "server_ip": "device ip where the server is launched (127.0.0.1 if local)",
+  "server_port": "(9876 default)"
+  }
+  ```
+
+# 
+**Warning**
+
+For the best CLI experience, it's recommended to use native linux terminal or **WSL** (windows-subsystem for linux) in order to provide fonts, colors and emoji as the project was meant to show.<br />
+*DejaVu Sans Mono for Powerline was the font originally used at size 12.*<br /><br />
+For the best GUI experience, it's reccomended a minimum resolution of 2560 x 1440 (or 2160 x 1440).<br />
+*at 1920 x 1080 the window will result almost fullscreen.*
+
+In order to play, you'll have to launch at least one server and one client (either CLI or GUI).<br />
+In order to play multiplayer from different locations port forwarding is needed.
+
+## Build
+The project was built with Maven, using *shade-plugin*.<br />
+To build, issue:  
+    ```
+       > mvn clean    
+    ```  
+    ```
+      > mvn package  
+    ```  
+After these processes the jar can be found in the *shade folder.
+
 ## Test Coverage
 Coverage criteria: Methods.
+
 ![Codecov](https://img.shields.io/badge/Controller%20Coverage-73%25-brightgreen?style=for-the-badge&logo=codecov)
 ![Codecov](https://img.shields.io/badge/Model%20Coverage-79%25-brightgreen?style=for-the-badge&logo=codecov)
 
