@@ -41,6 +41,8 @@ Here the full specifications:
  <br />
 [ENG](https://craniointernational.com/2021/wp-content/uploads/2021/05/Masters-of-Renaissance_small.pdf)
  <br /><br />
+ 
+The project consists in the implementation of a distributed system made of a single server capable of managing multiple games and multiple clients (one per player) using the MVC pattern (Model-View-Controller). The network is managed through the use of sockets.<br />
 This project includes:
 * Initial UML diagram; 
 * Final UML diagram, generated from the code by automated tools;
@@ -109,8 +111,18 @@ In the cloned repo folder, issue:
     ```  
 After these processes the compiled jar can be found in the *shade* folder.
 
+## UML
+The following class diagrams represent respectively the initial model developed during the design phase and the final product diagrams.
+* [Initials](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/uml_inizialev13.pdf)
+* [Finals]() missing!
+
+## Javadocs
+The following documentation includes a description for most of the classes and methods used and follows the Java documentation technique.<br />
+It can be consulted [here](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/tree/main/deliverables/Javadocs).
+
 ## Test Coverage
-Coverage criteria: Methods.
+Coverage criteria: Methods.<br />
+Tool used: Junit.
 
 ![Codecov](https://img.shields.io/badge/Controller%20Coverage-73%25-brightgreen?style=for-the-badge&logo=codecov)
 ![Codecov](https://img.shields.io/badge/Model%20Coverage-79%25-brightgreen?style=for-the-badge&logo=codecov)
