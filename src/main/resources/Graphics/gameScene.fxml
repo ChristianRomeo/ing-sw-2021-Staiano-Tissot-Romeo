@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.GameSceneController">
+<AnchorPane fx:id="root" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@gameScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.GameSceneController">
     <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../loader.png" />
     </ImageView>
@@ -93,13 +93,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Button fx:id="leaderActionButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#leaderAction" prefHeight="18.0" prefWidth="145.0" text="LEADER ACTION" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-        <Button fx:id="activateProductionButton" mnemonicParsing="false" onAction="#activateProduction" prefHeight="25.0" prefWidth="93.0" text="PRODUCTION" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-        <Button fx:id="useMarketButton" mnemonicParsing="false" onAction="#useMarket" text="MARKET" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-        <Button fx:id="showDevelopmentCardBoardButton" mnemonicParsing="false" onAction="#showDevelopmentCardBoard" text="SHOW CARD BOARD" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-        <Button fx:id="showMarketButton" mnemonicParsing="false" onAction="#showMarket" text="SHOW MARKET" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-        <Button fx:id="buyCardButton" mnemonicParsing="false" onAction="#buyCard" prefHeight="25.0" prefWidth="107.0" text="BUY CARD" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-        <Label fx:id="turnLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="174.0" text="Chris' turn" textFill="RED" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+        <Button fx:id="leaderActionButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#leaderAction" prefHeight="20.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="LEADER ACTION" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <Button fx:id="activateProductionButton" mnemonicParsing="false" onAction="#activateProduction" prefHeight="20.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="PRODUCTION" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Button fx:id="useMarketButton" mnemonicParsing="false" onAction="#useMarket" prefHeight="20.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="MARKET" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+        <Button fx:id="showDevelopmentCardBoardButton" mnemonicParsing="false" onAction="#showDevelopmentCardBoard" prefHeight="20.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="SHOW CARD BOARD" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+        <Button fx:id="showMarketButton" mnemonicParsing="false" onAction="#showMarket" prefHeight="20.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="SHOW MARKET" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+        <Button fx:id="buyCardButton" mnemonicParsing="false" onAction="#buyCard" prefHeight="20.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="BUY CARD" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+        <Label fx:id="turnLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="155.0" style="-fx-background-color: grey; -fx-background-radius: 20;" text="Chris' turn" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
            <font>
                <Font size="18.0" />
            </font>
@@ -114,9 +114,9 @@
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Button fx:id="showOtherPlayerBoardButton1" mnemonicParsing="false" onAction="#showOtherPlayerBoard1" text="SHOW OTHER PLAYER BOARD1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-        <Button fx:id="showOtherPlayerBoardButton2" mnemonicParsing="false" onAction="#showOtherPlayerBoard2" text="SHOW OTHER PLAYER BOARD2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-        <Button fx:id="showOtherPlayerBoardButton3" mnemonicParsing="false" onAction="#showOtherPlayerBoard3" text="SHOW OTHER PLAYER BOARD3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <Button fx:id="showOtherPlayerBoardButton1" mnemonicParsing="false" onAction="#showOtherPlayerBoard1" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="SHOW OTHER PLAYER BOARD1" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <Button fx:id="showOtherPlayerBoardButton2" mnemonicParsing="false" onAction="#showOtherPlayerBoard2" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="SHOW OTHER PLAYER BOARD2" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <Button fx:id="showOtherPlayerBoardButton3" mnemonicParsing="false" onAction="#showOtherPlayerBoard3" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2; -fx-font-weight: BOLD;" text="SHOW OTHER PLAYER BOARD3" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
     </GridPane>
     <GridPane layoutX="1091.0" layoutY="105.0" prefHeight="559.0" prefWidth="184.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
@@ -127,7 +127,7 @@
             <RowConstraints maxHeight="264.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="264.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label text="Leader Cards" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label style="-fx-font-weight: BOLD;" text="Your Leader Cards" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
            <font>
                <Font size="14.0" />
            </font>
@@ -173,7 +173,7 @@
             <Image url="@../stoneGr.png" />
         </ImageView>
     </GridPane>
-   <Button fx:id="endTurnButton" layoutX="1141.0" layoutY="651.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="25.0" prefWidth="93.0" text="END TURN" />
+   <Button fx:id="endTurnButton" layoutX="1141.0" layoutY="651.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: transparent; -fx-font-weight: BOLD; -fx-border-color: orange; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 4;" text="END TURN" textFill="WHITE" />
    <Label fx:id="strongboxNumberCoinsLabel" layoutX="239.0" layoutY="565.0" style="-fx-font-weight: BOLD;" text="x0">
       <font>
          <Font size="18.0" />

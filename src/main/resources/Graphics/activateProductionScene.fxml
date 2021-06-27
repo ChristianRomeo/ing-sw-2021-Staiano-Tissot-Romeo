@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.ActivateProductionSceneController">
     <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Image url="@../loader.png" />
@@ -32,14 +24,14 @@
     <ImageView fx:id="cardProductionImage3" fitHeight="204.0" fitWidth="131.0" layoutX="776.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../Cards/dev3.png" />
     </ImageView>
-    <Button fx:id="submitProductionButton" layoutX="1111.0" layoutY="331.0" mnemonicParsing="false" onAction="#submitProduction" prefHeight="50.0" prefWidth="108.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 3;" text="Done!" textFill="WHITE">
+    <Button fx:id="submitProductionButton" contentDisplay="CENTER" layoutX="1056.0" layoutY="309.0" maxHeight="55.0" maxWidth="110.0" minHeight="55.0" minWidth="110.0" mnemonicParsing="false" onAction="#submitProduction" prefHeight="55.0" prefWidth="110.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 3; -fx-font-weight: BOLD;" text="Done!" textFill="WHITE">
       <font>
          <Font size="24.0" />
       </font></Button>
-    <RadioButton fx:id="cardProductionButton1" layoutX="499.0" layoutY="548.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="50.0" />
+    <RadioButton fx:id="cardProductionButton1" contentDisplay="CENTER" layoutX="499.0" layoutY="547.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="50.0" />
     <RadioButton fx:id="cardProductionButton2" layoutX="654.0" layoutY="547.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="50.0" />
     <RadioButton fx:id="cardProductionButton3" layoutX="816.0" layoutY="547.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="50.0" />
-    <Button fx:id="baseProductionButton" layoutX="341.0" layoutY="561.0" mnemonicParsing="false" onAction="#baseProduction" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Base Production" textFill="WHITE" />
+    <Button fx:id="baseProductionButton" layoutX="341.0" layoutY="561.0" mnemonicParsing="false" onAction="#baseProduction" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: grey; -fx-border-color: cyan; -fx-border-radius: 20; -fx-background-radius: 20; -fx-opaque-insets: 10;" text="Base Production" textFill="WHITE" />
    <Button layoutX="1111.0" layoutY="30.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
       <font>
          <Font size="24.0" />

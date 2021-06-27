@@ -86,7 +86,6 @@ public class GuiView extends Application implements View {
                 stop();
             }
         });
-                //currentScene.getStylesheets().add("/style.css");
     }
 
 

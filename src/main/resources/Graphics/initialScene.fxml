@@ -5,11 +5,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="root" prefHeight="550.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.InitialSceneController">
-   <Label fx:id="credits" alignment="CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="185.0" maxHeight="85.0" maxWidth="321.0" minHeight="26.0" minWidth="200.0" prefHeight="26.0" prefWidth="321.0" text="Powered by CG24 E.Staiano T.Tissot C.Romeo" textAlignment="CENTER">
+<AnchorPane fx:id="root" prefHeight="550.0" prefWidth="550.0" stylesheets="@initialScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GUI.InitialSceneController">
+   <Label fx:id="credits" alignment="CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="185.0" maxHeight="85.0" maxWidth="321.0" minHeight="26.0" minWidth="200.0" prefHeight="26.0" prefWidth="321.0" style="-fx-font-weight: BOLD;" text="Powered by CG24 E.Staiano T.Tissot C.Romeo" textAlignment="CENTER">
       <font>
          <Font size="14.0" />
       </font>
@@ -17,7 +16,7 @@
 
         <TextField fx:id="textField" alignment="CENTER" layoutX="200.0" layoutY="212.0" maxHeight="25.0" maxWidth="151.0" minHeight="25.0" minWidth="151.0" onAction="#submitNick" promptText="Nickname" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
         </TextField>
-        <Button fx:id="submitNickButton" alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="275.0" maxHeight="25.0" maxWidth="50.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" onAction="#submitNick" style="-fx-border-color: cyan;" text="Play!" textAlignment="CENTER" textFill="#807c21" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
+        <Button fx:id="submitNickButton" alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="275.0" maxHeight="38.0" maxWidth="50.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" onAction="#submitNick" prefWidth="58.0" style="-fx-border-color: cyan; -fx-border-radius: 20; -fx-background-radius: 21;" text="Play!" textAlignment="CENTER" textFill="#807c21" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>

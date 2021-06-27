@@ -8,11 +8,10 @@
     <ImageView fitHeight="720.0" fitWidth="1280.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Image url="@../loader.png" />
     </ImageView>
-    <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.3" pickOnBounds="true" AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Image url="@../black.png"/>
+    <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.3" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Image url="@../black.png" />
     </ImageView>
-   <Button layoutX="1123.0" layoutY="30.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="&lt;- Return" textFill="WHITE">
+   <Button layoutX="1123.0" layoutY="30.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 2;" text="&lt;- Return" textFill="WHITE">
       <font>
          <Font size="24.0" />
       </font>
@@ -32,11 +31,11 @@
         <ImageView fx:id="chooseLeaderCardImage2" fitHeight="255.0" fitWidth="238.0" onMouseClicked="#selectSecondLeaderCard" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <Image url="@../Cards/lead5.png" />
         </ImageView>
-        <Button fx:id="activateLeaderButton" mnemonicParsing="false" onAction="#activateLeaderCard" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Activate" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <Button maxHeight="45.0" maxWidth="100.0" minHeight="45.0" minWidth="100.0" mnemonicParsing="false" onAction="#activateLeaderCard" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-font-weight: BOLD; -fx-border-width: 2;" text="Activate" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="18.0" />
          </font></Button>
-        <Button fx:id="discardLeaderButton" mnemonicParsing="false" onAction="#discardLeaderCard" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20;" text="Discard" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <Button maxHeight="45.0" maxWidth="100.0" minHeight="45.0" minWidth="100.0" mnemonicParsing="false" onAction="#discardLeaderCard" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-font-weight: BOLD; -fx-border-width: 2;" text="Discard" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="18.0" />
          </font></Button>

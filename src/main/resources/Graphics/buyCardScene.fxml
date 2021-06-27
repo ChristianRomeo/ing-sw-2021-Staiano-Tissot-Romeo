@@ -11,13 +11,13 @@
     <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" opacity="0.3" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Image url="@../black.png" />
     </ImageView>
-    <ChoiceBox fx:id="buyCardRowChoiceBox" layoutX="474.0" layoutY="653.0" prefHeight="25.0" prefWidth="131.0" />
-    <ChoiceBox fx:id="buyCardColumnChoiceBox" layoutX="775.0" layoutY="654.0" prefHeight="25.0" prefWidth="123.0" />
+    <ChoiceBox fx:id="buyCardRowChoiceBox" layoutX="474.0" layoutY="653.0" prefHeight="25.0" prefWidth="131.0" style="-fx-border-color: cyan;" />
+    <ChoiceBox fx:id="buyCardColumnChoiceBox" layoutX="775.0" layoutY="654.0" prefHeight="25.0" prefWidth="123.0" style="-fx-border-color: cyan;" />
     <Label layoutX="431.0" layoutY="657.0" prefHeight="17.0" prefWidth="36.0" text="Row" />
     <Label layoutX="714.0" layoutY="658.0" prefHeight="17.0" prefWidth="50.0" text="Column" />
-    <Button fx:id="nextBuyCardButton" layoutX="1128.0" layoutY="328.0" mnemonicParsing="false" onAction="#nextBuyCard" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 3;" text="Next" textFill="WHITE">
+    <Button fx:id="nextBuyCardButton" contentDisplay="CENTER" layoutX="1056.0" layoutY="309.0" maxHeight="55.0" maxWidth="110.0" minHeight="55.0" minWidth="110.0" mnemonicParsing="false" onAction="#nextBuyCard" prefHeight="55.0" prefWidth="110.0" style="-fx-background-color: transparent; -fx-border-color: cyan; -fx-border-radius: 20; -fx-border-width: 3; -fx-font-weight: BOLD;" text="Next" textFill="WHITE">
       <font>
-         <Font size="18.0" />
+         <Font size="24.0" />
       </font></Button>
    <Label layoutX="342.0" layoutY="153.0" style="-fx-font-weight: BOLD;" text="2" textFill="WHITE" />
    <Label layoutX="342.0" layoutY="336.0" style="-fx-font-weight: BOLD;" text="1" textFill="WHITE" />
