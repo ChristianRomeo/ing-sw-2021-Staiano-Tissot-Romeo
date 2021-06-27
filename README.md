@@ -94,9 +94,7 @@ The project was built with Maven, using *shade-plugin*.<br />
 
 To run and compile the software:
 
-Install Java SE 15 (or newer).
-Install Maven
-Clone this repo
+Clone this repo<br />
 In the cloned repo folder, issue:  
     ```
        > mvn clean    
