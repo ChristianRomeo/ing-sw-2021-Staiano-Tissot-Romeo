@@ -40,7 +40,7 @@ Here the full specifications:
  <br />
 [IT](http://www.craniocreations.it/wp-content/uploads/2021/04/Lorenzo_Cardgame_Rules_ITA_small-3.pdf)
  <br />
-[IT](https://craniointernational.com/2021/wp-content/uploads/2021/05/Masters-of-Renaissance_small.pdf)
+[ENG](https://craniointernational.com/2021/wp-content/uploads/2021/05/Masters-of-Renaissance_small.pdf)
  <br /><br />
 This project includes:
 * Initial UML diagram; 
