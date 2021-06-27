@@ -65,10 +65,15 @@ In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tiss
   ```shell
     > java -jar GC24.jar cli [ip.json]
   ```
+  <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/CLI.png" width=600px height=300px/>
+  
   * GUI
   ```shell
     > java -jar Masters.jar [gui] [ip.json]
   ```
+  <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/GUI.png" width=400px height=400px />
+  <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/GUI1.png" width=900px height=500px />
+
  This commands can be followed by:
  - **ip.json** that is the configuration file, where it can be choosen the server port and server ip for clients
   ```
