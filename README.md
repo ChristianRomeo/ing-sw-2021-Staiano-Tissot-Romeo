@@ -91,20 +91,28 @@ In order to play multiplayer from different locations port forwarding is needed.
 
 ## Build
 The project was built with Maven, using *shade-plugin*.<br />
-To build, issue:  
+
+To run and compile the software:
+
+Install Java SE 15 (or newer).
+Install Maven
+Clone this repo
+In the cloned repo folder, issue:  
     ```
        > mvn clean    
     ```  
     ```
       > mvn package  
     ```  
-After these processes the jar can be found in the *shade folder.
+After these processes the compiled jar can be found in the *shade* folder.
 
 ## Test Coverage
 Coverage criteria: Methods.
 
 ![Codecov](https://img.shields.io/badge/Controller%20Coverage-73%25-brightgreen?style=for-the-badge&logo=codecov)
 ![Codecov](https://img.shields.io/badge/Model%20Coverage-79%25-brightgreen?style=for-the-badge&logo=codecov)
+
+The unit tests run automatically at each commit thanks to the [Continuous Integration pipeline](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/.github/workflows/maven.yml).
 
 <img width="711" alt="model_coverage" src="https://user-images.githubusercontent.com/25418541/119738638-4bff1900-be81-11eb-9cdc-0a28892f93b6.png"><br /><br />
 <img width="711" alt="all_model_coverage" src="https://user-images.githubusercontent.com/25418541/119738652-515c6380-be81-11eb-8d4e-5b4ae20b3917.png"><br /><br /><br />
