@@ -18,7 +18,6 @@ import java.util.List;
  * GameBoard section which contains the faith track and
  *
  */
-
 public class Game extends ServerObservable { //game is observed by the virtual view
     private final Board board;
     private final List<Player> players;

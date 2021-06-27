@@ -1,0 +1,16 @@
+.button {
+    -fx-background-color: #e68a00;
+    -fx-font-weight: bold;
+}
+
+.button: hover {
+    -fx-background-color: #b36b00;
+}
+
+#endTurnButton {
+    -fx-background-color: #0066ff;
+}
+
+#endTurnButton: hover {
+    -fx-background-color: #0047b3;
+}
