@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+/**
+ * LeaderCardWhiteMarble class represents the Leader cards with special ability "White Marble" when taking resources from the market
+ */
 public class LeaderCardWhiteMarble extends LeaderCard{
     /**
      * this method is for the white marble card ability, it's redefined in that type of card,

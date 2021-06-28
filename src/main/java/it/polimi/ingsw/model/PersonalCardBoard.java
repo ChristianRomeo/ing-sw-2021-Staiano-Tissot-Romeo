@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
- * @author enrico
+ * PersonalCardBoard class represents the personal Development card board of each player
  */
 public class PersonalCardBoard implements Serializable {
     private int numberOfCards;

@@ -3,6 +3,9 @@ package it.polimi.ingsw.model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * LeaderCardProduction class represents the Leader cards with special ability "Production" which adds one production power
+ */
 public class LeaderCardProduction extends LeaderCard {
 
     /**

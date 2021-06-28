@@ -42,7 +42,9 @@ public class CliView implements View {
         //poi credo qua devo far partire metodo che chiede cose a utente in continuazione:
         askActions();
     }
-
+    /**
+     * takes an action from the keyboard and asks for a new game at the end of the match
+     */
     public void askActions(){
         while(!clientModel.hasGameEnded()){
             scanner.reset();
@@ -65,7 +67,10 @@ public class CliView implements View {
 
     // ------ ASK METHODS -----
 
-
+    /**
+     * Asks the nickname to every player
+     * @return the nickname
+     */
     public String askNickname(){
 
         Color.header();
@@ -82,6 +87,10 @@ public class CliView implements View {
         return nickname;
     }
 
+    /**
+     * Asks the number of players for the match to the first connected player
+     * @return the number of players for the match
+     */
     @Override
     public int askNumPlayers(){
         Color.cls();
@@ -442,10 +451,10 @@ public class CliView implements View {
         showWarehouse(warehouse);
         return discardedResources;
     }
-        /**
-         * Asks the user a cell of the warehouse.
-         * @return the coordinate of the cell.
-         */
+    /**
+     * Asks the user a cell of the warehouse.
+     * @return the coordinate of the cell.
+     */
     public SameTypePair<Integer> askWarehouseCell(){
         showMessage(Color.ANSI_TALK+" Select your warehouse's row you want to use (1,2,3)");
         int row = askNumber(1,3);
@@ -477,7 +486,10 @@ public class CliView implements View {
         return checkNumber(choice, lowLimit ,highLimit);
 
     }
-
+    /**
+     * called everytime a player has to choose "yes" ("y") or "no" ("no")
+     * @return the choice
+     */
     public String askChoice(){
         String choice = scanner.nextLine();
         if (actionHandler.isNewGame())
@@ -492,8 +504,10 @@ public class CliView implements View {
             return choice.toLowerCase();
     }
 
-        public void askNewGame() {
-
+    /**
+     * Asks for a new game
+     */
+    public void askNewGame() {
         actionHandler.setNewGame(true);
         showMessage("\n"+ Color.ANSI_TALK + " Do you wish to play again? [y/n]: ");
     }
@@ -502,6 +516,9 @@ public class CliView implements View {
 
     //                  ------ SHOW METHODS -----   //da testare
 
+    /**
+     *Shows the whole Development card board
+     */
     public void showDevelopmentCardBoard(){
         showMessage("");
         for (int i=0;i<3;++i)
@@ -537,6 +554,10 @@ public class CliView implements View {
 
     }
 
+    /**
+     * Shows a Leader card
+     * @param card is the Leader card to be shown
+     */
     public void showLeaderCard(LeaderCard card){
 
         showMessage(Color.format('i',switch(card.getAbilityResource().toString()){
@@ -570,6 +591,10 @@ public class CliView implements View {
         showMessage("--------------------");
     }
 
+    /**
+     * Shows a Development card
+     * @param card is the Development card to be shown
+     */
     public void showCard(DevelopmentCard card) {
 
         showMessage(Color.format('b', "Card Cost: "));
@@ -846,7 +871,8 @@ public class CliView implements View {
     }
 
     /**
-     * Print the map received in input with the ladder
+     * Shows the map received in input with the ladder
+     * @param endGameEvent is the event for the end of the game when the ladder board will be shown
      */
     public void showLadderBoard(EndGameEventS2C endGameEvent){
         Color.cls();
@@ -866,7 +892,8 @@ public class CliView implements View {
     }
 
     /**
-     * Print the received warehouse.
+     * Shows a warehouse.
+     * @param warehouse is the warehouse to be shown
      */
     public void showWarehouse(PlayerWarehouse warehouse){
 
@@ -939,7 +966,10 @@ public class CliView implements View {
         showMessage(Color.color('r', Color.ANSI_INVALID+"That's unfortunate: "+errorMessage));
     }
 
-
+    /**
+     * Shows Lorenzo's turn and his solo action
+     * @param soloAction is Lorenzo's action to be shown
+     */
     public void showLorenzoTurn(SoloAction soloAction){
         showMessage("Lorenzo has made his action! \nThe activated solo action was: ");
         System.out.println("Type: "+ soloAction.getType());
@@ -977,7 +1007,9 @@ public class CliView implements View {
         }
         return (num <= highLimit && num >= lowLimit)? num : null;
     }
-
+    /**
+     * Shows the possible actions to be made, which are different for the current player and the other players
+     */
     public void printActions() {
         if(clientModel.isCurrentPlayer())
             showMessage("""
@@ -1006,6 +1038,5 @@ public class CliView implements View {
                     ▷ SHOWOTHERSSTATUS
                     ▷ EXIT
                     """);
-
     }
 }

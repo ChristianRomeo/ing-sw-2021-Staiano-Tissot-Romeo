@@ -2,6 +2,9 @@ package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 
+/**
+ * SoloAction class represents the actions made when using Solo modo, and so playing with Lorenzo
+ */
 public class SoloAction implements Serializable {
     private final SoloActionType type;
     private final CardType discardedCardsType;

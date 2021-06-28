@@ -2,6 +2,9 @@ package it.polimi.ingsw.model;
 
 import java.io.Serializable;
 
+/**
+ * LeaderCardDiscount class contains the illegal actions of the players
+ */
 public class IllegalAction implements Serializable {
     private final String playerNickname;
     private final String description;

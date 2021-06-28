@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model;
 
+/**
+ * LeaderCardSlots class represents the Leader cards with special ability "Slots" which gives 2 special slots in which to put
+ * resources
+ */
 public class LeaderCardSlots extends LeaderCard{
     private int fullSlotsNumber=0;
 

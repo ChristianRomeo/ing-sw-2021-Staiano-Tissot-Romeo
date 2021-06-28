@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model;
 
 /**
- * @author tommy
+ * Player class represents each player
+ * @author Tommy
  */
+
 public class Player {
     /**
      * The name chosen by the physical player

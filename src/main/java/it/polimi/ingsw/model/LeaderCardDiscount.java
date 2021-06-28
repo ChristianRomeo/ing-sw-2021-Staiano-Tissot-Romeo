@@ -3,6 +3,9 @@ package it.polimi.ingsw.model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * LeaderCardDiscount class represents the Leader cards with special ability "Discount" when buying a Development card
+ */
 public class LeaderCardDiscount extends LeaderCard {
 
     /**
