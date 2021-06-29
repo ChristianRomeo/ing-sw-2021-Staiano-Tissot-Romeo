@@ -68,7 +68,13 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
     }
 
     // ---- events from the client----
-
+    /**
+     * BoughCardEvent from the client
+     * checks if an action has already been done:
+     * if not, it sends the event to the controller which will then edit the model;
+     * if yes, it adds a new IllegalAction to communicate that an action has already been done
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(BoughtCardEvent event){
 
         if(!controller.getGame().hasDoneAction()){
@@ -78,11 +84,22 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         }
     }
 
+    /**
+     * NumPlayerEvent from the client, sent to the controller which will then edit the model
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(NumPlayerEvent event) {
-        logger.info("ricevuto numero di giocatori: "+ event.getNumPlayers());
+        logger.info("received the number of players: "+ event.getNumPlayers());
         controller.getGame().setWantedNumPlayers(event.getNumPlayers());
     }
 
+    /**
+     *LeaderCardActionEvent from the client
+     * action could be discard ("d") or activate "a")
+     * it sends the event to the controller, which will then edit the model
+     * if yes, it adds a new IllegalAction to communicate that an action has already been done
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(LeaderCardActionEvent event){
 
         if(event.getDiscardOrActivate()=='d')
@@ -93,6 +110,13 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
     }
 
+    /**
+     * ActivateProductionEvent from the client
+     * checks if an action has already been done:
+     * if not, it sends the event to the controller which will then edit the model;
+     * if yes, it adds a new IllegalAction to communicate that an action has already been done
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(ActivatedProductionEvent event){
         SameTypeTriple<Resource> BPResources = new SameTypeTriple<>(event.getRequestedResBP1(),event.getRequestedResBP2(),event.getProducedResBP());
         if(!controller.getGame().hasDoneAction()){
@@ -102,6 +126,13 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         }
     }
 
+    /**
+     * UseMarketEvent from the client
+     * checks if an action has already been done:
+     * if not, it sends the event to the controller which will then edit the model;
+     * if yes, it adds a new IllegalAction to communicate that an action has already been done
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(UseMarketEvent event){
         if(!controller.getGame().hasDoneAction()){
             controller.useMarket(event.getRowOrColumn(), event.getIndex(),event.getNewWarehouse(),event.getDiscardedRes(),event.getLeaderCardSlots1(),event.getLeaderCardSlots2(), event.getWhiteMarbleChoices());
@@ -110,6 +141,13 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         }
     }
 
+    /**
+     * boughCardEvent from the client
+     * checks if an action has already been done:
+     * if not, it adds a new IllegalAction to communicate that an action has already been done;
+     * if yes, it sends the event to the controller which will then edit the model;
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(EndTurnEvent event){
         if(controller.getGame().hasDoneAction()){
             controller.getGame().nextTurn();
@@ -118,10 +156,19 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         }
     }
 
+    /**
+     * NewConnectionEvent from the client
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(NewConnectionEvent event){
 
     }
 
+    /**
+     * InitialChoiceEvent from the client
+     * sends the event to the controller which will then edit the model
+     * @param event is the event received from the client
+     */
     public synchronized void handleEvent(InitialChoiceEvent event){
         controller.initialChoiceHandler(event); //poi magari faccio in un altro modo
     }
@@ -130,60 +177,110 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
 
     //      ---- SERVER TO CLIENT EVENTS ----
 
+    /**
+     * LeaderActionEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(LeaderCardActionEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * BoughtCardEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * ActivateProductionEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(ActivatedProductionEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * IncrementPosition from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(IncrementPositionEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * VaticanReportEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(VaticanReportEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * UseMarketEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(UseMarketEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * NewTurnEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(NewTurnEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * IllegalActionEvent from the server
+     * sends the event to the specific player who has done it
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(IllegalActionEventS2C event) {
         //invia evento ai dovuti client
         sendTo(event, event.getIllegalAction().getPlayerNickname());
     }
 
+    /**
+     * LeaderActionEvent from the server
+     * sends the event to the specific player
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(GameStarterEventS2C event) {
         //invia evento ai dovuti client
         sendTo(event, controller.getGame().getPlayerByIndex(event.getIndexPlayer()).getNickname());
     }
 
+    /**
+     * EndGameEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(EndGameEventS2C event) {
         //invia evento ai dovuti client
@@ -192,18 +289,32 @@ public class VirtualView implements ClientEventHandler, ServerEventObserver {
         closeAll();
     }
 
+    /**
+     * LorenzoTurnEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(LorenzoTurnEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * EndPreparationEvent from the server
+     * sends the event to every client
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(EndPreparationEventS2C event) {
         //invia evento ai dovuti client
         sendToEveryone(event);
     }
 
+    /**
+     * LeaderActionEvent from the server
+     * @param event is the event received from the server
+     */
     @Override
     public void handleEvent(NewConnectionEventS2C event) {
 
