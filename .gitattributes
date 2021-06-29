@@ -1,1 +1,2 @@
-deliverables/* linguist-documentation
+deliverables/Javadocs* linguist-documentation
+deliverables/Javadocs* linguist-generated=true
