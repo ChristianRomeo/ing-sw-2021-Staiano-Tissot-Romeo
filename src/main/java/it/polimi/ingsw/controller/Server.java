@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.controller.controllerExceptions.DisconnectionException;
 import it.polimi.ingsw.model.Game;
 
 import java.io.IOException;
@@ -53,7 +52,7 @@ public class Server {
         while(true)
             try {
                 startClient();
-            } catch (IOException | InterruptedException | DisconnectionException e) {
+            } catch (IOException | InterruptedException e) {
                 logger.warning("An error has occurred while trying to connect! The connection could not be accepted." + e);   //client catch
                 if(serverSocket != null && !serverSocket.isClosed())
                     try {
@@ -72,7 +71,7 @@ public class Server {
      * Only then, it checks whether the number chosen by the first player has been reached.
      *
      */
-    public void startClient() throws IOException, InterruptedException, DisconnectionException {
+    public void startClient() throws IOException, InterruptedException {
 
         Socket socket = serverSocket.accept();  //accetto un singolo cliente ogni volta
         logger.info( socket.getRemoteSocketAddress() + " has connected. This is: " +socket.getLocalSocketAddress());

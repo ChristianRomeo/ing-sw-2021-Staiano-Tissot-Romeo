@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller.Events;
 
-//è una classe ausiliaria per non mettere tutto nel controller
 /**
  * creator of the events to be sent to the client
  */
