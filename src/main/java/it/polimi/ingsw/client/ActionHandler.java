@@ -43,6 +43,13 @@ public class ActionHandler {
         //ciò prende solo la prima parola inserita
         if(action.contains(" "))
             action = action.substring(0,action.indexOf(" "));
+        if (! action.toUpperCase().equals("CHOOSE") && clientModel.isPregame())
+        {
+            cliView.showMessage(Color.color('r', Color.ANSI_INVALID+"That's unfortunate: you can't do this action now"));
+            return;
+        }
+
+
 
             switch (action.toUpperCase()) {
                 case "CHOOSE" -> initialChoice();

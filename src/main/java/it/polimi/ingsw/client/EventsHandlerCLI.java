@@ -158,9 +158,14 @@ public class EventsHandlerCLI implements ServerEventObserver {
                         ▷ ENDTURN
                         ▷ EXIT
                         """);
-        }else{
-                cliView.showMessage(Color.color('r', Color.ANSI_TALK+" It's "+event.getNickname()+"'s turn"));
-                cliView.showMessage("""
+        }else
+        {
+                if(clientModel.isPregame()) {
+                    cliView.showMessage("\nPlease wait...\n");
+                }
+                else {
+                    cliView.showMessage(Color.color('r', Color.ANSI_TALK+" It's "+event.getNickname()+"'s turn"));
+                    cliView.showMessage("""
 
                         Choose an action between
                         ▷ SHOWFT
@@ -170,6 +175,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
                         ▷ SHOWOTHERSSTATUS
                         ▷ EXIT
                         """);
+                }
         }
     }
 
