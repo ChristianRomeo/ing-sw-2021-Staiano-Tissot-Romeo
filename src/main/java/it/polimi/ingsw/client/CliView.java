@@ -8,7 +8,9 @@ import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
+/**
+ * implementation of the View interface for the CLI
+ */
 public class CliView implements View {
 
     private final Scanner scanner;
@@ -311,13 +313,14 @@ public class CliView implements View {
     /**
      * Asks the user how he wants to edit his warehouse.
      * It edit the warehouse passed and the number of full slots of the two leader cards (if the user has the right type of cards).
+     * the player says what resources in he warehouse he wants to move, so these resources
+     * are temporary removed from the warehouse and stored in a list. Than the player
+     * can reinsert these resources where he wants (or he can again temporary remove some resources).
+     * When he wants, the player can stop the edit of the warehouse, but only if he has
+     * inserted every temporary removed resource.
      */
     public void editWarehouse(PlayerWarehouse warehouse, SameTypePair<Integer> fullLeaderSlots) {
-        //the player says what resources in he warehouse he wants to move, so these resources
-        //are temporary removed from the warehouse and stored in a list. Than the player
-        //can reinsert these resources where he wants (or he can again temporary remove some resources).
-        //When he wants, the player can stop the edit of the warehouse, but only if he has
-        //inserted every temporary removed resource.
+
 
         Resource leaderCardResource1 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(0).getAbilityResource();
         Resource leaderCardResource2 = clientModel.getPlayerLeaderCards(clientModel.getMyNickname()).get(1).getAbilityResource();

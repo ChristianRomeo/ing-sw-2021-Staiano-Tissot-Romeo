@@ -1,7 +1,9 @@
 package it.polimi.ingsw.controller.Events;
 
 
-
+/**
+ *client to server event triggered when a new player has connected
+ */
 public class NewConnectionEvent extends  ClientEvent {
     private final String nickname;
 

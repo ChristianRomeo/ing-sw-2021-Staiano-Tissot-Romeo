@@ -10,7 +10,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-
+/**
+ * controller which handles the buyCardScene
+ */
 public class BuyCardSceneController extends FXMLController {
 
     //pane1

@@ -1,8 +1,9 @@
 package it.polimi.ingsw.controller.Events;
 
-//sta classe crea gli eventi che poi mandiamo al client
 //è una classe ausiliaria per non mettere tutto nel controller
-
+/**
+ * creator of the events to be sent to the client
+ */
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 

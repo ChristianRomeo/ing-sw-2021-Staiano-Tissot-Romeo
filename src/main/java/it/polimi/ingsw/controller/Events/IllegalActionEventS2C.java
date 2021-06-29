@@ -2,7 +2,9 @@ package it.polimi.ingsw.controller.Events;
 
 import it.polimi.ingsw.model.IllegalAction;
 
-
+/**
+ *server to client event triggered when an illegal action happens
+ */
 public class IllegalActionEventS2C extends ServerEvent {
 
     private final IllegalAction illegalAction;

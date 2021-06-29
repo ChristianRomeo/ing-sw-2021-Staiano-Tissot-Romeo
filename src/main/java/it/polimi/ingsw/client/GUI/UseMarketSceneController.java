@@ -12,6 +12,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.*;
 
+/**
+ * controller which handles the useMarketScene
+ */
 public class UseMarketSceneController extends FXMLController{
 
     private char rowOrColumn;

@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.*;
 
 import java.util.Map;
 
+/**
+ *server to client event triggered when the player wants to activate production
+ */
 public class ActivatedProductionEventS2C extends ServerEvent {
 
     private final PlayerWarehouse newWarehouse;

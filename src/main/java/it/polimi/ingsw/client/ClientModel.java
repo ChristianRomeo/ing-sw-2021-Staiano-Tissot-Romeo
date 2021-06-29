@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Class ClientModel is a simplified model which the client sees
  */
 
-
 public class ClientModel {
    //liste delle cose dei giocatori, volendo possiamo fare una classe ClientPlayer che racchiude queste info
    //e poi facciamo una sola lista di ClientPlayer (ma non per forza)

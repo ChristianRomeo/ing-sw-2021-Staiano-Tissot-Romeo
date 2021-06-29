@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * controller which handles the gameScene
+ */
 public class GameSceneController extends FXMLController {
 
     @FXML

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.Events;
 
-//a player is moving forward in his faith track.
+/**
+ *server to client event triggered when a player is moving his Faith track position
+ */
 public class IncrementPositionEventS2C extends ServerEvent {
 
     private final int newPosition;

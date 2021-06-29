@@ -2,6 +2,9 @@ package it.polimi.ingsw.controller.Events;
 
 import it.polimi.ingsw.model.*;
 
+/**
+ *server to client event triggered when the player wants to use the market
+ */
 public class UseMarketEventS2C extends ServerEvent {
 
     private final Market newMarket;

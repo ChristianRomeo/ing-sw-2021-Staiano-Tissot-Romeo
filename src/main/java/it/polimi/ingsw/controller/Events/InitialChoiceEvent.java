@@ -1,7 +1,9 @@
 package it.polimi.ingsw.controller.Events;
 
 import it.polimi.ingsw.model.*;
-
+/**
+ *client to server event triggered for the initial choice of Leader cards to be removed and resources to be put in the warehouse
+ */
 public class InitialChoiceEvent extends ClientEvent {
 
     //mi faccio dare gli indici delle carte leader che vuole RIMUOVERE

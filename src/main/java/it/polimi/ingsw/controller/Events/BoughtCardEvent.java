@@ -2,7 +2,9 @@ package it.polimi.ingsw.controller.Events;
 
 import java.io.Serializable;
 
-//the client has bought a development card
+/**
+ *client to server event triggered when the player has bought a Development card
+ */
 public class BoughtCardEvent extends ClientEvent implements Serializable {
 
     private final int row; // row is the row of the selected card, 0<=row<=2

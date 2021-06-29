@@ -3,6 +3,9 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
 
+/**
+ * interface from where CliView and GuiView are implemented
+ */
 public interface View {
 
     /**

@@ -3,8 +3,10 @@ package it.polimi.ingsw.controller.Events;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.List;
-//the player wants to activate the production.
 
+/**
+ *client to server event triggered when the player wants to activate production
+ */
 public class ActivatedProductionEvent extends ClientEvent{
     private final List<Integer> activatedProduction; //what card productions you want to activate
     private final boolean activateBaseProduction;

@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.*;
 
 import java.util.Map;
 
+/**
+ *server to client event triggered when a Vatican report happens
+ */
 public class VaticanReportEventS2C extends ServerEvent{
 
     //map con coppie nickname->status delle pope tiles

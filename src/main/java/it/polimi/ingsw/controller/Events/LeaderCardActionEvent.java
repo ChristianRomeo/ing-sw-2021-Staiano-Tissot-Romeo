@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.Events;
 
-//the client has activated or discarded a leader card
+/**
+ *client to server event triggered when the player has activated/discarded a Leader card
+ */
 public class LeaderCardActionEvent extends ClientEvent {
     //qua ci vogliono gli attributi dell'evento specifico
     private final char discardOrActivate; //'d' to discard, 'a' to activate

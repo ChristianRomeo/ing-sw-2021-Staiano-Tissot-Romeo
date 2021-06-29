@@ -1,5 +1,8 @@
 package it.polimi.ingsw.controller.Events;
 
+/**
+ *server to client event triggered when a new turn happens
+ */
 public class NewTurnEventS2C extends ServerEvent{
     private final String nickname; //it's his turn
 

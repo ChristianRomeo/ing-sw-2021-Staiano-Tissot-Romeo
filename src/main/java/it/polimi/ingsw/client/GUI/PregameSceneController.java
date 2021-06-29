@@ -18,7 +18,9 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-
+/**
+ * controller which handles the preGameScene
+ */
 public class PregameSceneController extends FXMLController{
     @FXML
     private GridPane grid1;

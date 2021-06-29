@@ -31,7 +31,7 @@ public class ServerHandler implements Runnable{
     }
 
     /**
-     *receuves messages from the server and sends it to their handlers
+     *receives messages from the server and sends it to their handlers
      * (which is gonna be the event handler, who will handle them)
      */
     @Override
@@ -94,14 +94,13 @@ public class ServerHandler implements Runnable{
 
                 if (!Objects.equals(view.getClientModel().getMyNickname(), old))
                     logger.info("Your new username is " + view.getClientModel().getMyNickname());
-                    //view.showMessage(Color.color('g',"Your new username is " + view.getClientModel().getMyNickname()));
 
                 if(serverAnswer.isFirstPlayer()){
                     int wantedNumPlayers = view.askNumPlayers();                                             //qui si chiede il numero di giocatori voluto all'utente
                     send(new NumPlayerEvent(wantedNumPlayers));
                     if (wantedNumPlayers!=1)
-                        logger.info("Now please wait for others players...");
-                        //view.showMessage("Now please wait for others players...");
+                        System.out.println("Now please wait for other players...");
+                        //logger.info("Now please wait for others players...");
                 }
             } catch (IOException | ClassNotFoundException e) {
                 logger.warning("Server down during setup reading "+e);
@@ -131,7 +130,7 @@ public class ServerHandler implements Runnable{
 
             //view.askNewGame();
         } catch (IOException e) {
-            logger.warning("errore in chiusura connessione " + e);                                                 //IT SHOULD NOT HAPPEN
+            logger.warning("error while closing connection " + e);
         }
     }
 

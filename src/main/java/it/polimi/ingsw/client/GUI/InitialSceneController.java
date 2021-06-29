@@ -17,6 +17,9 @@ import javafx.scene.text.FontWeight;
 
 import java.util.Objects;
 
+/**
+ * controller which handles the initialScene
+ */
 public class InitialSceneController extends FXMLController {
 
     @FXML

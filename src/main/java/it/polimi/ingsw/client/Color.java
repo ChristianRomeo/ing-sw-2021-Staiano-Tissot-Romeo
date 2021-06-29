@@ -1,7 +1,9 @@
 package it.polimi.ingsw.client;
 
 import java.io.PrintWriter;
-
+/**
+ Style class
+ */
 public enum Color {
     ANSI_RED("\u001B[31m"),
     ANSI_GREEN("\u001B[32m"),

@@ -3,7 +3,10 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.controller.Events.*;
 
 //questo dovrebbe solo mostrare le cose alla cli , in base a che eventi arrivano
-
+/**
+ * Implementation of ServerEventObserver interface, used for CLI only, to show messages based on received events
+ * (like the virtual view, or in the client)
+ */
 
 public class EventsHandlerCLI implements ServerEventObserver {
 

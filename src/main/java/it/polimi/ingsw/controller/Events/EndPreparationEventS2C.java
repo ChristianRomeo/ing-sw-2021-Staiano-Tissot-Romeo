@@ -6,11 +6,11 @@ import it.polimi.ingsw.model.PlayerWarehouse;
 import java.util.List;
 import java.util.Map;
 
-//si invia sto evento quando tutti i giocatori hanno finito di fare le proprie scelte iniziali
-//invio i warehouse di tutti, perchè certi possono aver messo risorse
-//invio anche le leader card di tutti, però poi nel client mostro solo quelle di quel giocatore e quelle attive degli altri
-//quando arriva sto evento sul client vuol dire che si parte con i turni normali ed è il turno del primo player
-
+/**
+ *server to client event triggered when all the players have finished their initial choices
+ * it sends everyone's warehouse, together with everyone's Leader cards
+ * when this events is reached by the client, it means the "real" game starts and it's the first player's turn
+ */
 public class EndPreparationEventS2C extends ServerEvent{
     private final Map<String, PlayerWarehouse> warehouses; //mappa con nickname-> warehouse di quel tizio
     private final Map<String, List<LeaderCard>> leaderCards; //mappa con nickname-> leadercards di quel tizio

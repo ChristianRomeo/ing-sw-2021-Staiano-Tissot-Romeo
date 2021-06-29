@@ -17,6 +17,9 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * controller which handles the activateProductionScene
+ */
 public class ActivateProductionSceneController extends FXMLController{
 
     //pane principale

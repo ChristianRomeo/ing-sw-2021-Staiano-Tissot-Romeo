@@ -18,7 +18,6 @@ import java.util.List;
 
 /**
  * Handles Server incoming Events and dispatch actions, it uses VISITOR PATTERN
- *  todo:cli and gui
  */
 public class EventsHandler implements ServerEventObserver {
 

@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.Resource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *client to server event triggered when the player wants to use the market
+ */
 public class UseMarketEvent extends ClientEvent{
 
     private final char rowOrColumn; // 'c' for column, 'r' for row

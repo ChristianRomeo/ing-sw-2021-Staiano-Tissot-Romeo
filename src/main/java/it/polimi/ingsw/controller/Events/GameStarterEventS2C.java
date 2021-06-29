@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.Market;
 
 import java.util.List;
 
+/**
+ *server to client event triggered when the game starts
+ */
 public class GameStarterEventS2C extends ServerEvent{
     private final List<LeaderCard> choiceLeaderCards; //carte tra cui può scegliere
     private final DevelopmentCardBoard cardBoard;

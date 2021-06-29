@@ -3,6 +3,9 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.client.ClientModel;
 import it.polimi.ingsw.client.ServerHandler;
 
+/**
+ * abstract class from where all the Scene controllers are extended
+ */
 public abstract class FXMLController {
     protected ClientModel clientModel;
     protected ServerHandler serverHandler;

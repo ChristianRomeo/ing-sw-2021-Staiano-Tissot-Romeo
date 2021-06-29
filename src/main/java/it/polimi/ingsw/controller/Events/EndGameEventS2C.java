@@ -3,6 +3,9 @@ package it.polimi.ingsw.controller.Events;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *serve to client event triggered when the game ends
+ */
 public class EndGameEventS2C extends ServerEvent{
 
     private final List<String> winners; //list of the winners' nicknames.

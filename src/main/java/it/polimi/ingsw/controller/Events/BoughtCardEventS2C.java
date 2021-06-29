@@ -7,7 +7,9 @@ import it.polimi.ingsw.model.Resource;
 
 import java.util.Map;
 
-//the current player has bought a development card
+/**
+ *server to client event triggered when the player has bought a Development card
+ */
 
 public class BoughtCardEventS2C extends ServerEvent{
     private final PersonalCardBoard newPersonalCardBoard; //new personal card board of the current player

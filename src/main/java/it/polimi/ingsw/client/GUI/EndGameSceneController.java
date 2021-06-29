@@ -7,6 +7,9 @@ import javafx.scene.control.Label;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * controller which handles the endGameScene
+ */
 public class EndGameSceneController extends FXMLController {
 
     @FXML

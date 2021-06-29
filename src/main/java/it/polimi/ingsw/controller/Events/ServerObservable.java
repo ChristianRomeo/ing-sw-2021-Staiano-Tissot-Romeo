@@ -11,10 +11,6 @@ public abstract class ServerObservable {
         observers.add(observer);
     }
 
-    public void removeObserver(ServerEventObserver observer){
-        observers.remove(observer);
-    }
-
     public void notifyAllObservers(ServerEvent event){
         for (ServerEventObserver observer : this.observers) {
             event.notifyHandler(observer);

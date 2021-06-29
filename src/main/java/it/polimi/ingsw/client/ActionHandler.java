@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Controller client-side of player's actions, dispatch actions to methods (CLI-only)
+ * client-side Controller of player's actions, dispatch actions to methods (CLI-only)
  */
 public class ActionHandler {
     private final ClientModel clientModel;
@@ -36,7 +36,7 @@ public class ActionHandler {
     /**
      * Main method to handle Player actions
      * @param action the action string, read from the keyboard.
-     * Only the first word of the string will be taken
+     * Only the first word of the entered string will be taken
      */
     public void handleAction(String action){
 
@@ -55,7 +55,7 @@ public class ActionHandler {
             case "MARKET" -> useMarket();
             case "SHOWFT" -> cliView.showFaithTracks();
             case "SHOWLEADERS" -> cliView.showPlayersLeaderCards();
-            case "SHOWABOARDS" -> cliView.showPlayersBoard();
+            case "SHOWBOARDS" -> cliView.showPlayersBoard();
             case "SHOWMYSTATUS" -> cliView.showMyState();
             case "SHOWOTHERSSTATUS" -> cliView.showOthersState();
             case "EXIT" -> exit();

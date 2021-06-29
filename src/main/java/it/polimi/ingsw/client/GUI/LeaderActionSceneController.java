@@ -10,6 +10,9 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
+/**
+ * controller which handles the leaderActionScene
+ */
 public class LeaderActionSceneController extends FXMLController{
 
     @FXML

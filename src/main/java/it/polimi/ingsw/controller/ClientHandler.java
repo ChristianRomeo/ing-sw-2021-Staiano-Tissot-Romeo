@@ -11,8 +11,8 @@ import java.net.SocketException;
 import java.util.logging.Logger;
 
 /**
- *  Uno per giocatore , rappresenta il client lato server, legge i messaggi ricevuti dal client, setta il nickname,
- *  setta numero giocatori IF FIRST, manda il ping ogni 2 secondi, manda il giocatore alla virtualView che lo aggiunge alla lista giocatori ed al game
+ *  a ClientHandler for every player. It represents the client from the server-side, reading received messages from the client, setting nickname, number of players for the match,
+ *  sends the player to the virtual view which will add him to the list of players and to the game
  */
 public class ClientHandler implements Runnable {
     private final Socket socket;                //univoca per ogni player, se si disconnette la perde?
@@ -86,7 +86,7 @@ public class ClientHandler implements Runnable {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            logger.warning("errore nel leggere il nickname");                                                      //THIS should NEVER HAPPEN
+            logger.warning("error while reading the nickname");
             setDisconnected();
         }
 
@@ -101,7 +101,7 @@ public class ClientHandler implements Runnable {
                     virtualView.getController().getGame().notifyAll();                                                  //faccio la notify quando è stato impostato il numero di giocatori così che il server possa riprendere l'esecuzione
                 }
             } catch (Exception e) {
-                logger.warning("errore nel leggere il numero giocatori, il first player si è disconnesso");
+                logger.warning("error while reading the number of players: the first player has disconnected");
 
                 synchronized (virtualView.getController().getGame()){
                     virtualView.getController().getGame().notifyAll();
@@ -115,12 +115,12 @@ public class ClientHandler implements Runnable {
         }
 
         if (isConnected()){
-            logger.info("fine clientHandler-connectionSetUp, starting ping..."); // debug
+            logger.info("ends of clientHandler-connectionSetUp, starting ping..."); // debug
             startPing();
             try {
                 socket.setSoTimeout(8000);
             } catch (SocketException e) {
-                logger.info("ping non arrivato");
+                logger.info("ping not received");
                 setDisconnected();
             }
         }                                                                                           //start ping
@@ -178,7 +178,7 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * Checks if game can start and then listen to input messages
+     * Checks if game can start and then listens to input messages
      */
     @Override
     public void run() {
