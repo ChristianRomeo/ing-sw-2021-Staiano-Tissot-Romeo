@@ -24,11 +24,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-//to change game font
 /**
  * implementation of the View interface for the GUI
- */
-/**
  * @see javafx.application.Application
  */
 public class GuiView extends Application implements View {
