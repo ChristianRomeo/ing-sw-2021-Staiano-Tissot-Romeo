@@ -147,7 +147,7 @@ public class GuiView extends Application implements View {
      */
     public void setCurrentScene(String sceneName){
         currentStage.setScene(getScene(sceneName));
-        Scene currentScene = getScene(sceneName);
+        //Scene currentScene = getScene(sceneName);
         currentFXMLController = getSceneController(sceneName);
     }
 

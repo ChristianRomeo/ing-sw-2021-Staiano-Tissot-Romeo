@@ -157,10 +157,7 @@ public class StatusPlayer {
          * @return the Leader cards of the player
          */
         public List<LeaderCard> getPlayerLeaderCards(){
-                if(leaderCards!=null){
-                        return new ArrayList<>(leaderCards);
-                }
-                return null;
+                return new ArrayList<>(leaderCards);
         }
 
         /**
