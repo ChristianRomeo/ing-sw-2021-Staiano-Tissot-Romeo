@@ -118,7 +118,7 @@ The following class diagrams represent respectively the initial model developed 
 
 ## Javadocs
 The following documentation includes a description for most of the classes and methods used and follows the Java documentation technique.<br />
-It can be consulted [here](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/tree/main/deliverables/Javadocs).
+It can be consulted [here](https://christianromeo.github.io/Masters-of-Renaissance-Javadocs/).
 
 ## Test Coverage
 Coverage criteria: Methods.<br />
