@@ -349,7 +349,7 @@ public class CliView implements View {
             }
 
             if (choiceNumber == 1 && temporaryRemovedResources.size()>0){
-                System.out.println("Temporary removed resources: "+ temporaryRemovedResources); //todo: da stampare meglio sta lista di risorse
+                System.out.println("Temporary removed resources: "+ temporaryRemovedResources);
                 showMessage("Write the index of the resource you want to re-insert (0,1,..): ");
                 resourceIndex = askNumber(0,temporaryRemovedResources.size());
                 selectedCell = askWarehouseCell();
@@ -464,7 +464,10 @@ public class CliView implements View {
         int col = 1;
         if (row!=1){
             showMessage(Color.ANSI_TALK+" Select your warehouse's column you want to use (1,2" + (row==3 ? ",3)" : ")") + ":");
-             col = askNumber(1,3);
+            if(row == 3)
+                col = askNumber(1,3);
+            else
+                col = askNumber(1, 2);
         }
         return new SameTypePair<>(row,col);
     }
@@ -517,7 +520,6 @@ public class CliView implements View {
 
 
 
-    //                  ------ SHOW METHODS -----   //da testare
 
     /**
      *Shows the whole Development card board
@@ -710,7 +712,8 @@ public class CliView implements View {
                 if (clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(1)!=null)
                     showCard(clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(1));
                 if (clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(2)!=null)
-                    showCard(clientModel.getPlayersCardBoards().get(i.getAndIncrement()).getUpperCard(2));
+                    showCard(clientModel.getPlayersCardBoards().get(i.get()).getUpperCard(2));
+                i.getAndIncrement();
                 showMessage("--------------------");
             }
         });
@@ -782,7 +785,7 @@ public class CliView implements View {
                     }
                 }
                 if(numOfActivatedLeaderCards.get()== 0)
-                    showMessage(Color.format('b', x+" has no activated Leader Cards yet"));
+                    showMessage(Color.format('b', x+" has not activated Leader Cards yet"));
 
                 numOfActivatedLeaderCards.set(0);
             });
@@ -860,7 +863,7 @@ public class CliView implements View {
                     numOfActivatedLeaderCards ++;
                 }
                 if (numOfActivatedLeaderCards == 0)
-                    showMessage(Color.format('i', s+" has no activated Leader Cards yet"));
+                    showMessage(Color.format('i', s+" has not activated Leader Cards yet"));
                 numOfActivatedLeaderCards = 0;
 
                 System.out.println("\n\n");

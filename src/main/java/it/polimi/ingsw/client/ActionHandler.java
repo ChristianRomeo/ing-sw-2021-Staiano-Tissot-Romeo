@@ -44,25 +44,23 @@ public class ActionHandler {
         if(action.contains(" "))
             action = action.substring(0,action.indexOf(" "));
 
-
-        //todo: bisogna aggiungere le azioni di show
-        switch (action.toUpperCase()) {
-            case "CHOOSE" -> initialChoice();
-            case "LEADERACTION" -> leaderAction();
-            case "PRODUCTION" -> activateProduction();
-            case "ENDTURN" -> endTurn();
-            case "BUYCARD" -> buyDevelopmentCard();
-            case "MARKET" -> useMarket();
-            case "SHOWFT" -> cliView.showFaithTracks();
-            case "SHOWLEADERS" -> cliView.showPlayersLeaderCards();
-            case "SHOWBOARDS" -> cliView.showPlayersBoard();
-            case "SHOWMYSTATUS" -> cliView.showMyState();
-            case "SHOWOTHERSSTATUS" -> cliView.showOthersState();
-            case "EXIT" -> exit();
-            case "Y" -> getNewGame("y");
-            case "N" -> getNewGame("N");
-            default -> cliView.showErrorMessage("Invalid choice! Try again: ");
-        }
+            switch (action.toUpperCase()) {
+                case "CHOOSE" -> initialChoice();
+                case "LEADERACTION" -> leaderAction();
+                case "PRODUCTION" -> activateProduction();
+                case "ENDTURN" -> endTurn();
+                case "BUYCARD" -> buyDevelopmentCard();
+                case "MARKET" -> useMarket();
+                case "SHOWFT" -> cliView.showFaithTracks();
+                case "SHOWLEADERS" -> cliView.showPlayersLeaderCards();
+                case "SHOWBOARDS" -> cliView.showPlayersBoard();
+                case "SHOWMYSTATUS" -> cliView.showMyState();
+                case "SHOWOTHERSSTATUS" -> cliView.showOthersState();
+                case "EXIT" -> exit();
+                case "Y" -> getNewGame("y");
+                case "N" -> getNewGame("N");
+                default -> cliView.showErrorMessage("Invalid choice! Try again: ");
+            }
 
     }
 
@@ -106,8 +104,6 @@ public class ActionHandler {
         }
 
 
-
-        //cliView.askNewGame();
     }
 
     /**

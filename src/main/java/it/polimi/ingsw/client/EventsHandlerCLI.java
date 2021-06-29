@@ -47,6 +47,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
      */
     @Override
     public void handleEvent(BoughtCardEventS2C event) {
+        Color.cls();
         cliView.showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
         if(clientModel.isCurrentPlayer())
             cliView.showMessage("""
@@ -69,6 +70,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
      */
     @Override
     public void handleEvent(ActivatedProductionEventS2C event) {
+        Color.cls();
         cliView.showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
         if(clientModel.isCurrentPlayer())
             cliView.showMessage("""
@@ -109,6 +111,7 @@ public class EventsHandlerCLI implements ServerEventObserver {
      */
     @Override
     public void handleEvent(UseMarketEventS2C event) {
+        Color.cls();
         cliView.showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
         if(clientModel.isCurrentPlayer())
             cliView.showMessage("""
@@ -124,8 +127,6 @@ public class EventsHandlerCLI implements ServerEventObserver {
                     ▷ EXIT
                     """);
 
-        //todo riguardare
-
     }
 
     /**
@@ -135,7 +136,6 @@ public class EventsHandlerCLI implements ServerEventObserver {
     @Override
     public void handleEvent(NewTurnEventS2C event) {
         Color.cls();
-        //todo riguardare
         if(event.getNickname().equals(clientModel.getMyNickname())){
             cliView.showMessage(Color.color('g', Color.ANSI_TALK+" It's your turn"));
 

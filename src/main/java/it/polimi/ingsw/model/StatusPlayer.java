@@ -29,8 +29,6 @@ public class StatusPlayer {
                 playerWarehouse = new PlayerWarehouse();
                 personalCardBoard = new PersonalCardBoard();
                 strongboxResources= new HashMap<>();
-                //leaderCards
-                //c'è da inizializzare leader cards
                 leaderCards = new ArrayList<>();
         }
 
@@ -115,6 +113,7 @@ public class StatusPlayer {
 
         /**
          *  you give to this method a resource, and it remove one resource of that type from the strongbox.
+         * @param resource is the type of resource to be removed
          */
         public void removeStrongboxResource(Resource resource){
                 if(strongboxResources.containsKey(resource) && strongboxResources.get(resource)>0)
@@ -122,15 +121,17 @@ public class StatusPlayer {
         }
 
         /**
-         *  this method returns a map with the resources inside the strongbox
+         *  this method returns a Map with the resources inside the strongbox
+         * @return a Map with containing all the resources inside the strongbox
          */
         public Map<Resource,Integer> getStrongboxResources() {
                 return new HashMap<>(strongboxResources);
         }
 
         /**
-         *  you give to this method a map of resources and it adds the resources in the strongbox
+         *  you give to this method a Map of resources and it adds the resources in the strongbox
          *  (so in the end you have in the strongbox the old resources + the new resources)
+         * @param resources ia the Map of resources to be added to the strongbox
          */
         public void addStrongboxResources(Map <Resource,Integer> resources) {
                 strongboxResources = Resource.sumResourcesMap(strongboxResources,resources);
