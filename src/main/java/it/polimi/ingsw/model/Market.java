@@ -127,6 +127,8 @@ public class Market implements Serializable {
     }
 
     /**
+     * getter of the selected row's color
+     * @param row is the selected row
      * @return a list containing all the colours in a specific row
      */
     public List<MarbleColor> getRowColors(int row){
@@ -139,6 +141,8 @@ public class Market implements Serializable {
     }
 
     /**
+     * getter of the selected column's color
+     * @param column is the selected column
      * @return a list containing all the colours in a specific column
      */
     public List<MarbleColor> getColumnColors(int column){

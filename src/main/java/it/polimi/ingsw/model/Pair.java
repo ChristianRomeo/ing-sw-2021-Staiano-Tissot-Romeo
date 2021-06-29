@@ -1,7 +1,8 @@
 package it.polimi.ingsw.model;
 
 /**
- * Not useless anymore
+ * Contains a pail of values, useful for the Market choices
+ * ("r" (row) or "c" (column) is gonna be the first value, the selected row/column from the market is gonna be the second value)
  * @param <K>
  * @param <V>
  */

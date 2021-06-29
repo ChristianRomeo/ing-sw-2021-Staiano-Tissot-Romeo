@@ -35,6 +35,7 @@ public class StatusPlayer {
         }
 
         /**
+         * getter of the Faith track position
          * @return the faithTrackPosition
          */
         public int getFaithTrackPosition() {
@@ -136,6 +137,7 @@ public class StatusPlayer {
         }
 
         /**
+         * getter of the warehouse
          *@return a player's warehouse
          */
         public PlayerWarehouse getPlayerWarehouse(){
@@ -143,6 +145,7 @@ public class StatusPlayer {
         }
 
         /**
+         * getter of the personal card board
          *@return a player's personal card board
          */
         public PersonalCardBoard getPersonalCardBoard(){
@@ -150,7 +153,8 @@ public class StatusPlayer {
         }
 
         /**
-         *  This method returns a list with the leader cards of the player.
+         *  This method returns a list with the Leader cards of the player.
+         * @return the Leader cards of the player
          */
         public List<LeaderCard> getPlayerLeaderCards(){
                 if(leaderCards!=null){
@@ -160,7 +164,9 @@ public class StatusPlayer {
         }
 
         /**
-         *  you give to this method an index and it returns the player's leader card in that position
+         *  you give to this method an index and it returns the player's Leader card in that position
+         * @param index is the Leader card's index
+         * @return the index of the Leader card
          */
         public LeaderCard getLeaderCard(int index) throws IllegalArgumentException{
                 if(index>=0 && index<=1)
@@ -169,7 +175,8 @@ public class StatusPlayer {
                 throw new IllegalArgumentException();
         }
         /**
-         *  you give to this method a leader card and it adds it to the player leader cards list.
+         *  you give to this method a Leader card and it adds it to the player Leader cards list.
+         * @param leaderCard is the added Leader card
          */
         public void addLeaderCard(LeaderCard leaderCard){
                 if(leaderCard!=null){
@@ -221,6 +228,7 @@ public class StatusPlayer {
          * for the player)
          * PRECONDITION: before you call this method you have to be sure that the player owns the
          *               resources you want to remove
+         * @param resources represents the resources to be removed
          */
         public void removeResources(Map<Resource,Integer> resources){
                 int i;

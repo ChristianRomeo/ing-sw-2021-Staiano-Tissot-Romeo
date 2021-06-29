@@ -60,8 +60,8 @@ public class DevelopmentCardBoard implements Serializable{
 
     /**
      * Method removeCard to remove a card from a given pile
-     * @param row -riga da estrarre
-     * @param column -colonna da estrarre
+     * @param row is the selected pile's row
+     * @param column is the selected pile's column
      */
     public void removeCard(int row, int column) {
         if(!isCardPileEmpty(row,column))
@@ -104,6 +104,7 @@ public class DevelopmentCardBoard implements Serializable{
     }
 
     /**
+     * tells if a column of the board is completely empty
      * @return true if a column of the board is all empty, otherwise false.
      */
     public boolean isAColumnEmpty(){

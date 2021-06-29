@@ -25,6 +25,7 @@ public class PersonalCardBoard implements Serializable {
         numberOfCards = 0;
     }
     /**
+     * getter of the number of cards in the personal card board
      * @return the number of cards in the personal card board
      */
     public int getNumberOfCards() {
@@ -85,6 +86,11 @@ public class PersonalCardBoard implements Serializable {
             throw new InvalidCardInsertionException();
     }
 
+    /**
+     * tells if the selected personal card pile is empty
+     * @param pile is the selected pile index
+     * @return true if the selected personal card pile is empty, false otherwise
+     */
     public boolean isCardPileEmpty(int pile) {
         return (ownedCards.get(pile)== null || ownedCards.get(pile).size() == 0);
     }
@@ -94,6 +100,8 @@ public class PersonalCardBoard implements Serializable {
      * the production, and it returns the required resources for that production.
      * Example: if you want to activate the production for cards in position 0 and 2
      *          you have to pass a list =(0,2)
+     * @param activatedProductions is the the List containing the positions of the card to be activated for the production
+     * @return the required resources for that production
      */
     public Map<Resource,Integer> getReqResProduction(List<Integer> activatedProductions) throws IllegalArgumentException{   //nome più intuitivo
         if (activatedProductions==null)
@@ -115,6 +123,8 @@ public class PersonalCardBoard implements Serializable {
      * Example: if you want to activate the production for cards in position 0 and 2
      *          you have to pass a list =(0,2)
      * NB: it doesn't return the produced faith points
+     * @param activatedProductions is the the List containing the positions of the card to be activated for the production
+     * @return the required resources for that production
      */
     public Map<Resource,Integer> getProductionResources(List<Integer> activatedProductions) throws IllegalArgumentException{
         if (activatedProductions==null)

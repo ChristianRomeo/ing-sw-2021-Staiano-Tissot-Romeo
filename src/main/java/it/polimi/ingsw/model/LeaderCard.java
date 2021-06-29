@@ -21,6 +21,7 @@ public abstract class LeaderCard implements Serializable {
     protected boolean isActivated=false;
 
     /**
+     * getter of the card's required cards together with their amount
      * @return a Map containing the required cards of a Leader card
      */
     public Map<CardType, Integer> getRequiredCards(){
@@ -28,6 +29,7 @@ public abstract class LeaderCard implements Serializable {
     }
 
     /**
+     * getter of the card's required resources, together with their amount
      * @return a Map containing the required resources of a Leader card
      */
     public Map<Resource, Integer> getRequiredResources(){
@@ -35,6 +37,7 @@ public abstract class LeaderCard implements Serializable {
     }
 
     /**
+     * getter of the card's ID
      * @return a Leader Card's ID
      */
     public int getId(){ return id; }
@@ -42,6 +45,7 @@ public abstract class LeaderCard implements Serializable {
     public Resource getAbilityResource(){ return  abilityResource; }
 
     /**
+     * getter of the card's victory points
      * @return a Leader card's Victory Points
      */
     public int getVictoryPoints() {
@@ -49,6 +53,7 @@ public abstract class LeaderCard implements Serializable {
     }
 
     /**
+     * tells if the card has been discarded or not
      * @return true if the Leader Card has been discarded, false otherwise
      */
     public boolean isDiscarded() {
@@ -56,6 +61,7 @@ public abstract class LeaderCard implements Serializable {
     }
 
     /**
+     * tells if the card has been activated or not
      * @return true if the Leader Card has been activated, false otherwise
      */
     public boolean isActivated() {
@@ -77,6 +83,7 @@ public abstract class LeaderCard implements Serializable {
     }
 
     /**
+     * getter of the card's special ability
      * @return the LeaderCardType, to see which special ability the Leader Card has
      */
     public LeaderCardType getAbility(){

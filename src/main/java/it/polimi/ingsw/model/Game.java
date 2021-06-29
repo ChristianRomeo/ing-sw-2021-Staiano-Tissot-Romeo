@@ -55,6 +55,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     }
 
     /**
+     * tells if a player is active
      * @return true if the player is active, otherwise false
      */
     public synchronized boolean isActive() {
@@ -69,6 +70,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     }
 
     /**
+     * getter of the wanted number of players
      * @return the number of wanted players
      */
     public synchronized int getWantedNumPlayers() {
@@ -83,6 +85,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         this.wantedNumPlayers = numPlayers;
     }
     /**
+     * getter of all the players
      * @return a list containing all the players (both connected and disconnected ones)
      */
     public List<Player> getPlayers(){
@@ -120,7 +123,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
             if (player.getNickname().equalsIgnoreCase(nickname))
                 return player;
 
-        return null;    //todo: throws error
+        return null;
     }
 
     /**
@@ -251,6 +254,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
         notifyAllObservers(new IllegalActionEventS2C(illegalAction));
     }
     /**
+     * getter of the illegal actions' list
      * @return a list containing all the illegal actions
      */
     public List<IllegalAction> getIllegalActions(){
@@ -258,6 +262,7 @@ public class Game extends ServerObservable { //game is observed by the virtual v
     }
 
     /**
+     * tells if a player has already done an action
      * @return true if the player has done an action, otherwise false
      */
     public boolean hasDoneAction() {

@@ -36,11 +36,13 @@ public class DevelopmentCard implements Serializable {
     }
 
     /**
+     * getter of the card's ID
      * @return the Development card's ID
      */
     public int getId(){ return id; }
 
     /**
+     * getter of the card's type
      * @return the Development card's type (its color)
      */
     public CardType getType() {
@@ -48,6 +50,7 @@ public class DevelopmentCard implements Serializable {
     }
 
     /**
+     * getter of the card's level
      * @return the Development card's level
      */
     public int getLevel() {
@@ -55,6 +58,7 @@ public class DevelopmentCard implements Serializable {
     }
 
     /**
+     * getter of the card's cost
      * @return the Development card's (original) cost
      */
     public Map<Resource, Integer> getCost() {
@@ -83,6 +87,7 @@ public class DevelopmentCard implements Serializable {
     }
 
     /**
+     * getter of the card's victory points
      * @return  the Development card's Victory Points
      */
     public int getVictoryPoints() {
@@ -101,6 +106,7 @@ public class DevelopmentCard implements Serializable {
     }
 
     /**
+     * getter of the card's produced resources, together with their specific produced amount
      * @return a map containing all the resources produced by the Development card, with their specific produced amount
      */
     public Map<Resource, Integer> getProducedResources() {
@@ -111,6 +117,7 @@ public class DevelopmentCard implements Serializable {
     }
 
     /**
+     * getter of the card's produced Faith points
      * @return the Development Card's produced Faith points
      */
     public int getProducedFaithPoints() {return producedFaithPoints;}
@@ -121,7 +128,7 @@ public class DevelopmentCard implements Serializable {
      *  It considers the leader card discount if you have it.
      * @param ownedResources a map with all of the player resources
      * @param ownedLeaderCards a list with the player Leader cards
-     * @return  true/false
+     * @return  true if the card is buyable, false otherwise
      */
     public boolean isBuyable(Map<Resource,Integer> ownedResources, List<LeaderCard> ownedLeaderCards){
         Map<Resource,Integer> finalCost = getCost(ownedLeaderCards);
