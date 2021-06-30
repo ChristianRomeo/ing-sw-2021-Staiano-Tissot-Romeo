@@ -50,24 +50,23 @@ public class ActionHandler {
         }
 
 
-
-            switch (action.toUpperCase()) {
-                case "CHOOSE" -> initialChoice();
-                case "LEADERACTION" -> leaderAction();
-                case "PRODUCTION" -> activateProduction();
-                case "ENDTURN" -> endTurn();
-                case "BUYCARD" -> buyDevelopmentCard();
-                case "MARKET" -> useMarket();
-                case "SHOWFT" -> cliView.showFaithTracks();
-                case "SHOWLEADERS" -> cliView.showPlayersLeaderCards();
-                case "SHOWBOARDS" -> cliView.showPlayersBoard();
-                case "SHOWMYSTATUS" -> cliView.showMyState();
-                case "SHOWOTHERSSTATUS" -> cliView.showOthersState();
-                case "EXIT" -> exit();
-                case "Y" -> getNewGame("y");
-                case "N" -> getNewGame("N");
-                default -> cliView.showErrorMessage("Invalid choice! Try again: ");
-            }
+        switch (action.toUpperCase()) {
+            case "CHOOSE" -> initialChoice();
+            case "LEADERACTION" -> leaderAction();
+            case "PRODUCTION" -> activateProduction();
+            case "ENDTURN" -> endTurn();
+            case "BUYCARD" -> buyDevelopmentCard();
+            case "MARKET" -> useMarket();
+            case "SHOWFT" -> cliView.showFaithTracks();
+            case "SHOWLEADERS" -> cliView.showPlayersLeaderCards();
+            case "SHOWBOARDS" -> cliView.showPlayersBoard();
+            case "SHOWMYSTATUS" -> cliView.showMyState();
+            case "SHOWOTHERSSTATUS" -> cliView.showOthersState();
+            case "EXIT" -> exit();
+            case "Y" -> getNewGame("y");
+            case "N" -> getNewGame("N");
+            default -> cliView.showErrorMessage("Invalid choice! Try again: ");
+        }
 
     }
 
@@ -109,7 +108,6 @@ public class ActionHandler {
         {
             cliView.showErrorMessage("You can't do this action now, Please Wait...");
         }
-
 
     }
 

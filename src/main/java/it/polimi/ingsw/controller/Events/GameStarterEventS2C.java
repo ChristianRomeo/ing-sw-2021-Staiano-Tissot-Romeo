@@ -44,6 +44,10 @@ public class GameStarterEventS2C extends ServerEvent{
         return nicknames;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific GameStarterS2C
+     * @param eventHandler is the handler which will handle this specific GameStarterEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

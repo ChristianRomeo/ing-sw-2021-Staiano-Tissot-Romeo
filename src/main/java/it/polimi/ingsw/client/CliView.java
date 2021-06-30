@@ -26,6 +26,10 @@ public class CliView implements View {
         clientModel = new ClientModel();
     }
 
+    /**
+     * getter of the client model
+     * @return the client model
+     */
     public ClientModel getClientModel() {
         return clientModel;
     }
@@ -102,7 +106,6 @@ public class CliView implements View {
     }
 
 
-
     /**
      * Asks the game cards in the initial choice
      * @return the set of the indexes of the chosen cards
@@ -146,8 +149,6 @@ public class CliView implements View {
 
         int card = askNumber(0,1);
         List<Integer> ret = new ArrayList<>();
-        //ret.add(checkNumber(string,0,1));
-        //ret.add(checkNumber(chosenCard,0,1));
         ret.add(choice);
         ret.add(card);
 
@@ -159,7 +160,6 @@ public class CliView implements View {
      * @return the position (row,col)
      */
     public SameTypePair<Integer> askDevelopmentCard(){
-        //todo:riguardare il modo di chiedere
         showDevelopmentCardBoard();
         SameTypePair<Integer> position = new SameTypePair<>();
         showMessage("\nChoose the card position, select a row: ");

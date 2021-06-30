@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 import java.util.Map;
 
 /**
- *server to client event triggered when the player wants to activate production
+ *server to client event triggered when the player has activated production
  */
 public class ActivatedProductionEventS2C extends ServerEvent {
 
@@ -37,6 +37,10 @@ public class ActivatedProductionEventS2C extends ServerEvent {
         return fullSlotsLeaderCard2;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific ActivatedProductionEventS2C
+     * @param eventHandler is the handler which will handle this specific ActivatedProductionEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

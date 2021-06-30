@@ -44,10 +44,16 @@ public class GuiView extends Application implements View {
     private final static Logger logger = Logger.getLogger(GuiView.class.getName());
     private static Configs conf;
 
+    /**
+     * constructor
+     */
     public GuiView(){
         clientModel = new ClientModel();
     }
 
+    /**
+     * main method
+     */
     public static void main(Configs args) {
         conf=args;
         launch();
@@ -183,7 +189,7 @@ public class GuiView extends Application implements View {
     @Override
     public int askNumPlayers() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("Seleziona il numero di giocatori.");
+        alert.setHeaderText("Choose the number of players");
 
         ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("gameicon.png"));
 

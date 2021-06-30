@@ -52,6 +52,10 @@ public class BoughtCardEventS2C extends ServerEvent{
         return fullSlotsLeaderCard2;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific BoughtCardEventS2C
+     * @param eventHandler is the handler which will handle this specific BoughtCardEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

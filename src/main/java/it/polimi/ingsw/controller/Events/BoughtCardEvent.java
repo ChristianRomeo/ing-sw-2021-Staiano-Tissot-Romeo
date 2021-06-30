@@ -14,25 +14,47 @@ public class BoughtCardEvent extends ClientEvent implements Serializable {
 
     private final int pile; //pile is the number of the pile where you want to insert the bought card, 0<=pile<=2
 
+    /**
+     * constructor
+     * @param row is the bought card's row
+     * @param column is the bought card's column
+     * @param pile is the bought card's pile
+     */
     public BoughtCardEvent(int row, int column, int pile){
         this.row=row;
         this.column=column;
         this.pile=pile;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific BoughtCardEvent
+     * @param eventHandler is the handler which will handle this specific BoughtCardEvent
+     */
     @Override
     public void notifyHandler(ClientEventHandler eventHandler){
         eventHandler.handleEvent(this);
     }
 
+    /**
+     * getter of the bought card's row
+     * @return the bough card's row
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     * getter of the bought card's column
+     * @return the bough card's column
+     */
     public int getColumn() {
         return column;
     }
 
+    /**
+     * getter of the bought card's pile
+     * @return the bough card's pile
+     */
     public int getPile() {
         return pile;
     }

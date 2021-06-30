@@ -20,6 +20,10 @@ public class VaticanReportEventS2C extends ServerEvent{
         return newPopeTilesStatus;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific VaticanReportEventS2C
+     * @param eventHandler is the handler which will handle this specific VaticanReportEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

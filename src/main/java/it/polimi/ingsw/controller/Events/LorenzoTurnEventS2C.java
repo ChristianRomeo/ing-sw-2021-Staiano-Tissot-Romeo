@@ -23,6 +23,10 @@ public class LorenzoTurnEventS2C extends ServerEvent{
         return newBoard;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific LorenzoTurnEventS2C
+     * @param eventHandler is the handler which will handle this specific LorenzoTurnEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

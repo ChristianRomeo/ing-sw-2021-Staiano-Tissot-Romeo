@@ -135,6 +135,9 @@ public class BuyCardSceneController extends FXMLController {
         guiView.setCurrentScene("gameScene");
     }
 
+    /**
+     * closes the buy card pane
+     */
     public void closePane() {
         buyCardPane2.setVisible(false);
     }

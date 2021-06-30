@@ -28,6 +28,10 @@ public class EndPreparationEventS2C extends ServerEvent{
         return warehouses;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific EndPreparationEventS2C
+     * @param eventHandler is the handler which will handle this specific EndPreparationEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

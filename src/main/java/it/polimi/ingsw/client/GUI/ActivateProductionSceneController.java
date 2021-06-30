@@ -143,7 +143,6 @@ public class ActivateProductionSceneController extends FXMLController{
         if(cardProductionButton3.isSelected()){
             cardProductions.add(2);
         }
-        //productionPane.setVisible(false);
         if(hasLeaderCardProduction){
             leaderProductionPane.setVisible(true);
         }else{

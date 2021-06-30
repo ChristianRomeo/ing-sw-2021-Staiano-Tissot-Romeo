@@ -129,10 +129,8 @@ public class EventsHandler implements ServerEventObserver {
         for(String player: clientModel.getNicknames())
             clientModel.setPopeTiles(player,event.getNewPopeTilesStatus().get(player));
 
-
         event.notifyHandler(eventHandlerView);
 
-        //qui volendo gli mostro qualcosa
     }
 
     /**

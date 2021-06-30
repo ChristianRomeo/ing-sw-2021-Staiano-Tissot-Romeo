@@ -205,6 +205,10 @@ public class ClientModel {
       return myNickname.equals(currentPlayerNick);
    }
 
+   /**
+    * getter of all the players' strongboxes
+    * @return a List containing all the players' strongboxes
+    */
    public synchronized List<Map<Resource, Integer>> getPlayersStrongboxes() {
       return new ArrayList<>(playersStrongboxes);
    }

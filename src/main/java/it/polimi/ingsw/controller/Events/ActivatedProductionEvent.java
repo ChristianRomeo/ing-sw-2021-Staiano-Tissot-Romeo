@@ -54,6 +54,10 @@ public class ActivatedProductionEvent extends ClientEvent{
         return producedResLC2;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific ActivatedProductionEvent
+     * @param eventHandler is the handler which will handle this specific ActivatedProductionEvent
+     */
     @Override
     public void notifyHandler(ClientEventHandler eventHandler){
         eventHandler.handleEvent(this);

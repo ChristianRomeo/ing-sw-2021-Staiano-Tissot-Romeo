@@ -9,24 +9,41 @@ import it.polimi.ingsw.model.SameTypeTriple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
+/**
+ * every game has a VirtualView, in which we refers to Client Handlers for that game.
+ * It's also used to call Controller methods which then edits the model
+ */
 public class VirtualView implements ClientEventHandler, ServerEventObserver {
     private final List<ClientHandler> clientHandlers;
     private final Controller controller;
     private final static Logger logger = Logger.getLogger(VirtualView.class.getName());
 
-
+    /**
+     constructor
+     @param controller is the controller for that game
+     */
     public VirtualView(Controller controller) {
         this.clientHandlers = new ArrayList<>();
         this.controller = controller;
     }
-
+    /**
+     * getter of the controller for that game
+     * @return the controller
+     */
     public Controller getController(){
         return controller;
     }
 
+    /**
+     * getter of all the client handlers for that game
+     * @return a list containing all the client handlers
+     */
     public synchronized List<ClientHandler> getClientHandlers(){ return  clientHandlers;}
 
+    /**
+     * adds a client handler to the list (means that a new player joined the game)
+     * @param clientHandler is the client handler to be added
+     */
     public synchronized void addClientHandler(ClientHandler clientHandler) {
 
             clientHandlers.add(clientHandler);

@@ -45,6 +45,9 @@ public enum Color {
         } + t + ANSI_RESET;
     }
 
+    /**
+     * changer of the font style
+     */
     public static String format(char f, String t){
         return switch (f){
             case 'b' -> ANSI_BOLD;
@@ -55,6 +58,9 @@ public enum Color {
         } + t + ANSI_RESET;
     }
 
+    /**
+     * prints the game title on the very first screen
+     */
     public static void header(){
         System.out.println(color('y', """
                                 
@@ -78,6 +84,9 @@ public enum Color {
                                                                                                       \s"""));
     }
 
+    /**
+     * clears the screen
+     */
     public static void cls() {
         new PrintWriter(System.out,true).println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[H\033[2J");
         System.out.println(color('g', """

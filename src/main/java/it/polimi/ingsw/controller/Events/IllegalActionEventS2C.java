@@ -17,6 +17,10 @@ public class IllegalActionEventS2C extends ServerEvent {
         return illegalAction;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific IllegalActionEventS2C
+     * @param eventHandler is the handler which will handle this specific IllegalActionEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

@@ -3,7 +3,7 @@ package it.polimi.ingsw.controller.Events;
 import it.polimi.ingsw.model.*;
 
 /**
- *server to client event triggered when the player wants to use the market
+ *server to client event triggered when the player has used the market
  */
 public class UseMarketEventS2C extends ServerEvent {
 
@@ -35,6 +35,10 @@ public class UseMarketEventS2C extends ServerEvent {
         return fullSlotsLeaderCard2;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific UseMarketEventS2C
+     * @param eventHandler is the handler which will handle this specific UseMarketEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);

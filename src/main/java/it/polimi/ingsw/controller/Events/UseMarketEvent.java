@@ -11,14 +11,24 @@ import java.util.Map;
  */
 public class UseMarketEvent extends ClientEvent{
 
-    private final char rowOrColumn; // 'c' for column, 'r' for row
-    private final int index; //index of the row /column of the market
-    private final PlayerWarehouse newWarehouse; //warehouse of the player after the insertion of the new resources
-    private final Map<Resource,Integer> discardedRes;//discarded resources by the player
-    private final int leaderCardSlots1; //number of fulls slots of the first leader card, after the bought at the market
-    private final int leaderCardSlots2;//number of fulls slots of the second leader card, after the bought at the market
-    private final List<Integer> whiteMarbleChoices; //the leader cards chosen for the white marbles (in case you have two white marble cards)
+    private final char rowOrColumn;
+    private final int index;
+    private final PlayerWarehouse newWarehouse;
+    private final Map<Resource,Integer> discardedRes;
+    private final int leaderCardSlots1;
+    private final int leaderCardSlots2;
+    private final List<Integer> whiteMarbleChoices;
 
+    /**
+     *
+     * @param rowOrColumn 'c' for column, 'r' for row
+     * @param index index of the row /column of the market
+     * @param newWarehouse warehouse of the player after the insertion of the new resources
+     * @param discardedRes discarded resources by the player
+     * @param leaderCardSlots1 number of fulls slots of the first leader card, after the bought at the market
+     * @param leaderCardSlots2 number of fulls slots of the second leader card, after the bought at the market
+     * @param whiteMarbleChoices the leader cards chosen for the white marbles (in case you have two white marble cards)
+     */
     public UseMarketEvent(char rowOrColumn, int index, PlayerWarehouse newWarehouse, Map<Resource, Integer> discardedRes, int leaderCardSlots1, int leaderCardSlots2, List<Integer> whiteMarbleChoices) {
         this.rowOrColumn = rowOrColumn;
         this.index = index;
@@ -57,6 +67,10 @@ public class UseMarketEvent extends ClientEvent{
         return whiteMarbleChoices;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific UseMarketEvent
+     * @param eventHandler is the handler which will handle this specific UseMarketEvent
+     */
     @Override
     public void notifyHandler(ClientEventHandler eventHandler){
         eventHandler.handleEvent(this);

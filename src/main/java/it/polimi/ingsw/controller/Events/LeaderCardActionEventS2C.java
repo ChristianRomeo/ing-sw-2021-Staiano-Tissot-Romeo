@@ -35,6 +35,10 @@ public class LeaderCardActionEventS2C extends ServerEvent{
         return isDiscarded2;
     }
 
+    /**
+     * notify the eventHandler (which is the virtual view in this case) to handle this specific LeaderCardActionS2C
+     * @param eventHandler is the handler which will handle this specific LeaderCardActionEventS2C
+     */
     @Override
     public void notifyHandler(ServerEventObserver eventHandler){
         eventHandler.handleEvent(this);
