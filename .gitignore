@@ -3,6 +3,7 @@
 /target/
 /.idea/
 /.github/
+/shade/
 
 # Compiled class file
 *.class
@@ -30,3 +31,4 @@ hs_err_pid*
 
 # MacOS files
 *.DS_Store
+
