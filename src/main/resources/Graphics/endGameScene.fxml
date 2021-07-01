@@ -9,9 +9,8 @@
    <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Image url="@../loader.png" />
    </ImageView>
-    <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.4" pickOnBounds="true" AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Image url="@../black.png"/>
+    <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.4" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Image url="@../black.png" />
     </ImageView>
    <Label fx:id="winOrLoseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="495.0" layoutY="83.0" prefHeight="89.0" prefWidth="289.0" text="YOU WON/YOU LOST" textFill="WHITE">
       <font>
@@ -34,62 +33,62 @@
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
-      <Label fx:id="usernameLabel1" prefHeight="20.0" prefWidth="75.0" style="-fx-font-weight: BOLD;" text="Username1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+      <Label fx:id="usernameLabel1" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="Username1" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="victoryPointsLabel1" prefHeight="20.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="100 victory points" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+      <Label fx:id="victoryPointsLabel1" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="100 victory points" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="usernameLabel2" prefHeight="20.0" prefWidth="75.0" style="-fx-font-weight: BOLD;" text="Username2" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Label fx:id="usernameLabel2" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="Username2" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="victoryPointsLabel2" prefHeight="20.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="100 victory points" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Label fx:id="victoryPointsLabel2" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="100 victory points" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="usernameLabel3" prefHeight="20.0" prefWidth="75.0" style="-fx-font-weight: BOLD;" text="username3" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Label fx:id="usernameLabel3" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="username3" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="victoryPointsLabel3" prefHeight="20.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="100 victory points" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Label fx:id="victoryPointsLabel3" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="100 victory points" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="usernameLabel4" prefHeight="20.0" prefWidth="75.0" style="-fx-font-weight: BOLD;" text="username4" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+      <Label fx:id="usernameLabel4" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="username4" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="victoryPointsLabel4" prefHeight="20.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="100 victory points" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Label fx:id="victoryPointsLabel4" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="100 victory points" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="isWinnerLabel1" prefHeight="22.0" prefWidth="50.0" style="-fx-font-weight: BOLD;" text="winner" textFill="#00ff1a" GridPane.halignment="CENTER">
+      <Label fx:id="isWinnerLabel1" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="winner" textAlignment="CENTER" textFill="#00ff1a" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="isWinnerLabel2" prefHeight="20.0" prefWidth="50.0" style="-fx-font-weight: BOLD;" text="winner" textFill="#00ff1a" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Label fx:id="isWinnerLabel2" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="winner" textAlignment="CENTER" textFill="#00ff1a" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="isWinnerLabel3" prefHeight="20.0" prefWidth="50.0" style="-fx-font-weight: BOLD;" text="winner" textFill="#00ff1a" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Label fx:id="isWinnerLabel3" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="winner" textAlignment="CENTER" textFill="#00ff1a" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="isWinnerLabel4" prefHeight="20.0" prefWidth="50.0" style="-fx-font-weight: BOLD;" text="winner" textFill="#00ff1a" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Label fx:id="isWinnerLabel4" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" maxWidth="130.0" minHeight="20.0" minWidth="130.0" prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: BOLD;" text="winner" textAlignment="CENTER" textFill="#00ff1a" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
