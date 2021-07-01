@@ -94,7 +94,7 @@ public class MarketTest {
     }
 
 
-    @Disabled //todo non funziona per il metodo controller insertResources da finire (il true negli if da cambiare)
+    @Disabled
     public void checkMarketReturnResources() throws IOException {
         Market market = new Market();
         List<MarbleColor> color = new ArrayList<>();
@@ -119,10 +119,6 @@ public class MarketTest {
 
         Map<Resource,Integer> oldResources = player.getStatusPlayer().getAllResources();
         int oldFaithTrackPosition = player.getStatusPlayer().getFaithTrackPosition();
-
-        //todo non funziona per il metodo insertResources da finire
-
-        // controller.useMarket('c',0); //sto cambiando useMarket
 
         for(MarbleColor m: color)
             switch (m) {

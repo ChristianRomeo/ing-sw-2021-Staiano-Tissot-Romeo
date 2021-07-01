@@ -45,7 +45,6 @@ public class CliView implements View {
 
         clientModel.setMyNickname(askNickname()); //chiedo e imposto il nickname
         serverHandler.setUpConnection();
-        //poi credo qua devo far partire metodo che chiede cose a utente in continuazione:
         askActions();
     }
     /**
@@ -144,7 +143,6 @@ public class CliView implements View {
 
         int choice = askNumber(0,1);
 
-        //todo:controllare se carta già attiva o scartata
         showMessage(Color.ANSI_TALK + Color.format('b', " Choose which card:"));
 
         int card = askNumber(0,1);
@@ -192,7 +190,6 @@ public class CliView implements View {
 
         showMessage("This is your card board: ");
         showPersonalCardBoard(clientModel.getPlayersCardBoards().get(clientModel.getMyIndex()));
-        //todo: se lo slot è vuoto allora non chiedere se si vuole attivare la produzione li
         for(int i=1; i<=3; i++){
             showMessage("Do you want to activate the production of the card in position "+i+ " ? y/n");
             choice = askChoice();
@@ -1004,7 +1001,7 @@ public class CliView implements View {
      * @param highLimit the number has to be smaller than the highLimit
      * @return null if the check is false, otherwise the number
      */
-    public Integer checkNumber(String number, int lowLimit, int highLimit){ //todo: se sto metodo funziona leviamo gli altri check dei numeri
+    public Integer checkNumber(String number, int lowLimit, int highLimit){
         int num;
         try{
             num = Integer.parseInt(number);

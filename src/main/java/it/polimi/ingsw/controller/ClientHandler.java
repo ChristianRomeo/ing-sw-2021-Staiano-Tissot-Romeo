@@ -164,7 +164,7 @@ public class ClientHandler implements Runnable {
      */
      public synchronized void send(ServerEvent message) {
 
-         if (isConnected()) //todo: se quando non è più connesso si chiude tutto forse, quindi questo if che serve?
+         if (isConnected())
             try {
                     output.writeUnshared(message);
                     output.flush();
