@@ -1,0 +1,206 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Resource</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">it.polimi.ingsw.model</a>
+</div>
+
+<h1>Coverage Summary for Class: Resource (it.polimi.ingsw.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Resource</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86%
+  </span>
+  <span class="absValue">
+    (37/43)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package it.polimi.ingsw.model;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.HashMap;
+<i class="no-highlight">4</i>&nbsp;import java.util.Map;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;/**
+<i class="no-highlight">7</i>&nbsp; * type of resource
+<i class="no-highlight">8</i>&nbsp; *
+<i class="no-highlight">9</i>&nbsp; * @author enrico
+<i class="no-highlight">10</i>&nbsp; */
+<b class="fc"><i class="no-highlight">11</i>&nbsp;public enum Resource {</b>
+<b class="fc"><i class="no-highlight">12</i>&nbsp;    COIN,</b>
+<b class="fc"><i class="no-highlight">13</i>&nbsp;    STONE,</b>
+<b class="fc"><i class="no-highlight">14</i>&nbsp;    SERVANT,</b>
+<b class="fc"><i class="no-highlight">15</i>&nbsp;    SHIELD;</b>
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    /**
+<i class="no-highlight">18</i>&nbsp;     * this static method adds one resource to a map of resources, and returns the new map (not old one modified)
+<i class="no-highlight">19</i>&nbsp;     * example1:
+<i class="no-highlight">20</i>&nbsp;     * map1={(coin,1),(servant,2)} resource = servant =&gt; return = {(coin,1), (servant,3)}
+<i class="no-highlight">21</i>&nbsp;     * example2:
+<i class="no-highlight">22</i>&nbsp;     * map1={(coin,1),(servant,2)} resource = stone =&gt; return={(coin,1), (servant,2), (stone,1)}
+<i class="no-highlight">23</i>&nbsp;     */
+<i class="no-highlight">24</i>&nbsp;    public static Map&lt;Resource,Integer&gt; addOneResource(Map&lt;Resource,Integer&gt; map, Resource resource){
+<b class="fc"><i class="no-highlight">25</i>&nbsp;        Map&lt;Resource,Integer&gt; newMap = new HashMap&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        newMap.put(resource,1);</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        return sumResourcesMap(newMap,map);</b>
+<i class="no-highlight">28</i>&nbsp;    }
+<i class="no-highlight">29</i>&nbsp;
+<i class="no-highlight">30</i>&nbsp;    /**
+<i class="no-highlight">31</i>&nbsp;     * this static method sum two map of resources, example:
+<i class="no-highlight">32</i>&nbsp;     * map1={(coin,1),(servant,2)} map2={(coin,2) , (shield,1)} =&gt; sum={(coin,3), (servant,2), (shield,1)}
+<i class="no-highlight">33</i>&nbsp;     */
+<i class="no-highlight">34</i>&nbsp;    public static Map&lt;Resource,Integer&gt; sumResourcesMap(Map&lt;Resource,Integer&gt; map1,Map&lt;Resource,Integer&gt; map2){
+<b class="fc"><i class="no-highlight">35</i>&nbsp;        if(map1==null)</b>
+<b class="nc"><i class="no-highlight">36</i>&nbsp;            return new HashMap&lt;&gt;(map2);</b>
+<i class="no-highlight">37</i>&nbsp;
+<b class="fc"><i class="no-highlight">38</i>&nbsp;        if(map2==null)</b>
+<b class="nc"><i class="no-highlight">39</i>&nbsp;            return new HashMap&lt;&gt;(map1);</b>
+<i class="no-highlight">40</i>&nbsp;
+<b class="fc"><i class="no-highlight">41</i>&nbsp;        Map&lt;Resource, Integer&gt; sum = new HashMap&lt;&gt;(map1);</b>
+<b class="fc"><i class="no-highlight">42</i>&nbsp;        for(Resource r: map2.keySet()) {</b>
+<b class="fc"><i class="no-highlight">43</i>&nbsp;            if (!sum.containsKey(r))</b>
+<b class="fc"><i class="no-highlight">44</i>&nbsp;                sum.put(r, map2.get(r));</b>
+<i class="no-highlight">45</i>&nbsp;            else
+<b class="fc"><i class="no-highlight">46</i>&nbsp;                sum.put(r, sum.get(r) + map2.get(r));</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        }</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        return sum;</b>
+<i class="no-highlight">49</i>&nbsp;    }
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;    /**
+<i class="no-highlight">52</i>&nbsp;     * this static method removes a map of resources from another map (map1-map2).
+<i class="no-highlight">53</i>&nbsp;     * you can call this method only if the map1 contains all the resources of map2
+<i class="no-highlight">54</i>&nbsp;     */
+<i class="no-highlight">55</i>&nbsp;    public static Map&lt;Resource,Integer&gt; removeResourcesMap(Map&lt;Resource,Integer&gt; map1,Map&lt;Resource,Integer&gt; map2){
+<b class="fc"><i class="no-highlight">56</i>&nbsp;        if(!Resource.enoughResources(map1,map2)){</b>
+<b class="nc"><i class="no-highlight">57</i>&nbsp;            return null;</b>
+<i class="no-highlight">58</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">59</i>&nbsp;        Map&lt;Resource, Integer&gt; newMap = new HashMap&lt;&gt;(map1);</b>
+<b class="fc"><i class="no-highlight">60</i>&nbsp;        for(Resource r: map2.keySet()) {</b>
+<b class="fc"><i class="no-highlight">61</i>&nbsp;            newMap.put(r,newMap.get(r)-map2.get(r));</b>
+<b class="fc"><i class="no-highlight">62</i>&nbsp;            if(newMap.get(r)==0){</b>
+<b class="fc"><i class="no-highlight">63</i>&nbsp;                newMap.remove(r);</b>
+<i class="no-highlight">64</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">65</i>&nbsp;        }</b>
+<b class="fc"><i class="no-highlight">66</i>&nbsp;        return newMap;</b>
+<i class="no-highlight">67</i>&nbsp;    }
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;    /**
+<i class="no-highlight">70</i>&nbsp;     * this static method tells if in map1 you have all the resources of map2.
+<i class="no-highlight">71</i>&nbsp;     * it returns true only if for every resource type in map2, map1 has that resource type
+<i class="no-highlight">72</i>&nbsp;     * in quantity equal or greater of the quantity in map2
+<i class="no-highlight">73</i>&nbsp;     */
+<i class="no-highlight">74</i>&nbsp;    public static boolean enoughResources(Map&lt;Resource,Integer&gt; map1,Map&lt;Resource,Integer&gt; map2){
+<b class="fc"><i class="no-highlight">75</i>&nbsp;        if(map2==null)</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;            return true;</b>
+<i class="no-highlight">77</i>&nbsp;
+<b class="fc"><i class="no-highlight">78</i>&nbsp;        if(map1==null)</b>
+<b class="nc"><i class="no-highlight">79</i>&nbsp;            return false;</b>
+<i class="no-highlight">80</i>&nbsp;
+<b class="fc"><i class="no-highlight">81</i>&nbsp;        for(Resource r: map2.keySet())</b>
+<b class="fc"><i class="no-highlight">82</i>&nbsp;            if(!map1.containsKey(r) || map1.get(r) &lt; map2.get(r))</b>
+<b class="fc"><i class="no-highlight">83</i>&nbsp;                return false;</b>
+<i class="no-highlight">84</i>&nbsp;
+<b class="fc"><i class="no-highlight">85</i>&nbsp;        return true;</b>
+<i class="no-highlight">86</i>&nbsp;    }
+<i class="no-highlight">87</i>&nbsp;
+<i class="no-highlight">88</i>&nbsp;    /**
+<i class="no-highlight">89</i>&nbsp;     * this static method returns the number of all the resources in map1.
+<i class="no-highlight">90</i>&nbsp;     */
+<i class="no-highlight">91</i>&nbsp;    public static int resourcesNum(Map&lt;Resource,Integer&gt; map1){
+<b class="fc"><i class="no-highlight">92</i>&nbsp;        if(map1==null){</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;            return 0;</b>
+<i class="no-highlight">94</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">95</i>&nbsp;        int resourcesNumber=0;</b>
+<b class="fc"><i class="no-highlight">96</i>&nbsp;        for(Resource r: map1.keySet()){</b>
+<b class="fc"><i class="no-highlight">97</i>&nbsp;            resourcesNumber += map1.get(r);</b>
+<b class="fc"><i class="no-highlight">98</i>&nbsp;        }</b>
+<b class="fc"><i class="no-highlight">99</i>&nbsp;        return  resourcesNumber;</b>
+<i class="no-highlight">100</i>&nbsp;    }
+<i class="no-highlight">101</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-07-01 13:05</div>
+</div>
+</body>
+</html>

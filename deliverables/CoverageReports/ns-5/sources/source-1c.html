@@ -1,0 +1,168 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ServerEventObserver</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">it.polimi.ingsw.controller.Events</a>
+</div>
+
+<h1>Coverage Summary for Class: ServerEventObserver (it.polimi.ingsw.controller.Events)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ServerEventObserver</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package it.polimi.ingsw.controller.Events;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;/**
+<i class="no-highlight">5</i>&nbsp; * Interface implemented by classes of the controller which will handle events sent by the server
+<i class="no-highlight">6</i>&nbsp; * (like the virtual view, or in the client)
+<i class="no-highlight">7</i>&nbsp; */
+<i class="no-highlight">8</i>&nbsp;public interface ServerEventObserver {
+<i class="no-highlight">9</i>&nbsp;    /**
+<i class="no-highlight">10</i>&nbsp;     * LeaderActionEvent from the server
+<i class="no-highlight">11</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">12</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">13</i>&nbsp;     */
+<i class="no-highlight">14</i>&nbsp;    void handleEvent(LeaderCardActionEventS2C event);
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    /**
+<i class="no-highlight">17</i>&nbsp;     * BoughtCardEvent from the server
+<i class="no-highlight">18</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">19</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">20</i>&nbsp;     */
+<i class="no-highlight">21</i>&nbsp;    void handleEvent(BoughtCardEventS2C event);
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;    /**
+<i class="no-highlight">24</i>&nbsp;     * ActivateProductionEvent from the server
+<i class="no-highlight">25</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">26</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">27</i>&nbsp;     */
+<i class="no-highlight">28</i>&nbsp;    void handleEvent(ActivatedProductionEventS2C event);
+<i class="no-highlight">29</i>&nbsp;
+<i class="no-highlight">30</i>&nbsp;    /**
+<i class="no-highlight">31</i>&nbsp;     * IncrementPosition from the server
+<i class="no-highlight">32</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">33</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">34</i>&nbsp;     */
+<i class="no-highlight">35</i>&nbsp;    void handleEvent(IncrementPositionEventS2C event);
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;    /**
+<i class="no-highlight">38</i>&nbsp;     * VaticanReportEvent from the server
+<i class="no-highlight">39</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">40</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">41</i>&nbsp;     */
+<i class="no-highlight">42</i>&nbsp;    void handleEvent(VaticanReportEventS2C event);
+<i class="no-highlight">43</i>&nbsp;
+<i class="no-highlight">44</i>&nbsp;    /**
+<i class="no-highlight">45</i>&nbsp;     * UseMarketEvent from the server
+<i class="no-highlight">46</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">47</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">48</i>&nbsp;     */
+<i class="no-highlight">49</i>&nbsp;    void handleEvent(UseMarketEventS2C event);
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;    /**
+<i class="no-highlight">52</i>&nbsp;     * NewTurnEvent from the server
+<i class="no-highlight">53</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">54</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">55</i>&nbsp;     */
+<i class="no-highlight">56</i>&nbsp;    void handleEvent(NewTurnEventS2C event);
+<i class="no-highlight">57</i>&nbsp;
+<i class="no-highlight">58</i>&nbsp;    /**
+<i class="no-highlight">59</i>&nbsp;     * IllegalActionEvent from the server
+<i class="no-highlight">60</i>&nbsp;     * sends the event to the specific player who has done it
+<i class="no-highlight">61</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">62</i>&nbsp;     */
+<i class="no-highlight">63</i>&nbsp;    void handleEvent(IllegalActionEventS2C event);
+<i class="no-highlight">64</i>&nbsp;
+<i class="no-highlight">65</i>&nbsp;    /**
+<i class="no-highlight">66</i>&nbsp;     * LeaderActionEvent from the server
+<i class="no-highlight">67</i>&nbsp;     * sends the event to the specific player
+<i class="no-highlight">68</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">69</i>&nbsp;     */
+<i class="no-highlight">70</i>&nbsp;    void handleEvent(GameStarterEventS2C event);
+<i class="no-highlight">71</i>&nbsp;
+<i class="no-highlight">72</i>&nbsp;    /**
+<i class="no-highlight">73</i>&nbsp;     * EndGameEvent from the server
+<i class="no-highlight">74</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">75</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">76</i>&nbsp;     */
+<i class="no-highlight">77</i>&nbsp;    void handleEvent(EndGameEventS2C event);
+<i class="no-highlight">78</i>&nbsp;
+<i class="no-highlight">79</i>&nbsp;    /**
+<i class="no-highlight">80</i>&nbsp;     * LorenzoTurnEvent from the server
+<i class="no-highlight">81</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">82</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">83</i>&nbsp;     */
+<i class="no-highlight">84</i>&nbsp;    void handleEvent(LorenzoTurnEventS2C event);
+<i class="no-highlight">85</i>&nbsp;
+<i class="no-highlight">86</i>&nbsp;    /**
+<i class="no-highlight">87</i>&nbsp;     * EndPreparationEvent from the server
+<i class="no-highlight">88</i>&nbsp;     * sends the event to every client
+<i class="no-highlight">89</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">90</i>&nbsp;     */
+<i class="no-highlight">91</i>&nbsp;    void handleEvent(EndPreparationEventS2C event);
+<i class="no-highlight">92</i>&nbsp;
+<i class="no-highlight">93</i>&nbsp;    /**
+<i class="no-highlight">94</i>&nbsp;     * LeaderActionEvent from the server
+<i class="no-highlight">95</i>&nbsp;     * @param event is the event received from the server
+<i class="no-highlight">96</i>&nbsp;     */
+<i class="no-highlight">97</i>&nbsp;    void handleEvent(NewConnectionEventS2C event);
+<i class="no-highlight">98</i>&nbsp;
+<i class="no-highlight">99</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-07-01 13:05</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,471 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GuiView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">it.polimi.ingsw.client.GUI</a>
+</div>
+
+<h1>Coverage Summary for Class: GuiView (it.polimi.ingsw.client.GUI)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GuiView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/117)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package it.polimi.ingsw.client.GUI;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import it.polimi.ingsw.client.ClientModel;
+<i class="no-highlight">4</i>&nbsp;import it.polimi.ingsw.client.ServerHandler;
+<i class="no-highlight">5</i>&nbsp;import it.polimi.ingsw.controller.Configs;
+<i class="no-highlight">6</i>&nbsp;import it.polimi.ingsw.controller.View;
+<i class="no-highlight">7</i>&nbsp;import it.polimi.ingsw.model.*;
+<i class="no-highlight">8</i>&nbsp;import javafx.application.Application;
+<i class="no-highlight">9</i>&nbsp;import javafx.application.Platform;
+<i class="no-highlight">10</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i class="no-highlight">11</i>&nbsp;import javafx.scene.Scene;
+<i class="no-highlight">12</i>&nbsp;import javafx.scene.control.Alert;
+<i class="no-highlight">13</i>&nbsp;import javafx.scene.control.ButtonType;
+<i class="no-highlight">14</i>&nbsp;import javafx.scene.image.Image;
+<i class="no-highlight">15</i>&nbsp;import javafx.scene.input.KeyCode;
+<i class="no-highlight">16</i>&nbsp;import javafx.scene.input.KeyEvent;
+<i class="no-highlight">17</i>&nbsp;import javafx.scene.media.AudioClip;
+<i class="no-highlight">18</i>&nbsp;import javafx.stage.Stage;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">21</i>&nbsp;import java.util.HashMap;
+<i class="no-highlight">22</i>&nbsp;import java.util.Map;
+<i class="no-highlight">23</i>&nbsp;import java.util.Objects;
+<i class="no-highlight">24</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">25</i>&nbsp;import java.util.logging.Logger;
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;/**
+<i class="no-highlight">28</i>&nbsp; * implementation of the View interface for the GUI
+<i class="no-highlight">29</i>&nbsp; * @see javafx.application.Application
+<i class="no-highlight">30</i>&nbsp; */
+<i class="no-highlight">31</i>&nbsp;public class GuiView extends Application implements View {
+<i class="no-highlight">32</i>&nbsp;    private final ClientModel clientModel;
+<i class="no-highlight">33</i>&nbsp;    private static ServerHandler serverHandler;
+<b class="nc"><i class="no-highlight">34</i>&nbsp;    private final AudioClip sound = new AudioClip(Objects.requireNonNull(GuiView.class.getClassLoader().getResource(&quot;song.mp3&quot;)).toExternalForm());</b>
+<i class="no-highlight">35</i>&nbsp;
+<i class="no-highlight">36</i>&nbsp;    //qui ci vanno tutte le varie scene del gioco e i relativi controller (home, menu, caricamento, fine...)
+<b class="nc"><i class="no-highlight">37</i>&nbsp;    private final Map&lt;String, Scene&gt; scenes = new HashMap&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">38</i>&nbsp;    private final Map&lt;String, FXMLController&gt; controllers = new HashMap&lt;&gt;(); //qua dentro sta nomescena-&gt;controller</b>
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;    private static Stage currentStage;
+<i class="no-highlight">41</i>&nbsp;    private FXMLController currentFXMLController;
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    //per riprodurre musica in background
+<b class="nc"><i class="no-highlight">44</i>&nbsp;    private final static Logger logger = Logger.getLogger(GuiView.class.getName());</b>
+<i class="no-highlight">45</i>&nbsp;    private static Configs conf;
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    /**
+<i class="no-highlight">48</i>&nbsp;     * constructor
+<i class="no-highlight">49</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">50</i>&nbsp;    public GuiView(){</b>
+<b class="nc"><i class="no-highlight">51</i>&nbsp;        clientModel = new ClientModel();</b>
+<i class="no-highlight">52</i>&nbsp;    }
+<i class="no-highlight">53</i>&nbsp;
+<i class="no-highlight">54</i>&nbsp;    /**
+<i class="no-highlight">55</i>&nbsp;     * main method
+<i class="no-highlight">56</i>&nbsp;     */
+<i class="no-highlight">57</i>&nbsp;    public static void main(Configs args) {
+<b class="nc"><i class="no-highlight">58</i>&nbsp;        conf=args;</b>
+<b class="nc"><i class="no-highlight">59</i>&nbsp;        launch();</b>
+<i class="no-highlight">60</i>&nbsp;    }
+<i class="no-highlight">61</i>&nbsp;
+<i class="no-highlight">62</i>&nbsp;
+<i class="no-highlight">63</i>&nbsp;    /**
+<i class="no-highlight">64</i>&nbsp;     * @see Application#start(Stage)
+<i class="no-highlight">65</i>&nbsp;     */
+<i class="no-highlight">66</i>&nbsp;    @Override
+<i class="no-highlight">67</i>&nbsp;    public void start(Stage stage) {
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        sound.setCycleCount(AudioClip.INDEFINITE);</b>
+<b class="nc"><i class="no-highlight">69</i>&nbsp;        sound.play();</b>
+<b class="nc"><i class="no-highlight">70</i>&nbsp;        serverHandler = new ServerHandler(this, conf);</b>
+<i class="no-highlight">71</i>&nbsp;
+<b class="nc"><i class="no-highlight">72</i>&nbsp;        loadScenes();</b>
+<b class="nc"><i class="no-highlight">73</i>&nbsp;        currentStage = stage;</b>
+<b class="nc"><i class="no-highlight">74</i>&nbsp;        currentStage.setTitle(&quot;Masters Of Renaissance&quot;);</b>
+<i class="no-highlight">75</i>&nbsp;
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        currentStage.setScene(getScene(&quot;initialScene&quot;));</b>
+<i class="no-highlight">77</i>&nbsp;
+<b class="nc"><i class="no-highlight">78</i>&nbsp;        currentFXMLController = getSceneController(&quot;initialScene&quot;);</b>
+<i class="no-highlight">79</i>&nbsp;
+<b class="nc"><i class="no-highlight">80</i>&nbsp;        currentStage.setResizable(false);</b>
+<b class="nc"><i class="no-highlight">81</i>&nbsp;        currentStage.sizeToScene();</b>
+<i class="no-highlight">82</i>&nbsp;
+<b class="nc"><i class="no-highlight">83</i>&nbsp;        currentStage.getIcons().add(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream(&quot;gameicon.png&quot;))));</b>
+<i class="no-highlight">84</i>&nbsp;
+<b class="nc"><i class="no-highlight">85</i>&nbsp;        currentStage.show();</b>
+<i class="no-highlight">86</i>&nbsp;
+<b class="nc"><i class="no-highlight">87</i>&nbsp;        currentStage.setOnCloseRequest(t -&gt; stop());</b>
+<b class="nc"><i class="no-highlight">88</i>&nbsp;        currentStage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -&gt; {</b>
+<b class="nc"><i class="no-highlight">89</i>&nbsp;            if (KeyCode.ESCAPE == event.getCode()){</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;                stage.close();</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;                stop();</b>
+<i class="no-highlight">92</i>&nbsp;            }
+<i class="no-highlight">93</i>&nbsp;        });
+<i class="no-highlight">94</i>&nbsp;    }
+<i class="no-highlight">95</i>&nbsp;
+<i class="no-highlight">96</i>&nbsp;
+<i class="no-highlight">97</i>&nbsp;    //ritorna il loader per quella scena, poi lo usiamo per ottenere la scena e il suo controller
+<i class="no-highlight">98</i>&nbsp;    private FXMLLoader getFXMLLoader(String fxml){
+<b class="nc"><i class="no-highlight">99</i>&nbsp;        return new FXMLLoader(getClass().getResource(&quot;/Graphics/&quot; + fxml + &quot;.fxml&quot;));</b>
+<i class="no-highlight">100</i>&nbsp;    }
+<i class="no-highlight">101</i>&nbsp;
+<i class="no-highlight">102</i>&nbsp;    //sto metodo carica tutte le scene e i loro controller, dai file fxml
+<i class="no-highlight">103</i>&nbsp;    public void loadScenes(){
+<i class="no-highlight">104</i>&nbsp;        try{
+<i class="no-highlight">105</i>&nbsp;
+<b class="nc"><i class="no-highlight">106</i>&nbsp;            loadScene(&quot;initialScene&quot;);</b>
+<b class="nc"><i class="no-highlight">107</i>&nbsp;            loadScene(&quot;pregameScene&quot;);</b>
+<b class="nc"><i class="no-highlight">108</i>&nbsp;            loadScene(&quot;gameScene&quot;);</b>
+<b class="nc"><i class="no-highlight">109</i>&nbsp;            loadScene(&quot;leaderActionScene&quot;);</b>
+<b class="nc"><i class="no-highlight">110</i>&nbsp;            loadScene(&quot;buyCardScene&quot;);</b>
+<b class="nc"><i class="no-highlight">111</i>&nbsp;            loadScene(&quot;activateProductionScene&quot;);</b>
+<b class="nc"><i class="no-highlight">112</i>&nbsp;            loadScene(&quot;useMarketScene&quot;);</b>
+<b class="nc"><i class="no-highlight">113</i>&nbsp;            loadScene(&quot;endGameScene&quot;);</b>
+<i class="no-highlight">114</i>&nbsp;
+<b class="nc"><i class="no-highlight">115</i>&nbsp;        }catch (IOException e){</b>
+<b class="nc"><i class="no-highlight">116</i>&nbsp;            logger.warning(&quot;Errore nel caricare file fxml&quot;+e);</b>
+<b class="nc"><i class="no-highlight">117</i>&nbsp;        }</b>
+<i class="no-highlight">118</i>&nbsp;
+<i class="no-highlight">119</i>&nbsp;    }
+<i class="no-highlight">120</i>&nbsp;
+<i class="no-highlight">121</i>&nbsp;    //carica una scena dal file fxml, è solo un metodo helper di loadScenes
+<i class="no-highlight">122</i>&nbsp;    private void loadScene(String sceneName) throws IOException{
+<b class="nc"><i class="no-highlight">123</i>&nbsp;        FXMLLoader sceneLoader = getFXMLLoader(sceneName);</b>
+<b class="nc"><i class="no-highlight">124</i>&nbsp;        scenes.put(sceneName,new Scene(sceneLoader.load()));</b>
+<b class="nc"><i class="no-highlight">125</i>&nbsp;        FXMLController sceneController = sceneLoader.getController();</b>
+<b class="nc"><i class="no-highlight">126</i>&nbsp;        sceneController.setClientModel(clientModel);</b>
+<b class="nc"><i class="no-highlight">127</i>&nbsp;        sceneController.setServerHandler(serverHandler);</b>
+<b class="nc"><i class="no-highlight">128</i>&nbsp;        sceneController.setGuiView(this);</b>
+<b class="nc"><i class="no-highlight">129</i>&nbsp;        controllers.put(sceneName,sceneController);</b>
+<i class="no-highlight">130</i>&nbsp;    }
+<i class="no-highlight">131</i>&nbsp;
+<i class="no-highlight">132</i>&nbsp;    /**
+<i class="no-highlight">133</i>&nbsp;     * getter of the scene
+<i class="no-highlight">134</i>&nbsp;     * @param sceneName is the name of the scene to be get
+<i class="no-highlight">135</i>&nbsp;     * @return the scene
+<i class="no-highlight">136</i>&nbsp;     */
+<i class="no-highlight">137</i>&nbsp;    public Scene getScene(String sceneName){
+<b class="nc"><i class="no-highlight">138</i>&nbsp;        return scenes.get(sceneName);</b>
+<i class="no-highlight">139</i>&nbsp;    }
+<i class="no-highlight">140</i>&nbsp;
+<i class="no-highlight">141</i>&nbsp;    /**
+<i class="no-highlight">142</i>&nbsp;     * getter of the scene controller
+<i class="no-highlight">143</i>&nbsp;     * @param sceneName is the name of the scene to get the its controller
+<i class="no-highlight">144</i>&nbsp;     * @return the controller of the scene
+<i class="no-highlight">145</i>&nbsp;     */
+<i class="no-highlight">146</i>&nbsp;    public FXMLController getSceneController(String sceneName){
+<b class="nc"><i class="no-highlight">147</i>&nbsp;        return controllers.get(sceneName);</b>
+<i class="no-highlight">148</i>&nbsp;    }
+<i class="no-highlight">149</i>&nbsp;
+<i class="no-highlight">150</i>&nbsp;    /**
+<i class="no-highlight">151</i>&nbsp;     * Sets the serverHandler
+<i class="no-highlight">152</i>&nbsp;     * @param sceneName is the name of the scene to be set to current one
+<i class="no-highlight">153</i>&nbsp;     */
+<i class="no-highlight">154</i>&nbsp;    public void setCurrentScene(String sceneName){
+<b class="nc"><i class="no-highlight">155</i>&nbsp;        currentStage.setScene(getScene(sceneName));</b>
+<i class="no-highlight">156</i>&nbsp;        //Scene currentScene = getScene(sceneName);
+<b class="nc"><i class="no-highlight">157</i>&nbsp;        currentFXMLController = getSceneController(sceneName);</b>
+<i class="no-highlight">158</i>&nbsp;    }
+<i class="no-highlight">159</i>&nbsp;
+<i class="no-highlight">160</i>&nbsp;    /**
+<i class="no-highlight">161</i>&nbsp;     * @return the current scene controller
+<i class="no-highlight">162</i>&nbsp;     */
+<i class="no-highlight">163</i>&nbsp;    public FXMLController getCurrentSceneController(){
+<b class="nc"><i class="no-highlight">164</i>&nbsp;        return currentFXMLController;</b>
+<i class="no-highlight">165</i>&nbsp;    }
+<i class="no-highlight">166</i>&nbsp;
+<i class="no-highlight">167</i>&nbsp;    /**
+<i class="no-highlight">168</i>&nbsp;     * Sets the serverHandler
+<i class="no-highlight">169</i>&nbsp;     *
+<i class="no-highlight">170</i>&nbsp;     * @param serverHandler The handler of the server connection
+<i class="no-highlight">171</i>&nbsp;     */
+<i class="no-highlight">172</i>&nbsp;    @Override
+<i class="no-highlight">173</i>&nbsp;    public void setConnectionHandler(ServerHandler serverHandler) {
+<b class="nc"><i class="no-highlight">174</i>&nbsp;        GuiView.serverHandler = serverHandler;</b>
+<i class="no-highlight">175</i>&nbsp;    }
+<i class="no-highlight">176</i>&nbsp;
+<i class="no-highlight">177</i>&nbsp;    /**
+<i class="no-highlight">178</i>&nbsp;     * @return the client model
+<i class="no-highlight">179</i>&nbsp;     */
+<i class="no-highlight">180</i>&nbsp;    @Override
+<i class="no-highlight">181</i>&nbsp;    public ClientModel getClientModel() {
+<b class="nc"><i class="no-highlight">182</i>&nbsp;        return clientModel;</b>
+<i class="no-highlight">183</i>&nbsp;    }
+<i class="no-highlight">184</i>&nbsp;
+<i class="no-highlight">185</i>&nbsp;    /**
+<i class="no-highlight">186</i>&nbsp;     * asks the wantee number of players for the game
+<i class="no-highlight">187</i>&nbsp;     * @return the entered number of players
+<i class="no-highlight">188</i>&nbsp;     */
+<i class="no-highlight">189</i>&nbsp;    @Override
+<i class="no-highlight">190</i>&nbsp;    public int askNumPlayers() {
+<b class="nc"><i class="no-highlight">191</i>&nbsp;        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);</b>
+<b class="nc"><i class="no-highlight">192</i>&nbsp;        alert.setHeaderText(&quot;Choose the number of players&quot;);</b>
+<i class="no-highlight">193</i>&nbsp;
+<b class="nc"><i class="no-highlight">194</i>&nbsp;        ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(&quot;gameicon.png&quot;));</b>
+<i class="no-highlight">195</i>&nbsp;
+<i class="no-highlight">196</i>&nbsp;        //DialogPane dialogPane = alert.getDialogPane();
+<i class="no-highlight">197</i>&nbsp;        //StackPane stackPane = new StackPane(new ImageView(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream(&quot;gameicon.png&quot;)))));
+<i class="no-highlight">198</i>&nbsp;        //stackPane.setAlignment(Pos.CENTER);
+<i class="no-highlight">199</i>&nbsp;        //dialogPane.setGraphic(stackPane);
+<i class="no-highlight">200</i>&nbsp;
+<b class="nc"><i class="no-highlight">201</i>&nbsp;        ButtonType buttonTypeOne = new ButtonType(&quot;One&quot;);</b>
+<b class="nc"><i class="no-highlight">202</i>&nbsp;        ButtonType buttonTypeTwo = new ButtonType(&quot;Two&quot;);</b>
+<b class="nc"><i class="no-highlight">203</i>&nbsp;        ButtonType buttonTypeThree = new ButtonType(&quot;Three&quot;);</b>
+<b class="nc"><i class="no-highlight">204</i>&nbsp;        ButtonType buttonTypeFour = new ButtonType(&quot;Four&quot;);</b>
+<i class="no-highlight">205</i>&nbsp;
+<b class="nc"><i class="no-highlight">206</i>&nbsp;        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeFour);</b>
+<b class="nc"><i class="no-highlight">207</i>&nbsp;        Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+<i class="no-highlight">208</i>&nbsp;
+<b class="nc"><i class="no-highlight">209</i>&nbsp;        if(result.get()==buttonTypeOne){</b>
+<b class="nc"><i class="no-highlight">210</i>&nbsp;            return 1;</b>
+<i class="no-highlight">211</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">212</i>&nbsp;        if(result.get()==buttonTypeTwo){</b>
+<b class="nc"><i class="no-highlight">213</i>&nbsp;            return 2;</b>
+<i class="no-highlight">214</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">215</i>&nbsp;        if(result.get()==buttonTypeThree){</b>
+<b class="nc"><i class="no-highlight">216</i>&nbsp;            return 3;</b>
+<i class="no-highlight">217</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">218</i>&nbsp;        if(result.get()==buttonTypeFour){</b>
+<b class="nc"><i class="no-highlight">219</i>&nbsp;            return 4;</b>
+<i class="no-highlight">220</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">221</i>&nbsp;            return -1; //dovrebbe essere impossibile</b>
+<i class="no-highlight">222</i>&nbsp;        }
+<i class="no-highlight">223</i>&nbsp;
+<i class="no-highlight">224</i>&nbsp;    }
+<i class="no-highlight">225</i>&nbsp;
+<i class="no-highlight">226</i>&nbsp;    /**
+<i class="no-highlight">227</i>&nbsp;     * getter of a Leader card image
+<i class="no-highlight">228</i>&nbsp;     * @param leaderCard is the Leader card to be get
+<i class="no-highlight">229</i>&nbsp;     * @return the Leader card image
+<i class="no-highlight">230</i>&nbsp;     */
+<i class="no-highlight">231</i>&nbsp;    public static Image getLeaderCardImage(LeaderCard leaderCard){
+<b class="nc"><i class="no-highlight">232</i>&nbsp;        if(leaderCard!=null){</b>
+<b class="nc"><i class="no-highlight">233</i>&nbsp;            return new Image(String.valueOf(GuiView.class.getResource(&quot;/Cards/&quot; + &quot;lead&quot; + leaderCard.getId() +  &quot;.png&quot;)));</b>
+<i class="no-highlight">234</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">235</i>&nbsp;        return null;</b>
+<i class="no-highlight">236</i>&nbsp;    }
+<i class="no-highlight">237</i>&nbsp;
+<i class="no-highlight">238</i>&nbsp;    /**
+<i class="no-highlight">239</i>&nbsp;     * getter of a Development card image
+<i class="no-highlight">240</i>&nbsp;     * @param developmentCard is the development card to be get
+<i class="no-highlight">241</i>&nbsp;     * @return the Development card image
+<i class="no-highlight">242</i>&nbsp;     */
+<i class="no-highlight">243</i>&nbsp;    public static Image getDevelopmentCardImage(DevelopmentCard developmentCard){
+<b class="nc"><i class="no-highlight">244</i>&nbsp;        if(developmentCard!=null){</b>
+<b class="nc"><i class="no-highlight">245</i>&nbsp;            return new Image(String.valueOf(GuiView.class.getResource(&quot;/Cards/&quot; + &quot;dev&quot; + developmentCard.getId() +  &quot;.png&quot;)));</b>
+<i class="no-highlight">246</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">247</i>&nbsp;            return null;</b>
+<i class="no-highlight">248</i>&nbsp;        }
+<i class="no-highlight">249</i>&nbsp;    }
+<i class="no-highlight">250</i>&nbsp;
+<i class="no-highlight">251</i>&nbsp;    /**
+<i class="no-highlight">252</i>&nbsp;     * getter of a resource image
+<i class="no-highlight">253</i>&nbsp;     * @param resource is the resource to be get
+<i class="no-highlight">254</i>&nbsp;     * @return the resource image
+<i class="no-highlight">255</i>&nbsp;     */
+<i class="no-highlight">256</i>&nbsp;    public static Image getResourceImage(Resource resource){
+<b class="nc"><i class="no-highlight">257</i>&nbsp;        if(resource!=null){</b>
+<b class="nc"><i class="no-highlight">258</i>&nbsp;            String resourceName = resource.toString().toLowerCase();</b>
+<b class="nc"><i class="no-highlight">259</i>&nbsp;            return new Image(String.valueOf(GuiView.class.getResource(&quot;/&quot;+resourceName+&quot;Picc.png&quot;)));</b>
+<i class="no-highlight">260</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">261</i>&nbsp;            return null;</b>
+<i class="no-highlight">262</i>&nbsp;        }
+<i class="no-highlight">263</i>&nbsp;    }
+<i class="no-highlight">264</i>&nbsp;
+<i class="no-highlight">265</i>&nbsp;    /**
+<i class="no-highlight">266</i>&nbsp;     * getter of a marble image
+<i class="no-highlight">267</i>&nbsp;     * @param marble is the resource to be get
+<i class="no-highlight">268</i>&nbsp;     * @return the marble image
+<i class="no-highlight">269</i>&nbsp;     */
+<i class="no-highlight">270</i>&nbsp;    public static Image getMarbleImage(MarbleColor marble){
+<b class="nc"><i class="no-highlight">271</i>&nbsp;        if(marble!=null){</b>
+<b class="nc"><i class="no-highlight">272</i>&nbsp;            String marbleColorName = marble.toString().toLowerCase();</b>
+<b class="nc"><i class="no-highlight">273</i>&nbsp;            return new Image(String.valueOf(GuiView.class.getResource(&quot;/&quot;+marbleColorName+&quot;Marble.png&quot;)));</b>
+<i class="no-highlight">274</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">275</i>&nbsp;            return null;</b>
+<i class="no-highlight">276</i>&nbsp;        }
+<i class="no-highlight">277</i>&nbsp;    }
+<i class="no-highlight">278</i>&nbsp;
+<i class="no-highlight">279</i>&nbsp;    /**
+<i class="no-highlight">280</i>&nbsp;     *getter of a Pope tile&#39;s image
+<i class="no-highlight">281</i>&nbsp;     * @param popeTile the status of the Pope tile
+<i class="no-highlight">282</i>&nbsp;     * @param popeTileIndex the index (1,2,3) of the Pope tile
+<i class="no-highlight">283</i>&nbsp;     * @return the Pope tile image
+<i class="no-highlight">284</i>&nbsp;     */
+<i class="no-highlight">285</i>&nbsp;    public static Image getPopeTileImage(PopeFavorTileStatus popeTile, int popeTileIndex){
+<b class="nc"><i class="no-highlight">286</i>&nbsp;        popeTileIndex= popeTileIndex+1; //perchè nel nome delle immagini sta 2,3,4</b>
+<b class="nc"><i class="no-highlight">287</i>&nbsp;        if(popeTile!=null){</b>
+<b class="nc"><i class="no-highlight">288</i>&nbsp;            if(popeTile == PopeFavorTileStatus.INACTIVE){</b>
+<b class="nc"><i class="no-highlight">289</i>&nbsp;                return new Image(String.valueOf(GuiView.class.getResource(&quot;/papale&quot;+popeTileIndex+&quot;.png&quot;)));</b>
+<i class="no-highlight">290</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">291</i>&nbsp;            if(popeTile == PopeFavorTileStatus.ACTIVE){</b>
+<b class="nc"><i class="no-highlight">292</i>&nbsp;                return new Image(String.valueOf(GuiView.class.getResource(&quot;/papale&quot;+popeTileIndex+&quot;ON.png&quot;)));</b>
+<i class="no-highlight">293</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">294</i>&nbsp;            if(popeTile == PopeFavorTileStatus.DISCARDED){</b>
+<b class="nc"><i class="no-highlight">295</i>&nbsp;                return null; // non devi settare un&#39;immagine quindi tutto ok</b>
+<i class="no-highlight">296</i>&nbsp;            }
+<i class="no-highlight">297</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">298</i>&nbsp;        return null;</b>
+<i class="no-highlight">299</i>&nbsp;    }
+<i class="no-highlight">300</i>&nbsp;
+<i class="no-highlight">301</i>&nbsp;    /**
+<i class="no-highlight">302</i>&nbsp;     * getter of a Solo action image
+<i class="no-highlight">303</i>&nbsp;     * @param soloAction is the Solo action to be get
+<i class="no-highlight">304</i>&nbsp;     * @return the solo action image
+<i class="no-highlight">305</i>&nbsp;     */
+<i class="no-highlight">306</i>&nbsp;    public static Image getSoloActionImage(SoloAction soloAction){
+<b class="nc"><i class="no-highlight">307</i>&nbsp;        if(soloAction!=null){</b>
+<b class="nc"><i class="no-highlight">308</i>&nbsp;            if(soloAction.getType() == SoloActionType.MOVEONEANDSHUFFLE){</b>
+<b class="nc"><i class="no-highlight">309</i>&nbsp;                return new Image(String.valueOf(GuiView.class.getResource(&quot;/moveoneandshuffle.png&quot;)));</b>
+<i class="no-highlight">310</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">311</i>&nbsp;            if(soloAction.getType() == SoloActionType.MOVETWO){</b>
+<b class="nc"><i class="no-highlight">312</i>&nbsp;                return new Image(String.valueOf(GuiView.class.getResource(&quot;/movetwo.png&quot;)));</b>
+<i class="no-highlight">313</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">314</i>&nbsp;            if(soloAction.getType() == SoloActionType.DISCARDTWOCARDS){</b>
+<b class="nc"><i class="no-highlight">315</i>&nbsp;                String cardTypeName = soloAction.getDiscardedCardsType().toString().toLowerCase();</b>
+<b class="nc"><i class="no-highlight">316</i>&nbsp;                return new Image(String.valueOf(GuiView.class.getResource(&quot;/discard2&quot;+cardTypeName+&quot;.png&quot;)));</b>
+<i class="no-highlight">317</i>&nbsp;            }
+<i class="no-highlight">318</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">319</i>&nbsp;        return null;</b>
+<i class="no-highlight">320</i>&nbsp;    }
+<i class="no-highlight">321</i>&nbsp;
+<i class="no-highlight">322</i>&nbsp;    public void launcher() {}
+<i class="no-highlight">323</i>&nbsp;
+<i class="no-highlight">324</i>&nbsp;    public void stop(){
+<b class="nc"><i class="no-highlight">325</i>&nbsp;        Platform.exit();</b>
+<b class="nc"><i class="no-highlight">326</i>&nbsp;        System.exit(0);</b>
+<i class="no-highlight">327</i>&nbsp;    }
+<i class="no-highlight">328</i>&nbsp;
+<i class="no-highlight">329</i>&nbsp;    /**
+<i class="no-highlight">330</i>&nbsp;     * asks for a new game, only if some connection error happened
+<i class="no-highlight">331</i>&nbsp;     * if the game ends successfully, it will be asked in a different method
+<i class="no-highlight">332</i>&nbsp;     */
+<i class="no-highlight">333</i>&nbsp;    @Override
+<i class="no-highlight">334</i>&nbsp;    public void askNewGame() {
+<b class="nc"><i class="no-highlight">335</i>&nbsp;        Platform.runLater(() -&gt; {</b>
+<b class="nc"><i class="no-highlight">336</i>&nbsp;            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);</b>
+<b class="nc"><i class="no-highlight">337</i>&nbsp;            alert.setHeaderText(&quot;Connection Error! The application will be closed.&quot;);</b>
+<b class="nc"><i class="no-highlight">338</i>&nbsp;            ButtonType buttonTypeOne = new ButtonType(&quot;Exit&quot;);</b>
+<b class="nc"><i class="no-highlight">339</i>&nbsp;            ButtonType buttonTypeTwo = new ButtonType(&quot;Play Again&quot;);</b>
+<i class="no-highlight">340</i>&nbsp;
+<b class="nc"><i class="no-highlight">341</i>&nbsp;            alert.getButtonTypes().setAll(buttonTypeOne,buttonTypeTwo);</b>
+<b class="nc"><i class="no-highlight">342</i>&nbsp;            Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+<i class="no-highlight">343</i>&nbsp;
+<b class="nc"><i class="no-highlight">344</i>&nbsp;            if(result.get()==buttonTypeOne){</b>
+<b class="nc"><i class="no-highlight">345</i>&nbsp;                sound.stop();</b>
+<b class="nc"><i class="no-highlight">346</i>&nbsp;                System.exit(0);</b>
+<b class="nc"><i class="no-highlight">347</i>&nbsp;                Platform.exit();</b>
+<i class="no-highlight">348</i>&nbsp;            }else{
+<b class="nc"><i class="no-highlight">349</i>&nbsp;                currentStage.close();</b>
+<b class="nc"><i class="no-highlight">350</i>&nbsp;                sound.stop();</b>
+<b class="nc"><i class="no-highlight">351</i>&nbsp;                start( new Stage());</b>
+<i class="no-highlight">352</i>&nbsp;            }
+<i class="no-highlight">353</i>&nbsp;        });
+<i class="no-highlight">354</i>&nbsp;    }
+<i class="no-highlight">355</i>&nbsp;
+<i class="no-highlight">356</i>&nbsp;    /**
+<i class="no-highlight">357</i>&nbsp;     * Notify all that a player has been disconnected (and the game has ended ?FA)
+<i class="no-highlight">358</i>&nbsp;     *
+<i class="no-highlight">359</i>&nbsp;     * @param disconnected The nickname of the disconnected player
+<i class="no-highlight">360</i>&nbsp;     */
+<i class="no-highlight">361</i>&nbsp;    @Override
+<i class="no-highlight">362</i>&nbsp;    public void showDisconnectionMessage(String disconnected) {
+<i class="no-highlight">363</i>&nbsp;
+<i class="no-highlight">364</i>&nbsp;    }
+<i class="no-highlight">365</i>&nbsp;
+<i class="no-highlight">366</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-07-01 13:05</div>
+</div>
+</body>
+</html>
