@@ -86,6 +86,7 @@ In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tiss
   }
   ```
 
+* In alternative you can use the .bat files to lauch the game, **be sure to have Windows Terminal installed**.
 # 
 **Warning**
 
