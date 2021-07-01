@@ -133,7 +133,7 @@ The unit tests run automatically at each commit thanks to the [Continuous Integr
 <img width="1084" alt="model_coverage" src="https://user-images.githubusercontent.com/72473741/124113739-10e99a00-da6c-11eb-8593-a5f912040e88.png">
 <img width="429" alt="controller_coverage" src="https://user-images.githubusercontent.com/72473741/124113821-28c11e00-da6c-11eb-807c-a6c1219df679.png">
 
-
+# 
 * **[Full project specifications (ITA)](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/wiki/Specifications)**
-
+#
 ![Cranio-Creations](https://www.justnerd.it/wp-content/uploads/2019/02/cranio-creations-cover-generica.jpg)
