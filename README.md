@@ -59,7 +59,7 @@ This project includes:
 In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/tree/main/deliverables) folder there is a multi-platfor jar file, that can be used both for Server and Clients.
 * The Server can be runned with the following command, as defaults it runs on port 9876:
 ```shell
-    > java -jar Masters.jar server [ip.json]
+    > java -jar GC24.jar server [ip.json]
 ```
 
 * The clients can be runned with the following command:
@@ -71,7 +71,7 @@ In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tiss
   
   * GUI
   ```shell
-    > java -jar Masters.jar [gui] [ip.json]
+    > java -jar GC24.jar [gui] [ip.json]
   ```
   <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/GUI.png" width=400px height=400px />
   <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/GUI1.png" width=900px height=500px />
