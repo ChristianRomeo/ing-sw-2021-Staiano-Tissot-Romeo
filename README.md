@@ -115,8 +115,10 @@ After these processes the compiled jar can be found in the *shade* folder.
 
 ## UML
 The following class diagrams represent respectively the initial model developed during the design phase and the final product diagrams.
-* [Initials](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/uml_inizialev13.pdf)
-* [Finals](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/UML%20-%20final.svg)
+* [Model - Initial](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/UML_Model_Initial.pdf)
+* [Model - Final](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/UML_Model_Final.pdf)
+* [Client + Network - Initial](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/UML_Client%2BNetwork_Initial.pdf)
+* [Client + Network - Final](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/UML_Client%2BNetwork_Final.pdf)
 
 ## Javadocs
 The following documentation includes a description for most of the classes and methods used and follows the Java documentation technique.<br />
