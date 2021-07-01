@@ -72,28 +72,28 @@ public class EndGameSceneController extends FXMLController {
 
         if(clientModel.getNumPlayers()>0){
             usernameLabel1.setText(clientModel.getNicknames().get(0));
-            victoryPointsLabel1.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(0))+ "victory points.");
+            victoryPointsLabel1.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(0))+ " victory points.");
             if(winners.contains(clientModel.getNicknames().get(0))){
                 isWinnerLabel1.setText("Is a winner!");
             }
         }
         if(clientModel.getNumPlayers()>1){
             usernameLabel2.setText(clientModel.getNicknames().get(1));
-            victoryPointsLabel2.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(1))+ "victory points.");
+            victoryPointsLabel2.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(1))+ " victory points.");
             if(winners.contains(clientModel.getNicknames().get(1))){
                 isWinnerLabel2.setText("Is a winner!");
             }
         }
         if(clientModel.getNumPlayers()>2){
             usernameLabel3.setText(clientModel.getNicknames().get(2));
-            victoryPointsLabel3.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(2))+ "victory points.");
+            victoryPointsLabel3.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(2))+ " victory points.");
             if(winners.contains(clientModel.getNicknames().get(2))){
                 isWinnerLabel3.setText("Is a winner!");
             }
         }
         if(clientModel.getNumPlayers()>3){
             usernameLabel4.setText(clientModel.getNicknames().get(3));
-            victoryPointsLabel4.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(3))+ "victory points.");
+            victoryPointsLabel4.setText(" : " + victoryPoints.get(clientModel.getNicknames().get(3))+ " victory points.");
             if(winners.contains(clientModel.getNicknames().get(3))){
                 isWinnerLabel4.setText("Is a winner!");
             }
