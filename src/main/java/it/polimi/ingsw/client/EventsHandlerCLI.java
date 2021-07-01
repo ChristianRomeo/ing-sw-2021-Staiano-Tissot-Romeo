@@ -11,7 +11,7 @@ import it.polimi.ingsw.controller.Events.*;
 public class EventsHandlerCLI implements ServerEventObserver {
 
     private final ClientModel clientModel;
-    private final CliView cliView;            //non so se dobbiamo dividere tra cliview e guiview
+    private final CliView cliView;
 
     /**
      * constructor

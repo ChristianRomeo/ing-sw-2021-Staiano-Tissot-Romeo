@@ -8,14 +8,24 @@ import java.util.List;
  *client to server event triggered when the player wants to activate production
  */
 public class ActivatedProductionEvent extends ClientEvent{
-    private final List<Integer> activatedProduction; //what card productions you want to activate
+    private final List<Integer> activatedProduction;
     private final boolean activateBaseProduction;
-    private final Resource requestedResBP1; //resources for the base production
-    private final Resource requestedResBP2;//resources for the base production
-    private final Resource producedResBP;//resources for the base production
+    private final Resource requestedResBP1; //
+    private final Resource requestedResBP2;//
+    private final Resource producedResBP;//
     private final Resource producedResLC1;//resources for the leader card production
-    private final Resource producedResLC2;//resources for the leader card production
+    private final Resource producedResLC2;//
 
+    /**
+     *
+     * @param activatedProduction which card productions you want to activate
+     * @param activateBaseProduction the players wants to activate base production or not
+     * @param requestedResBP1 resources for the base production
+     * @param requestedResBP2 resources for the base production
+     * @param producedResBP produced resources with the base production
+     * @param producedResLC1
+     * @param producedResLC2
+     */
     public ActivatedProductionEvent(List<Integer> activatedProduction, boolean activateBaseProduction, Resource requestedResBP1, Resource requestedResBP2, Resource producedResBP, Resource producedResLC1, Resource producedResLC2) {
         this.activatedProduction = activatedProduction;
         this.activateBaseProduction = activateBaseProduction;
