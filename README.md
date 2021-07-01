@@ -10,7 +10,6 @@
 ![Sonarqube](https://img.shields.io/badge/Code%20Analysis-SonarQube-yellow?style=for-the-badge&logo=sonarqube)
 ![UML](https://img.shields.io/badge/Uml-UmLet-red?style=for-the-badge)
 ![Release](https://img.shields.io/badge/Release-v1.0-green?style=for-the-badge)
-![Codecov](https://img.shields.io/badge/Code%20Coverage-85%25-brightgreen?style=for-the-badge&logo=codecov)
 ![Tests](https://img.shields.io/badge/Tests-✔%20100%25%20%7C%20✘%200%20%7C%20➟%200-red?style=for-the-badge&logo=codecov)
 
 ##
