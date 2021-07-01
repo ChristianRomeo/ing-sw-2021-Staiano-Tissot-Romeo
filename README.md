@@ -10,7 +10,6 @@
 ![Sonarqube](https://img.shields.io/badge/Code%20Analysis-SonarQube-yellow?style=for-the-badge&logo=sonarqube)
 ![UML](https://img.shields.io/badge/Uml-UmLet-red?style=for-the-badge)
 ![Release](https://img.shields.io/badge/Release-v1.0-green?style=for-the-badge)
-![Codecov](https://img.shields.io/badge/Code%20Coverage-85%25-brightgreen?style=for-the-badge&logo=codecov)
 ![Tests](https://img.shields.io/badge/Tests-✔%20100%25%20%7C%20✘%200%20%7C%20➟%200-red?style=for-the-badge&logo=codecov)
 
 ##
@@ -67,14 +66,16 @@ In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tiss
   ```shell
     > java -jar GC24.jar cli [ip.json]
   ```
-  <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/CLI.png" width=600px height=300px/>
+  <img width="751" alt="CLI" src="https://user-images.githubusercontent.com/72473741/124113943-4a220a00-da6c-11eb-80b1-9d8083b4ec93.png">
+
   
   * GUI
   ```shell
     > java -jar GC24.jar [gui] [ip.json]
   ```
-  <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/GUI.png" width=400px height=400px />
-  <img src="https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/GUI1.png" width=900px height=500px />
+
+<img width="416" alt="GUI" src="https://user-images.githubusercontent.com/72473741/124114057-69b93280-da6c-11eb-88eb-3805d2fe9fc9.png">
+<img width="960" alt="GUI1" src="https://user-images.githubusercontent.com/72473741/124114191-94a38680-da6c-11eb-82f8-361284ee2e48.png">
 
  This commands can be followed by:
  - **ip.json** that is the configuration file, where it can be choosen the server port and server ip for clients
@@ -114,7 +115,7 @@ After these processes the compiled jar can be found in the *shade* folder.
 ## UML
 The following class diagrams represent respectively the initial model developed during the design phase and the final product diagrams.
 * [Initials](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/uml_inizialev13.pdf)
-* [Finals]() missing!
+* [Finals](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/deliverables/UML - final.svg)
 
 ## Javadocs
 The following documentation includes a description for most of the classes and methods used and follows the Java documentation technique.<br />
@@ -129,9 +130,8 @@ Tool used: Junit.
 
 The unit tests run automatically at each commit thanks to the [Continuous Integration pipeline](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/.github/workflows/maven.yml).
 
-<img width="711" alt="model_coverage" src="https://user-images.githubusercontent.com/25418541/119738638-4bff1900-be81-11eb-9cdc-0a28892f93b6.png"><br /><br />
-<img width="711" alt="all_model_coverage" src="https://user-images.githubusercontent.com/25418541/119738652-515c6380-be81-11eb-8d4e-5b4ae20b3917.png"><br /><br /><br />
-<img width="711" alt="controller_coverage" src="https://user-images.githubusercontent.com/25418541/119738674-591c0800-be81-11eb-82dc-88eba3b9eda3.png"><br /><br />
+<img width="1084" alt="model_coverage" src="https://user-images.githubusercontent.com/72473741/124113739-10e99a00-da6c-11eb-8593-a5f912040e88.png">
+<img width="429" alt="controller_coverage" src="https://user-images.githubusercontent.com/72473741/124113821-28c11e00-da6c-11eb-807c-a6c1219df679.png">
 
 
 * **[Full project specifications (ITA)](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/wiki/Specifications)**
