@@ -81,7 +81,7 @@ In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tiss
  - **ip.json** that is the configuration file, where it can be choosen the server port and server ip for clients
   ```
   {
-  "server_ip": "device ip where the server is launched (127.0.0.1 default for local games)",
+  "server_ip": "device ip where the server is launched (127.0.0.1 default)",
   "server_port": "(9876 default)"
   }
   ```
