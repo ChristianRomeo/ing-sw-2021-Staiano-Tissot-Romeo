@@ -55,7 +55,7 @@ This project includes:
 * Java SE SDK 15 (or newer) [for running]
 * Maven framework 3.8 (or newer) [for building]
 #
-In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/tree/main/deliverables) folder there is a multi-platfor jar file, that can be used both for Server and Clients.
+In the [deliverables](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/tree/main/deliverables) folder there is a multi-platform jar file, that can be used both for Server and Clients.
 * The Server can be runned with the following command, as defaults it runs on port 9876:
 ```shell
     > java -jar GC24.jar server [ip.json]
