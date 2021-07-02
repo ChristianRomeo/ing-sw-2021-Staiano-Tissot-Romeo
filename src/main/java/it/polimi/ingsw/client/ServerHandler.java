@@ -124,9 +124,9 @@ public class ServerHandler implements Runnable{
             if (socket != null){
                 socket.close();
                 isConnected=false;
-                logger.info("server disconnected");
+                System.out.println("Server disconnected");
             }else
-                logger.info("server unreachable");
+                System.out.println("Server unreachable");
 
             //view.askNewGame();
         } catch (IOException e) {
