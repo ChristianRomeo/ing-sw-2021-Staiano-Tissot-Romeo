@@ -541,6 +541,10 @@ public class GameSceneController extends FXMLController {
         }
     }
 
+    /**
+     * shows messages for illegal actions
+     * @param message is the message to be shown
+     */
     @Override
     public void showMessage(String message){
         switch (message) {
@@ -562,7 +566,10 @@ public class GameSceneController extends FXMLController {
         messagePane.setVisible(false);
     }
 
-    @FXML //sto metodo inizializza la scena solo quando viene caricata la prima volta, in automaticao
+    /**
+     * initializes the scene the first time it is loaded
+     */
+    @FXML
     public void initialize(){
         BackgroundFill backgroundFill = new BackgroundFill(new ImagePattern(new Image(Objects.requireNonNull(InitialSceneController.class.getClassLoader().getResourceAsStream("loader.png")))), CornerRadii.EMPTY, Insets.EMPTY);
         root.setBackground(new Background(backgroundFill));

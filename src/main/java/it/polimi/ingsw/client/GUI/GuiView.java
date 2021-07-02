@@ -93,13 +93,18 @@ public class GuiView extends Application implements View {
         });
     }
 
-
-    //ritorna il loader per quella scena, poi lo usiamo per ottenere la scena e il suo controller
+    /**
+     * getter of a scene's loader
+     * @param fxml is the scene
+     * @return the loader for that scene, in order to obtain the scene and its controller
+     */
     private FXMLLoader getFXMLLoader(String fxml){
         return new FXMLLoader(getClass().getResource("/Graphics/" + fxml + ".fxml"));
     }
 
-    //sto metodo carica tutte le scene e i loro controller, dai file fxml
+    /**
+     * initializes the scenes the first time it is loaded
+     */
     public void loadScenes(){
         try{
 
@@ -118,7 +123,11 @@ public class GuiView extends Application implements View {
 
     }
 
-    //carica una scena dal file fxml, è solo un metodo helper di loadScenes
+    /**
+     * helper of loeadScenes()
+     * @param sceneName is the scene
+     * @throws IOException
+     */
     private void loadScene(String sceneName) throws IOException{
         FXMLLoader sceneLoader = getFXMLLoader(sceneName);
         scenes.put(sceneName,new Scene(sceneLoader.load()));
@@ -192,11 +201,6 @@ public class GuiView extends Application implements View {
         alert.setHeaderText("Choose the number of players");
 
         ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("gameicon.png"));
-
-        //DialogPane dialogPane = alert.getDialogPane();
-        //StackPane stackPane = new StackPane(new ImageView(new Image(Objects.requireNonNull(GuiView.class.getClassLoader().getResourceAsStream("gameicon.png")))));
-        //stackPane.setAlignment(Pos.CENTER);
-        //dialogPane.setGraphic(stackPane);
 
         ButtonType buttonTypeOne = new ButtonType("One");
         ButtonType buttonTypeTwo = new ButtonType("Two");

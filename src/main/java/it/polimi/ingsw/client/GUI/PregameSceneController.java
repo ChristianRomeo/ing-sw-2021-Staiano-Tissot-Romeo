@@ -85,6 +85,9 @@ public class PregameSceneController extends FXMLController{
         }
     }
 
+    /**
+     * shows that the first Leader card has been selected (in order to be discarded during pre game Leader cards choices)
+     */
     @FXML
     public void choseFirstCard(){
         DropShadow d= new DropShadow();
@@ -106,6 +109,10 @@ public class PregameSceneController extends FXMLController{
             }
         }
     }
+
+    /**
+     * shows that the second Leader card has been selected (in order to be discarded during pre game Leader cards choices)
+     */
     @FXML
     public void choseSecondCard(){
         DropShadow d= new DropShadow();
@@ -128,6 +135,10 @@ public class PregameSceneController extends FXMLController{
             }
         }
     }
+
+    /**
+     * shows that the third Leader card has been selected (in order to be discarded during pre game Leader cards choices)
+     */
     @FXML
     public void choseThirdCard(){
         DropShadow d= new DropShadow();
@@ -150,6 +161,10 @@ public class PregameSceneController extends FXMLController{
             }
         }
     }
+
+    /**
+     * shows that the fourth Leader card has been selected (in order to be discarded during pre game Leader cards choices)
+     */
     @FXML
     public void choseFourthCard(){
         DropShadow d= new DropShadow();
@@ -173,6 +188,9 @@ public class PregameSceneController extends FXMLController{
         }
     }
 
+    /**
+     * shows pregame choices of resources
+     */
     public void chooseResource(){
         if(clientModel.getMyIndex()==0){
             serverHandler.send(new InitialChoiceEvent(removedLeaderCard1,removedLeaderCard2,resource1,resource2,position1,position2));
@@ -186,6 +204,9 @@ public class PregameSceneController extends FXMLController{
         //}
     }
 
+    /**
+     * the player has chosen the first resource
+     */
     @FXML
     public void submitInitialResource1(){
         submitInitialResourceButton1.setDisable(true);
@@ -225,6 +246,10 @@ public class PregameSceneController extends FXMLController{
         }
 
     }
+
+    /**
+    *the player has chosen the second resource
+     */
     @FXML
     public void submitInitialResource2(){
         resource2 = Resource.values()[toggleGroupInitialResource2.getToggles().indexOf(toggleGroupInitialResource2.getSelectedToggle())];
@@ -252,6 +277,11 @@ public class PregameSceneController extends FXMLController{
         return resource1 == resource2 || !position1.getVal1().equals(position2.getVal1());
     }
 
+    /**
+     *
+     * @param toggleGroup is the selected toggle from the toggle group
+     * @return the selected warehouse's cell
+     */
     //questo metodo ti ritorna la cella del warehouse selezionata partendo dal toggle selezionato nel toggle group
     private SameTypePair<Integer> getCellFromToggleGroup(ToggleGroup toggleGroup){
         int  indexSelectedCellToggle= toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());

@@ -32,10 +32,17 @@ public abstract class FXMLController {
         this.guiView = guiView;
     }
 
+    /**
+     * updated scene, to be overridden by the Scene controllers
+     */
     public void updateScene(){
 
     }
 
+    /**
+     * show messages for illegal actions, to be overridden
+     * @param message is the message to be shown
+     */
     public void showMessage(String message){
 
     }

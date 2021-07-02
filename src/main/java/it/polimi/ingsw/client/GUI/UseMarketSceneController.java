@@ -201,7 +201,9 @@ public class UseMarketSceneController extends FXMLController{
         slideMarbleImage.setImage(GuiView.getMarbleImage(market.getSlideMarble()));
     }
 
-    //cose per il pane proprio del mercato
+    /**
+     * choices in the market
+     */
     @FXML
     public void submitMarket(){
         int indexSelectedToggle = toggleGroupMarket.getToggles().indexOf(toggleGroupMarket.getSelectedToggle());
@@ -252,6 +254,9 @@ public class UseMarketSceneController extends FXMLController{
         boughtResources = clientModel.fromMarblesToResources(takenMarbles, whiteMarbleChoices);
     }
 
+    /**
+     * asks the player to choose which of his 2 white marble Leader cards to use
+     */
     //questo metodo chiede all'utente di scegliere quale tra le sue 2 carte leader white marble usare
     private int askWhiteMarbleChoice(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -272,7 +277,9 @@ public class UseMarketSceneController extends FXMLController{
         }
     }
 
-    //cose per il pane di inserire/scartare risorse
+    /**
+     * insertion/deletion of resources
+     */
     private void initializeInsertResourcesPane(){
         newWarehouse = new PlayerWarehouse();
         newWarehouse.setWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));
@@ -351,7 +358,9 @@ public class UseMarketSceneController extends FXMLController{
         }
     }
 
-
+    /**
+     * lets the player choose where to put resources
+     */
     @FXML
     public void insertResource(){
         insertResourceButton.setDisable(true);
@@ -365,6 +374,10 @@ public class UseMarketSceneController extends FXMLController{
         submitInsertResourceButton.setDisable(false);
         insertResourceLabel.setText("Choose the cell where you want to insert the resource.");
     }
+
+    /**
+     * submit the chosen resources
+     */
     @FXML
     public void submitInsertResource(){
         insertResourceButton.setDisable(false);
@@ -422,6 +435,10 @@ public class UseMarketSceneController extends FXMLController{
         }
         return new SameTypePair<>(selectedRow,selectedCol);
     }
+
+    /**
+     * lets the player which resources to be discarded
+     */
     @FXML
     public void discardResource(){
         discardedResources = Resource.addOneResource(discardedResources,boughtResources.get(0));
@@ -545,6 +562,9 @@ public class UseMarketSceneController extends FXMLController{
         }
     }
 
+    /**
+     * reinsert resources after they have been temporarily removed
+     */
     @FXML
     public void reinsertResource(){
         SameTypePair<Integer> selectedCell = getCellFromToggleGroup(toggleGroupEditWarehouse);
