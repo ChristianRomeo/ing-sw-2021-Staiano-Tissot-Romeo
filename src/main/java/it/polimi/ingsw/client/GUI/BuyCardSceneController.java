@@ -63,8 +63,10 @@ public class BuyCardSceneController extends FXMLController {
     @FXML
     private ToggleGroup toggleGroupSelectPile;
 
-
-    @FXML //sto metodo inizializza la scena solo quando viene caricata la prima volta, in automatico
+    /**
+     * initializes the scene the first time it is loaded
+     */
+    @FXML
     public void initialize(){
         buyCardRowChoiceBox.getItems().removeAll();
         buyCardRowChoiceBox.getItems().addAll(0,1,2);

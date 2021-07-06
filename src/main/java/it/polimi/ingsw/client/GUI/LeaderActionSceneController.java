@@ -22,6 +22,10 @@ public class LeaderActionSceneController extends FXMLController{
 
     private int selectedLeaderCard;
 
+    /**
+     * updates the leaderActionScene
+     * it shows the Leader cards depending on if they have been activated or not
+     */
     public void updateScene(){
         selectedLeaderCard=-1;
         chooseLeaderCardImage1.setDisable(false);
@@ -44,6 +48,10 @@ public class LeaderActionSceneController extends FXMLController{
             chooseLeaderCardImage2.setImage(GuiView.getLeaderCardImage(myLeaderCards.get(1)));
 
     }
+
+    /**
+     * shows that the first Leader card has been selected
+     */
     @FXML
     public void selectFirstLeaderCard(){
         selectedLeaderCard=0;
@@ -56,6 +64,10 @@ public class LeaderActionSceneController extends FXMLController{
 
         chooseLeaderCardImage1.setEffect(d);
     }
+
+    /**
+     * shows that a Leader card has been selected
+     */
     @FXML
     public void selectSecondLeaderCard(){
         selectedLeaderCard=1;
@@ -70,6 +82,10 @@ public class LeaderActionSceneController extends FXMLController{
         chooseLeaderCardImage2.setDisable(true);
 
     }
+
+    /**
+     * shows that a Leader card has been activated
+     */
     @FXML
     public void activateLeaderCard(){
         if(selectedLeaderCard!=-1){
@@ -91,6 +107,10 @@ public class LeaderActionSceneController extends FXMLController{
             guiView.setCurrentScene("gameScene");
         }
     }
+
+    /**
+     * shows that a Leader card has been discarded
+     */
     @FXML
     public void discardLeaderCard(){
         if(selectedLeaderCard!=-1){

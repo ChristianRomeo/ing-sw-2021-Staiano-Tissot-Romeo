@@ -30,7 +30,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(LeaderCardActionEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has activated/discarded a leader card");
         });
     }
 
@@ -42,7 +41,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(BoughtCardEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has bought a card");
         });
     }
 
@@ -54,7 +52,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(ActivatedProductionEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used his production");
         });
     }
 
@@ -66,7 +63,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(IncrementPositionEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-           // guiView.getCurrentSceneController().showMessage(event.getPlayerNickname()+ " has proceeded in the faith track");
         });
     }
 
@@ -78,7 +74,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(VaticanReportEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-           // guiView.getCurrentSceneController().showMessage("A vatican report has been activated");
         });
     }
 
@@ -90,7 +85,6 @@ public class EventsHandlerGUI implements ServerEventObserver {
     public void handleEvent(UseMarketEventS2C event) {
         Platform.runLater(() -> {
             guiView.getSceneController("gameScene").updateScene();
-           // guiView.getCurrentSceneController().showMessage(clientModel.getCurrentPlayerNick() + " has used the market");
         });
     }
 
