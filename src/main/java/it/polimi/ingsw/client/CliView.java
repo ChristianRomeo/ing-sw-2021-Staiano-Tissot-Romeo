@@ -53,7 +53,13 @@ public class CliView implements View {
     public void askActions(){
         while(!clientModel.hasGameEnded()){
             scanner.reset();
-            String newAction = scanner.nextLine();
+            String newAction=null;
+            try {
+                newAction = scanner.nextLine();
+            }catch(NoSuchElementException | NullPointerException e){
+                    System.exit(0);
+                }
+
 
             actionHandler.handleAction(newAction);
         }

@@ -71,7 +71,7 @@ public class ClientHandler implements Runnable {
 
             String nick = newConnectionEvent.getNickname();                                                             //forse sta parte si può mettere nella virtual view per coerenza
             String tempNick = nick;
-            synchronized (virtualView){     //ha senso sincronizzare la vv?
+            synchronized (virtualView){
                 for (ClientHandler cl : virtualView.getClientHandlers())
                     while (cl.getNickname().equalsIgnoreCase(nick) || cl.getNickname().equalsIgnoreCase("Lorenzo il Magnifico"))
                         nick = tempNick + "_" + ++idx;
