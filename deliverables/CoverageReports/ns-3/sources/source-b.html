@@ -1,0 +1,756 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UseMarketSceneController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">it.polimi.ingsw.client.GUI</a>
+</div>
+
+<h1>Coverage Summary for Class: UseMarketSceneController (it.polimi.ingsw.client.GUI)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UseMarketSceneController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/286)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package it.polimi.ingsw.client.GUI;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;import it.polimi.ingsw.controller.Events.UseMarketEvent;
+<i class="no-highlight">5</i>&nbsp;import it.polimi.ingsw.model.*;
+<i class="no-highlight">6</i>&nbsp;import it.polimi.ingsw.model.modelExceptions.InvalidWarehouseInsertionException;
+<i class="no-highlight">7</i>&nbsp;import javafx.fxml.FXML;
+<i class="no-highlight">8</i>&nbsp;import javafx.scene.Node;
+<i class="no-highlight">9</i>&nbsp;import javafx.scene.control.*;
+<i class="no-highlight">10</i>&nbsp;import javafx.scene.image.ImageView;
+<i class="no-highlight">11</i>&nbsp;import javafx.scene.layout.AnchorPane;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;import java.util.*;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;/**
+<i class="no-highlight">16</i>&nbsp; * controller which handles the useMarketScene
+<i class="no-highlight">17</i>&nbsp; */
+<b class="nc"><i class="no-highlight">18</i>&nbsp;public class UseMarketSceneController extends FXMLController{</b>
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    private char rowOrColumn;
+<i class="no-highlight">21</i>&nbsp;    private int marketIndex;
+<i class="no-highlight">22</i>&nbsp;    private List&lt;Resource&gt; boughtResources;
+<i class="no-highlight">23</i>&nbsp;    private List&lt;Integer&gt; whiteMarbleChoices;
+<i class="no-highlight">24</i>&nbsp;    private Map&lt;Resource,Integer&gt; discardedResources;
+<i class="no-highlight">25</i>&nbsp;    private Integer fullLeaderSlots1;
+<i class="no-highlight">26</i>&nbsp;    private Integer fullLeaderSlots2;
+<i class="no-highlight">27</i>&nbsp;    private Resource leaderCardResource1;
+<i class="no-highlight">28</i>&nbsp;    private Resource leaderCardResource2;
+<i class="no-highlight">29</i>&nbsp;    private PlayerWarehouse newWarehouse;
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;    //pane con proprio il mercato
+<i class="no-highlight">32</i>&nbsp;    @FXML
+<i class="no-highlight">33</i>&nbsp;    private ImageView marbleImage00;
+<i class="no-highlight">34</i>&nbsp;    @FXML
+<i class="no-highlight">35</i>&nbsp;    private ImageView marbleImage01;
+<i class="no-highlight">36</i>&nbsp;    @FXML
+<i class="no-highlight">37</i>&nbsp;    private ImageView marbleImage02;
+<i class="no-highlight">38</i>&nbsp;    @FXML
+<i class="no-highlight">39</i>&nbsp;    private ImageView marbleImage03;
+<i class="no-highlight">40</i>&nbsp;    @FXML
+<i class="no-highlight">41</i>&nbsp;    private ImageView marbleImage10;
+<i class="no-highlight">42</i>&nbsp;    @FXML
+<i class="no-highlight">43</i>&nbsp;    private ImageView marbleImage11;
+<i class="no-highlight">44</i>&nbsp;    @FXML
+<i class="no-highlight">45</i>&nbsp;    private ImageView marbleImage12;
+<i class="no-highlight">46</i>&nbsp;    @FXML
+<i class="no-highlight">47</i>&nbsp;    private ImageView marbleImage13;
+<i class="no-highlight">48</i>&nbsp;    @FXML
+<i class="no-highlight">49</i>&nbsp;    private ImageView marbleImage20;
+<i class="no-highlight">50</i>&nbsp;    @FXML
+<i class="no-highlight">51</i>&nbsp;    private ImageView marbleImage21;
+<i class="no-highlight">52</i>&nbsp;    @FXML
+<i class="no-highlight">53</i>&nbsp;    private ImageView marbleImage22;
+<i class="no-highlight">54</i>&nbsp;    @FXML
+<i class="no-highlight">55</i>&nbsp;    private ImageView marbleImage23;
+<i class="no-highlight">56</i>&nbsp;    @FXML
+<i class="no-highlight">57</i>&nbsp;    private ImageView slideMarbleImage;
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;    @FXML
+<i class="no-highlight">60</i>&nbsp;    private ToggleGroup toggleGroupMarket;
+<i class="no-highlight">61</i>&nbsp;    @FXML
+<i class="no-highlight">62</i>&nbsp;    private Button submitMarketButton;
+<i class="no-highlight">63</i>&nbsp;    @FXML
+<i class="no-highlight">64</i>&nbsp;    private Button exitButton;
+<i class="no-highlight">65</i>&nbsp;
+<i class="no-highlight">66</i>&nbsp;    //pane per inserire/scartare risorse
+<i class="no-highlight">67</i>&nbsp;    @FXML
+<i class="no-highlight">68</i>&nbsp;    private ImageView boughtResourceImage1;
+<i class="no-highlight">69</i>&nbsp;    @FXML
+<i class="no-highlight">70</i>&nbsp;    private ImageView boughtResourceImage2;
+<i class="no-highlight">71</i>&nbsp;    @FXML
+<i class="no-highlight">72</i>&nbsp;    private ImageView boughtResourceImage3;
+<i class="no-highlight">73</i>&nbsp;    @FXML
+<i class="no-highlight">74</i>&nbsp;    private ImageView boughtResourceImage4;
+<i class="no-highlight">75</i>&nbsp;
+<i class="no-highlight">76</i>&nbsp;    @FXML
+<i class="no-highlight">77</i>&nbsp;    private ImageView warehouseResourceInsertImage11;
+<i class="no-highlight">78</i>&nbsp;    @FXML
+<i class="no-highlight">79</i>&nbsp;    private ImageView warehouseResourceInsertImage21;
+<i class="no-highlight">80</i>&nbsp;    @FXML
+<i class="no-highlight">81</i>&nbsp;    private ImageView warehouseResourceInsertImage22;
+<i class="no-highlight">82</i>&nbsp;    @FXML
+<i class="no-highlight">83</i>&nbsp;    private ImageView warehouseResourceInsertImage31;
+<i class="no-highlight">84</i>&nbsp;    @FXML
+<i class="no-highlight">85</i>&nbsp;    private ImageView warehouseResourceInsertImage32;
+<i class="no-highlight">86</i>&nbsp;    @FXML
+<i class="no-highlight">87</i>&nbsp;    private ImageView warehouseResourceInsertImage33;
+<i class="no-highlight">88</i>&nbsp;
+<i class="no-highlight">89</i>&nbsp;    @FXML
+<i class="no-highlight">90</i>&nbsp;    private ImageView leaderCardInsertImage1;
+<i class="no-highlight">91</i>&nbsp;    @FXML
+<i class="no-highlight">92</i>&nbsp;    private ImageView leaderCardInsertImage2;
+<i class="no-highlight">93</i>&nbsp;    @FXML
+<i class="no-highlight">94</i>&nbsp;    private ImageView leader1Slot1InsertImage;
+<i class="no-highlight">95</i>&nbsp;    @FXML
+<i class="no-highlight">96</i>&nbsp;    private ImageView leader1Slot2InsertImage;
+<i class="no-highlight">97</i>&nbsp;    @FXML
+<i class="no-highlight">98</i>&nbsp;    private ImageView leader2Slot1InsertImage;
+<i class="no-highlight">99</i>&nbsp;    @FXML
+<i class="no-highlight">100</i>&nbsp;    private ImageView leader2Slot2InsertImage;
+<i class="no-highlight">101</i>&nbsp;
+<i class="no-highlight">102</i>&nbsp;    @FXML
+<i class="no-highlight">103</i>&nbsp;    private AnchorPane insertResourcesPane;
+<i class="no-highlight">104</i>&nbsp;    @FXML
+<i class="no-highlight">105</i>&nbsp;    private Label insertResourceLabel;
+<i class="no-highlight">106</i>&nbsp;    @FXML
+<i class="no-highlight">107</i>&nbsp;    private ToggleGroup toggleGroupInsertWarehouse;
+<i class="no-highlight">108</i>&nbsp;    @FXML
+<i class="no-highlight">109</i>&nbsp;    private Button insertResourceButton;
+<i class="no-highlight">110</i>&nbsp;    @FXML
+<i class="no-highlight">111</i>&nbsp;    private Button discardResourceButton;
+<i class="no-highlight">112</i>&nbsp;    @FXML
+<i class="no-highlight">113</i>&nbsp;    private Button editWarehouseButton;
+<i class="no-highlight">114</i>&nbsp;    @FXML
+<i class="no-highlight">115</i>&nbsp;    private Button submitInsertResourceButton;
+<i class="no-highlight">116</i>&nbsp;    @FXML
+<i class="no-highlight">117</i>&nbsp;    private Button insertLeaderButton1;
+<i class="no-highlight">118</i>&nbsp;    @FXML
+<i class="no-highlight">119</i>&nbsp;    private Button insertLeaderButton2;
+<i class="no-highlight">120</i>&nbsp;
+<i class="no-highlight">121</i>&nbsp;    //pane per edit Warehouse
+<i class="no-highlight">122</i>&nbsp;    private List&lt;Resource&gt; temporaryRemovedResources;
+<i class="no-highlight">123</i>&nbsp;
+<i class="no-highlight">124</i>&nbsp;    @FXML
+<i class="no-highlight">125</i>&nbsp;    private ImageView temporaryRemovedResourceImage1;
+<i class="no-highlight">126</i>&nbsp;    @FXML
+<i class="no-highlight">127</i>&nbsp;    private ImageView temporaryRemovedResourceImage2;
+<i class="no-highlight">128</i>&nbsp;    @FXML
+<i class="no-highlight">129</i>&nbsp;    private ImageView temporaryRemovedResourceImage3;
+<i class="no-highlight">130</i>&nbsp;    @FXML
+<i class="no-highlight">131</i>&nbsp;    private ImageView temporaryRemovedResourceImage4;
+<i class="no-highlight">132</i>&nbsp;
+<i class="no-highlight">133</i>&nbsp;    @FXML
+<i class="no-highlight">134</i>&nbsp;    private ImageView warehouseResourceEditImage11;
+<i class="no-highlight">135</i>&nbsp;    @FXML
+<i class="no-highlight">136</i>&nbsp;    private ImageView warehouseResourceEditImage21;
+<i class="no-highlight">137</i>&nbsp;    @FXML
+<i class="no-highlight">138</i>&nbsp;    private ImageView warehouseResourceEditImage22;
+<i class="no-highlight">139</i>&nbsp;    @FXML
+<i class="no-highlight">140</i>&nbsp;    private ImageView warehouseResourceEditImage31;
+<i class="no-highlight">141</i>&nbsp;    @FXML
+<i class="no-highlight">142</i>&nbsp;    private ImageView warehouseResourceEditImage32;
+<i class="no-highlight">143</i>&nbsp;    @FXML
+<i class="no-highlight">144</i>&nbsp;    private ImageView warehouseResourceEditImage33;
+<i class="no-highlight">145</i>&nbsp;
+<i class="no-highlight">146</i>&nbsp;    @FXML
+<i class="no-highlight">147</i>&nbsp;    private ImageView leaderCardEditImage1;
+<i class="no-highlight">148</i>&nbsp;    @FXML
+<i class="no-highlight">149</i>&nbsp;    private ImageView leaderCardEditImage2;
+<i class="no-highlight">150</i>&nbsp;    @FXML
+<i class="no-highlight">151</i>&nbsp;    private ImageView leader1Slot1EditImage;
+<i class="no-highlight">152</i>&nbsp;    @FXML
+<i class="no-highlight">153</i>&nbsp;    private ImageView leader1Slot2EditImage;
+<i class="no-highlight">154</i>&nbsp;    @FXML
+<i class="no-highlight">155</i>&nbsp;    private ImageView leader2Slot1EditImage;
+<i class="no-highlight">156</i>&nbsp;    @FXML
+<i class="no-highlight">157</i>&nbsp;    private ImageView leader2Slot2EditImage;
+<i class="no-highlight">158</i>&nbsp;
+<i class="no-highlight">159</i>&nbsp;    @FXML
+<i class="no-highlight">160</i>&nbsp;    private AnchorPane editWarehousePane;
+<i class="no-highlight">161</i>&nbsp;    @FXML
+<i class="no-highlight">162</i>&nbsp;    private ToggleGroup toggleGroupEditWarehouse;
+<i class="no-highlight">163</i>&nbsp;    @FXML
+<i class="no-highlight">164</i>&nbsp;    private Button reinsertResourceButton;
+<i class="no-highlight">165</i>&nbsp;    @FXML
+<i class="no-highlight">166</i>&nbsp;    private Button temporaryRemoveResourceButton;
+<i class="no-highlight">167</i>&nbsp;    @FXML
+<i class="no-highlight">168</i>&nbsp;    private Button exitEditWarehouseButton;
+<i class="no-highlight">169</i>&nbsp;    @FXML
+<i class="no-highlight">170</i>&nbsp;    private Button reinsertLeaderResourceButton1;
+<i class="no-highlight">171</i>&nbsp;    @FXML
+<i class="no-highlight">172</i>&nbsp;    private Button reinsertLeaderResourceButton2;
+<i class="no-highlight">173</i>&nbsp;    @FXML
+<i class="no-highlight">174</i>&nbsp;    private Button removeLeaderResourceButton1;
+<i class="no-highlight">175</i>&nbsp;    @FXML
+<i class="no-highlight">176</i>&nbsp;    private Button removeLeaderResourceButton2;
+<i class="no-highlight">177</i>&nbsp;    @FXML
+<i class="no-highlight">178</i>&nbsp;    private AnchorPane root;
+<i class="no-highlight">179</i>&nbsp;
+<i class="no-highlight">180</i>&nbsp;
+<i class="no-highlight">181</i>&nbsp;    /**
+<i class="no-highlight">182</i>&nbsp;     * updates the useMarketScene with the current market
+<i class="no-highlight">183</i>&nbsp;     */
+<i class="no-highlight">184</i>&nbsp;    @Override
+<i class="no-highlight">185</i>&nbsp;    public void updateScene(){
+<b class="nc"><i class="no-highlight">186</i>&nbsp;        submitMarketButton.setDisable(!clientModel.isCurrentPlayer());</b>
+<i class="no-highlight">187</i>&nbsp;
+<b class="nc"><i class="no-highlight">188</i>&nbsp;        Market market = clientModel.getMarket();</b>
+<b class="nc"><i class="no-highlight">189</i>&nbsp;        marbleImage00.setImage(GuiView.getMarbleImage(market.getColor(0,0)));</b>
+<b class="nc"><i class="no-highlight">190</i>&nbsp;        marbleImage01.setImage(GuiView.getMarbleImage(market.getColor(0,1)));</b>
+<b class="nc"><i class="no-highlight">191</i>&nbsp;        marbleImage02.setImage(GuiView.getMarbleImage(market.getColor(0,2)));</b>
+<b class="nc"><i class="no-highlight">192</i>&nbsp;        marbleImage03.setImage(GuiView.getMarbleImage(market.getColor(0,3)));</b>
+<b class="nc"><i class="no-highlight">193</i>&nbsp;        marbleImage10.setImage(GuiView.getMarbleImage(market.getColor(1,0)));</b>
+<b class="nc"><i class="no-highlight">194</i>&nbsp;        marbleImage11.setImage(GuiView.getMarbleImage(market.getColor(1,1)));</b>
+<b class="nc"><i class="no-highlight">195</i>&nbsp;        marbleImage12.setImage(GuiView.getMarbleImage(market.getColor(1,2)));</b>
+<b class="nc"><i class="no-highlight">196</i>&nbsp;        marbleImage13.setImage(GuiView.getMarbleImage(market.getColor(1,3)));</b>
+<b class="nc"><i class="no-highlight">197</i>&nbsp;        marbleImage20.setImage(GuiView.getMarbleImage(market.getColor(2,0)));</b>
+<b class="nc"><i class="no-highlight">198</i>&nbsp;        marbleImage21.setImage(GuiView.getMarbleImage(market.getColor(2,1)));</b>
+<b class="nc"><i class="no-highlight">199</i>&nbsp;        marbleImage22.setImage(GuiView.getMarbleImage(market.getColor(2,2)));</b>
+<b class="nc"><i class="no-highlight">200</i>&nbsp;        marbleImage23.setImage(GuiView.getMarbleImage(market.getColor(2,3)));</b>
+<b class="nc"><i class="no-highlight">201</i>&nbsp;        slideMarbleImage.setImage(GuiView.getMarbleImage(market.getSlideMarble()));</b>
+<i class="no-highlight">202</i>&nbsp;    }
+<i class="no-highlight">203</i>&nbsp;
+<i class="no-highlight">204</i>&nbsp;    //cose per il pane proprio del mercato
+<i class="no-highlight">205</i>&nbsp;    @FXML
+<i class="no-highlight">206</i>&nbsp;    public void submitMarket(){
+<b class="nc"><i class="no-highlight">207</i>&nbsp;        int indexSelectedToggle = toggleGroupMarket.getToggles().indexOf(toggleGroupMarket.getSelectedToggle());</b>
+<b class="nc"><i class="no-highlight">208</i>&nbsp;        if(indexSelectedToggle&lt;3){</b>
+<b class="nc"><i class="no-highlight">209</i>&nbsp;            rowOrColumn=&#39;r&#39;;</b>
+<i class="no-highlight">210</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">211</i>&nbsp;            rowOrColumn=&#39;c&#39;;</b>
+<i class="no-highlight">212</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">213</i>&nbsp;        switch (indexSelectedToggle) {</b>
+<b class="nc"><i class="no-highlight">214</i>&nbsp;            case 0, 3 -&gt; marketIndex = 0;</b>
+<b class="nc"><i class="no-highlight">215</i>&nbsp;            case 1, 4 -&gt; marketIndex = 1;</b>
+<b class="nc"><i class="no-highlight">216</i>&nbsp;            case 2, 5 -&gt; marketIndex = 2;</b>
+<b class="nc"><i class="no-highlight">217</i>&nbsp;            case 6 -&gt; marketIndex = 3;</b>
+<i class="no-highlight">218</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">219</i>&nbsp;        collectResource();</b>
+<b class="nc"><i class="no-highlight">220</i>&nbsp;        initializeInsertResourcesPane();</b>
+<i class="no-highlight">221</i>&nbsp;    }
+<i class="no-highlight">222</i>&nbsp;
+<i class="no-highlight">223</i>&nbsp;    /**
+<i class="no-highlight">224</i>&nbsp;     * exits from the useMarketScene and go back to gameScene
+<i class="no-highlight">225</i>&nbsp;     */
+<i class="no-highlight">226</i>&nbsp;    @FXML
+<i class="no-highlight">227</i>&nbsp;    public void exit(){
+<b class="nc"><i class="no-highlight">228</i>&nbsp;        guiView.getSceneController(&quot;gameScene&quot;).updateScene();</b>
+<b class="nc"><i class="no-highlight">229</i>&nbsp;        guiView.setCurrentScene(&quot;gameScene&quot;);</b>
+<i class="no-highlight">230</i>&nbsp;    }
+<i class="no-highlight">231</i>&nbsp;
+<i class="no-highlight">232</i>&nbsp;    //una volta che l&#39;utente ha scelto riga/colonna allora si prendono le relative risorse, si chiedono all&#39;utente eventuali
+<i class="no-highlight">233</i>&nbsp;    //scelte se tipo ha due carte leader whitemarble attive
+<i class="no-highlight">234</i>&nbsp;    private void collectResource(){
+<i class="no-highlight">235</i>&nbsp;        List&lt;MarbleColor&gt; takenMarbles;
+<b class="nc"><i class="no-highlight">236</i>&nbsp;        whiteMarbleChoices=null;</b>
+<b class="nc"><i class="no-highlight">237</i>&nbsp;        if(rowOrColumn == &#39;r&#39;)</b>
+<b class="nc"><i class="no-highlight">238</i>&nbsp;            takenMarbles = clientModel.getMarket().getRowColors(marketIndex);</b>
+<i class="no-highlight">239</i>&nbsp;        else
+<b class="nc"><i class="no-highlight">240</i>&nbsp;            takenMarbles = clientModel.getMarket().getColumnColors(marketIndex);</b>
+<i class="no-highlight">241</i>&nbsp;
+<b class="nc"><i class="no-highlight">242</i>&nbsp;        List&lt;LeaderCard&gt; leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());</b>
+<b class="nc"><i class="no-highlight">243</i>&nbsp;        if (leaderCards.get(0).isActivated() &amp;&amp; leaderCards.get(0).getWhiteMarbleResource() != null &amp;&amp; leaderCards.get(1).isActivated() &amp;&amp; leaderCards.get(1).getWhiteMarbleResource() != null) {</b>
+<i class="no-highlight">244</i>&nbsp;            //allora l&#39;utente ha 2 carte leader white marble attive
+<b class="nc"><i class="no-highlight">245</i>&nbsp;            whiteMarbleChoices = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">246</i>&nbsp;            for(MarbleColor marble : takenMarbles){</b>
+<b class="nc"><i class="no-highlight">247</i>&nbsp;                if(marble == MarbleColor.WHITE){</b>
+<b class="nc"><i class="no-highlight">248</i>&nbsp;                    whiteMarbleChoices.add(askWhiteMarbleChoice());</b>
+<i class="no-highlight">249</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">250</i>&nbsp;            }</b>
+<i class="no-highlight">251</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">252</i>&nbsp;        boughtResources = clientModel.fromMarblesToResources(takenMarbles, whiteMarbleChoices);</b>
+<i class="no-highlight">253</i>&nbsp;    }
+<i class="no-highlight">254</i>&nbsp;
+<i class="no-highlight">255</i>&nbsp;    //questo metodo chiede all&#39;utente di scegliere quale tra le sue 2 carte leader white marble usare
+<i class="no-highlight">256</i>&nbsp;    private int askWhiteMarbleChoice(){
+<b class="nc"><i class="no-highlight">257</i>&nbsp;        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);</b>
+<b class="nc"><i class="no-highlight">258</i>&nbsp;        alert.setHeaderText(&quot;You have two white marble leader cards active, which one do you want to use for this white marble?&quot;);</b>
+<b class="nc"><i class="no-highlight">259</i>&nbsp;        ButtonType buttonTypeOne = new ButtonType(&quot;One&quot;);</b>
+<b class="nc"><i class="no-highlight">260</i>&nbsp;        ButtonType buttonTypeTwo = new ButtonType(&quot;Two&quot;);</b>
+<i class="no-highlight">261</i>&nbsp;
+<b class="nc"><i class="no-highlight">262</i>&nbsp;        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);</b>
+<b class="nc"><i class="no-highlight">263</i>&nbsp;        Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+<i class="no-highlight">264</i>&nbsp;
+<b class="nc"><i class="no-highlight">265</i>&nbsp;        if(result.get()==buttonTypeOne){</b>
+<b class="nc"><i class="no-highlight">266</i>&nbsp;            return 1;</b>
+<i class="no-highlight">267</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">268</i>&nbsp;        if(result.get()==buttonTypeTwo){</b>
+<b class="nc"><i class="no-highlight">269</i>&nbsp;            return 2;</b>
+<i class="no-highlight">270</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">271</i>&nbsp;            return -1; //dovrebbe essere impossibile</b>
+<i class="no-highlight">272</i>&nbsp;        }
+<i class="no-highlight">273</i>&nbsp;    }
+<i class="no-highlight">274</i>&nbsp;
+<i class="no-highlight">275</i>&nbsp;    //cose per il pane di inserire/scartare risorse
+<i class="no-highlight">276</i>&nbsp;    private void initializeInsertResourcesPane(){
+<b class="nc"><i class="no-highlight">277</i>&nbsp;        newWarehouse = new PlayerWarehouse();</b>
+<b class="nc"><i class="no-highlight">278</i>&nbsp;        newWarehouse.setWarehouse(clientModel.getPlayersWarehouses().get(clientModel.getMyIndex()));</b>
+<b class="nc"><i class="no-highlight">279</i>&nbsp;        List&lt;LeaderCard&gt; leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());</b>
+<b class="nc"><i class="no-highlight">280</i>&nbsp;        fullLeaderSlots1 = leaderCards.get(0).getFullSlotsNumber();</b>
+<b class="nc"><i class="no-highlight">281</i>&nbsp;        fullLeaderSlots2 = leaderCards.get(1).getFullSlotsNumber();</b>
+<b class="nc"><i class="no-highlight">282</i>&nbsp;        leaderCardResource1 = leaderCards.get(0).getAbilityResource();</b>
+<b class="nc"><i class="no-highlight">283</i>&nbsp;        leaderCardResource2 = leaderCards.get(1).getAbilityResource();</b>
+<i class="no-highlight">284</i>&nbsp;
+<b class="nc"><i class="no-highlight">285</i>&nbsp;        discardedResources = new HashMap&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">286</i>&nbsp;        insertLeaderButton1.setVisible(fullLeaderSlots1 != null);</b>
+<b class="nc"><i class="no-highlight">287</i>&nbsp;        insertLeaderButton2.setVisible(fullLeaderSlots2 != null);</b>
+<b class="nc"><i class="no-highlight">288</i>&nbsp;        if(fullLeaderSlots1!=null){</b>
+<b class="nc"><i class="no-highlight">289</i>&nbsp;            leaderCardInsertImage1.setImage(GuiView.getLeaderCardImage(leaderCards.get(0)));</b>
+<i class="no-highlight">290</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">291</i>&nbsp;            leaderCardInsertImage1.setImage(null);</b>
+<i class="no-highlight">292</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">293</i>&nbsp;        if(fullLeaderSlots2!=null){</b>
+<b class="nc"><i class="no-highlight">294</i>&nbsp;            leaderCardInsertImage2.setImage(GuiView.getLeaderCardImage(leaderCards.get(1)));</b>
+<i class="no-highlight">295</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">296</i>&nbsp;            leaderCardInsertImage2.setImage(null);</b>
+<i class="no-highlight">297</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">298</i>&nbsp;        checkFinishedResources();</b>
+<b class="nc"><i class="no-highlight">299</i>&nbsp;        if(boughtResources.size()&gt;0){</b>
+<b class="nc"><i class="no-highlight">300</i>&nbsp;            insertResourcesPane.setVisible(true);</b>
+<b class="nc"><i class="no-highlight">301</i>&nbsp;            updateInsertResourcePane();</b>
+<i class="no-highlight">302</i>&nbsp;        }
+<i class="no-highlight">303</i>&nbsp;    }
+<i class="no-highlight">304</i>&nbsp;
+<i class="no-highlight">305</i>&nbsp;    //fa l&#39;update del pane per inserire risorse, cosi mostra le giuste immagini nel warehouse e nelle cose da
+<i class="no-highlight">306</i>&nbsp;    //inserire
+<i class="no-highlight">307</i>&nbsp;    private void updateInsertResourcePane(){
+<b class="nc"><i class="no-highlight">308</i>&nbsp;        boughtResourceImage1.setImage(null);</b>
+<b class="nc"><i class="no-highlight">309</i>&nbsp;        boughtResourceImage2.setImage(null);</b>
+<b class="nc"><i class="no-highlight">310</i>&nbsp;        boughtResourceImage3.setImage(null);</b>
+<b class="nc"><i class="no-highlight">311</i>&nbsp;        boughtResourceImage4.setImage(null);</b>
+<b class="nc"><i class="no-highlight">312</i>&nbsp;        if(boughtResources.size()&gt;0){</b>
+<b class="nc"><i class="no-highlight">313</i>&nbsp;            boughtResourceImage1.setImage(GuiView.getResourceImage(boughtResources.get(0)));</b>
+<i class="no-highlight">314</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">315</i>&nbsp;        if(boughtResources.size()&gt;1){</b>
+<b class="nc"><i class="no-highlight">316</i>&nbsp;            boughtResourceImage2.setImage(GuiView.getResourceImage(boughtResources.get(1)));</b>
+<i class="no-highlight">317</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">318</i>&nbsp;        if(boughtResources.size()&gt;2){</b>
+<b class="nc"><i class="no-highlight">319</i>&nbsp;            boughtResourceImage3.setImage(GuiView.getResourceImage(boughtResources.get(2)));</b>
+<i class="no-highlight">320</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">321</i>&nbsp;        if(boughtResources.size()&gt;3){</b>
+<b class="nc"><i class="no-highlight">322</i>&nbsp;            boughtResourceImage4.setImage(GuiView.getResourceImage(boughtResources.get(3)));</b>
+<i class="no-highlight">323</i>&nbsp;        }
+<i class="no-highlight">324</i>&nbsp;        //if the warehouse doesn&#39;t have a resource in that position, it returns null, so it will be setImage(null), so it won&#39;t set an image. Top.
+<b class="nc"><i class="no-highlight">325</i>&nbsp;        warehouseResourceInsertImage11.setImage(GuiView.getResourceImage(newWarehouse.getResource(1,1)));</b>
+<b class="nc"><i class="no-highlight">326</i>&nbsp;        warehouseResourceInsertImage21.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,1)));</b>
+<b class="nc"><i class="no-highlight">327</i>&nbsp;        warehouseResourceInsertImage22.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,2)));</b>
+<b class="nc"><i class="no-highlight">328</i>&nbsp;        warehouseResourceInsertImage31.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,1)));</b>
+<b class="nc"><i class="no-highlight">329</i>&nbsp;        warehouseResourceInsertImage32.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,2)));</b>
+<b class="nc"><i class="no-highlight">330</i>&nbsp;        warehouseResourceInsertImage33.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,3)));</b>
+<i class="no-highlight">331</i>&nbsp;
+<b class="nc"><i class="no-highlight">332</i>&nbsp;        leader1Slot1InsertImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">333</i>&nbsp;        leader1Slot2InsertImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">334</i>&nbsp;        if(fullLeaderSlots1!=null){</b>
+<b class="nc"><i class="no-highlight">335</i>&nbsp;            if(fullLeaderSlots1&gt;=1){</b>
+<b class="nc"><i class="no-highlight">336</i>&nbsp;                leader1Slot1InsertImage.setImage(GuiView.getResourceImage(leaderCardResource1));</b>
+<i class="no-highlight">337</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">338</i>&nbsp;            if(fullLeaderSlots1&gt;=2){</b>
+<b class="nc"><i class="no-highlight">339</i>&nbsp;                leader1Slot2InsertImage.setImage(GuiView.getResourceImage(leaderCardResource1));</b>
+<i class="no-highlight">340</i>&nbsp;            }
+<i class="no-highlight">341</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">342</i>&nbsp;        leader2Slot1InsertImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">343</i>&nbsp;        leader2Slot2InsertImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">344</i>&nbsp;        if(fullLeaderSlots2!=null){</b>
+<b class="nc"><i class="no-highlight">345</i>&nbsp;            if(fullLeaderSlots2&gt;=1){</b>
+<b class="nc"><i class="no-highlight">346</i>&nbsp;                leader2Slot1InsertImage.setImage(GuiView.getResourceImage(leaderCardResource2));</b>
+<i class="no-highlight">347</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">348</i>&nbsp;            if(fullLeaderSlots2&gt;=2){</b>
+<b class="nc"><i class="no-highlight">349</i>&nbsp;                leader2Slot2InsertImage.setImage(GuiView.getResourceImage(leaderCardResource2));</b>
+<i class="no-highlight">350</i>&nbsp;            }
+<i class="no-highlight">351</i>&nbsp;        }
+<i class="no-highlight">352</i>&nbsp;    }
+<i class="no-highlight">353</i>&nbsp;
+<i class="no-highlight">354</i>&nbsp;
+<i class="no-highlight">355</i>&nbsp;    @FXML
+<i class="no-highlight">356</i>&nbsp;    public void insertResource(){
+<b class="nc"><i class="no-highlight">357</i>&nbsp;        insertResourceButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">358</i>&nbsp;        discardResourceButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">359</i>&nbsp;        editWarehouseButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">360</i>&nbsp;        insertLeaderButton1.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">361</i>&nbsp;        insertLeaderButton2.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">362</i>&nbsp;        for(Toggle toggle: toggleGroupInsertWarehouse.getToggles()){</b>
+<b class="nc"><i class="no-highlight">363</i>&nbsp;            ((Node) toggle).setDisable(false);</b>
+<b class="nc"><i class="no-highlight">364</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">365</i>&nbsp;        submitInsertResourceButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">366</i>&nbsp;        insertResourceLabel.setText(&quot;Choose the cell where you want to insert the resource.&quot;);</b>
+<i class="no-highlight">367</i>&nbsp;    }
+<i class="no-highlight">368</i>&nbsp;    @FXML
+<i class="no-highlight">369</i>&nbsp;    public void submitInsertResource(){
+<b class="nc"><i class="no-highlight">370</i>&nbsp;        insertResourceButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">371</i>&nbsp;        discardResourceButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">372</i>&nbsp;        editWarehouseButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">373</i>&nbsp;        insertLeaderButton1.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">374</i>&nbsp;        insertLeaderButton2.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">375</i>&nbsp;        for(Toggle toggle: toggleGroupInsertWarehouse.getToggles()){</b>
+<b class="nc"><i class="no-highlight">376</i>&nbsp;            ((Node) toggle).setDisable(true);</b>
+<b class="nc"><i class="no-highlight">377</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">378</i>&nbsp;        submitInsertResourceButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">379</i>&nbsp;        insertResourceLabel.setText(&quot;Choose your action.&quot;);</b>
+<b class="nc"><i class="no-highlight">380</i>&nbsp;        SameTypePair&lt;Integer&gt; selectedCell = getCellFromToggleGroup(toggleGroupInsertWarehouse);</b>
+<i class="no-highlight">381</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">382</i>&nbsp;            newWarehouse.insertResource(boughtResources.get(0), selectedCell.getVal1(), selectedCell.getVal2());</b>
+<b class="nc"><i class="no-highlight">383</i>&nbsp;            boughtResources.remove(0);</b>
+<b class="nc"><i class="no-highlight">384</i>&nbsp;            checkFinishedResources();</b>
+<b class="nc"><i class="no-highlight">385</i>&nbsp;            updateInsertResourcePane();</b>
+<b class="nc"><i class="no-highlight">386</i>&nbsp;        } catch (InvalidWarehouseInsertionException ignored) {</b>
+<b class="nc"><i class="no-highlight">387</i>&nbsp;        }</b>
+<i class="no-highlight">388</i>&nbsp;    }
+<i class="no-highlight">389</i>&nbsp;
+<i class="no-highlight">390</i>&nbsp;    /**
+<i class="no-highlight">391</i>&nbsp;     * @param toggleGroup is the group of toggles from which the player will choose a warehouse cell
+<i class="no-highlight">392</i>&nbsp;     * @return the selected warehouse cell from the selected toggle
+<i class="no-highlight">393</i>&nbsp;     */
+<i class="no-highlight">394</i>&nbsp;    private SameTypePair&lt;Integer&gt; getCellFromToggleGroup(ToggleGroup toggleGroup){
+<b class="nc"><i class="no-highlight">395</i>&nbsp;        int  indexSelectedCellToggle= toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());</b>
+<b class="nc"><i class="no-highlight">396</i>&nbsp;        int selectedRow=0, selectedCol=0;</b>
+<b class="nc"><i class="no-highlight">397</i>&nbsp;        switch (indexSelectedCellToggle) {</b>
+<b class="nc"><i class="no-highlight">398</i>&nbsp;            case 0 -&gt; {</b>
+<b class="nc"><i class="no-highlight">399</i>&nbsp;                selectedRow = 1;</b>
+<b class="nc"><i class="no-highlight">400</i>&nbsp;                selectedCol = 1;</b>
+<i class="no-highlight">401</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">402</i>&nbsp;            case 1 -&gt; {</b>
+<b class="nc"><i class="no-highlight">403</i>&nbsp;                selectedRow = 2;</b>
+<b class="nc"><i class="no-highlight">404</i>&nbsp;                selectedCol = 1;</b>
+<i class="no-highlight">405</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">406</i>&nbsp;            case 2 -&gt; {</b>
+<b class="nc"><i class="no-highlight">407</i>&nbsp;                selectedRow = 2;</b>
+<b class="nc"><i class="no-highlight">408</i>&nbsp;                selectedCol = 2;</b>
+<i class="no-highlight">409</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">410</i>&nbsp;            case 3 -&gt; {</b>
+<b class="nc"><i class="no-highlight">411</i>&nbsp;                selectedRow = 3;</b>
+<b class="nc"><i class="no-highlight">412</i>&nbsp;                selectedCol = 1;</b>
+<i class="no-highlight">413</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">414</i>&nbsp;            case 4 -&gt; {</b>
+<b class="nc"><i class="no-highlight">415</i>&nbsp;                selectedRow = 3;</b>
+<b class="nc"><i class="no-highlight">416</i>&nbsp;                selectedCol = 2;</b>
+<i class="no-highlight">417</i>&nbsp;            }
+<i class="no-highlight">418</i>&nbsp;            case 5 -&gt; {
+<b class="nc"><i class="no-highlight">419</i>&nbsp;                selectedRow = 3;</b>
+<b class="nc"><i class="no-highlight">420</i>&nbsp;                selectedCol = 3;</b>
+<i class="no-highlight">421</i>&nbsp;            }
+<i class="no-highlight">422</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">423</i>&nbsp;        return new SameTypePair&lt;&gt;(selectedRow,selectedCol);</b>
+<i class="no-highlight">424</i>&nbsp;    }
+<i class="no-highlight">425</i>&nbsp;    @FXML
+<i class="no-highlight">426</i>&nbsp;    public void discardResource(){
+<b class="nc"><i class="no-highlight">427</i>&nbsp;        discardedResources = Resource.addOneResource(discardedResources,boughtResources.get(0));</b>
+<b class="nc"><i class="no-highlight">428</i>&nbsp;        boughtResources.remove(0);</b>
+<b class="nc"><i class="no-highlight">429</i>&nbsp;        updateInsertResourcePane();</b>
+<b class="nc"><i class="no-highlight">430</i>&nbsp;        checkFinishedResources();</b>
+<i class="no-highlight">431</i>&nbsp;    }
+<i class="no-highlight">432</i>&nbsp;
+<i class="no-highlight">433</i>&nbsp;    //controlla se sono finite le risorse comprate, e se si invia l&#39;evento
+<i class="no-highlight">434</i>&nbsp;    private void checkFinishedResources(){
+<b class="nc"><i class="no-highlight">435</i>&nbsp;        if(boughtResources.size()==0){</b>
+<b class="nc"><i class="no-highlight">436</i>&nbsp;            if(fullLeaderSlots1==null){</b>
+<b class="nc"><i class="no-highlight">437</i>&nbsp;                fullLeaderSlots1=0;</b>
+<i class="no-highlight">438</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">439</i>&nbsp;            if(fullLeaderSlots2==null){</b>
+<b class="nc"><i class="no-highlight">440</i>&nbsp;                fullLeaderSlots2=0;</b>
+<i class="no-highlight">441</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">442</i>&nbsp;            serverHandler.send(new UseMarketEvent(rowOrColumn,marketIndex,newWarehouse,discardedResources,fullLeaderSlots1,fullLeaderSlots2,whiteMarbleChoices));</b>
+<b class="nc"><i class="no-highlight">443</i>&nbsp;            insertResourcesPane.setVisible(false);</b>
+<b class="nc"><i class="no-highlight">444</i>&nbsp;            guiView.getSceneController(&quot;gameScene&quot;).updateScene();</b>
+<b class="nc"><i class="no-highlight">445</i>&nbsp;            guiView.setCurrentScene(&quot;gameScene&quot;);</b>
+<i class="no-highlight">446</i>&nbsp;        }
+<i class="no-highlight">447</i>&nbsp;    }
+<i class="no-highlight">448</i>&nbsp;
+<i class="no-highlight">449</i>&nbsp;    @FXML
+<i class="no-highlight">450</i>&nbsp;    public void insertLeader1(){
+<b class="nc"><i class="no-highlight">451</i>&nbsp;        if(fullLeaderSlots1&lt;2 &amp;&amp; leaderCardResource1 == boughtResources.get(0)){</b>
+<b class="nc"><i class="no-highlight">452</i>&nbsp;            boughtResources.remove(0);</b>
+<b class="nc"><i class="no-highlight">453</i>&nbsp;            fullLeaderSlots1 = fullLeaderSlots1+1;</b>
+<b class="nc"><i class="no-highlight">454</i>&nbsp;            updateInsertResourcePane();</b>
+<b class="nc"><i class="no-highlight">455</i>&nbsp;            checkFinishedResources();</b>
+<i class="no-highlight">456</i>&nbsp;        }
+<i class="no-highlight">457</i>&nbsp;    }
+<i class="no-highlight">458</i>&nbsp;
+<i class="no-highlight">459</i>&nbsp;    @FXML
+<i class="no-highlight">460</i>&nbsp;    public void insertLeader2(){
+<b class="nc"><i class="no-highlight">461</i>&nbsp;        if(fullLeaderSlots2&lt;2 &amp;&amp; leaderCardResource2 == boughtResources.get(0)){</b>
+<b class="nc"><i class="no-highlight">462</i>&nbsp;            boughtResources.remove(0);</b>
+<b class="nc"><i class="no-highlight">463</i>&nbsp;            fullLeaderSlots2 = fullLeaderSlots2+1;</b>
+<b class="nc"><i class="no-highlight">464</i>&nbsp;            updateInsertResourcePane();</b>
+<b class="nc"><i class="no-highlight">465</i>&nbsp;            checkFinishedResources();</b>
+<i class="no-highlight">466</i>&nbsp;        }
+<i class="no-highlight">467</i>&nbsp;    }
+<i class="no-highlight">468</i>&nbsp;
+<i class="no-highlight">469</i>&nbsp;    @FXML
+<i class="no-highlight">470</i>&nbsp;    public void editWarehouse(){
+<b class="nc"><i class="no-highlight">471</i>&nbsp;        insertResourcesPane.setVisible(false);</b>
+<b class="nc"><i class="no-highlight">472</i>&nbsp;        editWarehousePane.setVisible(true);</b>
+<b class="nc"><i class="no-highlight">473</i>&nbsp;        temporaryRemovedResources = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">474</i>&nbsp;        reinsertResourceButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">475</i>&nbsp;        reinsertLeaderResourceButton1.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">476</i>&nbsp;        reinsertLeaderResourceButton1.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">477</i>&nbsp;        exitEditWarehouseButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">478</i>&nbsp;        reinsertLeaderResourceButton1.setVisible(fullLeaderSlots1 != null);</b>
+<b class="nc"><i class="no-highlight">479</i>&nbsp;        reinsertLeaderResourceButton2.setVisible(fullLeaderSlots2 != null);</b>
+<b class="nc"><i class="no-highlight">480</i>&nbsp;        removeLeaderResourceButton1.setVisible(fullLeaderSlots1 != null);</b>
+<b class="nc"><i class="no-highlight">481</i>&nbsp;        removeLeaderResourceButton2.setVisible(fullLeaderSlots2 != null);</b>
+<b class="nc"><i class="no-highlight">482</i>&nbsp;        List&lt;LeaderCard&gt; leaderCards = clientModel.getPlayerLeaderCards(clientModel.getMyNickname());</b>
+<b class="nc"><i class="no-highlight">483</i>&nbsp;        if(fullLeaderSlots1!=null){</b>
+<b class="nc"><i class="no-highlight">484</i>&nbsp;            leaderCardEditImage1.setImage(GuiView.getLeaderCardImage(leaderCards.get(0)));</b>
+<i class="no-highlight">485</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">486</i>&nbsp;            leaderCardEditImage1.setImage(null);</b>
+<i class="no-highlight">487</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">488</i>&nbsp;        if(fullLeaderSlots2!=null){</b>
+<b class="nc"><i class="no-highlight">489</i>&nbsp;            leaderCardEditImage2.setImage(GuiView.getLeaderCardImage(leaderCards.get(1)));</b>
+<i class="no-highlight">490</i>&nbsp;        }else{
+<b class="nc"><i class="no-highlight">491</i>&nbsp;            leaderCardEditImage2.setImage(null);</b>
+<i class="no-highlight">492</i>&nbsp;        }
+<i class="no-highlight">493</i>&nbsp;
+<b class="nc"><i class="no-highlight">494</i>&nbsp;        updateEditWarehousePane();</b>
+<i class="no-highlight">495</i>&nbsp;    }
+<i class="no-highlight">496</i>&nbsp;
+<i class="no-highlight">497</i>&nbsp;    //----cose per il pane di edit warehouse----
+<i class="no-highlight">498</i>&nbsp;
+<i class="no-highlight">499</i>&nbsp;    //fa l&#39;update del pane per edit warehouse, cosi mostra le giuste immagini nel warehouse e nelle cose da
+<i class="no-highlight">500</i>&nbsp;    //inserire
+<i class="no-highlight">501</i>&nbsp;    private void updateEditWarehousePane(){
+<b class="nc"><i class="no-highlight">502</i>&nbsp;        temporaryRemovedResourceImage1.setImage(null);</b>
+<b class="nc"><i class="no-highlight">503</i>&nbsp;        temporaryRemovedResourceImage2.setImage(null);</b>
+<b class="nc"><i class="no-highlight">504</i>&nbsp;        temporaryRemovedResourceImage3.setImage(null);</b>
+<b class="nc"><i class="no-highlight">505</i>&nbsp;        temporaryRemovedResourceImage4.setImage(null);</b>
+<b class="nc"><i class="no-highlight">506</i>&nbsp;        if(temporaryRemovedResources.size()&gt;0){</b>
+<b class="nc"><i class="no-highlight">507</i>&nbsp;            temporaryRemovedResourceImage1.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(0)));</b>
+<i class="no-highlight">508</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">509</i>&nbsp;        if(temporaryRemovedResources.size()&gt;1){</b>
+<b class="nc"><i class="no-highlight">510</i>&nbsp;            temporaryRemovedResourceImage2.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(1)));</b>
+<i class="no-highlight">511</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">512</i>&nbsp;        if(temporaryRemovedResources.size()&gt;2){</b>
+<b class="nc"><i class="no-highlight">513</i>&nbsp;            temporaryRemovedResourceImage3.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(2)));</b>
+<i class="no-highlight">514</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">515</i>&nbsp;        if(temporaryRemovedResources.size()&gt;3){</b>
+<b class="nc"><i class="no-highlight">516</i>&nbsp;            temporaryRemovedResourceImage4.setImage(GuiView.getResourceImage(temporaryRemovedResources.get(3)));</b>
+<i class="no-highlight">517</i>&nbsp;        }
+<i class="no-highlight">518</i>&nbsp;
+<b class="nc"><i class="no-highlight">519</i>&nbsp;        warehouseResourceEditImage11.setImage(GuiView.getResourceImage(newWarehouse.getResource(1,1)));</b>
+<b class="nc"><i class="no-highlight">520</i>&nbsp;        warehouseResourceEditImage21.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,1)));</b>
+<b class="nc"><i class="no-highlight">521</i>&nbsp;        warehouseResourceEditImage22.setImage(GuiView.getResourceImage(newWarehouse.getResource(2,2)));</b>
+<b class="nc"><i class="no-highlight">522</i>&nbsp;        warehouseResourceEditImage31.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,1)));</b>
+<b class="nc"><i class="no-highlight">523</i>&nbsp;        warehouseResourceEditImage32.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,2)));</b>
+<b class="nc"><i class="no-highlight">524</i>&nbsp;        warehouseResourceEditImage33.setImage(GuiView.getResourceImage(newWarehouse.getResource(3,3)));</b>
+<i class="no-highlight">525</i>&nbsp;
+<b class="nc"><i class="no-highlight">526</i>&nbsp;        leader1Slot1EditImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">527</i>&nbsp;        leader1Slot2EditImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">528</i>&nbsp;        if(fullLeaderSlots1!=null){</b>
+<b class="nc"><i class="no-highlight">529</i>&nbsp;            if(fullLeaderSlots1&gt;=1){</b>
+<b class="nc"><i class="no-highlight">530</i>&nbsp;                leader1Slot1EditImage.setImage(GuiView.getResourceImage(leaderCardResource1));</b>
+<i class="no-highlight">531</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">532</i>&nbsp;            if(fullLeaderSlots1&gt;=2){</b>
+<b class="nc"><i class="no-highlight">533</i>&nbsp;                leader1Slot2EditImage.setImage(GuiView.getResourceImage(leaderCardResource1));</b>
+<i class="no-highlight">534</i>&nbsp;            }
+<i class="no-highlight">535</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">536</i>&nbsp;        leader2Slot1EditImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">537</i>&nbsp;        leader2Slot2EditImage.setImage(null);</b>
+<b class="nc"><i class="no-highlight">538</i>&nbsp;        if(fullLeaderSlots2!=null){</b>
+<b class="nc"><i class="no-highlight">539</i>&nbsp;            if(fullLeaderSlots2&gt;=1){</b>
+<b class="nc"><i class="no-highlight">540</i>&nbsp;                leader2Slot1EditImage.setImage(GuiView.getResourceImage(leaderCardResource2));</b>
+<i class="no-highlight">541</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">542</i>&nbsp;            if(fullLeaderSlots2&gt;=2){</b>
+<b class="nc"><i class="no-highlight">543</i>&nbsp;                leader2Slot2EditImage.setImage(GuiView.getResourceImage(leaderCardResource2));</b>
+<i class="no-highlight">544</i>&nbsp;            }
+<i class="no-highlight">545</i>&nbsp;        }
+<i class="no-highlight">546</i>&nbsp;    }
+<i class="no-highlight">547</i>&nbsp;
+<i class="no-highlight">548</i>&nbsp;    @FXML
+<i class="no-highlight">549</i>&nbsp;    public void reinsertResource(){
+<b class="nc"><i class="no-highlight">550</i>&nbsp;        SameTypePair&lt;Integer&gt; selectedCell = getCellFromToggleGroup(toggleGroupEditWarehouse);</b>
+<i class="no-highlight">551</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">552</i>&nbsp;            newWarehouse.insertResource(temporaryRemovedResources.get(0), selectedCell.getVal1(), selectedCell.getVal2());</b>
+<b class="nc"><i class="no-highlight">553</i>&nbsp;            temporaryRemovedResources.remove(0);</b>
+<b class="nc"><i class="no-highlight">554</i>&nbsp;            updateEditWarehousePane();</b>
+<b class="nc"><i class="no-highlight">555</i>&nbsp;            if(temporaryRemovedResources.size()==0){</b>
+<b class="nc"><i class="no-highlight">556</i>&nbsp;                reinsertResourceButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">557</i>&nbsp;                reinsertLeaderResourceButton1.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">558</i>&nbsp;                reinsertLeaderResourceButton2.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">559</i>&nbsp;                exitEditWarehouseButton.setDisable(false);</b>
+<i class="no-highlight">560</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">561</i>&nbsp;        } catch (InvalidWarehouseInsertionException e) {</b>
+<i class="no-highlight">562</i>&nbsp;            //ignored
+<b class="nc"><i class="no-highlight">563</i>&nbsp;        }</b>
+<i class="no-highlight">564</i>&nbsp;    }
+<i class="no-highlight">565</i>&nbsp;    /**
+<i class="no-highlight">566</i>&nbsp;     * allows to temporary remove a resource in order to rearrange the warehouse
+<i class="no-highlight">567</i>&nbsp;     */
+<i class="no-highlight">568</i>&nbsp;    @FXML
+<i class="no-highlight">569</i>&nbsp;    public void temporaryRemoveResource(){
+<b class="nc"><i class="no-highlight">570</i>&nbsp;        SameTypePair&lt;Integer&gt; selectedCell = getCellFromToggleGroup(toggleGroupEditWarehouse);</b>
+<b class="nc"><i class="no-highlight">571</i>&nbsp;        if (newWarehouse.getResource(selectedCell.getVal1(), selectedCell.getVal2()) != null)</b>
+<b class="nc"><i class="no-highlight">572</i>&nbsp;            temporaryRemovedResources.add(newWarehouse.removeResource(selectedCell.getVal1(), selectedCell.getVal2()));</b>
+<i class="no-highlight">573</i>&nbsp;
+<b class="nc"><i class="no-highlight">574</i>&nbsp;        updateEditWarehousePane();</b>
+<b class="nc"><i class="no-highlight">575</i>&nbsp;        if(temporaryRemovedResources.size()&gt;0){</b>
+<b class="nc"><i class="no-highlight">576</i>&nbsp;            reinsertResourceButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">577</i>&nbsp;            reinsertLeaderResourceButton1.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">578</i>&nbsp;            reinsertLeaderResourceButton2.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">579</i>&nbsp;            exitEditWarehouseButton.setDisable(true);</b>
+<i class="no-highlight">580</i>&nbsp;        }
+<i class="no-highlight">581</i>&nbsp;    }
+<i class="no-highlight">582</i>&nbsp;
+<i class="no-highlight">583</i>&nbsp;    /**
+<i class="no-highlight">584</i>&nbsp;     * exits from the editWarehousePane
+<i class="no-highlight">585</i>&nbsp;     */
+<i class="no-highlight">586</i>&nbsp;    @FXML
+<i class="no-highlight">587</i>&nbsp;    public void exitEditWarehouse(){
+<b class="nc"><i class="no-highlight">588</i>&nbsp;        if(temporaryRemovedResources.size()==0){</b>
+<b class="nc"><i class="no-highlight">589</i>&nbsp;            editWarehousePane.setVisible(false);</b>
+<b class="nc"><i class="no-highlight">590</i>&nbsp;            updateInsertResourcePane();</b>
+<b class="nc"><i class="no-highlight">591</i>&nbsp;            insertResourcesPane.setVisible(true);</b>
+<i class="no-highlight">592</i>&nbsp;        }
+<i class="no-highlight">593</i>&nbsp;    }
+<i class="no-highlight">594</i>&nbsp;    @FXML
+<i class="no-highlight">595</i>&nbsp;    public void reinsertLeaderResource1(){
+<b class="nc"><i class="no-highlight">596</i>&nbsp;        if(fullLeaderSlots1&lt;2 &amp;&amp; leaderCardResource1 == temporaryRemovedResources.get(0)){</b>
+<b class="nc"><i class="no-highlight">597</i>&nbsp;            temporaryRemovedResources.remove(0);</b>
+<b class="nc"><i class="no-highlight">598</i>&nbsp;            fullLeaderSlots1 = fullLeaderSlots1+1;</b>
+<b class="nc"><i class="no-highlight">599</i>&nbsp;            updateEditWarehousePane();</b>
+<i class="no-highlight">600</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">601</i>&nbsp;        if(temporaryRemovedResources.size()==0){</b>
+<b class="nc"><i class="no-highlight">602</i>&nbsp;            reinsertResourceButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">603</i>&nbsp;            reinsertLeaderResourceButton1.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">604</i>&nbsp;            reinsertLeaderResourceButton2.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">605</i>&nbsp;            exitEditWarehouseButton.setDisable(false);</b>
+<i class="no-highlight">606</i>&nbsp;        }
+<i class="no-highlight">607</i>&nbsp;    }
+<i class="no-highlight">608</i>&nbsp;    @FXML
+<i class="no-highlight">609</i>&nbsp;    public void reinsertLeaderResource2(){
+<b class="nc"><i class="no-highlight">610</i>&nbsp;        if(fullLeaderSlots2&lt;2 &amp;&amp; leaderCardResource2 == temporaryRemovedResources.get(0)){</b>
+<b class="nc"><i class="no-highlight">611</i>&nbsp;            temporaryRemovedResources.remove(0);</b>
+<b class="nc"><i class="no-highlight">612</i>&nbsp;            fullLeaderSlots2 = fullLeaderSlots2+1;</b>
+<b class="nc"><i class="no-highlight">613</i>&nbsp;            updateEditWarehousePane();</b>
+<i class="no-highlight">614</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">615</i>&nbsp;        if(temporaryRemovedResources.size()==0){</b>
+<b class="nc"><i class="no-highlight">616</i>&nbsp;            reinsertResourceButton.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">617</i>&nbsp;            reinsertLeaderResourceButton1.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">618</i>&nbsp;            reinsertLeaderResourceButton2.setDisable(true);</b>
+<b class="nc"><i class="no-highlight">619</i>&nbsp;            exitEditWarehouseButton.setDisable(false);</b>
+<i class="no-highlight">620</i>&nbsp;        }
+<i class="no-highlight">621</i>&nbsp;    }
+<i class="no-highlight">622</i>&nbsp;    @FXML
+<i class="no-highlight">623</i>&nbsp;    public void removeLeaderResource1(){
+<b class="nc"><i class="no-highlight">624</i>&nbsp;        if(fullLeaderSlots1&gt;0){</b>
+<b class="nc"><i class="no-highlight">625</i>&nbsp;            temporaryRemovedResources.add(leaderCardResource1);</b>
+<b class="nc"><i class="no-highlight">626</i>&nbsp;            fullLeaderSlots1=fullLeaderSlots1-1;</b>
+<b class="nc"><i class="no-highlight">627</i>&nbsp;            updateEditWarehousePane();</b>
+<i class="no-highlight">628</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">629</i>&nbsp;        if(temporaryRemovedResources.size()&gt;0){</b>
+<b class="nc"><i class="no-highlight">630</i>&nbsp;            reinsertResourceButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">631</i>&nbsp;            reinsertLeaderResourceButton1.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">632</i>&nbsp;            reinsertLeaderResourceButton2.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">633</i>&nbsp;            exitEditWarehouseButton.setDisable(true);</b>
+<i class="no-highlight">634</i>&nbsp;        }
+<i class="no-highlight">635</i>&nbsp;    }
+<i class="no-highlight">636</i>&nbsp;    @FXML
+<i class="no-highlight">637</i>&nbsp;    public void removeLeaderResource2(){
+<b class="nc"><i class="no-highlight">638</i>&nbsp;        if(fullLeaderSlots2&gt;0){</b>
+<b class="nc"><i class="no-highlight">639</i>&nbsp;            temporaryRemovedResources.add(leaderCardResource2);</b>
+<b class="nc"><i class="no-highlight">640</i>&nbsp;            fullLeaderSlots2=fullLeaderSlots2-1;</b>
+<b class="nc"><i class="no-highlight">641</i>&nbsp;            updateEditWarehousePane();</b>
+<i class="no-highlight">642</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">643</i>&nbsp;        if(temporaryRemovedResources.size()&gt;0){</b>
+<b class="nc"><i class="no-highlight">644</i>&nbsp;            reinsertResourceButton.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">645</i>&nbsp;            reinsertLeaderResourceButton1.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">646</i>&nbsp;            reinsertLeaderResourceButton2.setDisable(false);</b>
+<b class="nc"><i class="no-highlight">647</i>&nbsp;            exitEditWarehouseButton.setDisable(true);</b>
+<i class="no-highlight">648</i>&nbsp;        }
+<i class="no-highlight">649</i>&nbsp;    }
+<i class="no-highlight">650</i>&nbsp;
+<i class="no-highlight">651</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-07-01 13:05</div>
+</div>
+</body>
+</html>

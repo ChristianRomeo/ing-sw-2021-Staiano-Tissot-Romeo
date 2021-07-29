@@ -1,0 +1,10 @@
+it.polimi.ingsw
+it.polimi.ingsw.client
+it.polimi.ingsw.client.GUI
+it.polimi.ingsw.controller
+it.polimi.ingsw.controller.Events
+it.polimi.ingsw.model
+it.polimi.ingsw.model.modelExceptions
+it.polimi.ingswClientTests
+it.polimi.ingswControllerTests
+it.polimi.ingswModelTests

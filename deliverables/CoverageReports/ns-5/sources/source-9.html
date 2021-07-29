@@ -1,0 +1,160 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GameStarterEventS2C</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">it.polimi.ingsw.controller.Events</a>
+</div>
+
+<h1>Coverage Summary for Class: GameStarterEventS2C (it.polimi.ingsw.controller.Events)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameStarterEventS2C</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package it.polimi.ingsw.controller.Events;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import it.polimi.ingsw.model.DevelopmentCardBoard;
+<i class="no-highlight">4</i>&nbsp;import it.polimi.ingsw.model.LeaderCard;
+<i class="no-highlight">5</i>&nbsp;import it.polimi.ingsw.model.Market;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;import java.util.List;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;/**
+<i class="no-highlight">10</i>&nbsp; *server to client event triggered when the game starts
+<i class="no-highlight">11</i>&nbsp; */
+<i class="no-highlight">12</i>&nbsp;public class GameStarterEventS2C extends ServerEvent{
+<i class="no-highlight">13</i>&nbsp;    private final List&lt;LeaderCard&gt; choiceLeaderCards; //carte tra cui può scegliere
+<i class="no-highlight">14</i>&nbsp;    private final DevelopmentCardBoard cardBoard;
+<i class="no-highlight">15</i>&nbsp;    private final Market market;
+<i class="no-highlight">16</i>&nbsp;    private final int indexPlayer; //tipo se è il primo, o il secondo ecc
+<i class="no-highlight">17</i>&nbsp;    private final List&lt;String&gt; nicknames; //lista dei nicknames di tutti
+<i class="no-highlight">18</i>&nbsp;
+<b class="nc"><i class="no-highlight">19</i>&nbsp;    public GameStarterEventS2C(List&lt;LeaderCard&gt; choiceLeaderCards, DevelopmentCardBoard cardBoard, Market market, int indexPlayer, List&lt;String&gt; nicknames) {</b>
+<b class="nc"><i class="no-highlight">20</i>&nbsp;        this.choiceLeaderCards = choiceLeaderCards;</b>
+<b class="nc"><i class="no-highlight">21</i>&nbsp;        this.cardBoard = cardBoard;</b>
+<b class="nc"><i class="no-highlight">22</i>&nbsp;        this.market = market;</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        this.indexPlayer = indexPlayer;</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        this.nicknames = nicknames;</b>
+<i class="no-highlight">25</i>&nbsp;    }
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;    public List&lt;LeaderCard&gt; getChoiceLeaderCards() {
+<b class="nc"><i class="no-highlight">28</i>&nbsp;        return choiceLeaderCards;</b>
+<i class="no-highlight">29</i>&nbsp;    }
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;    public DevelopmentCardBoard getCardBoard() {
+<b class="nc"><i class="no-highlight">32</i>&nbsp;        return cardBoard;</b>
+<i class="no-highlight">33</i>&nbsp;    }
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    public Market getMarket() {
+<b class="nc"><i class="no-highlight">36</i>&nbsp;        return market;</b>
+<i class="no-highlight">37</i>&nbsp;    }
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;    public int getIndexPlayer() {
+<b class="nc"><i class="no-highlight">40</i>&nbsp;        return indexPlayer;</b>
+<i class="no-highlight">41</i>&nbsp;    }
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    public List&lt;String&gt; getNicknames() {
+<b class="nc"><i class="no-highlight">44</i>&nbsp;        return nicknames;</b>
+<i class="no-highlight">45</i>&nbsp;    }
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    /**
+<i class="no-highlight">48</i>&nbsp;     * notify the eventHandler (which is the virtual view in this case) to handle this specific GameStarterS2C
+<i class="no-highlight">49</i>&nbsp;     * @param eventHandler is the handler which will handle this specific GameStarterEventS2C
+<i class="no-highlight">50</i>&nbsp;     */
+<i class="no-highlight">51</i>&nbsp;    @Override
+<i class="no-highlight">52</i>&nbsp;    public void notifyHandler(ServerEventObserver eventHandler){
+<b class="nc"><i class="no-highlight">53</i>&nbsp;        eventHandler.handleEvent(this);</b>
+<i class="no-highlight">54</i>&nbsp;    }
+<i class="no-highlight">55</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-07-01 13:05</div>
+</div>
+</body>
+</html>

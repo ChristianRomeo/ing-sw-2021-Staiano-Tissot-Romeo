@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > InitialChoiceEvent</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">it.polimi.ingsw.controller.Events</a>
+</div>
+
+<h1>Coverage Summary for Class: InitialChoiceEvent (it.polimi.ingsw.controller.Events)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InitialChoiceEvent</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package it.polimi.ingsw.controller.Events;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import it.polimi.ingsw.model.*;
+<i class="no-highlight">4</i>&nbsp;/**
+<i class="no-highlight">5</i>&nbsp; *client to server event triggered for the initial choice of Leader cards to be removed and resources to be put in the warehouse
+<i class="no-highlight">6</i>&nbsp; */
+<i class="no-highlight">7</i>&nbsp;public class InitialChoiceEvent extends ClientEvent {
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;    //mi faccio dare gli indici delle carte leader che vuole RIMUOVERE
+<i class="no-highlight">10</i>&nbsp;    private final int indexLeader1; //da 0 a 3
+<i class="no-highlight">11</i>&nbsp;    private final int indexLeader2;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;    private final Resource resource1;
+<i class="no-highlight">14</i>&nbsp;    private final Resource resource2;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    private final SameTypePair&lt;Integer&gt; resPosition1; //posizioni del warehouse in cui lui vuole mettere la res
+<i class="no-highlight">17</i>&nbsp;    private final SameTypePair&lt;Integer&gt; resPosition2;
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;    /**
+<i class="no-highlight">20</i>&nbsp;     *constructor
+<i class="no-highlight">21</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">22</i>&nbsp;    public InitialChoiceEvent(int indexLeader1, int indexLeader2, Resource resource1, Resource resource2, SameTypePair&lt;Integer&gt; resPosition1, SameTypePair&lt;Integer&gt; resPosition2) {</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        this.indexLeader1 = indexLeader1;</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        this.indexLeader2 = indexLeader2;</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        this.resource1 = resource1;</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;        this.resource2 = resource2;</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;        this.resPosition1 = resPosition1;</b>
+<b class="nc"><i class="no-highlight">28</i>&nbsp;        this.resPosition2 = resPosition2;</b>
+<i class="no-highlight">29</i>&nbsp;    }
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;    /**
+<i class="no-highlight">32</i>&nbsp;     * getter of the first resource to be chosen
+<i class="no-highlight">33</i>&nbsp;     * @return the type of resource chosen
+<i class="no-highlight">34</i>&nbsp;     */
+<i class="no-highlight">35</i>&nbsp;    public Resource getResource1() {
+<b class="nc"><i class="no-highlight">36</i>&nbsp;        return resource1;</b>
+<i class="no-highlight">37</i>&nbsp;    }
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;    /**
+<i class="no-highlight">40</i>&nbsp;     * getter of the second resource to be chosen
+<i class="no-highlight">41</i>&nbsp;     * @return the type of resource chosen
+<i class="no-highlight">42</i>&nbsp;     */
+<i class="no-highlight">43</i>&nbsp;    public Resource getResource2() {
+<b class="nc"><i class="no-highlight">44</i>&nbsp;        return resource2;</b>
+<i class="no-highlight">45</i>&nbsp;    }
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    /**
+<i class="no-highlight">48</i>&nbsp;     * getter of the first resource position in the warehouse
+<i class="no-highlight">49</i>&nbsp;     * @return the position in the warehouse
+<i class="no-highlight">50</i>&nbsp;     */
+<i class="no-highlight">51</i>&nbsp;    public SameTypePair&lt;Integer&gt; getResPosition1() {
+<b class="nc"><i class="no-highlight">52</i>&nbsp;        return resPosition1;</b>
+<i class="no-highlight">53</i>&nbsp;    }
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;    /**
+<i class="no-highlight">56</i>&nbsp;     * getter of the second resource position in the warehouse
+<i class="no-highlight">57</i>&nbsp;     * @return the position in the warehouse
+<i class="no-highlight">58</i>&nbsp;     */
+<i class="no-highlight">59</i>&nbsp;    public SameTypePair&lt;Integer&gt; getResPosition2() {
+<b class="nc"><i class="no-highlight">60</i>&nbsp;        return resPosition2;</b>
+<i class="no-highlight">61</i>&nbsp;    }
+<i class="no-highlight">62</i>&nbsp;
+<i class="no-highlight">63</i>&nbsp;    /**
+<i class="no-highlight">64</i>&nbsp;     * getter of the first Leader card index to be removed
+<i class="no-highlight">65</i>&nbsp;     * @return the index of the card to be removed
+<i class="no-highlight">66</i>&nbsp;     */
+<i class="no-highlight">67</i>&nbsp;    public int getIndexLeader1() {
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        return indexLeader1;</b>
+<i class="no-highlight">69</i>&nbsp;    }
+<i class="no-highlight">70</i>&nbsp;
+<i class="no-highlight">71</i>&nbsp;    /**
+<i class="no-highlight">72</i>&nbsp;     * getter of the second Leader card index to be removed
+<i class="no-highlight">73</i>&nbsp;     * @return the index of the card to be removed
+<i class="no-highlight">74</i>&nbsp;     */
+<i class="no-highlight">75</i>&nbsp;    public int getIndexLeader2() {
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        return indexLeader2;</b>
+<i class="no-highlight">77</i>&nbsp;    }
+<i class="no-highlight">78</i>&nbsp;
+<i class="no-highlight">79</i>&nbsp;    /**
+<i class="no-highlight">80</i>&nbsp;     * notify the eventHandler (which is the virtual view in this case) to handle this specific InitialChoiceEvent
+<i class="no-highlight">81</i>&nbsp;     * @param eventHandler is the handler which will handle this specific InitialChoiceEvent
+<i class="no-highlight">82</i>&nbsp;     */
+<i class="no-highlight">83</i>&nbsp;    @Override
+<i class="no-highlight">84</i>&nbsp;    public void notifyHandler(ClientEventHandler eventHandler){
+<b class="nc"><i class="no-highlight">85</i>&nbsp;        eventHandler.handleEvent(this);</b>
+<i class="no-highlight">86</i>&nbsp;    }
+<i class="no-highlight">87</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-07-01 13:05</div>
+</div>
+</body>
+</html>
