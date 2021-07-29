@@ -1,2 +1,1 @@
-deliverables/Javadocs* linguist-language=Java
-deliverables/Javadocs* linguist-documentation
+*.html linguist-detectable=false
