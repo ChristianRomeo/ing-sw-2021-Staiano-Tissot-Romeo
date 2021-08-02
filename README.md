@@ -13,6 +13,8 @@
 ![Tests](https://img.shields.io/badge/Tests-✔%20100%25%20%7C%20✘%200%20%7C%20➟%200-red?style=for-the-badge&logo=codecov)
 
 ##
+#### DISCLAIMER: PLEASE READ THE WHOLE [LICENSE](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/blob/main/LICENSE) BEFORE ANY USE.
+#
 Masters of Renaissance JAVA edition is the final test of **Software Engineering** course of **"Computer Science Engineering"** held at Politecnico di Milano (2020/2021).<br /><br />
 **Teacher** Gianpaolo Cugola.<br />
 
@@ -139,5 +141,4 @@ The unit tests run automatically at each commit thanks to the [Continuous Integr
 # 
 * **[Full project specifications (ITA)](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/wiki/Specifications)**
 #
-## FULL DISCLAIMER: PLEASE READ THE WHOLE LICENSE BEFORE ANY USE.
 ![Cranio-Creations](https://www.justnerd.it/wp-content/uploads/2019/02/cranio-creations-cover-generica.jpg)
