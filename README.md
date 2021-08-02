@@ -139,4 +139,5 @@ The unit tests run automatically at each commit thanks to the [Continuous Integr
 # 
 * **[Full project specifications (ITA)](https://github.com/ChristianRomeo/ing-sw-2021-Staiano-Tissot-Romeo/wiki/Specifications)**
 #
+## FULL DISCLAIMER: PLEASE READ THE WHOLE LICENSE BEFORE ANY USE.
 ![Cranio-Creations](https://www.justnerd.it/wp-content/uploads/2019/02/cranio-creations-cover-generica.jpg)
