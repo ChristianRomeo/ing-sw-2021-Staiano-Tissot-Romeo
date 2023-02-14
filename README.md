@@ -1,6 +1,6 @@
 ## Masters of Renaissance Board Game
 
-<img src="http://www.craniocreations.it/wp-content/uploads/2019/06/Masters-of-Renaissance_box3D_ombra.png" width=300px height=300px align="right"/>
+<img src="https://www.craniocreations.it/storage/media/products/82/243/Maestri_box3D_ombra-copia.png" width=300px height=300px align="right"/>
 
 ![Last Commit](https://img.shields.io/badge/last%20commit-July-orange?style=for-the-badge&logo=github)
 ![Intellijidea](https://img.shields.io/badge/Ide-Intellijidea%20Ultimate-blue?style=for-the-badge&logo=intellijidea)
